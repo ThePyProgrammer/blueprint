@@ -4,6 +4,7 @@ import { getTargetPaths } from './paths.js';
 
 const EXPECTED_COMMANDS = [
   'SKILL.md',
+  // v1 commands
   'help/SKILL.md',
   'list/SKILL.md',
   'new/SKILL.md',
@@ -15,10 +16,39 @@ const EXPECTED_COMMANDS = [
   'retro/SKILL.md',
   'evaluate/SKILL.md',
   'rearchitect/SKILL.md',
+  'init/SKILL.md',
+  'architect/SKILL.md',
+  'eli5/SKILL.md',
+  'fitness/SKILL.md',
+  'drift/SKILL.md',
+  'debt/SKILL.md',
+  'guard/SKILL.md',
+  'digest/SKILL.md',
+  'timeline/SKILL.md',
+  'status/SKILL.md',
+  'health/SKILL.md',
+  'hooks/SKILL.md',
+  // v2 commands
+  'scope/SKILL.md',
+  'challenge/SKILL.md',
+  'reflect/SKILL.md',
+  'evidence/SKILL.md',
+  'map/SKILL.md',
+  'diagram/SKILL.md',
+  'trace/SKILL.md',
+  'advise/SKILL.md',
+  'tradeoff/SKILL.md',
+  'risk/SKILL.md',
+  'export/SKILL.md',
+  'views/SKILL.md',
+  'federate/SKILL.md',
+  'radar/SKILL.md',
+  'govern/SKILL.md',
 ];
 
 const EXPECTED_AGENTS = [
   'persona.md',
+  // v1 agents
   'adr-researcher.md',
   'adr-devils-advocate.md',
   'adr-impact-analyzer.md',
@@ -29,6 +59,17 @@ const EXPECTED_AGENTS = [
   'adr-testing-strategy-evaluator.md',
   'adr-conways-law-analyzer.md',
   'adr-retrospective.md',
+  'adr-architect-cartographer.md',
+  // v2 agents
+  'adr-forces-evaluator.md',
+  'adr-reflexion-analyzer.md',
+  'adr-evidence-auditor.md',
+  'adr-context-mapper.md',
+  'adr-strategic-analyzer.md',
+  'adr-diagram-generator.md',
+  'adr-tradeoff-analyzer.md',
+  'adr-risk-mapper.md',
+  'adr-federation-indexer.md',
 ];
 
 const EXPECTED_CONFIG = [
@@ -43,6 +84,8 @@ const STATE_TEMPLATES = [
   'state-templates/relationships.toml',
   'state-templates/contexts.toml',
   'state-templates/evidence.toml',
+  'state-templates/governance.toml',
+  'state-templates/radar.toml',
 ];
 
 async function fileExists(path) {
