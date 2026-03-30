@@ -1,0 +1,26 @@
+{
+  "name": "claude-blueprint",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Architecture Decision Records with teeth — lifecycle management, devil's advocate review, architecture evaluation team, post-fix retrospectives, and compliance auditing for Claude Code.",
+  "bin": {
+    "claude-blueprint": "./bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    ".claude-plugin/",
+    "commands/",
+    "agents/",
+    "config/"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "commander": "^13.0.0",
+    "ora": "^8.0.0"
+  }
+}
