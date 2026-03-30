@@ -160,6 +160,10 @@ Each run of `/blueprint:status` overwrites it with fresh data.
   health_score: "ADEQUATE",      // STRONG / ADEQUATE / CONCERNING / CRITICAL
   debt_score: 14,
   triggers_met: 1,
+  fitness_coverage: 67,          // percentage (0-100)
+  fitness_covered: 8,            // ADRs with fitness functions
+  fitness_total: 12,             // total accepted ADRs
+  guard_installed: false,        // pre-commit hook status
   operations: {
     audit: "2026-03-18",         // ISO date or null
     evaluation: null,
@@ -176,58 +180,73 @@ Each run of `/blueprint:status` overwrites it with fresh data.
   edges: [
     { from: "ADR-0003", to: "ADR-0008", type: "DEPENDS_ON" },
     // ... from relationships.toml
+  ],
+  // Optional — populated if data is available:
+  suggested_actions: [
+    { command: "/blueprint:review 29", description: "Proposed ADR awaiting review" }
+    // ... auto-generated if omitted
+  ],
+  fitness_functions: [
+    { name: "Cycle Dependencies", description: "No circularity in packages",
+      icon: "flowsheet", status: "ACTIVE", pass: 1244, total: 1244 }
+    // ... from tests/architecture/ scan
+  ],
+  events: [
+    { date: "2026-03-30", title: "Status Check", description: "Dashboard generated",
+      severity: "info", type: "status" }
+    // severity: "success" | "warning" | "info" | "critical"
   ]
 }
 ```
 
-**The HTML dashboard includes (4 tabs, matching the wireframe design system):**
+**The HTML dashboard includes (5 views via sidebar navigation, matching wireframe design system):**
 
-**Tab 1: Knowledge Graph (main view)**
+The template at `assets/dashboard.html` uses the dark wireframe theme (surface `#0b0e14`,
+primary `#8ff5ff`, fonts: Space Grotesk / Inter / JetBrains Mono). All navigation items
+use `font-mono` (JetBrains Mono) consistently. Self-contained — no Tailwind CDN. Only
+Google Fonts for typefaces and Material Symbols.
 
-An interactive graph visualization using inline JavaScript (no external dependencies):
-- **Nodes** = ADRs, colored by status:
-  - Accepted: blue
-  - Proposed: yellow
-  - Deferred: orange
-  - Rejected: gray
-  - Deprecated: faded gray
-  - Superseded: gray with strikethrough
-- **Node size** = severity (High = large, Medium = medium, Low = small)
-- **Edges** = relationships, styled by type:
-  - DEPENDS_ON: solid arrow
-  - CONFLICTS: red dashed line
-  - SUPERSEDES: thick arrow with ×
-  - MODIFIES_SCOPE: dotted arrow
-  - RELATED: thin gray line
-- **Hover** on a node: show ADR title, status, date, category
-- **Click** on a node: show full ADR summary in a side panel
-- **Clusters** visually grouped by category (Technology, Architecture, etc.)
-- **Force-directed layout** using simple physics simulation
+**View 1: Status (default)**
 
-Use a self-contained SVG or Canvas renderer — no D3.js or external CDN.
-The file must work offline with zero dependencies.
+Overview with three metric cards (Decision Debt, Total Decisions, Fitness Coverage),
+a mini knowledge graph, suggested actions panel, and a 5-item decision timeline.
+Metric cards use glow effects and progress bars matching wireframe patterns.
 
-**Tab 2: Decision Timeline**
+**View 2: Knowledge Graph**
 
-Horizontal timeline showing ADRs by date:
-- Color-coded by status
-- Supersession chains shown as connecting arcs
-- Hover for details
+Full-page interactive graph with:
+- **Draggable nodes** — mousedown/move/up drag with live edge updates
+- **Directed edges** — SVG marker arrowheads showing dependency direction
+- **Edge labels** — relationship type text on each edge (DEPENDS ON, CONFLICTS, etc.)
+- **Node size** by severity, **color** by status (primary/tertiary/error/outline)
+- **Hover tooltips** with ADR details
+- **ResponsiveObserver** — graph re-renders on container resize
+- **Force-directed layout** — 300-iteration simulation with repulsion, attraction, centering
 
-**Tab 3: Governance Metrics**
+**View 3: Timeline**
 
-The same metrics as the terminal dashboard but with:
-- Sparkline-style history (from state.toml evaluation/retro history)
-- Color-coded health indicators
-- Clickable actions that copy the relevant `/blueprint:` command
+Vertical timeline of all ADRs sorted by date, color-coded dots by status,
+with pill badges and category labels.
 
-**Tab 4: Decision Debt**
+**View 4: Audit (Governance & Health)**
+
+From `wireframes/governance_health/code.html`:
+- Operation recency table (audit, evaluation, retro, drift, status)
+- Decision registry table with all ADRs
+- Fitness function monitor cards (if `fitness_functions` data provided)
+- Governance event log (if `events` data provided)
+
+**View 5: Decision Debt**
 
 Table of deferred decisions with:
-- Trigger conditions and their status (met/approaching/not yet)
-- Debt score with color coding
-- Age in days
-- Dependency count
+- Trigger conditions and their status (MET / APPROACHING / HEALTHY)
+- Debt score with color coding (red >20, amber >10)
+- Two-line ADR reference with number and title
+
+**Top bar features:**
+- **Working search** — filters ADRs by number/title/category/status, shows overlay results
+- **Notification dropdown** — shows recent governance events or auto-generated from operations
+- **Settings dropdown** — quick-copy links to /blueprint:hooks, /blueprint:fitness, /blueprint:guard
 
 ### Step 4: Open Dashboard
 

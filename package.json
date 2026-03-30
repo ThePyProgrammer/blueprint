@@ -1,6 +1,6 @@
 {
   "name": "claude-blueprint",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Architecture Decision Records with teeth — lifecycle management, devil's advocate review, architecture evaluation team, post-fix retrospectives, and compliance auditing for Claude Code.",
   "bin": {
