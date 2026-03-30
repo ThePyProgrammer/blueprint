@@ -23,17 +23,27 @@ Read from parent `adr/` skill directory:
 
 ### Index (`/blueprint:federate`)
 
-1. Read `config/federation.toml` for configured repos
-2. Spawn `blueprint:adr-federation-indexer` agent
-3. Present unified index with conflicts, duplicates, dependencies
-4. Write federated index to `docs/adr/FEDERATION.md`
-5. Commit: `docs(adr): update federated ADR index across [N] repositories`
+1. Read `federation.toml` (via Config Resolution Protocol)
+2. **If file doesn't exist or has no repositories:**
+   ```
+   No repositories configured for federation.
+   Add one with: /blueprint:federate add <path-to-repo>
+
+   Example: /blueprint:federate add ../payments-service
+   ```
+   Stop here — don't spawn the agent with nothing to index.
+3. Spawn `blueprint:adr-federation-indexer` agent
+4. Present unified index with conflicts, duplicates, dependencies
+5. Write federated index to `docs/adr/FEDERATION.md`
+6. Commit: `docs(adr): update federated ADR index across [N] repositories`
 
 ### Add Repo (`/blueprint:federate add <path-or-url>`)
 
-1. Add repository to `config/federation.toml`
-2. Verify ADR directory exists in the target repo
-3. Run index for the new repo
+1. If `federation.toml` doesn't exist, create it with the first repo entry
+2. Derive `name` from the directory name of the path (e.g., `../payments-service` → `payments-service`)
+3. Add repository to `federation.toml`
+4. Verify ADR directory exists in the target repo
+5. Run index for the new repo
 
 ### Remove Repo (`/blueprint:federate remove <name>`)
 
