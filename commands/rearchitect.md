@@ -16,8 +16,8 @@ drafting, impact analysis, and lifecycle transitions into a single flow.
 
 Read from parent `adr/` skill directory:
 - `config/lifecycle.toml` — transition rules for superseding
-- `config/relationships.toml` — existing ADR relationships
-- `config/state.toml` — ADR directory
+- `{adr_directory}/.state/relationships.toml` — existing ADR relationships
+- `{adr_directory}/.state/state.toml` — ADR directory
 - `agents/persona.md` — personality
 - `agents/adr-researcher.md` — for researching the new approach
 - `agents/adr-impact-analyzer.md` — for checking cascading effects
@@ -41,5 +41,5 @@ Read from parent `adr/` skill directory:
    - Transition old ADR(s) to Superseded (per lifecycle.toml)
    - Cross-link: old ADR gets "Superseded by ADR-NNNN"
    - Update README.md index for both
-   - Update `config/relationships.toml` with SUPERSEDES edge
+   - Update `{adr_directory}/.state/relationships.toml` with SUPERSEDES edge
    - Commit: `docs(adr): supersede ADR-NNNN with ADR-MMMM <title>`

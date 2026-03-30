@@ -22,8 +22,8 @@ decided and why it matters after reading the output.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `config/state.toml` — ADR directory location
-- `config/relationships.toml` — how ADRs relate to each other
+- `{adr_directory}/.state/state.toml` — ADR directory location
+- `{adr_directory}/.state/relationships.toml` — how ADRs relate to each other
 
 ## Mode 1: Single ADR (`/blueprint:eli5 N`)
 
@@ -134,7 +134,7 @@ the 2 most important rules.]
 
 **Rules for full landscape:**
 - Group by theme, not by ADR number — humans think in topics, not sequence numbers
-- Read `config/relationships.toml` to identify clusters of related ADRs
+- Read `{adr_directory}/.state/relationships.toml` to identify clusters of related ADRs
 - Lead with the most impactful decisions, not the first ones chronologically
 - The 30-second version at the end is the most important part — write it last
 - Keep total length under 80 lines

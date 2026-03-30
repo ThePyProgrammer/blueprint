@@ -17,9 +17,9 @@ architecture against actual source code structure. This is the rigorous compleme
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `config/state.toml` — ADR directory location
-- `config/contexts.toml` — bounded context definitions
-- `config/relationships.toml` — ADR dependency graph
+- `{adr_directory}/.state/state.toml` — ADR directory location
+- `{adr_directory}/.state/contexts.toml` — bounded context definitions
+- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
 - `agents/persona.md` — your personality
 
 ## Process
@@ -32,7 +32,7 @@ Read from parent `adr/` skill directory:
    - Full agent instructions + `agents/persona.md`
    - `docs/ARCHITECTURE.md` content
    - All accepted ADR contents
-   - `config/contexts.toml` content
+   - `{adr_directory}/.state/contexts.toml` content
    - Project root path
    - Optional: `--module <name>` to scope to one module/context
 4. **Present the reflexion model report** to the user
@@ -41,7 +41,7 @@ Read from parent `adr/` skill directory:
    - **Divergences:** Suggest creating ADRs for unspecified dependencies
    - **Absences:** Flag as implementation gaps — architecture specified but not built
 6. **Offer to create ADRs** for significant divergences
-7. **Update `config/state.toml`** — set `last_reflect` to today
+7. **Update `{adr_directory}/.state/state.toml`** — set `last_reflect` to today
 
 ## Relationship to `/blueprint:drift`
 

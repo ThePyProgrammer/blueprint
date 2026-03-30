@@ -52,8 +52,9 @@ colors, fonts, and component patterns from these files:
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `config/state.toml` — last operation dates, ADR directory
-- `config/relationships.toml` — ADR dependency graph
+- `{adr_directory}/.state/state.toml` — last operation dates, ADR directory
+  (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
+- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
 - `config/lifecycle.toml` — status definitions
 - `config/taxonomy.toml` — severity levels, categories
 
@@ -299,7 +300,7 @@ available without the browser."
 
 ### Step 5: Update State
 
-Set `last_status_check` in `config/state.toml` to today.
+Set `last_status_check` in `{adr_directory}/.state/state.toml` to today.
 
 ## Fallback
 

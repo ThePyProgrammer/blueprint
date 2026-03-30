@@ -16,9 +16,10 @@ Think of it as fsck for your architecture decisions.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `config/state.toml` — cached paths
+- `{adr_directory}/.state/state.toml` — cached paths
+  (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
 - `config/lifecycle.toml` — valid statuses
-- `config/relationships.toml` — graph to validate
+- `{adr_directory}/.state/relationships.toml` — graph to validate
 
 ## Process
 
@@ -55,21 +56,21 @@ Execute these checks in order, collecting findings:
 - [ ] Superseding ADRs have status "Accepted" or "Proposed"
 
 **5. Relationship Graph Consistency**
-- [ ] Every node in `relationships.toml` corresponds to a real ADR file
+- [ ] Every node in `.state/relationships.toml` corresponds to a real ADR file
 - [ ] Every edge references existing nodes
 - [ ] No duplicate edges
 - [ ] Edge types are valid (from the edge_types definition)
 - [ ] No self-referencing edges
 
 **6. Config Freshness**
-- [ ] `state.toml` adr_directory matches actual location
-- [ ] `state.toml` timestamps are plausible (not in the future)
-- [ ] `relationships.toml` has nodes for all existing ADRs
+- [ ] `.state/state.toml` adr_directory matches actual location
+- [ ] `.state/state.toml` timestamps are plausible (not in the future)
+- [ ] `.state/relationships.toml` has nodes for all existing ADRs
 - [ ] `lifecycle.toml` statuses cover all statuses used in ADRs
 - [ ] `taxonomy.toml` categories cover all categories used in ADRs
-- [ ] `contexts.toml` exists and is syntactically valid (if /blueprint:scope has been run)
-- [ ] `evidence.toml` exists and is syntactically valid (if /blueprint:evidence has been run)
-- [ ] `governance.toml` exists and mode is valid (if /blueprint:govern has been run)
+- [ ] `.state/contexts.toml` exists and is syntactically valid (if /blueprint:scope has been run)
+- [ ] `.state/evidence.toml` exists and is syntactically valid (if /blueprint:evidence has been run)
+- [ ] `.state/governance.toml` exists and mode is valid (if /blueprint:govern has been run)
 
 **7. Cross-Reference Integrity**
 - [ ] ADRs that reference other ADRs (e.g., "see ADR-0003") point to real ADRs
