@@ -350,7 +350,7 @@ npm link
 claude-blueprint install --global
 ```
 
-The installer deploys 24 commands, 12 agents, and 4 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
+The installer deploys 39 commands, 19 agents, and 8 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
 
 ## Architecture of Blueprint Itself
 

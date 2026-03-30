@@ -1,8 +1,8 @@
 {
   "name": "claude-blueprint",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "type": "module",
-  "description": "Architecture Decision Records with teeth — lifecycle management, devil's advocate review, architecture evaluation team, post-fix retrospectives, and compliance auditing for Claude Code.",
+  "description": "Architecture Decision Records with teeth — lifecycle management, 15 architecture paradigms, DDD context scoping, DCAR forces evaluation, reflexion models, Wardley mapping, C4 diagrams, ATAM tradeoff analysis, and 19 specialized agents for Claude Code.",
   "bin": {
     "blueprint": "./bin/cli.js",
     "claude-blueprint": "./bin/cli.js"
