@@ -16,19 +16,19 @@ Create a new Architecture Decision Record, optionally with research-backed evide
 Before starting, read these files from the parent `adr/` skill directory:
 - `config/lifecycle.toml` — valid statuses (new ADRs start as Proposed)
 - `config/taxonomy.toml` — decision categories, severity levels
-- `config/state.toml` — ADR directory location (if previously detected)
-- `config/relationships.toml` — existing ADR relationships (for impact awareness)
+- `{adr_directory}/.state/state.toml` — ADR directory location (if previously detected)
+- `{adr_directory}/.state/relationships.toml` — existing ADR relationships (for impact awareness)
 - `agents/persona.md` — your personality
 
 ## Directory Detection
 
-If `config/state.toml` has an `adr_directory`, use it. Otherwise detect:
+If `{adr_directory}/.state/state.toml` has an `adr_directory`, use it. Otherwise detect:
 1. `docs/adr/` (preferred)
 2. `docs/decisions/`
 3. `adr/`
 4. `decisions/`
 
-If found, update `config/state.toml` with the detected path.
+If found, update `{adr_directory}/.state/state.toml` with the detected path.
 Read `template.md` from the ADR directory if it exists.
 
 ## Process
@@ -48,8 +48,8 @@ Read `template.md` from the ADR directory if it exists.
 4. **Draft the ADR** using the project's template, status = `Proposed`
 5. **Write the file** — `NNNN-short-descriptive-title.md`
 6. **Update the index** in README.md
-7. **Update `config/relationships.toml`** — add the new ADR as a node
-8. **Update `config/state.toml`** — set `last_adr_created` to today
+7. **Update `{adr_directory}/.state/relationships.toml`** — add the new ADR as a node
+8. **Update `{adr_directory}/.state/state.toml`** — set `last_adr_created` to today
 9. **Present** to user for review before commit
 10. **Commit** with message: `docs(adr): propose ADR-NNNN <title>`
 

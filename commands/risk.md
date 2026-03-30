@@ -16,8 +16,8 @@ Based on Simon Brown's Risk Storming (~2015), adapted for automated analysis.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `config/state.toml` — ADR directory location
-- `config/contexts.toml` — bounded context definitions
+- `{adr_directory}/.state/state.toml` — ADR directory location
+- `{adr_directory}/.state/contexts.toml` — bounded context definitions
 - `agents/persona.md` — your personality
 
 ## Process
@@ -27,7 +27,7 @@ Read from parent `adr/` skill directory:
    - Full agent instructions + `agents/persona.md`
    - All accepted ADR filenames and titles
    - `docs/ARCHITECTURE.md` content
-   - `config/contexts.toml` content
+   - `{adr_directory}/.state/contexts.toml` content
    - Optional: `--module <name>` to scope analysis
    - Project root path
 3. **Present risk heat map** to the user
@@ -35,7 +35,7 @@ Read from parent `adr/` skill directory:
    - "Create ADR for [ungoverned component]?" → `/blueprint:new`
    - "Run reflexion model on [high-risk module]?" → `/blueprint:reflect`
    - "Generate fitness functions?" → `/blueprint:fitness`
-5. **Update `config/state.toml`** — set `last_risk_assessment` to today
+5. **Update `{adr_directory}/.state/state.toml`** — set `last_risk_assessment` to today
 
 ## Risk Formula
 

@@ -76,10 +76,10 @@ Execute these checks in order, collecting findings:
 - [ ] ADRs that reference other ADRs (e.g., "see ADR-0003") point to real ADRs
 - [ ] Referenced ADRs are not Rejected (referencing rejected decisions is suspicious)
 - [ ] `docs/ARCHITECTURE.md` ADR references (if file exists) point to real ADRs
-- [ ] ADRs with `Context` metadata reference contexts that exist in `contexts.toml`
+- [ ] ADRs with `Context` metadata reference contexts that exist in `.state/contexts.toml`
 - [ ] ADRs with `Views` metadata use valid view names (logical, development, process, physical, scenario)
-- [ ] Evidence records in `evidence.toml` correspond to existing ADRs
-- [ ] Radar entries in `config/radar.toml` reference valid ADRs (if file exists)
+- [ ] Evidence records in `.state/evidence.toml` correspond to existing ADRs
+- [ ] Radar entries in `{adr_directory}/.state/radar.toml` reference valid ADRs (if file exists)
 
 **8. Staleness Detection**
 - [ ] No accepted ADR is older than 12 months without a review (flag as "consider revisiting")

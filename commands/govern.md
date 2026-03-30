@@ -25,15 +25,15 @@ lightweight to formal, enabling Blueprint adoption across startups to regulated 
 
 ### View Current Mode (`/blueprint:govern`)
 
-1. Read `config/governance.toml`
+1. Read `{adr_directory}/.state/governance.toml`
 2. Display current mode, requirements, and configured approvers
 3. Show governance statistics (approval rates, average time to accept)
 
 ### Set Mode (`/blueprint:govern set <mode>`)
 
-1. Update `config/governance.toml` with new mode
+1. Update `{adr_directory}/.state/governance.toml` with new mode
 2. Validate mode-specific requirements:
-   - `advised`: requires `config/contexts.toml` with owners
+   - `advised`: requires `{adr_directory}/.state/contexts.toml` with owners
    - `governed`: requires `--approvers N` and named approver list
    - `formal`: requires board members and gate definitions
 3. Commit: `feat(adr): set governance mode to [mode]`
@@ -60,9 +60,9 @@ lightweight to formal, enabling Blueprint adoption across startups to regulated 
 - Phase gates: Proposed → Research → Review → Board → Accepted
 - Each phase requires explicit completion before next
 - Board review generates formal minutes
-- Full audit trail in `config/state.toml`
+- Full audit trail in `{adr_directory}/.state/state.toml`
 
-## Config File: `config/governance.toml`
+## Config File: `{adr_directory}/.state/governance.toml`
 
 ```toml
 # Governance Configuration
