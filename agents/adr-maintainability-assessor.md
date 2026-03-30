@@ -34,6 +34,9 @@ Maintainability is what separates a codebase that gets better over time from one
 
 ## Step 1: Dependency Health Check
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 Analyze the project's external dependencies:
 - Read package files (package.json, pyproject.toml, requirements.txt, go.mod)
 - Check for pinned vs floating versions

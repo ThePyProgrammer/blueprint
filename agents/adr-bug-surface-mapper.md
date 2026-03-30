@@ -35,6 +35,9 @@ You are NOT a bug hunter — that's someone else's job. You analyze the *structu
 
 ## Step 1: Map the Codebase Topology
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 - Glob for all source files, group by directory/module
 - Count files and lines per module to identify mass centers
 - Read key entry points (main, app, index) to understand the flow

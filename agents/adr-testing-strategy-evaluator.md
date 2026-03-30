@@ -35,6 +35,9 @@ Good testing isn't about coverage percentages. 90% coverage with happy-path-only
 
 ## Step 1: Map the Test Landscape
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 - Glob for test files (test_*, *_test.*, *.test.*, *.spec.*, tests/, __tests__/)
 - Count tests by directory/module
 - Identify the test frameworks in use (pytest, jest, vitest, go test, etc.)

@@ -53,6 +53,9 @@ Mark non-auditable decisions as `NOT AUDITABLE` with the reason, and move on.
 
 ## Step 1: Read All Accepted ADRs
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 Read every ADR file. Filter to Accepted status only. For each accepted ADR, extract:
 - The ADR number and title
 - The concrete decision from the Decision section

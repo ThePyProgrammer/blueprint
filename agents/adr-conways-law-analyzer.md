@@ -35,6 +35,9 @@ Conway's Law: "Any organization that designs a system will produce a design whos
 
 ## Step 1: Infer Organizational Structure
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 You often won't have an org chart. Infer team/ownership structure from:
 
 - **Git blame/log analysis:** Who has committed to which modules most recently?

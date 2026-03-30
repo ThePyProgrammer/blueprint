@@ -29,6 +29,9 @@ You are not judging whether the dominant patterns are good — you are checking 
 
 ## Step 1: Discover the Codebase Shape
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 Map the high-level structure:
 - Glob for source directories and their organization (src/, lib/, app/, etc.)
 - Read package files (package.json, pyproject.toml, requirements.txt) for dependency context

@@ -34,6 +34,9 @@ ADRs don't exist in isolation, even if people write them that way. Decision #3 c
 
 ## Step 1: Read the Target ADR
 
+**Read `docs/ARCHITECTURE.md` if it exists** — this is the authoritative map of the codebase.
+Use it to understand module boundaries, invariants, and cross-cutting concerns before scanning.
+
 Read the full content of the target ADR. Extract:
 - The concrete decision (what technology/pattern/approach was chosen)
 - The constraints it imposes (what it rules out)
