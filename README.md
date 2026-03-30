@@ -102,17 +102,17 @@ Blueprint decomposes architectural governance into orthogonal concerns, each han
         │      │      │      │      │      │
         ▼      ▼      ▼      ▼      ▼      ▼
      ┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐
-     │ new ││ rev ││ eval││retro││audit││ ... │  ← 12 focused skills
+     │ new ││ rev ││ eval││retro││audit││ ... │  ← 15 focused skills
      └──┬──┘└──┬──┘└──┬──┘└──┬──┘└──┬──┘└─────┘
         │      │      │      │      │
         ▼      ▼      ▼      ▼      ▼
   ┌──────────────────────────────────────────┐
-  │           AGENT POOL (11 agents)          │
+  │           AGENT POOL (12 agents)          │
   │                                          │
   │  researcher · devil's advocate · impact   │
   │  compliance · consistency · bug surface   │
   │  maintainability · testing · conways      │
-  │  retrospective                           │
+  │  retrospective · cartographer             │
   │                                          │
   │  ┌────────────────────────────────────┐  │
   │  │     SHARED PERSONA (persona.md)    │  │
@@ -148,6 +148,14 @@ This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/D
 
 ## Commands
 
+### Setup
+
+| Command | Agent(s) | Purpose |
+|---------|----------|---------|
+| `/blueprint:init` | cartographer | Bootstrap blueprint onto an existing codebase — scan `.planning/`, `.research/`, CLAUDE.md, package files, git history for existing decisions, create ADR directory with template and lifecycle docs, infer ADRs, generate ARCHITECTURE.md |
+
+`/blueprint:init` is the "day one" command. It reads every available source of architectural context — GSD planning artifacts, research files, CLAUDE.md conventions, dependency manifests, even early git commit messages — classifies discovered decisions by impact, and produces the full documentation suite in a single atomic commit. Think of it as an archaeological dig that turns implicit decisions into explicit records.
+
 ### Lifecycle
 
 | Command | Agent(s) | Purpose |
@@ -181,6 +189,16 @@ This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/D
 | `/blueprint:evaluate conways` | Conway's Law analyzer | Ownership alignment, friction points, scaling readiness |
 
 The full evaluation spawns all 5 agents in parallel, synthesizes an executive summary with a health score (STRONG / ADEQUATE / CONCERNING / CRITICAL), and auto-drafts Proposed ADRs for the most critical findings.
+
+### Documentation
+
+| Command | Agent(s) | Purpose |
+|---------|----------|---------|
+| `/blueprint:architect` | cartographer | Generate or update `docs/ARCHITECTURE.md` — bird's-eye codemap following [matklad's philosophy](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html) |
+| `/blueprint:eli5` | — | Explain the entire architectural landscape in plain English — grouped by theme, no jargon, 30-second version at the end |
+| `/blueprint:eli5 N` | — | Explain a single ADR with analogies, expanded acronyms, and "what this means for you" consequences |
+
+The eli5 commands exist because ADRs are written for the people who make decisions, not the people who live with them. `/blueprint:eli5` translates architecture-speak into language that any developer — or any smart person who isn't a developer — can understand. Every acronym gets expanded. Every technical term gets a concrete analogy. Every decision gets a "so what?"
 
 ## The Five Dimensions of Architectural Health
 
