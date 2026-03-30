@@ -140,7 +140,7 @@ A 2026 academic paper [15] identified that AI-assisted engineering amplifies dec
 - 86% of staleness was discovered reactively during incidents, not proactively
 - The paper proposes three requirements: **epistemic layers** (L0 unverified, L1 logically consistent, L2 empirically validated), **conservative aggregation** (min-based, no conclusion more reliable than weakest evidence), and **temporal validity tracking** (explicit evidence expiry windows)
 
-> "Decisions are made faster than they can be validated." -- Koenig et al., 2026 [15]
+> "Decisions are made faster than they can be validated." -- Gilda & Gilda, 2026 [15]
 
 ### 2.2 Continuous Architecture
 
@@ -381,7 +381,7 @@ Blueprint's gap: it currently operates at the *decision* layer without connectin
 
 **What:** Track the evidence quality and expiry of each ADR's supporting evidence.
 
-**Why:** The Koenig et al. 2026 paper [15] found 23% of architectural decisions had stale evidence within two months, and 86% of staleness was discovered reactively. Blueprint already tracks decision lifecycle -- adding evidence validity tracking is a natural extension.
+**Why:** The Gilda & Gilda 2026 paper [15] found 23% of architectural decisions had stale evidence within two months, and 86% of staleness was discovered reactively. Blueprint already tracks decision lifecycle -- adding evidence validity tracking is a natural extension.
 
 **Implementation ideas:**
 - ADR fields: `Evidence Validity: [L0-unverified|L1-consistent|L2-validated]`, `Evidence Expires: YYYY-MM-DD`

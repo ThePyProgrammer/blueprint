@@ -12,7 +12,7 @@
 
 Blueprint's `/blueprint:new --research` spawns an AI researcher agent that gathers evidence for proposed ADRs. This evidence — benchmarks, adoption statistics, community health metrics, compatibility assessments — forms the basis for architectural decisions. But evidence has a shelf life. A benchmark from 2024 may be irrelevant by 2026. A library recommended for its active community may have been abandoned. A version-specific compatibility claim may not hold after an upgrade.
 
-Koenig et al. (2026, arXiv:2601.21116) found that ~23% of architectural decisions had stale evidence within two months, with 86% of staleness discovered reactively during incidents rather than proactively. AI-assisted decision-making amplifies this problem because decisions are made faster than they can be validated — the very speed that makes AI useful also makes evidence decay more dangerous.
+Gilda & Gilda (2026, arXiv:2601.21116) found that ~23% of architectural decisions had stale evidence within two months, with 86% of staleness discovered reactively during incidents rather than proactively. AI-assisted decision-making amplifies this problem because decisions are made faster than they can be validated — the very speed that makes AI useful also makes evidence decay more dangerous.
 
 The paper proposes three requirements: epistemic layers (L0 unverified, L1 logically consistent, L2 empirically validated), conservative aggregation (decision confidence = min of evidence confidence), and temporal validity tracking (explicit evidence expiry windows).
 
@@ -25,7 +25,7 @@ Blueprint already generates evidence but does not track its quality or freshness
 Accept that evidence was valid when gathered and don't track staleness. Users can re-research manually if they suspect evidence has expired.
 
 - **Pros:** Zero overhead. Simple. No new config files. Avoids false alarms from overly aggressive expiry.
-- **Cons:** 23% of decisions go stale within 2 months (Koenig et al.). Staleness discovered reactively during incidents. AI-generated research creates false confidence. "We researched this" becomes a defense for outdated decisions.
+- **Cons:** 23% of decisions go stale within 2 months (Gilda & Gilda). Staleness discovered reactively during incidents. AI-generated research creates false confidence. "We researched this" becomes a defense for outdated decisions.
 
 ### Option 2: Track evidence quality and expiry with epistemic levels
 
@@ -64,7 +64,7 @@ Conservative aggregation is the critical design choice: a decision is only as st
 - L0 label may discourage use of AI research (the goal is to flag it for promotion, not to discourage it)
 
 ## References
-- Koenig et al. "AI-Assisted Engineering Should Track the Epistemic Status and Temporal Validity of Architectural Decisions" arXiv:2601.21116, 2026
+- Gilda & Gilda "AI-Assisted Engineering Should Track the Epistemic Status and Temporal Validity of Architectural Decisions" arXiv:2601.21116, 2026
 - commands/evidence.md — Skill implementation
 - agents/adr-evidence-auditor.md — Agent implementation
 - config/evidence.toml — Config file

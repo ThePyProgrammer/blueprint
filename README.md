@@ -462,7 +462,7 @@ Blueprint draws on several traditions:
 - **[arc42](https://arc42.org/)** (Starke & Hruschka, 2005) — pragmatic architecture documentation template
 - **[4+1 View Model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model)** (Kruchten, 1995) — multi-stakeholder architecture description through concurrent views
 - **[Team Topologies](https://teamtopologies.com/)** (Skelton & Pais, 2019) — operationalizing Conway's Law through team type classification
-- **[Epistemic Staleness in AI-Assisted Decisions](https://arxiv.org/html/2601.21116)** (Koenig et al., 2026) — evidence validity tracking for AI-generated architectural research
+- **[Epistemic Staleness in AI-Assisted Decisions](https://arxiv.org/html/2601.21116)** (Gilda & Gilda, 2026) — evidence validity tracking for AI-generated architectural research
 
 ## v2 Extensions: Research-Backed Architecture Paradigms
 
@@ -473,7 +473,7 @@ Blueprint v2 adds 15 commands derived from a comprehensive survey of 20+ archite
 | Domain-Driven Design (Evans, 2003) | `/blueprint:scope` | Bounded context scoping for ADRs |
 | DCAR (van Heesch et al., 2014) | `/blueprint:challenge` | Structured forces evaluation |
 | Reflexion Models (Murphy et al., 1995) | `/blueprint:reflect` | Formal architecture conformance |
-| Epistemic Staleness (Koenig et al., 2026) | `/blueprint:evidence` | Evidence validity tracking |
+| Epistemic Staleness (Gilda & Gilda, 2026) | `/blueprint:evidence` | Evidence validity tracking |
 | Wardley Mapping (Wardley) | `/blueprint:map` | Strategic build-vs-buy analysis |
 | C4 Model (Brown, 2006-2011) | `/blueprint:diagram` | Auto-generated architecture diagrams |
 | Evolutionary Architecture (Ford et al., 2017) | `/blueprint:trace` | Fitness function traceability |

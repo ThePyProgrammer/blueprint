@@ -28,7 +28,7 @@ Software architecture management has evolved from heavyweight, ceremony-laden pr
 | 1 | DDD bounded context scoping | Domain-Driven Design | Scopes ADRs to domains; enables per-team views |
 | 2 | DCAR-style structured evaluation | Decision-Centric Architecture Reviews | Most natural formal method for ADR-based systems |
 | 3 | Reflexion model drift detection | Murphy/Notkin/Sullivan (1995) | Transforms drift detection from heuristic to systematic |
-| 4 | Epistemic status tracking | Koenig et al. (2026) | Addresses evidence staleness in AI-assisted decisions |
+| 4 | Epistemic status tracking | Gilda & Gilda (2026) | Addresses evidence staleness in AI-assisted decisions |
 | 5 | Wardley Mapping integration | Simon Wardley | Strategic context for build/buy/commodity decisions |
 
 ---
@@ -496,7 +496,7 @@ Root cause: governance designed for oversight optics rather than architectural f
 
 **Current state (2026):** 1.3M+ repositories using AI code review integrations (4x from 2024). 47% of professional developers have used AI-assisted review. Repositories with AI review show 32% faster merges and 28% fewer post-merge defects.
 
-**Critical challenge — Epistemic Staleness:** A 2026 arXiv paper (Koenig et al.) found:
+**Critical challenge — Epistemic Staleness:** A 2026 arXiv paper (Gilda & Gilda) found:
 - ~23% of architectural decisions had stale evidence within two months
 - 86% of staleness discovered reactively during incidents, not proactively
 - Decisions are made faster than they can be validated
@@ -617,7 +617,7 @@ quadrantChart
 **Why it matters for Blueprint:** Provides the theoretical foundation that makes Blueprint's drift detection rigorous and defensible.
 
 #### 4. Epistemic Status and Temporal Validity
-**Source:** Koenig et al. (2026 arXiv paper)
+**Source:** Gilda & Gilda (2026 arXiv paper)
 **What:** Track evidence quality (L0/L1/L2) and expiry dates for each ADR's supporting evidence.
 **Impact:** Addresses the 23%-stale-in-two-months problem. Surfaces decisions whose evidence has expired before incidents force reactive discovery.
 **Feasibility:** High — metadata fields + enhanced debt tracking.
@@ -741,7 +741,7 @@ graph TB
 
 3. **Cross-organization ADRs:** For decisions spanning multiple repositories or teams, what is the right federation model? Git submodules? A central ADR registry? This is the most cited ADR criticism with no consensus solution.
 
-4. **Epistemic staleness detection:** The Koenig et al. paper proposes tracking evidence validity, but what triggers re-validation? Manual expiry dates? Automated detection of changed assumptions?
+4. **Epistemic staleness detection:** The Gilda & Gilda paper proposes tracking evidence validity, but what triggers re-validation? Manual expiry dates? Automated detection of changed assumptions?
 
 5. **Wardley Map accuracy:** Wardley Mapping is inherently subjective — component evolution stage assessments vary between practitioners. How should Blueprint handle this subjectivity?
 
@@ -775,7 +775,7 @@ graph TB
 | "Scaling Architecture Conversationally" | Andrew Harmel-Law | 2023 | Architecture Advice Process |
 | "ARCHITECTURE.md" | matklad | 2021 | Pragmatic architecture documentation |
 | "Architecture for Flow" | Susanne Kaiser | 2023 | DDD + Wardley + Team Topologies integration |
-| AI-Assisted Epistemic Staleness | Koenig et al. | 2026 | Evidence validity in AI-assisted decisions |
+| AI-Assisted Epistemic Staleness | Gilda & Gilda | 2026 | Evidence validity in AI-assisted decisions |
 | C4 Model | Simon Brown | 2006-2011 | Progressive architecture visualization |
 | arc42 Template | Starke & Hruschka | 2005 | Pragmatic documentation structure |
 | "Continuous Architecture in Practice" | Erder, Pureur, Woods | 2021 | Six principles of continuous architecture |

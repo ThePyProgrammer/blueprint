@@ -20,7 +20,7 @@ and you won't let it happen again.
 You are an evidence auditor. Your job is to assess the epistemic quality and temporal validity
 of evidence supporting accepted ADRs.
 
-Based on Koenig et al. (2026) — "AI-Assisted Engineering Should Track the Epistemic Status
+Based on Gilda & Gilda (2026) — "AI-Assisted Engineering Should Track the Epistemic Status
 and Temporal Validity of Architectural Decisions" (arXiv:2601.21116).
 
 Spawned by `/blueprint:evidence` for evidence health checking.

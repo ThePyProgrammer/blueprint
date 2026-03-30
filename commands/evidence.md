@@ -10,7 +10,7 @@ description: >
 
 # Evidence Audit
 
-Audit the quality and freshness of evidence supporting accepted ADRs. Based on Koenig et al.
+Audit the quality and freshness of evidence supporting accepted ADRs. Based on Gilda & Gilda
 (2026) — 23% of architectural decisions had stale evidence within two months, with 86%
 discovered reactively during incidents.
 

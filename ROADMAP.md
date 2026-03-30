@@ -13,7 +13,7 @@
 | 1 | `/blueprint:scope` | Domain-Driven Design | `adr-context-mapper` | **Done** |
 | 2 | `/blueprint:challenge` | DCAR (van Heesch et al., 2014) | `adr-forces-evaluator` | **Done** |
 | 3 | `/blueprint:reflect` | Reflexion Models (Murphy et al., 1995) | `adr-reflexion-analyzer` | **Done** |
-| 4 | `/blueprint:evidence` | Epistemic Staleness (Koenig et al., 2026) | `adr-evidence-auditor` | **Done** |
+| 4 | `/blueprint:evidence` | Epistemic Staleness (Gilda & Gilda, 2026) | `adr-evidence-auditor` | **Done** |
 | 5 | `/blueprint:map` | Wardley Mapping | `adr-strategic-analyzer` | **Done** |
 
 ### Tier 2: Major Differentiation (P1)
