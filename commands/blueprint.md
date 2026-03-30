@@ -27,6 +27,7 @@ architectural choice is being made without documentation.
 | "retro", "band-aid", "review this fix" | `/blueprint:retro` |
 | "evaluate", "arch eval" | `/blueprint:evaluate` |
 | "rearchitect", "replace decision" | `/blueprint:rearchitect` |
+| "init", "bootstrap", "set up blueprint", "onboard" | `/blueprint:init` |
 | "architect", "architecture doc", "map codebase" | `/blueprint:architect` |
 
 When the user invokes `/blueprint` with arguments, parse the intent and invoke the matching

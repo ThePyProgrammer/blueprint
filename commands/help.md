@@ -57,6 +57,10 @@ Display the full command reference with context-aware next-action suggestions.
   /blueprint:evaluate testing         Test pyramid, anti-pattern tests, coverage
   /blueprint:evaluate conways         Team-architecture alignment, ownership
 
+## Setup
+
+  /blueprint:init                    Bootstrap blueprint onto existing codebase
+
 ## Documentation
 
   /blueprint:architect                Generate/update ARCHITECTURE.md (matklad style)
