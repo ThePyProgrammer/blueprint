@@ -176,6 +176,15 @@ Update `config/state.toml`:
 
 Seed `config/relationships.toml` with nodes for all created ADRs.
 
+Initialize v2 config files:
+- `config/contexts.toml` — create with empty context definitions (or seed with
+  discovered contexts if the codebase has domain-aligned directories)
+- `config/evidence.toml` — create with default settings (180-day expiry, 60-day L0 expiry)
+- `config/governance.toml` — create with `mode = "lightweight"` (default)
+
+If the codebase has clear domain-aligned directories (src/orders/, src/payments/, etc.),
+optionally spawn the `adr-context-mapper` agent to seed bounded contexts in `contexts.toml`.
+
 ### Step 8: Commit
 
 Commit all created files in a single atomic commit:
