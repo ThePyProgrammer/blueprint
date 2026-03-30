@@ -4,7 +4,12 @@ description: >
   ADR system router — detects architectural decision intent and routes to the right sub-skill.
   Triggers proactively when a significant architectural choice is being made without an ADR.
   For specific operations use sub-skills directly: /blueprint:help, /blueprint:list, /blueprint:new, /blueprint:review,
-  /blueprint:transition, /blueprint:search, /blueprint:impact, /blueprint:audit, /blueprint:retro, /blueprint:evaluate, /blueprint:rearchitect.
+  /blueprint:challenge, /blueprint:transition, /blueprint:search, /blueprint:scope, /blueprint:impact, /blueprint:audit,
+  /blueprint:reflect, /blueprint:evidence, /blueprint:retro, /blueprint:evaluate, /blueprint:tradeoff, /blueprint:risk,
+  /blueprint:rearchitect, /blueprint:architect, /blueprint:diagram, /blueprint:eli5, /blueprint:fitness, /blueprint:trace,
+  /blueprint:drift, /blueprint:debt, /blueprint:guard, /blueprint:map, /blueprint:advise, /blueprint:digest, /blueprint:timeline,
+  /blueprint:export, /blueprint:views, /blueprint:federate, /blueprint:radar, /blueprint:govern, /blueprint:status,
+  /blueprint:health, /blueprint:hooks, /blueprint:init.
 ---
 
 # ADR System Router
@@ -39,6 +44,21 @@ architectural choice is being made without documentation.
 | "guard", "pre-commit check", "check before commit" | `/blueprint:guard` |
 | "digest", "stakeholder summary", "executive digest" | `/blueprint:digest` |
 | "timeline", "decision history", "how did we get here" | `/blueprint:timeline` |
+| "scope", "contexts", "bounded context", "domain boundaries" | `/blueprint:scope` |
+| "challenge N", "forces", "weigh decision", "dcar" | `/blueprint:challenge` |
+| "reflect", "conformance", "reflexion model", "does code match?" | `/blueprint:reflect` |
+| "evidence", "epistemic", "stale research", "evidence audit" | `/blueprint:evidence` |
+| "map", "wardley", "strategic", "build vs buy", "evolution stage" | `/blueprint:map` |
+| "diagram", "c4", "visualize architecture", "generate diagram" | `/blueprint:diagram` |
+| "trace", "fitness traceability", "governance coverage" | `/blueprint:trace` |
+| "advise", "advice process", "who should I consult?" | `/blueprint:advise` |
+| "tradeoff", "utility tree", "sensitivity points", "atam" | `/blueprint:tradeoff` |
+| "risk", "risk heat map", "ungoverned code" | `/blueprint:risk` |
+| "export", "arc42", "documentation export" | `/blueprint:export` |
+| "views", "stakeholder views", "4+1", "filter by view" | `/blueprint:views` |
+| "federate", "cross-repo", "multi-repo decisions" | `/blueprint:federate` |
+| "radar", "technology radar", "adopt/hold" | `/blueprint:radar` |
+| "govern", "governance mode", "approvals required" | `/blueprint:govern` |
 
 When the user invokes `/blueprint` with arguments, parse the intent and invoke the matching
 sub-skill via the Skill tool. If ambiguous, invoke `/blueprint:help`.
@@ -61,3 +81,7 @@ All sub-skills share state via `config/` relative to this SKILL.md:
 - `config/taxonomy.toml` — Classification system
 - `config/state.toml` — Session memory
 - `config/relationships.toml` — ADR dependency graph
+- `config/contexts.toml` — DDD bounded context definitions
+- `config/evidence.toml` — Epistemic status tracking
+- `config/radar.toml` — Technology Radar (created on first use)
+- `config/governance.toml` — Governance mode (created on first use)
