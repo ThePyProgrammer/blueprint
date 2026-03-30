@@ -1,0 +1,71 @@
+# ADR Lifecycle State Machine
+# Agents read this instead of hardcoding lifecycle rules in prose.
+
+[statuses.Proposed]
+description = "Decision is drafted and open for discussion. Not yet binding."
+terminal = false
+requires_review = true
+
+[statuses.Accepted]
+description = "Decision has been reviewed, approved, and is in effect."
+terminal = false
+
+[statuses.Rejected]
+description = "Decision was considered but not adopted. Context preserved."
+terminal = true
+
+[statuses.Deferred]
+description = "Decision acknowledged but postponed. Revisit at trigger point."
+terminal = false
+requires_trigger = true
+
+[statuses.Deprecated]
+description = "Decision was once accepted but is no longer relevant."
+terminal = true
+requires_reason = true
+
+[statuses.Superseded]
+description = "Decision has been replaced by a newer ADR."
+terminal = true
+requires_successor = true
+
+# Valid transitions: "From -> To"
+
+[transitions."Proposed -> Accepted"]
+action = "accept"
+requires = ["review_or_explicit_accept"]
+side_effects = ["set_date_decided", "update_index"]
+
+[transitions."Proposed -> Rejected"]
+action = "reject"
+requires = ["rejection_reason"]
+side_effects = ["append_reason_to_consequences", "update_index"]
+
+[transitions."Proposed -> Deferred"]
+action = "defer"
+requires = ["trigger_condition"]
+side_effects = ["add_trigger_to_metadata", "update_index"]
+
+[transitions."Accepted -> Deprecated"]
+action = "deprecate"
+requires = ["deprecation_reason"]
+side_effects = ["add_deprecation_note", "update_index"]
+
+[transitions."Accepted -> Superseded"]
+action = "supersede"
+requires = ["successor_adr_number"]
+side_effects = ["cross_link_adrs", "update_index_both"]
+
+[transitions."Deferred -> Proposed"]
+action = "revisit"
+requires = ["trigger_met"]
+side_effects = ["update_index"]
+
+# Invalid transitions with error messages
+
+[invalid_transitions]
+"Rejected -> Accepted" = "Cannot accept a rejected ADR. Create a new one instead."
+"Proposed -> Superseded" = "Cannot supersede a proposed ADR. Accept or reject it first."
+"Proposed -> Deprecated" = "Cannot deprecate a proposed ADR. Reject it instead."
+"Deprecated -> Accepted" = "Cannot re-accept a deprecated ADR. Create a new one."
+"Superseded -> Accepted" = "Cannot un-supersede an ADR. The successor is the active decision."
