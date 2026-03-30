@@ -69,7 +69,7 @@ Every architectural decision passes through a formal lifecycle encoded as a [fin
                      │
               ┌──────┴──────┐
               │   Review    │  ← devil's advocate challenges here
-              └──────┬��─────┘
+              └──────┬──────┘
                      │
          ┌───────────┼───────────┐
          ▼           ▼           ▼
@@ -78,14 +78,14 @@ Every architectural decision passes through a formal lifecycle encoded as a [fin
    └────┬─────┘ └──────────┘ └─────┬────┘
         │                          │
         │    (trigger met)         │
-        │◄───���─────────────────────┘
+        │◄─────────────────────────┘
         │
    ┌────┴──────────────┐
    ▼                   ▼
 ┌──────────────┐ ┌──────────────┐
 │  Deprecated  │ │  Superseded  │
 │              │ │  by ADR-NNNN │
-└────────────��─┘ └──────────────┘
+└──────────────┘ └──────────────┘
 ```
 
 Transitions are validated against the state machine. You cannot accept a rejected ADR (create a new one). You cannot supersede a proposed ADR (decide on it first). You cannot deprecate something that was never accepted. These rules are not enforced by prose — they are enforced by data.
@@ -98,15 +98,15 @@ Blueprint decomposes architectural governance into orthogonal concerns, each han
 ┌─────────────────────────────────────────────────────────┐
 │                    BLUEPRINT ROUTER                      │
 │            (thin dispatcher, 48 lines)                   │
-└───────┬──��───┬──────┬──────┬──────┬──────��──────────────┘
+└───────┬──────┬──────┬──────┬──────┬──────────────────────┘
         │      │      │      │      │      │
         ▼      ▼      ▼      ▼      ▼      ▼
-     ┌─────┐┌─────���┌─────┐┌─────┐┌─────┐┌─────┐
+     ┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐
      │ new ││ rev ││ eval││retro││audit││ ... │  ← 12 focused skills
-     └──┬──┘└──┬──┘└──���──┘└──┬──┘└──┬──┘└─────┘
+     └──┬──┘└──┬──┘└──┬──┘└──┬──┘└──┬──┘└─────┘
         │      │      │      │      │
         ▼      ▼      ▼      ▼      ▼
-  ┌──────���───────────────────────────────────┐
+  ┌──────────────────────────────────────────┐
   │           AGENT POOL (11 agents)          │
   │                                          │
   │  researcher · devil's advocate · impact   │
@@ -118,17 +118,17 @@ Blueprint decomposes architectural governance into orthogonal concerns, each han
   │  │     SHARED PERSONA (persona.md)    │  │
   │  │  cranky senior engineer, 20 years  │  │
   │  └────────────────────────────────────┘  │
-  ���──────────────────────────────────────────┘
+  └──────────────────────────────────────────┘
         │      │      │      │
         ▼      ▼      ▼      ▼
-  ┌─��────────────���───────────────────────────┐
+  ┌──────────────────────────────────────────┐
   │         CONFIG DSL (TOML)                │
   │                                          │
   │  lifecycle.toml     ← state machine      │
   │  taxonomy.toml      ← classifications    │
-  │  state.toml         �� session memory     │
+  │  state.toml         ← session memory     │
   │  relationships.toml ← dependency graph   │
-  └───────���──────────────────────────────────┘
+  └──────────────────────────────────────────┘
 ```
 
 This is a deliberate application of the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) at the agent level. The researcher doesn't review. The reviewer doesn't audit. The auditor doesn't evaluate. Each agent has one job and does it with the depth that comes from focus.
@@ -272,7 +272,7 @@ blueprint/
 │   ├── adr-devils-advocate.md
 │   ├── adr-impact-analyzer.md
 │   ├── adr-compliance-auditor.md
-│   ├─�� adr-consistency-auditor.md
+│   ├── adr-consistency-auditor.md
 │   ├── adr-bug-surface-mapper.md
 │   ├── adr-maintainability-assessor.md
 │   ├── adr-testing-strategy-evaluator.md
@@ -280,7 +280,7 @@ blueprint/
 │   └── adr-retrospective.md
 ├── config/                Domain-specific language (TOML)
 │   ├── lifecycle.toml     Finite state machine
-��   ├── taxonomy.toml      Classification system
+│   ├── taxonomy.toml      Classification system
 │   ├── state.toml         Session memory
 │   └── relationships.toml ADR dependency graph
 ├── bin/cli.js             CLI entry point
