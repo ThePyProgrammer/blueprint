@@ -47,22 +47,22 @@ Read from parent `adr/` skill directory:
 
 ### List (`/blueprint:scope list`)
 
-1. Read `config/contexts.toml`
+1. Read `{adr_directory}/.state/contexts.toml`
 2. Display table: context name, root path, governed ADRs, owner
 3. Highlight unmapped ADRs
 
 ### Add (`/blueprint:scope add <name> --path <path>`)
 
-1. Add a new context definition to `config/contexts.toml`
+1. Add a new context definition to `{adr_directory}/.state/contexts.toml`
 2. Commit: `feat(adr): add [name] bounded context`
 
 ### Remove (`/blueprint:scope remove <name>`)
 
-1. Remove context from `config/contexts.toml`
+1. Remove context from `{adr_directory}/.state/contexts.toml`
 2. Remove context assignments from governed ADRs
 3. Commit: `feat(adr): remove [name] bounded context`
 
-## Config File: `config/contexts.toml`
+## Config File: `{adr_directory}/.state/contexts.toml`
 
 ```toml
 # Bounded Context Definitions

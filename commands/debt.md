@@ -18,9 +18,10 @@ but nobody monitors whether X has happened. This skill does.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `config/state.toml` — ADR directory
+- `{adr_directory}/.state/state.toml` — ADR directory
+  (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
 - `config/taxonomy.toml` — severity levels
-- `config/evidence.toml` — evidence expiry dates and epistemic levels
+- `{adr_directory}/.state/evidence.toml` — evidence expiry dates and epistemic levels
 
 ## Process
 
@@ -104,7 +105,7 @@ decision with fresh evidence.
 
 ### Step 5: Evidence Debt (v2)
 
-Also surface **evidence debt** from `config/evidence.toml`:
+Also surface **evidence debt** from `{adr_directory}/.state/evidence.toml`:
 
 - **Expired evidence:** Accepted ADRs where `Evidence-Expires` date has passed
 - **Unverified evidence:** Accepted ADRs with `Evidence-Level: L0` (AI-generated, never validated)
