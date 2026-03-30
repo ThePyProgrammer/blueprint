@@ -28,3 +28,12 @@ This directory contains the ADRs for the blueprint project itself. Blueprint eat
 | [0020](0020-parallel-evaluation-agents.md) | Run evaluation team agents in parallel, not sequentially | Accepted | 2026-03-30 |
 | [0021](0021-hegelian-dialectic-for-review.md) | Use Hegelian dialectic for ADR review process | Accepted | 2026-03-30 |
 | [0022](0022-config-as-domain-specific-language.md) | Design config layer as a domain-specific language | Accepted | 2026-03-30 |
+| [0023](0023-generate-fitness-functions-from-adrs.md) | Generate executable fitness functions from ADR invariants | Accepted | 2026-03-30 |
+| [0024](0024-temporal-drift-detection-over-point-audits.md) | Temporal drift detection over point-in-time audits | Accepted | 2026-03-30 |
+| [0025](0025-track-decision-debt-with-trigger-monitoring.md) | Track decision debt with trigger monitoring | Accepted | 2026-03-30 |
+| [0026](0026-pre-commit-architecture-guard.md) | Pre-commit architecture guard on staged files | Accepted | 2026-03-30 |
+| [0027](0027-stakeholder-digest-for-non-technical-audience.md) | Stakeholder digest for non-technical audience | Accepted | 2026-03-30 |
+| [0028](0028-architecture-evolution-timeline.md) | Architecture evolution timeline with eras and pivots | Accepted | 2026-03-30 |
+| [0029](0029-bootstrap-from-existing-context.md) | Bootstrap from existing codebase context | Accepted | 2026-03-30 |
+| [0030](0030-generate-architecture-md-from-adrs.md) | Generate ARCHITECTURE.md from ADRs (matklad style) | Accepted | 2026-03-30 |
+| [0031](0031-eli5-plain-english-explanations.md) | ELI5 plain English explanations | Accepted | 2026-03-30 |
