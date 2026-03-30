@@ -14,11 +14,12 @@ Display the full command reference with context-aware next-action suggestions.
 
 ### Step 1: Detect Current State
 
-1. Read `config/state.toml` from the parent `adr/` directory for ADR directory location
+1. Read `{adr_directory}/.state/state.toml` for ADR directory location
+   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
 2. If no directory cached, detect: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`
 3. Glob for all ADR files (`[0-9][0-9][0-9][0-9]-*.md`)
 4. Extract status from each ADR (count Proposed, Accepted, Rejected, Deferred, Deprecated, Superseded)
-5. Read `config/state.toml` for last audit/evaluation/retro dates
+5. Read `{adr_directory}/.state/state.toml` for last audit/evaluation/retro dates
 6. Scan recent conversation history for architectural topics being discussed
 7. Check if application code exists (glob for source files beyond wireframes/docs)
 
