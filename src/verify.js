@@ -34,8 +34,15 @@ const EXPECTED_AGENTS = [
 const EXPECTED_CONFIG = [
   'lifecycle.toml',
   'taxonomy.toml',
-  'state.toml',
-  'relationships.toml',
+];
+
+// These are per-project state files, NOT global config.
+// They live in {adr_directory}/.state/ and are created by /blueprint:init.
+const STATE_TEMPLATES = [
+  'state-templates/state.toml',
+  'state-templates/relationships.toml',
+  'state-templates/contexts.toml',
+  'state-templates/evidence.toml',
 ];
 
 async function fileExists(path) {
@@ -79,6 +86,13 @@ export async function verify(opts) {
     for (const cfg of EXPECTED_CONFIG) {
       const ok = await fileExists(join(paths.config, cfg));
       console.log(`  ${ok ? '✓' : '✗'} config/${cfg}`);
+      if (!ok) missing++;
+    }
+
+    // Check state templates
+    for (const tmpl of STATE_TEMPLATES) {
+      const ok = await fileExists(join(paths.config, tmpl));
+      console.log(`  ${ok ? '✓' : '✗'} config/${tmpl}`);
       if (!ok) missing++;
     }
 

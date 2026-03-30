@@ -78,16 +78,28 @@ export async function install(opts) {
   }
   spinner.succeed(`${agentFiles.length} agents installed`);
 
-  // Copy config
+  // Copy config — only static schema files, not per-project mutable state
   spinner.start('Installing config...');
-  const configFiles = await readdir(join(PLUGIN_ROOT, 'config'));
-  for (const file of configFiles) {
+  const STATIC_CONFIG = ['lifecycle.toml', 'taxonomy.toml'];
+  for (const file of STATIC_CONFIG) {
     await copyFile(
       join(PLUGIN_ROOT, 'config', file),
       join(paths.config, file),
     );
   }
-  spinner.succeed(`${configFiles.length} config files installed`);
+  spinner.succeed(`${STATIC_CONFIG.length} config files installed (static schemas only)`);
+
+  // Copy state templates — used by /blueprint:init to seed per-project state
+  const STATE_TEMPLATES_DIR = join(paths.config, 'state-templates');
+  await mkdir(STATE_TEMPLATES_DIR, { recursive: true });
+  const STATE_FILES = ['state.toml', 'relationships.toml', 'contexts.toml', 'evidence.toml'];
+  for (const file of STATE_FILES) {
+    await copyFile(
+      join(PLUGIN_ROOT, 'config', file),
+      join(STATE_TEMPLATES_DIR, file),
+    );
+  }
+  spinner.start('').succeed(`${STATE_FILES.length} state templates installed (seeded per-project by /blueprint:init)`);
 
   // Update CLAUDE.md
   spinner.start('Updating CLAUDE.md...');
