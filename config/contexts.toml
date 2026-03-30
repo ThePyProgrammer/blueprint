@@ -1,21 +1,100 @@
 # Bounded Context Definitions
-# Discovered by adr-context-mapper agent or defined manually via /blueprint:scope.
+# Discovered by dogfooding /blueprint:scope against Blueprint's own codebase (2026-03-31).
 # Based on Domain-Driven Design (Evans, 2003).
-#
-# Each context represents an explicit boundary within which a domain model
-# and its ubiquitous language applies. ADRs are scoped to contexts to enable
-# per-domain views and context-aware impact analysis.
 
-# --- Context Definitions ---
-# Add contexts as: [contexts.<name>]
-# Fields: label, root_path, key_models, ubiquitous_language, owner, governed_adrs
+# --- ADR Lifecycle Context ---
+[contexts.lifecycle]
+label = "ADR Lifecycle"
+root_path = "commands/"
+key_models = ["ADR", "Status", "Transition", "Lifecycle"]
+ubiquitous_language = ["propose", "accept", "reject", "defer", "deprecate", "supersede"]
+owner = "core"
+governed_adrs = ["ADR-0001", "ADR-0004", "ADR-0009", "ADR-0018", "ADR-0019", "ADR-0021"]
 
-# --- Cross-Cutting ADRs ---
-# ADRs that are not scoped to a single context
-cross_cutting_adrs = []
+# --- Architecture Analysis Context ---
+[contexts.analysis]
+label = "Architecture Analysis"
+root_path = "agents/"
+key_models = ["Evaluation", "Compliance", "Impact", "Retrospective"]
+ubiquitous_language = ["convergence", "divergence", "conformance", "drift", "erosion", "risk"]
+owner = "core"
+governed_adrs = ["ADR-0007", "ADR-0010", "ADR-0011", "ADR-0012", "ADR-0013", "ADR-0014", "ADR-0020", "ADR-0037", "ADR-0038"]
+
+# --- Strategic Planning Context ---
+[contexts.strategic]
+label = "Strategic Planning"
+root_path = "commands/"
+key_models = ["WardleyMap", "EvolutionStage", "TechnologyRadar"]
+ubiquitous_language = ["genesis", "custom", "product", "commodity", "adopt", "hold", "tradeoff"]
+owner = "core"
+governed_adrs = ["ADR-0035", "ADR-0040"]
+
+# --- Continuous Governance Context ---
+[contexts.governance]
+label = "Continuous Governance"
+root_path = "commands/"
+key_models = ["FitnessFunction", "DriftTrajectory", "DecisionDebt", "Guard"]
+ubiquitous_language = ["fitness", "invariant", "drift", "debt", "guard", "enforce"]
+owner = "core"
+governed_adrs = ["ADR-0023", "ADR-0024", "ADR-0025", "ADR-0026", "ADR-0039", "ADR-0041"]
+
+# --- Domain Scoping Context ---
+[contexts.scoping]
+label = "Domain Scoping"
+root_path = "config/"
+key_models = ["BoundedContext", "ContextMap", "UbiquitousLanguage"]
+ubiquitous_language = ["context", "boundary", "upstream", "downstream", "anti-corruption"]
+owner = "core"
+governed_adrs = ["ADR-0036"]
+
+# --- Communication Context ---
+[contexts.communication]
+label = "Communication"
+root_path = "commands/"
+key_models = ["Digest", "Timeline", "ELI5", "Diagram"]
+ubiquitous_language = ["stakeholder", "digest", "eli5", "explain", "timeline", "diagram"]
+owner = "core"
+governed_adrs = ["ADR-0027", "ADR-0028", "ADR-0030", "ADR-0031"]
+
+# --- Plugin Infrastructure Context ---
+[contexts.infrastructure]
+label = "Plugin Infrastructure"
+root_path = "src/"
+key_models = ["Installer", "Verifier", "ClaudeMd", "Plugin"]
+ubiquitous_language = ["install", "verify", "deploy", "plugin", "global", "project"]
+owner = "core"
+governed_adrs = ["ADR-0002", "ADR-0003", "ADR-0005", "ADR-0006", "ADR-0008", "ADR-0015", "ADR-0016", "ADR-0017", "ADR-0022"]
+
+# Cross-cutting ADRs (not scoped to a single context)
+cross_cutting_adrs = ["ADR-0029", "ADR-0032", "ADR-0033", "ADR-0034"]
 
 # --- Context Relationships ---
-# Add as: [[relationships]]
-# Fields: upstream, downstream, pattern, evidence
-# Patterns: Customer-Supplier, Anti-Corruption-Layer, Shared-Kernel,
-#           Open-Host-Service, Published-Language, Conformist, Separate-Ways, Partnership
+[[relationships]]
+upstream = "lifecycle"
+downstream = "analysis"
+pattern = "Customer-Supplier"
+evidence = "Analysis agents consume ADR lifecycle state (read accepted ADRs for evaluation)"
+
+[[relationships]]
+upstream = "analysis"
+downstream = "governance"
+pattern = "Customer-Supplier"
+evidence = "Governance commands (fitness, drift) consume analysis results"
+
+[[relationships]]
+upstream = "scoping"
+downstream = "analysis"
+pattern = "Open-Host-Service"
+evidence = "Analysis agents read contexts.toml for scope-aware evaluation"
+
+[[relationships]]
+upstream = "lifecycle"
+downstream = "communication"
+pattern = "Customer-Supplier"
+evidence = "Communication commands (digest, timeline, diagram) read ADR content"
+
+[[relationships]]
+upstream = "infrastructure"
+downstream = "lifecycle"
+pattern = "Platform"
+evidence = "Installer deploys skills, agents, and config that lifecycle commands consume"
