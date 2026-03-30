@@ -8,6 +8,19 @@ Architecture Decision Records with teeth. A Claude Code plugin that treats archi
 
 Every agent speaks with the voice of a senior engineer who has watched too many "temporary" decisions become permanent load-bearing walls.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Commands](#commands)
+- [The Problem Blueprint Solves](#the-problem-blueprint-solves)
+- [Philosophical Foundations](#philosophical-foundations)
+- [How Blueprint Works](#how-blueprint-works)
+- [The Five Dimensions of Architectural Health](#the-five-dimensions-of-architectural-health)
+- [Continuous Governance: Beyond Point-in-Time](#continuous-governance-beyond-point-in-time)
+- [The Retrospective: Closing the Loop](#the-retrospective-closing-the-loop)
+- [Architecture of Blueprint Itself](#architecture-of-blueprint-itself)
+- [Intellectual Heritage](#intellectual-heritage)
+
 ## The Problem Blueprint Solves
 
 > "We shape our buildings; thereafter they shape us." — Winston Churchill
