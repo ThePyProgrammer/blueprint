@@ -176,7 +176,8 @@ This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/D
 | `/blueprint:new "topic"` | — | Create an ADR from interview |
 | `/blueprint:new --research "topic"` | researcher | Evidence-backed option analysis, then create |
 | `/blueprint:list` | — | Status table + contextual next actions |
-| `/blueprint:review N` | devil's advocate | Challenge across 5 dimensions before acceptance |
+| `/blueprint:challenge N` | forces evaluator | DCAR structured forces analysis — weigh arguments for/against |
+| `/blueprint:review N` | devil's advocate | Adversarial challenge across 5 dimensions before acceptance |
 | `/blueprint:transition accept N` | — | Direct lifecycle transitions |
 | `/blueprint:search "term"` | — | Find decisions by topic + relationship graph |
 | `/blueprint:help` | — | Full reference + context-aware suggestions |
