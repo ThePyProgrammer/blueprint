@@ -67,6 +67,18 @@ Display the full command reference with context-aware next-action suggestions.
   /blueprint:eli5                     Explain an ADR or the whole landscape in plain English
   /blueprint:eli5 N                   Explain a single ADR — no jargon, all analogies
 
+## Continuous Governance
+
+  /blueprint:fitness                   Generate CI-runnable architecture tests from ADRs
+  /blueprint:drift                     Detect gradual architecture erosion over time
+  /blueprint:debt                      Track deferred decisions and overdue triggers
+  /blueprint:guard                     Pre-commit check against ADR invariants
+
+## Reporting
+
+  /blueprint:digest                    Non-technical stakeholder summary (1-page)
+  /blueprint:timeline                  Narrative evolution of architectural decisions
+
 ## Meta
 
   /blueprint:help                     This reference + contextual suggestions

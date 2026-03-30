@@ -30,6 +30,12 @@ architectural choice is being made without documentation.
 | "init", "bootstrap", "set up blueprint", "onboard" | `/blueprint:init` |
 | "eli5", "explain", "summarise", "big picture" | `/blueprint:eli5` |
 | "architect", "architecture doc", "map codebase" | `/blueprint:architect` |
+| "fitness", "fitness functions", "architecture tests" | `/blueprint:fitness` |
+| "drift", "is architecture eroding?", "trajectory" | `/blueprint:drift` |
+| "debt", "decision debt", "deferred decisions due" | `/blueprint:debt` |
+| "guard", "pre-commit check", "check before commit" | `/blueprint:guard` |
+| "digest", "stakeholder summary", "executive digest" | `/blueprint:digest` |
+| "timeline", "decision history", "how did we get here" | `/blueprint:timeline` |
 
 When the user invokes `/blueprint` with arguments, parse the intent and invoke the matching
 sub-skill via the Skill tool. If ambiguous, invoke `/blueprint:help`.
