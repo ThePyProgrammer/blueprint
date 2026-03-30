@@ -66,8 +66,14 @@ Analyze actual dependencies in the codebase:
 
 - Grep for import/require/include statements
 - Map each source file to its module in the high-level model
-- Build actual dependency graph: `ACTUAL(ModuleA → ModuleB)` for every cross-module import
+- Build actual dependency graph: `ACTUAL(ModuleA → ModuleB)` for every cross-module dependency
 - Count instances per dependency direction
+
+**Dependency detection for non-code codebases** (markdown plugins, config systems):
+- Grep for `Read <filename>` / `Read agents/` / `Read config/` references in skill files
+- Grep for agent spawn references: `adr-researcher`, `adr-devils-advocate`, etc.
+- Grep for config file references in skills and agents
+- These cross-file references ARE the dependencies — treat them like imports
 
 ## Step 3: Compute Reflexion Model
 

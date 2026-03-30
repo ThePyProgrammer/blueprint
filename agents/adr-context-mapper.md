@@ -55,6 +55,13 @@ For each candidate domain directory, grep for:
 - Imports from other domain directories (cross-boundary dependencies)
 - Shared types or interfaces
 
+**For markdown/config-heavy codebases** (plugins, documentation systems, skill libraries):
+- Cross-file references: `Read agents/persona.md`, `Read config/lifecycle.toml`
+- TOML/YAML section references between config files
+- ADR cross-references: "see ADR-0003", "Related: ADR-0010"
+- Skill-to-agent references: `Spawn adr-researcher` patterns
+- These are the "imports" of a non-code codebase — treat them equivalently
+
 ## Step 2: Boundary Detection
 
 Identify bounded context boundaries by finding:
@@ -63,6 +70,7 @@ Identify bounded context boundaries by finding:
 - **Translation layers:** Adapter/mapper/converter classes between modules (Anti-Corruption Layer)
 - **Shared kernel:** Types/interfaces imported by 3+ domain modules
 - **Separate ways:** Domain modules with zero cross-imports
+- **For non-code codebases:** Functional grouping by purpose (lifecycle vs. analysis vs. governance) when structural signals are weak
 
 ## Step 3: Ownership Analysis
 

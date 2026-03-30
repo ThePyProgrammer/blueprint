@@ -49,6 +49,7 @@ For each component, measure:
 - File count and total lines of code (`find + wc -l`)
 - Maximum file size (large files = complexity smell)
 - Number of external dependencies (imports from other modules)
+- For markdown/config codebases: count cross-file references as dependencies
 
 **Churn Factors:**
 - Git commits in last 90 days (`git log --oneline --since='90 days ago' -- <path> | wc -l`)
