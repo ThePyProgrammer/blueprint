@@ -115,17 +115,20 @@ Blueprint decomposes architectural governance into orthogonal concerns, each han
         │      │      │      │      │      │
         ▼      ▼      ▼      ▼      ▼      ▼
      ┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐
-     │ new ││ rev ││ eval││retro││audit││ ... │  ← 15 focused skills
+     │ new ││ rev ││ eval││retro││audit││ ... │  ← 38 focused skills
      └──┬──┘└──┬──┘└──┬──┘└──┬──┘└──┬──┘└─────┘
         │      │      │      │      │
         ▼      ▼      ▼      ▼      ▼
   ┌──────────────────────────────────────────┐
-  │           AGENT POOL (12 agents)          │
+  │           AGENT POOL (20 agents)          │
   │                                          │
   │  researcher · devil's advocate · impact   │
   │  compliance · consistency · bug surface   │
   │  maintainability · testing · conways      │
   │  retrospective · cartographer             │
+  │  forces · reflexion · evidence · context  │
+  │  strategic · diagram · tradeoff · risk    │
+  │  federation                               │
   │                                          │
   │  ┌────────────────────────────────────┐  │
   │  │     SHARED PERSONA (persona.md)    │  │
@@ -141,6 +144,10 @@ Blueprint decomposes architectural governance into orthogonal concerns, each han
   │  taxonomy.toml      ← classifications    │
   │  state.toml         ← session memory     │
   │  relationships.toml ← dependency graph   │
+  │  contexts.toml      ← bounded contexts   │
+  │  evidence.toml      ← epistemic status   │
+  │  governance.toml    ← governance mode     │
+  │  radar.toml         ← technology radar   │
   └──────────────────────────────────────────┘
 ```
 
