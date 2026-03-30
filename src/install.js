@@ -26,7 +26,16 @@ export async function install(opts) {
 
   // Create directories
   const spinner = ora('Creating directories...').start();
-  for (const subDir of ['', 'help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit', 'retro', 'evaluate', 'rearchitect', 'agents', 'config']) {
+  for (const subDir of [
+    '', 'agents', 'config',
+    // v1 commands
+    'help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit',
+    'retro', 'evaluate', 'rearchitect', 'init', 'architect', 'eli5', 'fitness',
+    'drift', 'debt', 'guard', 'digest', 'timeline', 'status', 'health', 'hooks',
+    // v2 commands
+    'scope', 'challenge', 'reflect', 'evidence', 'map', 'diagram', 'trace',
+    'advise', 'tradeoff', 'risk', 'export', 'views', 'federate', 'radar', 'govern',
+  ]) {
     await mkdir(join(paths.commands, subDir), { recursive: true });
   }
   spinner.succeed('Directories created');
@@ -41,7 +50,15 @@ export async function install(opts) {
 
   // Copy sub-commands as SKILL.md in their directories
   spinner.start('Installing commands...');
-  const commands = ['help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit', 'retro', 'evaluate', 'rearchitect'];
+  const commands = [
+    // v1 commands
+    'help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit',
+    'retro', 'evaluate', 'rearchitect', 'init', 'architect', 'eli5', 'fitness',
+    'drift', 'debt', 'guard', 'digest', 'timeline', 'status', 'health', 'hooks',
+    // v2 commands
+    'scope', 'challenge', 'reflect', 'evidence', 'map', 'diagram', 'trace',
+    'advise', 'tradeoff', 'risk', 'export', 'views', 'federate', 'radar', 'govern',
+  ];
   for (const cmd of commands) {
     await copyFile(
       join(PLUGIN_ROOT, 'commands', `${cmd}.md`),
