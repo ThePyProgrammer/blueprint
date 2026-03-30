@@ -1,0 +1,9 @@
+.logs/
+papers/
+outputs/
+wireframes/
+tests/
+docs/adr/web/
+ROADMAP.md
+DASHBOARD-BUGS.md
+package-lock.json
