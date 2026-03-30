@@ -37,3 +37,6 @@ This directory contains the ADRs for the blueprint project itself. Blueprint eat
 | [0029](0029-bootstrap-from-existing-context.md) | Bootstrap from existing codebase context | Accepted | 2026-03-30 |
 | [0030](0030-generate-architecture-md-from-adrs.md) | Generate ARCHITECTURE.md from ADRs (matklad style) | Accepted | 2026-03-30 |
 | [0031](0031-eli5-plain-english-explanations.md) | ELI5 plain English explanations | Accepted | 2026-03-30 |
+| [0032](0032-visual-knowledge-graph-dashboard.md) | Visual knowledge graph dashboard | Accepted | 2026-03-30 |
+| [0033](0033-self-diagnostic-health-check.md) | Self-diagnostic health check with auto-repair | Accepted | 2026-03-30 |
+| [0034](0034-automatic-hooks-for-workflow-integration.md) | Automatic hooks for workflow integration | Accepted | 2026-03-30 |
