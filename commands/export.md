@@ -35,11 +35,11 @@ Maps Blueprint artifacts into arc42's 12-section structure (Starke & Hruschka, 2
 | 5. Building Block View | ARCHITECTURE.md codemap + `/blueprint:diagram` L2/L3 |
 | 6. Runtime View | ADRs about communication patterns, EDA, CQRS |
 | 7. Deployment View | ADRs about deployment, infrastructure |
-| 8. Cross-cutting Concepts | ADRs tagged as cross-cutting in contexts.toml |
+| 8. Cross-cutting Concepts | ADRs tagged as cross-cutting in {adr_directory}/.state/contexts.toml |
 | 9. Architecture Decisions | All accepted ADRs (native content) |
 | 10. Quality Requirements | Fitness functions from `/blueprint:fitness` |
 | 11. Risks and Technical Debt | `/blueprint:risk` output + `/blueprint:debt` deferred ADRs |
-| 12. Glossary | Ubiquitous language from contexts.toml |
+| 12. Glossary | Ubiquitous language from {adr_directory}/.state/contexts.toml |
 
 ### Process
 

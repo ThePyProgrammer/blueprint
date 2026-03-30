@@ -16,9 +16,10 @@ mechanism that flat ADR systems lack.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `config/contexts.toml` — existing context definitions (if any)
-- `config/state.toml` — ADR directory location
-- `config/relationships.toml` — existing ADR relationships
+- `{adr_directory}/.state/contexts.toml` — existing context definitions (if any)
+  (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
+- `{adr_directory}/.state/state.toml` — ADR directory location
+- `{adr_directory}/.state/relationships.toml` — existing ADR relationships
 - `agents/persona.md` — your personality
 
 ## Modes
@@ -30,18 +31,18 @@ Read from parent `adr/` skill directory:
    - Full agent instructions + `agents/persona.md`
    - Project root path, ADR directory path
    - List of existing ADR filenames
-   - Existing `config/contexts.toml` if present
+   - Existing `{adr_directory}/.state/contexts.toml` if present
 3. Present the context map to the user
-4. Ask: "Write these contexts to `config/contexts.toml`?"
-5. If yes, write the file and update `config/state.toml`
+4. Ask: "Write these contexts to `{adr_directory}/.state/contexts.toml`?"
+5. If yes, write the file and update `{adr_directory}/.state/state.toml`
 6. Commit: `feat(adr): discover bounded contexts and generate context map`
 
 ### Assign (`/blueprint:scope assign ADR-NNNN <context>`)
 
-1. Read `config/contexts.toml` — verify context exists
+1. Read `{adr_directory}/.state/contexts.toml` — verify context exists
 2. Read the ADR file
 3. Add or update the `Context` metadata field in the ADR
-4. Update `config/contexts.toml` — add ADR to context's governed list
+4. Update `{adr_directory}/.state/contexts.toml` — add ADR to context's governed list
 5. Commit: `docs(adr): assign ADR-NNNN to [context] bounded context`
 
 ### List (`/blueprint:scope list`)
