@@ -350,7 +350,7 @@ npm link
 claude-blueprint install --global
 ```
 
-The installer deploys 39 commands, 19 agents, and 8 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
+The installer deploys 39 commands, 21 agents, and 8 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
 
 ## Architecture of Blueprint Itself
 
@@ -435,7 +435,7 @@ blueprint/
 └── .claude-plugin/        Plugin registration metadata
 ```
 
-Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 39 commands, 19 agents, 8 config files, 34 ADRs.
+Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 39 commands, 21 agents, 8 config files, 41 ADRs.
 
 ## Intellectual Heritage
 
