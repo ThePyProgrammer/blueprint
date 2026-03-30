@@ -1,0 +1,28 @@
+# Internal Technology Radar
+# Tracks technology adoption lifecycle linked to ADRs.
+# Updated via /blueprint:radar.
+#
+# Rings:
+#   adopt  — Use by default for new work
+#   trial  — Use in low-risk contexts to learn
+#   assess — Worth exploring, not for production yet
+#   hold   — Do not use for new work
+#
+# Quadrants:
+#   "Languages & Frameworks"
+#   "Platforms & Infrastructure"
+#   "Tools"
+#   "Techniques & Patterns"
+
+# --- Technologies ---
+# Add as: [[technologies]]
+# Fields: name, ring, quadrant, governing_adrs, moved, notes
+#
+# Example:
+# [[technologies]]
+# name = "TypeScript"
+# ring = "adopt"
+# quadrant = "Languages & Frameworks"
+# governing_adrs = ["ADR-0002"]
+# moved = "2026-01-15"
+# notes = "Default for all new services"
