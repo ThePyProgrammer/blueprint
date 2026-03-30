@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blueprint | ADR Knowledge Graph</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "secondary-fixed-dim": "#7fdede",
+                "error-dim": "#d7383b",
+                "on-surface-variant": "#a9abb3",
+                "surface-variant": "#22262f",
+                "tertiary-fixed-dim": "#ec9100",
+                "tertiary": "#ffb155",
+                "secondary-container": "#006a6a",
+                "error": "#ff716c",
+                "on-primary": "#005d63",
+                "on-error-container": "#ffa8a3",
+                "surface-container-lowest": "#000000",
+                "primary": "#8ff5ff",
+                "primary-fixed-dim": "#00deec",
+                "on-surface": "#ecedf6",
+                "secondary-fixed": "#8dedec",
+                "surface-tint": "#8ff5ff",
+                "primary-dim": "#00deec",
+                "on-primary-fixed": "#003f43",
+                "on-tertiary": "#593400",
+                "on-secondary": "#005858",
+                "on-tertiary-container": "#4c2b00",
+                "outline-variant": "#45484f",
+                "on-tertiary-fixed-variant": "#583300",
+                "surface-container-low": "#10131a",
+                "primary-container": "#00eefc",
+                "error-container": "#9f0519",
+                "on-tertiary-fixed": "#2b1600",
+                "on-secondary-fixed-variant": "#006262",
+                "outline": "#73757d",
+                "background": "#0b0e14",
+                "surface-container": "#161a21",
+                "tertiary-dim": "#ec9100",
+                "surface-container-highest": "#22262f",
+                "on-secondary-container": "#d9fffe",
+                "on-primary-container": "#005359",
+                "on-background": "#ecedf6",
+                "surface-dim": "#0b0e14",
+                "surface-bright": "#282c36",
+                "secondary": "#8dedec",
+                "surface": "#0b0e14",
+                "surface-container-high": "#1c2028",
+                "primary-fixed": "#00eefc",
+                "inverse-on-surface": "#52555c",
+                "on-secondary-fixed": "#004343",
+                "inverse-primary": "#006a71",
+                "tertiary-fixed": "#fe9d00",
+                "secondary-dim": "#7fdede",
+                "on-primary-fixed-variant": "#005e64",
+                "on-error": "#490006",
+                "inverse-surface": "#f9f9ff",
+                "tertiary-container": "#fe9d00"
+              },
+              fontFamily: {
+                "headline": ["Space Grotesk"],
+                "body": ["Inter"],
+                "label": ["Space Grotesk"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glassmorphism {
+            backdrop-filter: blur(20px);
+            background: rgba(28, 32, 40, 0.7);
+        }
+        .node-pulse {
+            box-shadow: 0 0 15px rgba(143, 245, 255, 0.3);
+        }
+        .star-field {
+            background-image: radial-gradient(circle at 2px 2px, rgba(143, 245, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(143, 245, 255, 0.02) 50%);
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 overflow-hidden">
+<!-- Global Layout Shell -->
+<div class="flex h-screen w-screen relative">
+<!-- SideNavBar (from Shared Components JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/80 backdrop-blur-xl shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-50 flex flex-col py-6 font-['Space_Grotesk'] tracking-tight">
+<!-- Brand Header -->
+<div class="px-6 mb-8">
+<div class="text-xl font-bold text-cyan-400 drop-shadow-[0_0_8px_rgba(143,245,255,0.5)]">Blueprint</div>
+<div class="text-[10px] text-slate-500 uppercase tracking-[0.2em] mt-1 font-['JetBrains_Mono']">Tactical Arch Governance</div>
+</div>
+<!-- Navigation Items -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-cyan-400 border-l-2 border-cyan-400 bg-cyan-400/10 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Status</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="text-sm">Graph</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+<span class="text-sm">IDE/Editor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="text-sm">Audit</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+<span class="text-sm">Health</span>
+</a>
+</nav>
+<!-- Bottom Action -->
+<div class="px-4 mt-auto">
+<button class="w-full py-3 bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 text-xs font-bold tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-cyan-400/20 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    New Node
+                </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<div class="w-8 h-8 rounded bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Cyberpunk architect avatar with neon glowing visor and tactical gear in profile view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKmEIHIVB4DmAY1_iRO2C-Q95YHJG5L2LpoiiY86JTM-pDRiA3KIcoQ5YQTeG4Kv-cGIo2VNoUrytnm7uVpAZ7PAfDxtSEeXDwGIgsWUdskkNuzkJ89yNBWtQL-wmdYo71EW1Ezstv1kYrQmAAOaGiMI1XBmjDzzq3ZwekuOV_LgJIq0109sPW-J6rak_FtI1hFLWRjfphBWyK0CkXXH_AzXA98GJPVU_W2_MDV3Egr7bghgdgfPSg38IETw6Uptb9qfsr50RNhnU"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">ARC-01</span>
+<span class="text-[10px] text-slate-500 font-['JetBrains_Mono'] uppercase">Lead Architect</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 relative overflow-hidden flex flex-col">
+<!-- TopNavBar (from Shared Components JSON) -->
+<header class="h-16 w-full glassmorphism border-b border-white/5 shadow-lg shadow-black/20 flex items-center justify-between px-8 z-40 font-['JetBrains_Mono'] text-xs uppercase tracking-widest">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<span class="text-slate-400">ADR: <span class="text-cyan-400 font-bold">124</span></span>
+<span class="w-[1px] h-4 bg-outline-variant/30"></span>
+<span class="text-slate-400">Debt: <span class="text-tertiary font-bold">42</span></span>
+<span class="w-[1px] h-4 bg-outline-variant/30"></span>
+<span class="text-slate-400">Audit: <span class="text-cyan-400 font-bold">10/24</span></span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 cursor-pointer transition-colors" data-icon="terminal">terminal</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 cursor-pointer transition-colors" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-tertiary rounded-full ring-2 ring-background"></span>
+</div>
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 cursor-pointer transition-colors" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Knowledge Graph Canvas -->
+<div class="flex-1 relative star-field scanline">
+<!-- SVG Connections Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40">
+<!-- Supercedes Flow -->
+<path d="M 300,200 L 500,350" fill="none" stroke="#8FF5FF" stroke-dasharray="4" stroke-width="1.5"></path>
+<path d="M 500,350 L 700,450" fill="none" stroke="#8FF5FF" stroke-dasharray="4" stroke-width="1.5"></path>
+<!-- Dependency Flow -->
+<path d="M 400,600 L 500,350" fill="none" stroke="#8DEDEC" stroke-width="2"></path>
+<!-- Conflict Alert -->
+<path d="M 700,450 L 800,250" fill="none" stroke="#FF716C" stroke-dasharray="2" stroke-width="1.5"></path>
+<!-- Arrowheads -->
+<circle cx="500" cy="350" fill="#8FF5FF" r="3"></circle>
+<circle cx="700" cy="450" fill="#8FF5FF" r="3"></circle>
+</svg>
+<!-- Floating Filter Control Bar -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 p-1 bg-surface-container-high/60 backdrop-blur-xl border border-outline-variant/30 rounded-lg shadow-2xl z-20">
+<button class="px-4 py-2 text-[10px] font-['JetBrains_Mono'] uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 rounded">Status: All</button>
+<button class="px-4 py-2 text-[10px] font-['JetBrains_Mono'] uppercase tracking-wider text-on-surface-variant hover:bg-surface-variant rounded transition-colors">Category</button>
+<button class="px-4 py-2 text-[10px] font-['JetBrains_Mono'] uppercase tracking-wider text-on-surface-variant hover:bg-surface-variant rounded transition-colors">Severity</button>
+<div class="w-[1px] h-4 bg-outline-variant mx-2"></div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="zoom_in">zoom_in</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="zoom_out">zoom_out</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="filter_center_focus">filter_center_focus</span>
+</button>
+</div>
+<!-- Interactive Nodes (Mock Positions) -->
+<!-- ADR-0001 Node -->
+<div class="absolute top-[180px] left-[240px] group cursor-pointer">
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded bg-surface-container-highest border border-outline-variant/50 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-[0_0_15px_rgba(143,245,255,0.2)] transition-all">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary" data-icon="inventory_2">inventory_2</span>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded border border-outline-variant/20">
+<span class="text-[10px] font-['JetBrains_Mono'] text-on-surface-variant">ADR-0001: Monolith</span>
+</div>
+</div>
+</div>
+<!-- Active Node (ADR-0002) -->
+<div class="absolute top-[320px] left-[460px] group cursor-pointer z-10">
+<div class="flex flex-col items-center gap-3">
+<div class="relative">
+<div class="absolute -inset-2 bg-primary/20 blur-xl rounded-full"></div>
+<div class="w-16 h-16 rounded bg-primary-container/20 border-2 border-primary flex items-center justify-center shadow-[0_0_20px_rgba(143,245,255,0.4)]">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="dataset">dataset</span>
+</div>
+</div>
+<div class="bg-primary/10 px-3 py-1 rounded border border-primary/40 backdrop-blur-md">
+<span class="text-xs font-['JetBrains_Mono'] font-bold text-primary tracking-tight">ADR-0002: React+FastAPI</span>
+</div>
+</div>
+</div>
+<!-- ADR-0003 Node -->
+<div class="absolute top-[430px] left-[650px] group cursor-pointer">
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded bg-surface-container-highest border border-outline-variant/50 flex items-center justify-center group-hover:border-secondary/50 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary" data-icon="account_tree">account_tree</span>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded border border-outline-variant/20">
+<span class="text-[10px] font-['JetBrains_Mono'] text-on-surface-variant">ADR-0003: Pipeline</span>
+</div>
+</div>
+</div>
+<!-- Architectural Debt Node -->
+<div class="absolute top-[220px] left-[780px] group cursor-pointer">
+<div class="flex flex-col items-center gap-2">
+<div class="w-12 h-12 rounded bg-surface-container-highest border border-tertiary/30 flex items-center justify-center group-hover:border-tertiary shadow-[0_0_10px_rgba(255,177,85,0.1)] transition-all">
+<span class="material-symbols-outlined text-tertiary" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded border border-tertiary/20">
+<span class="text-[10px] font-['JetBrains_Mono'] text-tertiary">DEBT: Legacy Auth</span>
+</div>
+</div>
+</div>
+<!-- Right Detail Side Panel -->
+<aside class="absolute right-0 top-0 bottom-0 w-80 glassmorphism border-l border-white/5 z-30 shadow-2xl flex flex-col">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex items-center justify-between mb-4">
+<span class="px-2 py-0.5 bg-secondary-container/30 text-secondary text-[10px] font-bold rounded border border-secondary/20 uppercase tracking-tighter">Technology</span>
+<span class="material-symbols-outlined text-on-surface-variant text-lg cursor-pointer hover:text-on-surface transition-colors" data-icon="close">close</span>
+</div>
+<h2 class="font-headline text-xl font-bold text-on-surface leading-tight mb-2">ADR-0002: React + FastAPI Migration</h2>
+<div class="flex gap-4 items-center">
+<div class="flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(141,237,236,0.6)]"></div>
+<span class="text-[10px] font-['JetBrains_Mono'] uppercase text-secondary">Accepted</span>
+</div>
+<span class="text-[10px] font-['JetBrains_Mono'] uppercase text-on-surface-variant">2023.10.24</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<section>
+<h3 class="text-[10px] font-['JetBrains_Mono'] uppercase tracking-[0.2em] text-on-surface-variant mb-3">Summary</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                Decouple the monolithic architecture in favor of a modern <span class="text-primary">React</span> frontend and <span class="text-primary">FastAPI</span> microservices to ensure horizontal scalability and developer velocity.
+                            </p>
+</section>
+<section>
+<h3 class="text-[10px] font-['JetBrains_Mono'] uppercase tracking-[0.2em] text-on-surface-variant mb-3">Context</h3>
+<div class="space-y-4">
+<div class="p-3 bg-surface-container rounded border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-xs text-secondary" data-icon="info">info</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface">Motivation</span>
+</div>
+<p class="text-xs text-on-surface-variant font-light italic">"The legacy Django templates are causing significant friction in UI consistency and rendering speed."</p>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-[10px] font-['JetBrains_Mono'] uppercase tracking-[0.2em] text-on-surface-variant mb-3">Relationships</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-2 rounded hover:bg-white/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="history">history</span>
+<span class="text-xs text-on-surface">Supersedes ADR-0001</span>
+</div>
+<span class="material-symbols-outlined text-xs text-on-surface-variant group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded hover:bg-white/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="link">link</span>
+<span class="text-xs text-on-surface">Depends on ADR-0003</span>
+</div>
+<span class="material-symbols-outlined text-xs text-on-surface-variant group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded hover:bg-white/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="error_outline">error_outline</span>
+<span class="text-xs text-on-surface">Conflict with Legacy Auth</span>
+</div>
+<span class="material-symbols-outlined text-xs text-on-surface-variant group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+</div>
+<div class="p-6 mt-auto border-t border-outline-variant/10">
+<button class="w-full py-3 bg-primary-container text-on-primary-container font-headline font-bold text-xs uppercase tracking-widest rounded flex items-center justify-center gap-2 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+                            View Documentation
+                        </button>
+</div>
+</aside>
+<!-- Floating Coordinates Display -->
+<div class="absolute bottom-6 left-6 font-['JetBrains_Mono'] text-[9px] text-on-surface-variant/40 pointer-events-none flex flex-col gap-1">
+<span>X_COORD: 1442.22</span>
+<span>Y_COORD: 821.05</span>
+<span>ZOOM_LVL: 1.25x</span>
+<span>RENDER: OPENGL_TITAN_PRO</span>
+</div>
+</div>
+</main>
+</div>
+<!-- Background Layer (Behind Everything) -->
+<div class="fixed inset-0 pointer-events-none -z-10 bg-background overflow-hidden">
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/5 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3"></div>
+</div>
+</body></html>

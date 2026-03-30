@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blueprint | Tactical Architecture Governance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#7fdede",
+              "error-dim": "#d7383b",
+              "on-surface-variant": "#a9abb3",
+              "surface-variant": "#22262f",
+              "tertiary-fixed-dim": "#ec9100",
+              "tertiary": "#ffb155",
+              "secondary-container": "#006a6a",
+              "error": "#ff716c",
+              "on-primary": "#005d63",
+              "on-error-container": "#ffa8a3",
+              "surface-container-lowest": "#000000",
+              "primary": "#8ff5ff",
+              "primary-fixed-dim": "#00deec",
+              "on-surface": "#ecedf6",
+              "secondary-fixed": "#8dedec",
+              "surface-tint": "#8ff5ff",
+              "primary-dim": "#00deec",
+              "on-primary-fixed": "#003f43",
+              "on-tertiary": "#593400",
+              "on-secondary": "#005858",
+              "on-tertiary-container": "#4c2b00",
+              "outline-variant": "#45484f",
+              "on-tertiary-fixed-variant": "#583300",
+              "surface-container-low": "#10131a",
+              "primary-container": "#00eefc",
+              "error-container": "#9f0519",
+              "on-tertiary-fixed": "#2b1600",
+              "on-secondary-fixed-variant": "#006262",
+              "outline": "#73757d",
+              "background": "#0b0e14",
+              "surface-container": "#161a21",
+              "tertiary-dim": "#ec9100",
+              "surface-container-highest": "#22262f",
+              "on-secondary-container": "#d9fffe",
+              "on-primary-container": "#005359",
+              "on-background": "#ecedf6",
+              "surface-dim": "#0b0e14",
+              "surface-bright": "#282c36",
+              "secondary": "#8dedec",
+              "surface": "#0b0e14",
+              "surface-container-high": "#1c2028",
+              "primary-fixed": "#00eefc",
+              "inverse-on-surface": "#52555c",
+              "on-secondary-fixed": "#004343",
+              "inverse-primary": "#006a71",
+              "tertiary-fixed": "#fe9d00",
+              "secondary-dim": "#7fdede",
+              "on-primary-fixed-variant": "#005e64",
+              "on-error": "#490006",
+              "inverse-surface": "#f9f9ff",
+              "tertiary-container": "#fe9d00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"],
+              "mono": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0b0e14;
+            background-image: 
+                linear-gradient(rgba(143, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(143, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glassmorphism {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .tonal-shift {
+            background: linear-gradient(180deg, rgba(16, 19, 26, 0.8) 0%, rgba(11, 14, 20, 1) 100%);
+        }
+        .status-pulse {
+            box-shadow: 0 0 8px currentColor;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/80 backdrop-blur-xl shadow-[4px_0_24px_rgba(0,0,0,0.5)] flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm bg-primary/20 border border-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">architecture</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-cyan-400 drop-shadow-[0_0_8px_rgba(143,245,255,0.5)] font-['Space_Grotesk'] tracking-tight">Blueprint</h1>
+<p class="text-[10px] text-slate-500 font-mono tracking-widest uppercase">Tactical Arch Governance</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-cyan-400 border-l-2 border-cyan-400 bg-cyan-400/10 font-['Space_Grotesk'] tracking-tight transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-sm font-medium">Status</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-sm">Graph</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">code</span>
+<span class="text-sm">IDE/Editor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-sm">Audit</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="text-sm">Health</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-primary-container text-on-primary-container font-headline font-bold rounded-lg shadow-[0_0_15px_rgba(143,245,255,0.3)] hover:scale-[0.98] transition-transform duration-200">
+<span class="material-symbols-outlined">add</span>
+<span>New Node</span>
+</button>
+<div class="mt-6 flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5">
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-primary/30" data-alt="close-up portrait of a professional architect in a tech environment, focused expression, cool studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY6wOgD83_AmdPcLCtNTQ4BYX_Dgir-K39mnNXOmk0PCToql3w1yDuDzVpsX61DggDs84_5gqKncwUg-oDg5BFfY0H8B64bJP_arb9cqd9KfcFDAReuafaPTtRseCinAEdexjArT6nSu095BP3riejipCvYvdTvm4wWYD9IHMIBPeocSZ5Ixj5mRRQ3Xo_qoMvQb_6Cyb3GQZP7Nsh9C6edaGWTviwuyhUvUQa7F5hsRcw7ufdydAKRc8yhBTNxeEARDbsM151Hh0"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-on-surface truncate">Arch. Vance</p>
+<p class="text-[10px] text-slate-500 font-mono">L7 ARCHITECT</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="h-16 fixed top-0 right-0 left-64 z-40 border-b border-cyan-500/10 bg-slate-900/60 backdrop-blur-md flex items-center justify-between px-8 w-full font-['JetBrains_Mono'] text-xs uppercase tracking-widest shadow-lg shadow-black/20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-6">
+<span class="text-cyan-400 font-bold">ADR: 124</span>
+<span class="text-slate-400">Debt: 42</span>
+<span class="text-slate-400">Audit: 10/24</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 text-sm">search</span>
+</div>
+<input class="bg-surface-container-lowest border-none text-[10px] pl-10 pr-4 py-2 rounded w-64 focus:ring-1 focus:ring-primary text-on-surface placeholder-slate-600 transition-all" placeholder="QUERY NODES..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-slate-400">
+<button class="hover:text-cyan-200 transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-cyan-200 transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="hover:text-cyan-200 transition-colors"><span class="material-symbols-outlined">terminal</span></button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 p-8 min-h-screen">
+<!-- Header Section -->
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-1">Architecture Status</h2>
+<p class="text-slate-500 font-mono text-xs">GLOBAL_MESH_HEALTH: NOMINAL // SYSTEM_TIME: 2024.10.24.12:04</p>
+</div>
+<div class="flex gap-4">
+<div class="px-4 py-2 bg-surface-container-low rounded-lg border border-outline-variant/10 flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary status-pulse"></div>
+<span class="font-mono text-[10px] text-on-surface-variant uppercase">Infrastructure Live</span>
+</div>
+</div>
+</div>
+<!-- Metric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Debt Card -->
+<div class="surface-container-high p-6 rounded-lg border border-tertiary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 blur-3xl -mr-16 -mt-16"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<span class="text-tertiary font-mono text-[10px] tracking-widest uppercase">Decision Debt Score</span>
+<span class="material-symbols-outlined text-tertiary">warning</span>
+</div>
+<div class="relative z-10">
+<span class="text-5xl font-headline font-bold text-on-surface">14</span>
+<span class="text-tertiary/60 font-mono text-sm ml-2">CRITICAL_THRESHOLD</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<div class="flex-1 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-2/3 shadow-[0_0_8px_rgba(255,177,85,0.5)]"></div>
+</div>
+<span class="text-[10px] font-mono text-tertiary">WARNING</span>
+</div>
+</div>
+<!-- Audit Card -->
+<div class="surface-container-high p-6 rounded-lg border border-primary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -mr-16 -mt-16"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<span class="text-primary font-mono text-[10px] tracking-widest uppercase">Last Audit</span>
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+<div class="relative z-10">
+<span class="text-5xl font-headline font-bold text-on-surface">12</span>
+<span class="text-primary/60 font-mono text-sm ml-2">DAYS_AGO</span>
+</div>
+<p class="mt-4 text-[10px] font-mono text-on-surface-variant">COMPLIANCE: 98.4% // NEXT_DUE: 48H</p>
+</div>
+<!-- Coverage Card -->
+<div class="surface-container-high p-6 rounded-lg border border-tertiary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 blur-3xl -mr-16 -mt-16"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<span class="text-tertiary font-mono text-[10px] tracking-widest uppercase">Fitness Coverage</span>
+<span class="material-symbols-outlined text-tertiary">error</span>
+</div>
+<div class="relative z-10">
+<span class="text-5xl font-headline font-bold text-on-surface">67%</span>
+<span class="text-tertiary/60 font-mono text-sm ml-2">GOVERNANCE_GAP</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<div class="flex-1 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[67%] shadow-[0_0_8px_rgba(255,177,85,0.5)]"></div>
+</div>
+<span class="text-[10px] font-mono text-tertiary">NEEDS_ACTION</span>
+</div>
+</div>
+</div>
+<!-- Middle Section: Graph & Suggestions -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+<!-- Knowledge Graph Visualizer -->
+<div class="lg:col-span-3 surface-container-low rounded-xl border border-white/5 p-8 relative min-h-[400px] overflow-hidden">
+<div class="flex justify-between items-center mb-10">
+<h3 class="font-headline text-lg font-medium text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+                        Architecture Decision Registry (ADR)
+                    </h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-primary"></div><span class="font-mono text-[9px] text-slate-400">ACCEPTED</span></div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-tertiary"></div><span class="font-mono text-[9px] text-slate-400">PROPOSED</span></div>
+<div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-error"></div><span class="font-mono text-[9px] text-slate-400">DEFERRED</span></div>
+</div>
+</div>
+<!-- Abstract Visual Graph Representation -->
+<div class="relative h-64 flex items-center justify-center">
+<!-- Nodes -->
+<div class="absolute w-20 h-20 border border-primary/30 rounded-lg bg-primary/5 flex flex-col items-center justify-center p-2 z-20">
+<span class="material-symbols-outlined text-primary text-xl mb-1">router</span>
+<span class="text-[8px] font-mono text-center">API_GATEWAY</span>
+</div>
+<!-- SVG for Connections -->
+<svg class="absolute inset-0 w-full h-full opacity-30 pointer-events-none">
+<path d="M 200,100 L 400,200 M 400,200 L 600,100 M 400,200 L 400,400" fill="none" stroke="#8ff5ff" stroke-dasharray="5,5" stroke-width="1"></path>
+<circle cx="400" cy="200" fill="none" r="40" stroke="#8ff5ff" stroke-opacity="0.2" stroke-width="0.5"></circle>
+</svg>
+<!-- Orbiting Nodes -->
+<div class="absolute top-10 left-1/4 w-16 h-16 border border-tertiary/30 rounded-lg bg-tertiary/5 flex flex-col items-center justify-center p-2">
+<span class="material-symbols-outlined text-tertiary text-lg mb-1">database</span>
+<span class="text-[8px] font-mono text-center">AUTH_STORE</span>
+</div>
+<div class="absolute top-10 right-1/4 w-16 h-16 border border-primary/30 rounded-lg bg-primary/5 flex flex-col items-center justify-center p-2">
+<span class="material-symbols-outlined text-primary text-lg mb-1">cloud_done</span>
+<span class="text-[8px] font-mono text-center">CDN_EDGE</span>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-16 h-16 border border-error/30 rounded-lg bg-error/5 flex flex-col items-center justify-center p-2">
+<span class="material-symbols-outlined text-error text-lg mb-1">warning</span>
+<span class="text-[8px] font-mono text-center">LEGACY_ESB</span>
+</div>
+</div>
+<div class="absolute bottom-6 left-6 right-6 flex justify-between items-center text-[10px] font-mono text-slate-600">
+<span>VIEW: TOPOLOGICAL_LAYOUT_04</span>
+<span>FOCUS: INTER-MODULE_DEPENDENCIES</span>
+</div>
+</div>
+<!-- Suggested Actions (Terminal Style) -->
+<div class="lg:col-span-1 surface-container p-6 rounded-xl border border-white/5 flex flex-col">
+<h3 class="font-headline text-sm font-bold text-on-surface mb-6 uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">terminal</span>
+                    Suggested Actions
+                </h3>
+<div class="space-y-4 flex-1">
+<div class="group cursor-pointer">
+<div class="bg-surface-container-lowest p-3 rounded border border-outline-variant/20 group-hover:border-primary/40 transition-colors">
+<p class="font-mono text-xs text-primary mb-1">/blueprint:review</p>
+<p class="text-[10px] text-on-surface-variant">Review 4 conflicting ADRs in the Networking domain.</p>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="bg-surface-container-lowest p-3 rounded border border-outline-variant/20 group-hover:border-primary/40 transition-colors">
+<p class="font-mono text-xs text-primary mb-1">/blueprint:evaluate</p>
+<p class="text-[10px] text-on-surface-variant">Perform architectural fitness test on 'Auth-Service-v2'.</p>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="bg-surface-container-lowest p-3 rounded border border-outline-variant/20 group-hover:border-primary/40 transition-colors">
+<p class="font-mono text-xs text-on-surface-variant mb-1">/blueprint:prune</p>
+<p class="text-[10px] text-on-surface-variant/60">Archive 12 deferred decisions from FY23.</p>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-white/5">
+<div class="flex items-center gap-2 text-[10px] font-mono text-tertiary">
+<span class="material-symbols-outlined text-xs">info</span>
+<span>3 CRITICAL UPDATES PENDING</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Decision Timeline Section -->
+<div class="surface-container-low rounded-xl border border-white/5 p-6">
+<h3 class="font-headline text-lg font-medium text-on-surface mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                Decision Timeline
+            </h3>
+<div class="relative">
+<!-- Timeline Line -->
+<div class="absolute left-[39px] top-0 bottom-0 w-px bg-outline-variant/20"></div>
+<!-- Timeline Items -->
+<div class="space-y-8 relative">
+<!-- Item 1 -->
+<div class="flex items-start gap-8">
+<div class="w-20 text-right pt-1">
+<span class="font-mono text-[10px] text-slate-500">OCT 22</span>
+</div>
+<div class="relative z-10 w-5 h-5 rounded-full bg-surface-container-low border-2 border-primary flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+</div>
+<div class="flex-1 -mt-1">
+<h4 class="text-sm font-bold text-on-surface">ADR-124: Database Sharding Strategy</h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">ACCEPTED</span>
+<span class="text-[10px] text-slate-500">Initiated by: Arch. Vance</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-start gap-8">
+<div class="w-20 text-right pt-1">
+<span class="font-mono text-[10px] text-slate-500">OCT 18</span>
+</div>
+<div class="relative z-10 w-5 h-5 rounded-full bg-surface-container-low border-2 border-tertiary flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+</div>
+<div class="flex-1 -mt-1">
+<h4 class="text-sm font-bold text-on-surface">ADR-122: WebSocket Cluster Implementation</h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-tertiary/10 text-tertiary border border-tertiary/20">PROPOSED</span>
+<span class="text-[10px] text-slate-500">Initiated by: Arch. Chen</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-start gap-8">
+<div class="w-20 text-right pt-1">
+<span class="font-mono text-[10px] text-slate-500">OCT 12</span>
+</div>
+<div class="relative z-10 w-5 h-5 rounded-full bg-surface-container-low border-2 border-slate-700 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+</div>
+<div class="flex-1 -mt-1">
+<h4 class="text-sm font-bold text-slate-500">ADR-119: GraphQL Migration for Legacy APIs</h4>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 uppercase">Deferred</span>
+<span class="text-[10px] text-slate-600">Postponed for Q1 Resource Realignment</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Detail (Architecture Health Map Visual) -->
+<div class="fixed bottom-6 right-6 w-72 p-4 surface-container-high border border-primary/10 rounded-lg shadow-2xl glassmorphism hidden md:block">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-mono text-primary uppercase font-bold">System Load Monitor</span>
+<span class="material-symbols-outlined text-xs text-slate-500">expand_less</span>
+</div>
+<div class="h-24 flex items-end gap-1 px-1">
+<div class="w-full bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="w-full bg-primary/40 h-[60%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[40%] rounded-t-sm"></div>
+<div class="w-full bg-tertiary/40 h-[80%] rounded-t-sm"></div>
+<div class="w-full bg-tertiary/60 h-[90%] rounded-t-sm pulse"></div>
+<div class="w-full bg-primary/20 h-[50%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[40%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[30%] rounded-t-sm"></div>
+</div>
+<p class="mt-2 text-[9px] font-mono text-slate-500 text-center">ANOMALY DETECTED IN NODE: AUTH-REPLICA-3</p>
+</div>
+</body></html>

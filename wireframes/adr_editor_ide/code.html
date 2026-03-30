@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blueprint | Tactical ADR Governance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#7fdede",
+                        "error-dim": "#d7383b",
+                        "on-surface-variant": "#a9abb3",
+                        "surface-variant": "#22262f",
+                        "tertiary-fixed-dim": "#ec9100",
+                        "tertiary": "#ffb155",
+                        "secondary-container": "#006a6a",
+                        "error": "#ff716c",
+                        "on-primary": "#005d63",
+                        "on-error-container": "#ffa8a3",
+                        "surface-container-lowest": "#000000",
+                        "primary": "#8ff5ff",
+                        "primary-fixed-dim": "#00deec",
+                        "on-surface": "#ecedf6",
+                        "secondary-fixed": "#8dedec",
+                        "surface-tint": "#8ff5ff",
+                        "primary-dim": "#00deec",
+                        "on-primary-fixed": "#003f43",
+                        "on-tertiary": "#593400",
+                        "on-secondary": "#005858",
+                        "on-tertiary-container": "#4c2b00",
+                        "outline-variant": "#45484f",
+                        "on-tertiary-fixed-variant": "#583300",
+                        "surface-container-low": "#10131a",
+                        "primary-container": "#00eefc",
+                        "error-container": "#9f0519",
+                        "on-tertiary-fixed": "#2b1600",
+                        "on-secondary-fixed-variant": "#006262",
+                        "outline": "#73757d",
+                        "background": "#0b0e14",
+                        "surface-container": "#161a21",
+                        "tertiary-dim": "#ec9100",
+                        "surface-container-highest": "#22262f",
+                        "on-secondary-container": "#d9fffe",
+                        "on-primary-container": "#005359",
+                        "on-background": "#ecedf6",
+                        "surface-dim": "#0b0e14",
+                        "surface-bright": "#282c36",
+                        "secondary": "#8dedec",
+                        "surface": "#0b0e14",
+                        "surface-container-high": "#1c2028",
+                        "primary-fixed": "#00eefc",
+                        "inverse-on-surface": "#52555c",
+                        "on-secondary-fixed": "#004343",
+                        "inverse-primary": "#006a71",
+                        "tertiary-fixed": "#fe9d00",
+                        "secondary-dim": "#7fdede",
+                        "on-primary-fixed-variant": "#005e64",
+                        "on-error": "#490006",
+                        "inverse-surface": "#f9f9ff",
+                        "tertiary-container": "#fe9d00"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glassmorphism {
+            backdrop-filter: blur(20px);
+            background: rgba(28, 32, 40, 0.7);
+        }
+        .tonal-shift {
+            background: linear-gradient(180deg, rgba(16, 19, 26, 0.5) 0%, rgba(11, 14, 20, 1) 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0e14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #45484f;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8ff5ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-hidden h-screen flex">
+<!-- SideNavBar (JSON Derived) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/80 backdrop-blur-xl shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-50 flex flex-col py-6">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-cyan-400 drop-shadow-[0_0_8px_rgba(143,245,255,0.5)] font-['Space_Grotesk'] tracking-tight">Blueprint</h1>
+<p class="text-[10px] text-slate-500 font-['JetBrains_Mono'] uppercase tracking-widest mt-1">Tactical Arch Governance</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Status</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="text-sm">Graph</span>
+</a>
+<!-- Active State Mapping: IDE/Editor -->
+<a class="flex items-center gap-3 px-4 py-3 text-cyan-400 border-l-2 border-cyan-400 bg-cyan-400/10 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+<span class="text-sm font-['Space_Grotesk']">IDE/Editor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="text-sm">Audit</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+<span class="text-sm">Health</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 bg-primary-container text-on-primary-container text-xs font-bold rounded-lg flex items-center justify-center gap-2 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Node
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar (JSON Derived) -->
+<header class="h-16 flex items-center justify-between px-8 w-full border-b border-white/5 bg-slate-900/60 backdrop-blur-md z-40">
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="text-cyan-400 font-bold font-['JetBrains_Mono'] text-xs uppercase tracking-widest">ADR: 124</span>
+<span class="text-slate-400 font-['JetBrains_Mono'] text-xs uppercase tracking-widest hover:text-cyan-200 transition-colors">Debt: 42</span>
+<span class="text-slate-400 font-['JetBrains_Mono'] text-xs uppercase tracking-widest hover:text-cyan-200 transition-colors">Audit: 10/24</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 cursor-pointer" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-tertiary rounded-full shadow-[0_0_8px_#ffb155]"></span>
+</div>
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 cursor-pointer" data-icon="settings">settings</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 cursor-pointer" data-icon="terminal">terminal</span>
+<div class="h-8 w-8 rounded-full border border-primary/20 overflow-hidden ml-2 bg-surface-container-highest">
+<img alt="Architect Avatar" data-alt="portrait of a cyberpunk architect in a dark obsidian room with neon blue highlights and a digital visor, high fidelity 3d render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6a5gFNgr05STeOLNnNKkfuFWSUM8gSGzZ-h3GHIeifZ7KgnXsEbr1H9Z2zeXXzba3cgDYeCzTwPIkT6YshUUdViEock2LDTv-BlWDtGyEj8122jIleV4wMAaDU5RoBf5lI8ErsTpLw03e--yRaoyEYw2IMjZqyt9G-BJV73h6Ecciu0GaLheMxCwXD2k9JY3ToOcPGIs30-K_AnJRMLZFsUPv0nNcj2YnFcOHw6QeCpC7szOl3JWWRCpFEJxugyp-KfHKUFukOto"/>
+</div>
+</div>
+</header>
+<!-- IDE Workspace -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Pane: File Explorer -->
+<section class="w-64 border-r border-outline-variant/10 bg-surface-container-low flex flex-col">
+<div class="p-4 border-b border-outline-variant/10 flex items-center justify-between">
+<span class="text-[10px] font-bold font-['JetBrains_Mono'] text-outline tracking-widest uppercase">ADR Directory</span>
+<span class="material-symbols-outlined text-sm text-outline cursor-pointer" data-icon="filter_list">filter_list</span>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<!-- Status Category: Accepted -->
+<div class="px-4 py-2 flex items-center gap-2 text-[10px] font-bold text-secondary uppercase tracking-widest opacity-80">
+<span class="material-symbols-outlined text-[14px]" data-icon="folder_open">folder_open</span>
+                        Accepted
+                    </div>
+<div class="space-y-0.5 mb-4">
+<div class="px-6 py-1.5 flex items-center gap-2 text-xs text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined text-sm group-hover:text-primary transition-colors" data-icon="description">description</span>
+                            ADR-0012-Event-Bus
+                        </div>
+<div class="px-6 py-1.5 flex items-center gap-2 text-xs text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined text-sm group-hover:text-primary transition-colors" data-icon="description">description</span>
+                            ADR-0015-Auth-Authz
+                        </div>
+</div>
+<!-- Status Category: Proposed (Active) -->
+<div class="px-4 py-2 flex items-center gap-2 text-[10px] font-bold text-tertiary uppercase tracking-widest opacity-80">
+<span class="material-symbols-outlined text-[14px]" data-icon="folder_open">folder_open</span>
+                        Proposed
+                    </div>
+<div class="space-y-0.5">
+<div class="px-6 py-1.5 flex items-center gap-2 text-xs text-primary bg-primary/5 border-r-2 border-primary cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="edit_note">edit_note</span>
+                            ADR-0029-Awaiting-Review
+                        </div>
+<div class="px-6 py-1.5 flex items-center gap-2 text-xs text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined text-sm group-hover:text-primary transition-colors" data-icon="description">description</span>
+                            ADR-0031-LLM-Inference
+                        </div>
+</div>
+</div>
+</section>
+<!-- Center Pane: Markdown Editor -->
+<section class="flex-1 bg-surface-container-lowest flex flex-col relative">
+<!-- Editor Header/Tabs -->
+<div class="flex bg-surface-container-low border-b border-outline-variant/10">
+<div class="px-4 py-3 border-r border-outline-variant/10 flex items-center gap-2 bg-surface-container-lowest border-t-2 border-t-primary">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="markdown">markdown</span>
+<span class="text-xs font-['JetBrains_Mono'] text-on-surface">ADR-0029.md</span>
+<span class="material-symbols-outlined text-xs text-outline hover:text-error cursor-pointer" data-icon="close">close</span>
+</div>
+</div>
+<!-- Markdown Content Area -->
+<div class="flex-1 p-8 overflow-y-auto font-['JetBrains_Mono'] text-sm leading-relaxed">
+<div class="max-w-3xl mx-auto space-y-6">
+<div class="flex items-center gap-4 text-outline mb-8">
+<span class="px-2 py-0.5 border border-primary/20 text-[10px] rounded text-primary">PROPOSED</span>
+<span class="text-[10px] tracking-widest">CREATED: 2023-10-24</span>
+<span class="text-[10px] tracking-widest">AUTHOR: @arch_lead</span>
+</div>
+<h1 class="text-3xl font-bold font-headline text-on-surface tracking-tight">ADR-0029: Hybrid Multi-Cloud Routing Logic</h1>
+<div class="space-y-4">
+<h2 class="text-lg font-bold text-secondary-dim border-b border-outline-variant/20 pb-1 mt-8">Status</h2>
+<p class="text-on-surface-variant">Proposed. Currently awaiting architectural review and structural impact assessment.</p>
+<h2 class="text-lg font-bold text-secondary-dim border-b border-outline-variant/20 pb-1 mt-8">Context</h2>
+<p class="text-on-surface-variant">Our current monolithic ingress controller is failing to handle cross-region failover latency. We need a decentralized routing layer that can negotiate traffic priority based on real-time node health.</p>
+<h2 class="text-lg font-bold text-secondary-dim border-b border-outline-variant/20 pb-1 mt-8">Decision</h2>
+<div class="bg-surface-container-high/40 p-4 rounded-lg border-l-4 border-primary">
+<p class="text-primary-dim font-medium italic">"We will implement a sidecar proxy pattern using Istio Service Mesh, delegating traffic decisions to local Envoy instances."</p>
+</div>
+<h2 class="text-lg font-bold text-secondary-dim border-b border-outline-variant/20 pb-1 mt-8">Consequences</h2>
+<ul class="list-disc list-inside text-on-surface-variant space-y-2">
+<li>Increased infrastructure overhead (Envoy sidecars).</li>
+<li>Complex distributed tracing requirement.</li>
+<li>Potential performance hit on cold starts.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Pane: AI Assistant (The Cranky Senior Engineer) -->
+<section class="w-80 border-l border-outline-variant/10 bg-surface-container-low flex flex-col">
+<div class="p-4 border-b border-outline-variant/10 bg-surface-bright/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="psychology">psychology</span>
+<span class="text-xs font-bold font-headline tracking-wider uppercase">Devil's Advocate Review</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-6">
+<!-- AI Critique Card 1 -->
+<div class="glassmorphism p-4 rounded-xl border border-tertiary/20 relative group">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-tighter">Critique: Maintainability</span>
+<span class="material-symbols-outlined text-[14px] text-tertiary" data-icon="warning">warning</span>
+</div>
+<p class="text-xs text-on-surface italic leading-relaxed">
+                            "Another sidecar? We already have 40% memory overhead just from infra-plumbing. Have you considered the operational cost of managing Envoy configs for 200 microservices, or are we just following the hype cycle again?"
+                        </p>
+</div>
+<!-- AI Critique Card 2 -->
+<div class="glassmorphism p-4 rounded-xl border border-error/20 relative group">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-bold text-error uppercase tracking-tighter">Critique: Structural Impact</span>
+<span class="material-symbols-outlined text-[14px] text-error" data-icon="dangerous">dangerous</span>
+</div>
+<p class="text-xs text-on-surface leading-relaxed">
+                            "Decision #4 contradicts ADR-0012 regarding global state propagation. If you route locally, you break the eventual consistency model we built last quarter. Fix the alignment or prepare for race conditions in production."
+                        </p>
+</div>
+<!-- AI Critique Card 3 -->
+<div class="glassmorphism p-4 rounded-xl border border-secondary/20 relative group">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter">Suggestion: Testing</span>
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="tips_and_updates">tips_and_updates</span>
+</div>
+<p class="text-xs text-on-surface leading-relaxed">
+                            "At least add a 'Chaos Engineering' section to the consequences. I want to see how this 'routing logic' behaves when the control plane takes a nap."
+                        </p>
+</div>
+</div>
+<!-- Chat Input for AI -->
+<div class="p-4 bg-surface-container-high border-t border-outline-variant/10">
+<div class="flex items-center bg-surface-container-lowest rounded px-3 py-2 border border-outline-variant/30 focus-within:border-primary/50 transition-all">
+<input class="bg-transparent border-none focus:ring-0 text-xs text-on-surface w-full font-['JetBrains_Mono']" placeholder="Argue with the AI..." type="text"/>
+<span class="material-symbols-outlined text-sm text-outline hover:text-primary cursor-pointer" data-icon="send">send</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Bottom Panel: Terminal Output -->
+<footer class="h-40 border-t border-outline-variant/10 bg-surface-container-lowest flex flex-col">
+<div class="flex items-center gap-6 px-4 py-2 bg-surface-container-low border-b border-outline-variant/10">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold font-['JetBrains_Mono'] text-primary tracking-widest uppercase">Terminal</span>
+</div>
+<div class="flex items-center gap-4 text-outline text-[10px] font-['JetBrains_Mono']">
+<span class="hover:text-on-surface cursor-pointer">Problems (2)</span>
+<span class="hover:text-on-surface cursor-pointer border-b border-primary text-on-surface py-1 px-1">Output</span>
+<span class="hover:text-on-surface cursor-pointer">Audit Logs</span>
+</div>
+</div>
+<div class="flex-1 p-4 overflow-y-auto font-['JetBrains_Mono'] text-xs text-on-surface-variant">
+<div class="flex gap-2 mb-1">
+<span class="text-secondary">[INFO]</span>
+<span>Initiating dry-run for ADR-0029 compliance check...</span>
+</div>
+<div class="flex gap-2 mb-1">
+<span class="text-secondary">[SUCCESS]</span>
+<span>Syntax validation passed. Markdown format compliant.</span>
+</div>
+<div class="flex gap-2 mb-1">
+<span class="text-tertiary">[WARN]</span>
+<span>Inconsistent node tagging detected in DECISION section. Reference to 'Node-G' is ambiguous.</span>
+</div>
+<div class="flex gap-2 mb-1">
+<span class="text-error">[FAIL]</span>
+<span>Policy Violation: ADR must include an 'Alternative Considered' section according to GOV-PR-01.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-primary-dim">_</span>
+</div>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Only for main workspace) -->
+<div class="fixed bottom-48 right-8 z-50">
+<button class="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary-fixed shadow-[0_0_20px_rgba(143,245,255,0.4)] hover:scale-110 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-3xl" data-icon="commit" data-weight="fill">commit</span>
+</button>
+</div>
+</body></html>

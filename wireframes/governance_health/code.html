@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blueprint | Tactical Arch Governance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#7fdede",
+                        "error-dim": "#d7383b",
+                        "on-surface-variant": "#a9abb3",
+                        "surface-variant": "#22262f",
+                        "tertiary-fixed-dim": "#ec9100",
+                        "tertiary": "#ffb155",
+                        "secondary-container": "#006a6a",
+                        "error": "#ff716c",
+                        "on-primary": "#005d63",
+                        "on-error-container": "#ffa8a3",
+                        "surface-container-lowest": "#000000",
+                        "primary": "#8ff5ff",
+                        "primary-fixed-dim": "#00deec",
+                        "on-surface": "#ecedf6",
+                        "secondary-fixed": "#8dedec",
+                        "surface-tint": "#8ff5ff",
+                        "primary-dim": "#00deec",
+                        "on-primary-fixed": "#003f43",
+                        "on-tertiary": "#593400",
+                        "on-secondary": "#005858",
+                        "on-tertiary-container": "#4c2b00",
+                        "outline-variant": "#45484f",
+                        "on-tertiary-fixed-variant": "#583300",
+                        "surface-container-low": "#10131a",
+                        "primary-container": "#00eefc",
+                        "error-container": "#9f0519",
+                        "on-tertiary-fixed": "#2b1600",
+                        "on-secondary-fixed-variant": "#006262",
+                        "outline": "#73757d",
+                        "background": "#0b0e14",
+                        "surface-container": "#161a21",
+                        "tertiary-dim": "#ec9100",
+                        "surface-container-highest": "#22262f",
+                        "on-secondary-container": "#d9fffe",
+                        "on-primary-container": "#005359",
+                        "on-background": "#ecedf6",
+                        "surface-dim": "#0b0e14",
+                        "surface-bright": "#282c36",
+                        "secondary": "#8dedec",
+                        "surface": "#0b0e14",
+                        "surface-container-high": "#1c2028",
+                        "primary-fixed": "#00eefc",
+                        "inverse-on-surface": "#52555c",
+                        "on-secondary-fixed": "#004343",
+                        "inverse-primary": "#006a71",
+                        "tertiary-fixed": "#fe9d00",
+                        "secondary-dim": "#7fdede",
+                        "on-primary-fixed-variant": "#005e64",
+                        "on-error": "#490006",
+                        "inverse-surface": "#f9f9ff",
+                        "tertiary-container": "#fe9d00"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glassmorphism {
+            background: rgba(28, 32, 40, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .tonal-shift {
+            background: linear-gradient(180deg, rgba(16, 19, 26, 0.5) 0%, rgba(11, 14, 20, 1) 100%);
+        }
+        body {
+            background-color: #0b0e14;
+            color: #ecedf6;
+            font-family: 'Inter', sans-serif;
+        }
+        .hud-grid {
+            background-image: radial-gradient(circle, #1c2028 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .pulse-secondary {
+            box-shadow: 0 0 0 0 rgba(141, 237, 236, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(141, 237, 236, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(141, 237, 236, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(141, 237, 236, 0); }
+        }
+    </style>
+</head>
+<body class="hud-grid">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/80 backdrop-blur-xl shadow-[4px_0_24px_rgba(0,0,0,0.5)] flex flex-col h-full py-6 font-['Space_Grotesk'] tracking-tight z-50">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-cyan-400 drop-shadow-[0_0_8px_rgba(143,245,255,0.5)]">Blueprint</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-medium">Tactical Arch Governance</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Status</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="text-sm">Graph</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+<span class="text-sm">IDE/Editor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-cyan-400 border-l-2 border-cyan-400 bg-cyan-400/10 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="text-sm">Audit</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 font-['JetBrains_Mono'] hover:bg-slate-800/50 hover:text-cyan-300 transition-all scale-98 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+<span class="text-sm">Health</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 py-3 rounded-lg font-['JetBrains_Mono'] text-xs uppercase tracking-widest hover:bg-cyan-400/20 transition-all">
+                New Node
+            </button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-cyan-400/20" data-alt="Portrait of a male system architect in a high-tech dark room with soft blue neon backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWRLqURV90m-UWU_Llr9cwOJIsoZTvbJXmNeFX5HvZQumekTUR2mfy7vz5-C__D4PS3EXDKbyVQ-wpInvYptMRt8bYoh2Yocs5MJr0ggBjKtMAdRq0cqXyhEHCZk2V1xa0FP2j5Ize7kDKoS8k4fI8eV4v6N4-i6GQ-rYylivWqCUm6sY1WlA-a1ydWYfAiST7y__sNaT0J9t-e6uwawPo5vcxJGrkc7K_B__jS5gnDPUgrjH21sh-mDbtUuDYLn_a995abq1DyJ4"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-slate-200 truncate">Arch_Lead_01</p>
+<p class="text-[10px] text-slate-500 font-['JetBrains_Mono']">Lvl 4 Evaluator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Component -->
+<header class="h-16 fixed top-0 right-0 left-64 z-40 border-b border-cyan-500/10 bg-slate-900/60 backdrop-blur-md shadow-lg shadow-black/20 glassmorphism flex items-center justify-between px-8 w-full font-['JetBrains_Mono'] text-xs uppercase tracking-widest">
+<div class="flex gap-8">
+<span class="text-slate-400 hover:text-cyan-200 transition-colors duration-150 cursor-pointer">ADR: 124</span>
+<span class="text-slate-400 hover:text-cyan-200 transition-colors duration-150 cursor-pointer">Debt: 42</span>
+<span class="text-cyan-400 font-bold transition-colors duration-150 cursor-pointer">Audit: 10/24</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<input class="bg-black/40 border border-white/5 rounded-full px-4 py-1 text-[10px] w-48 focus:ring-1 focus:ring-cyan-400 outline-none placeholder:text-slate-600" placeholder="QUERY ARCH..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 text-[16px] text-slate-500" data-icon="search">search</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400">
+<span class="material-symbols-outlined cursor-pointer hover:text-cyan-200" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-cyan-200" data-icon="settings">settings</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-cyan-200" data-icon="terminal">terminal</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-10">
+<!-- Dashboard Header -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<h2 class="font-headline text-4xl font-bold tracking-tight text-white mb-2 uppercase">Governance &amp; Health</h2>
+<div class="flex items-center gap-4">
+<span class="text-secondary font-['JetBrains_Mono'] text-sm px-3 py-1 bg-secondary-container/20 rounded-full flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full pulse-secondary"></span>
+                        SYSTEM NOMINAL
+                    </span>
+<span class="text-slate-500 font-['JetBrains_Mono'] text-sm tracking-tighter">ENVIRONMENT: PRODUCTION-ALPHA</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="glassmorphism p-4 border border-outline-variant/10 rounded-lg flex items-center gap-6">
+<div class="text-center">
+<p class="text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Overall Health</p>
+<div class="relative inline-flex items-center justify-center">
+<svg class="w-12 h-12">
+<circle class="text-slate-800" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-secondary" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125" stroke-dashoffset="25" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold text-white">82%</span>
+</div>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Compliance</p>
+<div class="relative inline-flex items-center justify-center">
+<svg class="w-12 h-12">
+<circle class="text-slate-800" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="3"></circle>
+<circle class="text-primary" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125" stroke-dashoffset="10" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold text-white">94%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 1: Decision Debt Table & Drift Detection (Bento Grid) -->
+<div class="grid grid-cols-12 gap-6 mb-8">
+<!-- Decision Debt Table -->
+<div class="col-span-8 glassmorphism border border-outline-variant/10 rounded-xl overflow-hidden shadow-2xl">
+<div class="px-6 py-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-bright/20">
+<h3 class="font-headline text-lg font-semibold tracking-tight uppercase flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="gavel">gavel</span>
+                        Decision Debt Table
+                    </h3>
+<span class="font-['JetBrains_Mono'] text-[10px] text-tertiary px-2 py-0.5 border border-tertiary/20 rounded">4 DEFERRED ADRs</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low/50 font-['JetBrains_Mono'] text-[10px] text-slate-500 uppercase tracking-widest">
+<tr>
+<th class="px-6 py-3 font-medium">ADR REF</th>
+<th class="px-6 py-3 font-medium">TRIGGER CONDITION</th>
+<th class="px-6 py-3 font-medium">STATUS</th>
+<th class="px-6 py-3 font-medium text-right">DEBT SCORE</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 font-body text-sm">
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-['JetBrains_Mono'] text-primary">ADR-084</span>
+<span class="text-xs text-slate-400">Micro-frontend Migration</span>
+</div>
+</td>
+<td class="px-6 py-4 font-['JetBrains_Mono'] text-xs">Repo Size &gt; 1.2GB</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-tertiary/10 text-tertiary text-[10px] border border-tertiary/20 font-bold uppercase">Approaching</span>
+</td>
+<td class="px-6 py-4 text-right font-['JetBrains_Mono'] text-white">14.2</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-['JetBrains_Mono'] text-primary">ADR-102</span>
+<span class="text-xs text-slate-400">Redis Cache Invalidation</span>
+</div>
+</td>
+<td class="px-6 py-4 font-['JetBrains_Mono'] text-xs">Latency &gt; 150ms</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-error/10 text-error text-[10px] border border-error/20 font-bold uppercase">Met (Violated)</span>
+</td>
+<td class="px-6 py-4 text-right font-['JetBrains_Mono'] text-white font-bold">28.5</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-['JetBrains_Mono'] text-primary">ADR-119</span>
+<span class="text-xs text-slate-400">Auth-Z Centralization</span>
+</div>
+</td>
+<td class="px-6 py-4 font-['JetBrains_Mono'] text-xs">Service Count &gt; 12</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-secondary/10 text-secondary text-[10px] border border-secondary/20 font-bold uppercase">Healthy</span>
+</td>
+<td class="px-6 py-4 text-right font-['JetBrains_Mono'] text-white">04.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Drift Detection History (Temporal Erosion Detection) -->
+<div class="col-span-4 glassmorphism border border-outline-variant/10 rounded-xl flex flex-col p-6 overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<h3 class="font-headline text-lg font-semibold tracking-tight uppercase flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="show_chart">show_chart</span>
+                        Arch Drift
+                    </h3>
+<div class="text-right">
+<span class="block font-['JetBrains_Mono'] text-2xl text-white">+8.4%</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-widest">Erosion Velocity</span>
+</div>
+</div>
+<div class="flex-1 relative flex flex-col justify-end gap-2 pb-2">
+<div class="flex items-end justify-between h-32 gap-1">
+<div class="w-full bg-slate-800 rounded-t-sm h-[20%]"></div>
+<div class="w-full bg-slate-800 rounded-t-sm h-[25%]"></div>
+<div class="w-full bg-slate-800 rounded-t-sm h-[35%]"></div>
+<div class="w-full bg-slate-700 rounded-t-sm h-[30%]"></div>
+<div class="w-full bg-slate-700 rounded-t-sm h-[45%]"></div>
+<div class="w-full bg-secondary/40 rounded-t-sm h-[55%]"></div>
+<div class="w-full bg-secondary/60 rounded-t-sm h-[65%]"></div>
+<div class="w-full bg-secondary/80 rounded-t-sm h-[80%] border-t border-secondary shadow-[0_-4px_12px_rgba(141,237,236,0.3)]"></div>
+</div>
+<div class="flex justify-between font-['JetBrains_Mono'] text-[8px] text-slate-600 uppercase border-t border-white/5 pt-2">
+<span>Q1 2024</span>
+<span>Q2 2024</span>
+<span>PRESENT</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mt-4 leading-relaxed italic">"Structural entropy detected in Core-API module; coupling metrics exceeding ADR-94 threshold."</p>
+</div>
+</div>
+<!-- Section 2: Fitness Function Monitor -->
+<div class="mb-8">
+<h3 class="font-headline text-xl font-semibold tracking-tight uppercase mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="monitor_heart">monitor_heart</span>
+                Fitness Function Monitor
+            </h3>
+<div class="grid grid-cols-4 gap-6">
+<!-- Function Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-lg p-5 hover:border-primary/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary p-2 bg-secondary/10 rounded-lg" data-icon="flowsheet">flowsheet</span>
+<span class="font-['JetBrains_Mono'] text-[10px] text-secondary">ACTIVE</span>
+</div>
+<p class="text-xs font-bold text-white mb-1 uppercase tracking-tight">Cycle Dependencies</p>
+<p class="text-[10px] text-slate-500 font-body mb-4">Ensures no circularity in core package structures.</p>
+<div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[100%]"></div>
+</div>
+<div class="mt-2 flex justify-between text-[9px] font-['JetBrains_Mono'] text-slate-600">
+<span>PASS: 1244 / 1244</span>
+<span>100%</span>
+</div>
+</div>
+<!-- Function Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-lg p-5 hover:border-primary/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary p-2 bg-primary/10 rounded-lg" data-icon="shield_with_heart">shield_with_heart</span>
+<span class="font-['JetBrains_Mono'] text-[10px] text-primary">SCANNING</span>
+</div>
+<p class="text-xs font-bold text-white mb-1 uppercase tracking-tight">Auth Boundary Leak</p>
+<p class="text-[10px] text-slate-500 font-body mb-4">Detects unauthorized calls to private domain APIs.</p>
+<div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+<div class="mt-2 flex justify-between text-[9px] font-['JetBrains_Mono'] text-slate-600">
+<span>PASS: 84 / 92</span>
+<span>92%</span>
+</div>
+</div>
+<!-- Function Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-lg p-5 border-tertiary/20 bg-tertiary/5 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-tertiary p-2 bg-tertiary/10 rounded-lg" data-icon="history_edu">history_edu</span>
+<span class="font-['JetBrains_Mono'] text-[10px] text-tertiary">WARNING</span>
+</div>
+<p class="text-xs font-bold text-white mb-1 uppercase tracking-tight">Obsolescence Probe</p>
+<p class="text-[10px] text-slate-500 font-body mb-4">Checks for library versions &gt; 2 years out of support.</p>
+<div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[65%]"></div>
+</div>
+<div class="mt-2 flex justify-between text-[9px] font-['JetBrains_Mono'] text-slate-600">
+<span>PASS: 42 / 65</span>
+<span>65%</span>
+</div>
+</div>
+<!-- Function Card 4 -->
+<div class="bg-surface-container-low border border-outline-variant/10 rounded-lg p-5 hover:border-primary/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-slate-400 p-2 bg-slate-800 rounded-lg" data-icon="electric_bolt">electric_bolt</span>
+<span class="font-['JetBrains_Mono'] text-[10px] text-slate-500">STANDBY</span>
+</div>
+<p class="text-xs font-bold text-white mb-1 uppercase tracking-tight">Mutation Resilience</p>
+<p class="text-[10px] text-slate-500 font-body mb-4">Automated chaos tests on data persistence layers.</p>
+<div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+<div class="bg-slate-700 h-full w-[0%]"></div>
+</div>
+<div class="mt-2 flex justify-between text-[9px] font-['JetBrains_Mono'] text-slate-600">
+<span>SCHEDULED</span>
+<span>--%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Audit Logs & Events -->
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-12 glassmorphism border border-outline-variant/10 rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-lg font-semibold tracking-tight uppercase flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400" data-icon="history">history</span>
+                        Governance Event Log
+                    </h3>
+<div class="flex gap-2">
+<button class="bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Export .LOG</button>
+<button class="bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-['JetBrains_Mono'] uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Filter</button>
+</div>
+</div>
+<div class="space-y-3 font-body">
+<!-- Event 1 -->
+<div class="flex items-center gap-4 py-3 px-4 bg-surface-container-low/50 rounded-lg border-l-4 border-secondary">
+<span class="font-['JetBrains_Mono'] text-[10px] text-slate-500 w-24">2024.10.24 14:20</span>
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="verified">verified</span>
+<div class="flex-1">
+<p class="text-sm font-medium text-white">Quarterly Audit Completed</p>
+<p class="text-xs text-slate-500">Strategic alignment confirmed for high-traffic ingestion pipelines.</p>
+</div>
+<span class="font-['JetBrains_Mono'] text-[10px] px-2 py-0.5 bg-secondary/10 text-secondary border border-secondary/20 rounded">SUCCESS</span>
+</div>
+<!-- Event 2 -->
+<div class="flex items-center gap-4 py-3 px-4 bg-surface-container-low/50 rounded-lg border-l-4 border-tertiary">
+<span class="font-['JetBrains_Mono'] text-[10px] text-slate-500 w-24">2024.10.22 09:12</span>
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="warning">warning</span>
+<div class="flex-1">
+<p class="text-sm font-medium text-white">Retrospective: Service Coupling</p>
+<p class="text-xs text-slate-500">Action Item #42: Resolve "Order" and "Inventory" circular reference.</p>
+</div>
+<span class="font-['JetBrains_Mono'] text-[10px] px-2 py-0.5 bg-tertiary/10 text-tertiary border border-tertiary/20 rounded">PENDING</span>
+</div>
+<!-- Event 3 -->
+<div class="flex items-center gap-4 py-3 px-4 bg-surface-container-low/50 rounded-lg border-l-4 border-primary">
+<span class="font-['JetBrains_Mono'] text-[10px] text-slate-500 w-24">2024.10.21 16:45</span>
+<span class="material-symbols-outlined text-primary text-lg" data-icon="add_circle">add_circle</span>
+<div class="flex-1">
+<p class="text-sm font-medium text-white">New Evaluation: ADR-125</p>
+<p class="text-xs text-slate-500">Proposal for Event-Driven Ledger architecture under review.</p>
+</div>
+<span class="font-['JetBrains_Mono'] text-[10px] px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 rounded">OPEN</span>
+</div>
+<!-- Event 4 -->
+<div class="flex items-center gap-4 py-3 px-4 bg-surface-container-low/50 rounded-lg border-l-4 border-error">
+<span class="font-['JetBrains_Mono'] text-[10px] text-slate-500 w-24">2024.10.20 23:58</span>
+<span class="material-symbols-outlined text-error text-lg" data-icon="error">error</span>
+<div class="flex-1">
+<p class="text-sm font-medium text-white">Automated Governance Violation</p>
+<p class="text-xs text-slate-500">Fitness Function 'Auth Boundary Leak' triggered on PR-9242.</p>
+</div>
+<span class="font-['JetBrains_Mono'] text-[10px] px-2 py-0.5 bg-error/10 text-error border border-error/20 rounded">CRITICAL</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual System Status Overlay (Bottom Right) -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
+<div class="glassmorphism p-3 border border-outline-variant/20 rounded-lg flex items-center gap-3 shadow-2xl">
+<div class="w-2 h-2 bg-secondary rounded-full pulse-secondary"></div>
+<span class="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest text-slate-300">Governance Engine Online</span>
+<div class="h-4 w-px bg-white/10 mx-2"></div>
+<span class="font-['JetBrains_Mono'] text-[10px] text-slate-500">LATENCY: 12ms</span>
+</div>
+</div>
+</body></html>
