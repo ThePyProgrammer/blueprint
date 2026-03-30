@@ -102,15 +102,44 @@ Always display this first:
 
 ### Step 3: Generate Interactive HTML Dashboard
 
-After the terminal display, generate an interactive HTML file with a visual knowledge
-graph and offer to open it:
+After the terminal display, generate the dashboard by:
 
-```bash
-# Write to a temp file and open
-/tmp/blueprint-dashboard-{timestamp}.html
+1. Read the template from `assets/dashboard.html` in the blueprint plugin directory
+   (find it via: the plugin's install location, or `~/pragnition/blueprint/assets/dashboard.html`)
+2. Build the `DATA` object from the metrics gathered in Step 1
+3. Replace the placeholder `__BLUEPRINT_DATA__` in the template with the JSON data
+4. Write to `/tmp/blueprint-dashboard-{timestamp}.html`
+5. Open in browser
+
+**The DATA object structure:**
+
+```javascript
+{
+  generated: "2026-03-30",
+  health_score: "ADEQUATE",      // STRONG / ADEQUATE / CONCERNING / CRITICAL
+  debt_score: 14,
+  triggers_met: 1,
+  operations: {
+    audit: "2026-03-18",         // ISO date or null
+    evaluation: null,
+    retro: "2026-03-27",
+    drift: null,
+    status: "2026-03-30"
+  },
+  adrs: [
+    { number: "ADR-0001", title: "Use ADRs...", status: "Accepted",
+      category: "Process", date: "2026-03-30", severity: "Medium",
+      trigger: null, trigger_met: false, debt_score: 0 },
+    // ... one entry per ADR
+  ],
+  edges: [
+    { from: "ADR-0003", to: "ADR-0008", type: "DEPENDS_ON" },
+    // ... from relationships.toml
+  ]
+}
 ```
 
-**The HTML dashboard includes:**
+**The HTML dashboard includes (4 tabs, matching the wireframe design system):**
 
 **Tab 1: Knowledge Graph (main view)**
 
