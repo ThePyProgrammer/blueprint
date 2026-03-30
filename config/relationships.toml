@@ -1,0 +1,22 @@
+# ADR Relationship Graph
+# Built incrementally by the impact analyzer and lifecycle transitions.
+# Run /adr:impact to rebuild edges for a specific ADR.
+
+# Edge types:
+#   DEPENDS_ON     = "Target ADR assumes this ADR remains valid"
+#   CONFLICTS      = "Target ADR contradicts this ADR"
+#   MODIFIES_SCOPE = "Target ADR changes or narrows scope of this ADR"
+#   SUPERSEDES     = "Target ADR replaces this ADR"
+#   RELATED        = "ADRs are topically related but independent"
+
+# Nodes are added when ADRs are created:
+# [nodes.ADR-0001]
+# title = "Use ADRs for architectural decisions"
+# status = "Accepted"
+
+# Edges are added by impact analyzer:
+# [[edges]]
+# from = "ADR-0003"
+# to = "ADR-0008"
+# type = "DEPENDS_ON"
+# detail = "Code constraint ADR depends on pipeline architecture ADR"
