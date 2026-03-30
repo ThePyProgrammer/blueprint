@@ -16,12 +16,13 @@ Display all ADRs in a summary table with contextual suggestions for next actions
 
 ### Step 1: Read ADR State
 
-1. Read `config/state.toml` from the parent `adr/` directory for ADR directory location
+1. Read `{adr_directory}/.state/state.toml` for ADR directory location
+   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
 2. If no directory cached, detect: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`
 3. Glob for all ADR files (`[0-9][0-9][0-9][0-9]-*.md`)
 4. For each file, extract: number, title (from heading), status, date proposed, date decided
-5. Read `config/contexts.toml` — extract context assignment per ADR
-6. Read `config/evidence.toml` — extract evidence level per ADR
+5. Read `{adr_directory}/.state/contexts.toml` — extract context assignment per ADR
+6. Read `{adr_directory}/.state/evidence.toml` — extract evidence level per ADR
 7. Extract Views metadata if present
 
 ### Step 2: Apply Filters

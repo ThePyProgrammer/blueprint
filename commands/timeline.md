@@ -15,8 +15,9 @@ the narrative arc that explains how each decision enabled or constrained the nex
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `config/state.toml` — ADR directory
-- `config/relationships.toml` — supersession chains, dependencies
+- `{adr_directory}/.state/state.toml` — ADR directory
+  (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
+- `{adr_directory}/.state/relationships.toml` — supersession chains, dependencies
 
 ## Process
 
@@ -101,7 +102,7 @@ These chains tell the story of how understanding evolved.
 
 ### Step 5: Connect to Relationship Graph
 
-Use `config/relationships.toml` to show dependency clusters — groups of
+Use `{adr_directory}/.state/relationships.toml` to show dependency clusters — groups of
 ADRs that must be considered together. A dependency cluster is a set
 of decisions where changing one requires reviewing all the others.
 
