@@ -292,7 +292,11 @@ The output is a verdict: **SYSTEMIC** (the fix addressed the root cause, move on
 ## Installation
 
 ```bash
-# One command — installs globally via npm
+# Via Claude Code plugin marketplace (recommended)
+/plugin marketplace add pragnition/claude-plugins
+/plugin install blueprint@pragnition-plugins
+
+# Via npm
 npx claude-blueprint install --global
 
 # Verify
