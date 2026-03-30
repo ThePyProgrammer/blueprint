@@ -79,6 +79,13 @@ Display the full command reference with context-aware next-action suggestions.
   /blueprint:digest                    Non-technical stakeholder summary (1-page)
   /blueprint:timeline                  Narrative evolution of architectural decisions
 
+## System
+
+  /blueprint:status                    Governance dashboard + knowledge graph (browser)
+  /blueprint:health                    Self-diagnostic — check ADR system consistency
+  /blueprint:hooks                     Configure automatic blueprint triggers
+  /blueprint:hooks install all         Enable all automation hooks
+
 ## Meta
 
   /blueprint:help                     This reference + contextual suggestions

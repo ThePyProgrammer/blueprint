@@ -30,6 +30,9 @@ architectural choice is being made without documentation.
 | "init", "bootstrap", "set up blueprint", "onboard" | `/blueprint:init` |
 | "eli5", "explain", "summarise", "big picture" | `/blueprint:eli5` |
 | "architect", "architecture doc", "map codebase" | `/blueprint:architect` |
+| "status", "dashboard", "governance health" | `/blueprint:status` |
+| "health", "validate", "check consistency" | `/blueprint:health` |
+| "hooks", "configure automation", "install hooks" | `/blueprint:hooks` |
 | "fitness", "fitness functions", "architecture tests" | `/blueprint:fitness` |
 | "drift", "is architecture eroding?", "trajectory" | `/blueprint:drift` |
 | "debt", "decision debt", "deferred decisions due" | `/blueprint:debt` |
