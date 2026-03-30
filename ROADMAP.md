@@ -20,11 +20,11 @@
 
 | # | Command | Source Paradigm | Agent | Status |
 |---|---------|----------------|-------|--------|
-| 6 | `/blueprint:diagram` | C4 Model (Simon Brown) | `adr-diagram-generator` | Pending |
-| 7 | `/blueprint:trace` | Evolutionary Architecture (Ford et al.) | — (enhances existing) | Pending |
-| 8 | `/blueprint:advise` | Architecture Advice Process (Harmel-Law) | — | Pending |
-| 9 | `/blueprint:tradeoff` | ATAM (SEI/CMU, 1998) | `adr-tradeoff-analyzer` | Pending |
-| 10 | `/blueprint:risk` | Risk Storming (Simon Brown) | `adr-risk-mapper` | Pending |
+| 6 | `/blueprint:diagram` | C4 Model (Simon Brown) | `adr-diagram-generator` | **Done** |
+| 7 | `/blueprint:trace` | Evolutionary Architecture (Ford et al.) | — (enhances existing) | **Done** |
+| 8 | `/blueprint:advise` | Architecture Advice Process (Harmel-Law) | — | **Done** |
+| 9 | `/blueprint:tradeoff` | ATAM (SEI/CMU, 1998) | `adr-tradeoff-analyzer` | **Done** |
+| 10 | `/blueprint:risk` | Risk Storming (Simon Brown) | `adr-risk-mapper` | **Done** |
 
 ### Tier 3: Ecosystem Expansion (P2)
 
@@ -60,3 +60,8 @@
 | 2026-03-30 | `/blueprint:reflect` | feat(adr) | Skill + agent (reflexion model conformance) |
 | 2026-03-30 | `/blueprint:evidence` | feat(adr) | Skill + agent + config/evidence.toml |
 | 2026-03-30 | `/blueprint:map` | feat(adr) | Skill + agent (Wardley strategic analysis) |
+| 2026-03-30 | `/blueprint:diagram` | feat(adr) | Skill + agent (C4 auto-generation) |
+| 2026-03-30 | `/blueprint:trace` | feat(adr) | Skill (fitness traceability matrix) |
+| 2026-03-30 | `/blueprint:advise` | feat(adr) | Skill (Architecture Advice Process) |
+| 2026-03-30 | `/blueprint:tradeoff` | feat(adr) | Skill + agent (ATAM utility trees) |
+| 2026-03-30 | `/blueprint:risk` | feat(adr) | Skill + agent (risk heat map) |

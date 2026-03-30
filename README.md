@@ -173,6 +173,7 @@ This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/D
 
 | Command | Agent(s) | Purpose |
 |---------|----------|---------|
+| `/blueprint:advise "topic"` | — | Architecture Advice Process — structured consultation before proposing |
 | `/blueprint:new "topic"` | — | Create an ADR from interview |
 | `/blueprint:new --research "topic"` | researcher | Evidence-backed option analysis, then create |
 | `/blueprint:list` | — | Status table + contextual next actions |
@@ -202,6 +203,9 @@ Domain scoping is based on Domain-Driven Design (Evans, 2003). Each bounded cont
 | `/blueprint:reflect` | reflexion analyzer | Formal architecture conformance — convergences, divergences, absences |
 | `/blueprint:evidence` | evidence auditor | Audit epistemic status and temporal validity of ADR evidence |
 | `/blueprint:map` | strategic analyzer | Wardley Map — classify components by evolution stage, detect build-vs-buy misalignment |
+| `/blueprint:tradeoff` | tradeoff analyzer | ATAM utility trees — sensitivity points, tradeoff points, risks |
+| `/blueprint:risk` | risk mapper | Architecture risk heat map — complexity × churn × coupling ÷ governance |
+| `/blueprint:trace` | — | ADR-to-fitness-function traceability matrix — governance coverage gaps |
 | `/blueprint:retro` | retrospective | Post-fix: band-aid or systemic? Verified against sources. |
 | `/blueprint:rearchitect "topic"` | researcher + impact | Research → draft → impact check → supersede |
 
@@ -223,6 +227,7 @@ The full evaluation spawns all 5 agents in parallel, synthesizes an executive su
 | Command | Agent(s) | Purpose |
 |---------|----------|---------|
 | `/blueprint:architect` | cartographer | Generate or update `docs/ARCHITECTURE.md` — bird's-eye codemap following [matklad's philosophy](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html) |
+| `/blueprint:diagram` | diagram generator | Auto-generate C4 diagrams (System Context, Container, Component) from ADR graph |
 | `/blueprint:eli5` | — | Explain the entire architectural landscape in plain English — grouped by theme, no jargon, 30-second version at the end |
 | `/blueprint:eli5 N` | — | Explain a single ADR with analogies, expanded acronyms, and "what this means for you" consequences |
 
