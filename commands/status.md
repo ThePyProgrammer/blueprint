@@ -74,11 +74,11 @@ Read from parent `blueprint/` skill directory:
 - Flag any with triggered conditions
 
 **Operations recency:**
-- From `config/state.toml`: last audit, evaluation, retro, drift check dates
+- From `{adr_directory}/.state/state.toml`: last audit, evaluation, retro, drift check dates
 - Calculate days since each
 
 **Relationship graph:**
-- From `config/relationships.toml`: nodes (ADRs) and edges (dependencies, conflicts, supersessions)
+- From `{adr_directory}/.state/relationships.toml`: nodes (ADRs) and edges (dependencies, conflicts, supersessions)
 - If graph is empty/sparse, suggest running `/blueprint:impact` on key ADRs to populate it
 
 **Fitness function coverage:**

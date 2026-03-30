@@ -31,7 +31,7 @@ Read all ADR files. Filter to status `Deferred`. For each, extract:
 - The trigger condition (from metadata or Consequences section)
 - When it was deferred (date)
 - The severity of the decision (from taxonomy)
-- What depends on this decision (from relationships.toml)
+- What depends on this decision (from `{adr_directory}/.state/relationships.toml`)
 
 Also scan for quasi-deferred decisions in Accepted ADRs:
 - Consequences that say "revisit when...", "defer until...", "reconsider if..."
