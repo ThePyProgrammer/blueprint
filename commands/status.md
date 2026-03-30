@@ -108,8 +108,13 @@ After the terminal display, generate the dashboard by:
    (find it via: the plugin's install location, or `~/pragnition/blueprint/assets/dashboard.html`)
 2. Build the `DATA` object from the metrics gathered in Step 1
 3. Replace the placeholder `__BLUEPRINT_DATA__` in the template with the JSON data
-4. Write to `/tmp/blueprint-dashboard-{timestamp}.html`
-5. Open in browser
+4. Create `docs/adr/web/` directory if it doesn't exist
+5. Write to `docs/adr/web/index.html` in the project root
+6. Open in browser
+
+The dashboard lives in the project at `docs/adr/web/index.html` — not a temp file.
+This means it persists, can be committed, and can be served as a static site.
+Each run of `/blueprint:status` overwrites it with fresh data.
 
 **The DATA object structure:**
 
@@ -191,11 +196,10 @@ Table of deferred decisions with:
 ### Step 4: Open Dashboard
 
 ```bash
-# Write HTML to temp file
-# Open in browser (platform-specific)
-open /tmp/blueprint-dashboard-{timestamp}.html     # macOS
-xdg-open /tmp/blueprint-dashboard-{timestamp}.html # Linux
-start /tmp/blueprint-dashboard-{timestamp}.html    # Windows
+# Open the dashboard (platform-specific)
+open docs/adr/web/index.html     # macOS
+xdg-open docs/adr/web/index.html # Linux
+start docs/adr/web/index.html    # Windows
 ```
 
 Tell the user: "Dashboard opened in your browser. The terminal summary above is always
