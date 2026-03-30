@@ -33,6 +33,11 @@ Read from parent `adr/` skill directory:
    - Read `contexts.toml` — which contexts are affected? Who owns them?
    - Read git log — who has contributed to the affected code areas?
    - Read existing ADRs — who authored related decisions?
+   - **Single-contributor mode:** If only one contributor exists, skip the affected-parties
+     checklist. Instead, focus on structured self-consultation: identify 2+ alternatives,
+     document your own arguments for/against, and suggest `/blueprint:new --research` for
+     external evidence gathering. The advice process still adds value by forcing structured
+     thinking, even without peers to consult.
 3. **Present consultation checklist:**
 
 ```

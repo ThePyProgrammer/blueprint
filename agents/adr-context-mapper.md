@@ -77,6 +77,10 @@ Identify bounded context boundaries by finding:
 Run `git log --format='%an' -- <path>` for each identified context to determine:
 - Primary contributor (likely owner)
 - Number of distinct contributors (team size indicator)
+
+**Single-contributor projects:** If only one author exists across all paths, skip per-context
+ownership analysis. Instead, note "sole maintainer" and focus on functional responsibility
+boundaries — which contexts would be split first if the team grows.
 - Whether ownership aligns with context boundaries
 
 ## Step 4: ADR Assignment

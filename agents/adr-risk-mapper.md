@@ -55,6 +55,9 @@ For each component, measure:
 - Git commits in last 90 days (`git log --oneline --since='90 days ago' -- <path> | wc -l`)
 - Number of unique authors (`git log --format='%an' --since='90 days ago' -- <path> | sort -u | wc -l`)
 - Recent bug fixes (`git log --grep='fix' --since='90 days ago' -- <path> | wc -l`)
+- **Single-contributor note:** If bus factor = 1 across all components, report it once in the
+  summary rather than per-component. Use bug fix ratio (fixes / total commits) as the churn
+  quality signal instead of author count.
 
 **Coupling Factors:**
 - Incoming dependencies (who depends on this component)
