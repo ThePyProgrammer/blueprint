@@ -42,11 +42,21 @@ Philippe Kruchten's 4+1 View Model (IEEE Software, 1995).
 
 1. Read all ADRs without view tags
 2. Classify each by analyzing the Decision and Context sections:
-   - Database/ORM/data model mentions → logical
-   - Build tool/package/module mentions → development
-   - Queue/event/async/concurrency mentions → process
-   - Deploy/infra/cloud/container mentions → physical
-   - Performance/user flow/scenario mentions → scenario
+   **Keyword heuristics (fast, try first):**
+   - Database/ORM/data model/domain/entity mentions → logical
+   - Build tool/package/module/code organization mentions → development
+   - Queue/event/async/concurrency/communication mentions → process
+   - Deploy/infra/cloud/container/network mentions → physical
+   - Performance/user flow/scenario/SLA mentions → scenario
+   **Semantic fallback (when keywords match nothing):**
+   - Read the ADR's Decision section and classify by what it *affects*:
+     Does it change how the system is *modeled*? → logical
+     Does it change how the code is *organized*? → development
+     Does it change how components *communicate*? → process
+     Does it change where things *run*? → physical
+     Does it validate *end-to-end behavior*? → scenario
+   - ADRs about meta-concerns (persona, process, tooling) → tag as `development`
+   - ADRs that genuinely span all views → tag as `cross-cutting` (allowed as a 6th value)
 3. Present proposed tags for user confirmation
 4. Apply confirmed tags
 
