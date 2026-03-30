@@ -90,6 +90,81 @@ label = "Conway's Law Alignment"
 agent = "adr-conways-law-analyzer"
 aspects = ["ownership_alignment", "friction_points", "orphaned_modules", "bottlenecks", "scaling_readiness"]
 
+# --- v2 Analysis Dimensions (used by new v2 commands) ---
+
+[analysis_dimensions.forces]
+label = "Forces Evaluation (DCAR)"
+agent = "adr-forces-evaluator"
+aspects = ["forces_for", "forces_against", "force_interactions", "force_balance", "decision_relationships"]
+command = "/blueprint:challenge"
+
+[analysis_dimensions.reflexion]
+label = "Architecture Conformance (Reflexion Model)"
+agent = "adr-reflexion-analyzer"
+aspects = ["convergences", "divergences", "absences", "violations", "conformance_score"]
+command = "/blueprint:reflect"
+
+[analysis_dimensions.strategic]
+label = "Strategic Alignment (Wardley)"
+agent = "adr-strategic-analyzer"
+aspects = ["evolution_stage", "build_vs_buy", "commodity_detection", "strategic_waste"]
+command = "/blueprint:map"
+
+[analysis_dimensions.tradeoff]
+label = "Tradeoff Analysis (ATAM)"
+agent = "adr-tradeoff-analyzer"
+aspects = ["utility_tree", "sensitivity_points", "tradeoff_points", "risks", "non_risks"]
+command = "/blueprint:tradeoff"
+
+[analysis_dimensions.risk]
+label = "Risk Heat Map"
+agent = "adr-risk-mapper"
+aspects = ["complexity", "churn", "coupling", "governance_coverage", "risk_score"]
+command = "/blueprint:risk"
+
+[analysis_dimensions.evidence]
+label = "Evidence Validity"
+agent = "adr-evidence-auditor"
+aspects = ["epistemic_level", "temporal_validity", "url_liveness", "context_changes"]
+command = "/blueprint:evidence"
+
+# --- Governance Modes ---
+
+[governance_modes.lightweight]
+label = "Lightweight"
+description = "Single proposer, optional review. Default."
+requirements = []
+
+[governance_modes.advised]
+label = "Advised"
+description = "Advice Process required before proposing."
+requirements = ["advice_documented"]
+
+[governance_modes.governed]
+label = "Governed"
+description = "N approvals required before acceptance."
+requirements = ["advice_documented", "n_approvals"]
+
+[governance_modes.formal]
+label = "Formal"
+description = "Phase-based gate reviews with board approval."
+requirements = ["advice_documented", "n_approvals", "board_review", "impact_analysis"]
+
+# --- Evolution Stages (Wardley) ---
+
+[evolution_stages]
+genesis = "Novel, uncertain — build custom, this IS the differentiator"
+custom = "Known concept, unique execution — build with intent"
+product = "Multiple vendors, feature competition — evaluate vendors"
+commodity = "Utility, standardized — use SaaS, building is waste"
+
+# --- Epistemic Levels ---
+
+[epistemic_levels]
+L0 = "Unverified — AI-generated, unsourced, or unconfirmed"
+L1 = "Logically Consistent — sourced, sound reasoning, not project-tested"
+L2 = "Empirically Validated — tested and confirmed in this project"
+
 # --- Decision Categories ---
 
 decision_categories = [
