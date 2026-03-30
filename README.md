@@ -10,14 +10,14 @@ Every agent speaks with the voice of a senior engineer who has watched too many 
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Commands](#commands)
 - [The Problem Blueprint Solves](#the-problem-blueprint-solves)
 - [Philosophical Foundations](#philosophical-foundations)
 - [How Blueprint Works](#how-blueprint-works)
+- [Commands](#commands)
 - [The Five Dimensions of Architectural Health](#the-five-dimensions-of-architectural-health)
 - [Continuous Governance: Beyond Point-in-Time](#continuous-governance-beyond-point-in-time)
 - [The Retrospective: Closing the Loop](#the-retrospective-closing-the-loop)
+- [Installation](#installation)
 - [Architecture of Blueprint Itself](#architecture-of-blueprint-itself)
 - [Intellectual Heritage](#intellectual-heritage)
 
