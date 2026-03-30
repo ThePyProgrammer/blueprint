@@ -16,8 +16,9 @@ Handle simple status transitions inline — no agent spawning. Read the state ma
 
 Read from parent `adr/` directory:
 - `config/lifecycle.toml` — valid transitions, requirements, error messages
-- `config/state.toml` — ADR directory location
-- `config/relationships.toml` — for updating edges on supersession
+- `{adr_directory}/.state/state.toml` — ADR directory location
+  (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
+- `{adr_directory}/.state/relationships.toml` — for updating edges on supersession
 
 ## Supported Transitions
 
