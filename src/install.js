@@ -92,7 +92,7 @@ export async function install(opts) {
   // Copy state templates — used by /blueprint:init to seed per-project state
   const STATE_TEMPLATES_DIR = join(paths.config, 'state-templates');
   await mkdir(STATE_TEMPLATES_DIR, { recursive: true });
-  const STATE_FILES = ['state.toml', 'relationships.toml', 'contexts.toml', 'evidence.toml'];
+  const STATE_FILES = ['state.toml', 'relationships.toml', 'contexts.toml', 'evidence.toml', 'governance.toml', 'radar.toml'];
   for (const file of STATE_FILES) {
     await copyFile(
       join(PLUGIN_ROOT, 'config', file),
