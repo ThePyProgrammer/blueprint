@@ -76,12 +76,18 @@ deployment model, auth strategy, data model decisions.
 
 ## Config Layer
 
-All sub-skills share state via `config/` relative to this SKILL.md:
+### Static schemas (shipped with plugin, in `config/` relative to this SKILL.md):
 - `config/lifecycle.toml` — State machine DSL
 - `config/taxonomy.toml` — Classification system
-- `config/state.toml` — Session memory
-- `config/relationships.toml` — ADR dependency graph
-- `config/contexts.toml` — DDD bounded context definitions
-- `config/evidence.toml` — Epistemic status tracking
-- `config/radar.toml` — Technology Radar (created on first use)
-- `config/governance.toml` — Governance mode (created on first use)
+
+### Per-project mutable state (in `{adr_directory}/.state/` — created by `/blueprint:init`):
+- `{adr_directory}/.state/state.toml` — Session memory, ADR directory path, operation history
+- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
+- `{adr_directory}/.state/contexts.toml` — DDD bounded context definitions
+- `{adr_directory}/.state/evidence.toml` — Epistemic status tracking
+
+**Finding the ADR directory:** Auto-detect by checking (in order): `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/` in the project root. If `.state/state.toml` exists there, read `adr_directory` from it for confirmation. If no ADR directory is found, prompt the user to run `/blueprint:init`.
+
+**Per-project config (created on first use):**
+- `{adr_directory}/.state/radar.toml` — Technology Radar
+- `{adr_directory}/.state/governance.toml` — Governance mode
