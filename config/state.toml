@@ -5,10 +5,23 @@ adr_directory = ""
 project_root = ""
 
 [last_operations]
+# v1 operations
 last_audit = ""
 last_evaluation = ""
 last_retro = ""
 last_adr_created = ""
+
+# v2 operations
+last_challenge = ""          # DCAR forces evaluation
+last_scope = ""              # bounded context discovery
+last_reflect = ""            # reflexion model conformance
+last_evidence_audit = ""     # epistemic status audit
+last_strategic_map = ""      # Wardley mapping
+last_tradeoff_analysis = ""  # ATAM utility tree
+last_risk_assessment = ""    # risk heat map
+last_trace = ""              # fitness function traceability
+last_advice_process = ""     # Architecture Advice Process
+last_diagram = ""            # C4 diagram generation
 
 # Append entries as: [[evaluation_history]]
 # date = "2026-03-30"
@@ -19,3 +32,11 @@ last_adr_created = ""
 # date = "2026-03-30"
 # verdict = "BAND-AID"
 # adr_created = "0009"
+
+# Append entries as: [[evidence_audit_history]]
+# date = "2026-03-30"
+# adrs_assessed = 41
+# l0_count = 5
+# l1_count = 20
+# l2_count = 16
+# evidence_health = "AGING"
