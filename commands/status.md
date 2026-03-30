@@ -13,6 +13,42 @@ description: >
 Renders a rich, visual governance dashboard with a knowledge graph of ADR relationships.
 Two output modes: terminal (structured text) and browser (interactive HTML).
 
+## Wireframe References (MANDATORY)
+
+Before generating the HTML dashboard, you MUST read these wireframe files for the
+canonical design system. Do not invent your own styles — extract the exact CSS,
+colors, fonts, and component patterns from these files:
+
+1. **`wireframes/architecture_dashboard/code.html`** — Main dashboard layout: sidebar
+   navigation, metric cards, mini knowledge graph, decision timeline, suggested actions.
+   Dark theme with teal/cyan primary.
+
+2. **`wireframes/adr_knowledge_graph/code.html`** — Knowledge graph view: force-directed
+   graph with side panel showing ADR details, relationships, and context.
+
+3. **`wireframes/governance_health/code.html`** — Health view: decision debt table,
+   architecture drift chart, fitness function monitor cards, governance event log.
+
+4. **`wireframes/adr_editor_ide/code.html`** — ADR editor view (if applicable).
+
+**Design system (from wireframes):**
+- **Theme:** Dark (`class="dark"`)
+- **Background:** `#0b0e14` (surface), `#161a21` (surface-container), `#1c2028` (surface-container-high)
+- **Primary:** `#8ff5ff` (teal/cyan)
+- **Secondary:** `#8dedec`
+- **Tertiary/Warning:** `#ffb155` / `#fe9d00`
+- **Error:** `#ff716c`
+- **Fonts:** Space Grotesk (headlines/labels), Inter (body), JetBrains Mono (code)
+- **Border radius:** 0.125rem default, 0.25rem lg, 0.5rem xl, 0.75rem full
+- **Text on surface:** `#ecedf6`
+
+**How to use wireframes:**
+- Read the wireframe HTML files listed above
+- Extract the inline `<style>` blocks and the Tailwind config colors
+- Use the exact same component patterns: sidebar, metric cards, tables, graph nodes
+- The generated `docs/adr/web/index.html` must look like it belongs in the same application
+- Copy CSS verbatim from the wireframes where possible — do not approximate
+
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
