@@ -1,0 +1,27 @@
+# Governance Configuration
+# Controls how strictly ADR lifecycle transitions are managed.
+# Set via /blueprint:govern. Default: lightweight.
+#
+# Modes:
+#   lightweight — Single proposer, optional review. Default.
+#   advised     — Advice Process required before proposing.
+#   governed    — N approvals required before acceptance.
+#   formal      — Phase-based gate reviews with board approval.
+
+mode = "lightweight"
+
+[advised]
+require_advice_before_propose = true
+minimum_consultations = 2
+
+[governed]
+required_approvals = 2
+approvers = []
+auto_request_review = true
+auto_request_challenge = false
+
+[formal]
+board_members = []
+gate_phases = ["research", "challenge", "review", "board-review"]
+require_impact_analysis = true
+require_evidence_assessment = true
