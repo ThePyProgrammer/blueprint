@@ -114,7 +114,7 @@ Before creating anything, present what was found to the user:
 - docs/adr/README.md — lifecycle documentation and index
 - docs/adr/template.md — ADR template
 - docs/ARCHITECTURE.md — bird's-eye codemap (via architect agent)
-- config/state.toml — populated with detected paths
+- docs/adr/.state/ — per-project state (state.toml, relationships.toml, contexts.toml, evidence.toml)
 ```
 
 Ask the user:
@@ -167,23 +167,35 @@ After ADRs are written, spawn the architect-cartographer agent to generate
 - Spawn with: project root, ADR directory, list of newly created ADR filenames
 - The agent produces the codemap, invariants (from the new ADRs), and cross-cutting concerns
 
-### Step 7: Populate Config
+### Step 7: Create Per-Project State
 
-Update `config/state.toml`:
+Create the per-project state directory and seed state files:
+
+```bash
+mkdir -p docs/adr/.state
+```
+
+**State files are per-project, NOT global.** They live alongside the ADRs so each project
+has its own state. If `config/state-templates/` exists in the plugin directory, copy
+templates from there. Otherwise, create them from scratch with the content below.
+
+Create `{adr_directory}/.state/state.toml`:
 - Set `adr_directory` to the detected/created path
 - Set `project_root` to the current working directory
 - Set `last_adr_created` to today
 
-Seed `config/relationships.toml` with nodes for all created ADRs.
+Create `{adr_directory}/.state/relationships.toml` — seed with nodes for all created ADRs.
 
-Initialize v2 config files:
-- `config/contexts.toml` — create with empty context definitions (or seed with
-  discovered contexts if the codebase has domain-aligned directories)
-- `config/evidence.toml` — create with default settings (180-day expiry, 60-day L0 expiry)
-- `config/governance.toml` — create with `mode = "lightweight"` (default)
+Create `{adr_directory}/.state/contexts.toml` — empty context definitions (or seed with
+discovered contexts if the codebase has domain-aligned directories).
+
+Create `{adr_directory}/.state/evidence.toml` — default settings (180-day expiry, 60-day L0 expiry).
+
+Create `{adr_directory}/.state/governance.toml` — `mode = "lightweight"` (default).
 
 If the codebase has clear domain-aligned directories (src/orders/, src/payments/, etc.),
-optionally spawn the `adr-context-mapper` agent to seed bounded contexts in `contexts.toml`.
+optionally spawn the `adr-context-mapper` agent to seed bounded contexts in
+`{adr_directory}/.state/contexts.toml`.
 
 ### Step 8: Commit
 
