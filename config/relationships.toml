@@ -14,9 +14,88 @@
 # title = "Use ADRs for architectural decisions"
 # status = "Accepted"
 
-# Edges are added by impact analyzer:
-# [[edges]]
-# from = "ADR-0003"
-# to = "ADR-0008"
-# type = "DEPENDS_ON"
-# detail = "Code constraint ADR depends on pipeline architecture ADR"
+# --- v2 Extension ADR Nodes ---
+
+[nodes.ADR-0035]
+title = "Ground v2 extensions in published architecture research"
+status = "Accepted"
+
+[nodes.ADR-0036]
+title = "Scope ADRs to DDD bounded contexts"
+status = "Accepted"
+
+[nodes.ADR-0037]
+title = "Dual review protocol — DCAR forces plus devil's advocate"
+status = "Accepted"
+
+[nodes.ADR-0038]
+title = "Use reflexion models for formal architecture conformance"
+status = "Accepted"
+
+[nodes.ADR-0039]
+title = "Track epistemic status and temporal validity of evidence"
+status = "Accepted"
+
+[nodes.ADR-0040]
+title = "Connect ADRs to Wardley Map evolution stages"
+status = "Accepted"
+
+[nodes.ADR-0041]
+title = "Support configurable governance tiers"
+status = "Accepted"
+
+# --- v2 Extension Edges ---
+
+[[edges]]
+from = "ADR-0035"
+to = "ADR-0036"
+type = "RELATED"
+detail = "Meta-decision to use research informs all v2 extension ADRs"
+
+[[edges]]
+from = "ADR-0035"
+to = "ADR-0037"
+type = "RELATED"
+detail = "DCAR forces evaluation identified through research survey"
+
+[[edges]]
+from = "ADR-0035"
+to = "ADR-0038"
+type = "RELATED"
+detail = "Reflexion models identified through research survey"
+
+[[edges]]
+from = "ADR-0035"
+to = "ADR-0039"
+type = "RELATED"
+detail = "Epistemic status identified through research survey"
+
+[[edges]]
+from = "ADR-0035"
+to = "ADR-0040"
+type = "RELATED"
+detail = "Wardley mapping identified through research survey"
+
+[[edges]]
+from = "ADR-0037"
+to = "ADR-0009"
+type = "MODIFIES_SCOPE"
+detail = "Adds DCAR forces evaluation alongside existing devil's advocate"
+
+[[edges]]
+from = "ADR-0037"
+to = "ADR-0021"
+type = "MODIFIES_SCOPE"
+detail = "Extends Hegelian dialectic with analytical forces evaluation"
+
+[[edges]]
+from = "ADR-0038"
+to = "ADR-0024"
+type = "MODIFIES_SCOPE"
+detail = "Adds formal conformance checking alongside temporal drift detection"
+
+[[edges]]
+from = "ADR-0041"
+to = "ADR-0004"
+type = "MODIFIES_SCOPE"
+detail = "Extends lifecycle state machine with configurable governance gates"
