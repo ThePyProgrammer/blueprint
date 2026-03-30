@@ -14,6 +14,144 @@
 # title = "Use ADRs for architectural decisions"
 # status = "Accepted"
 
+# --- v1 ADR Nodes (backfilled) ---
+
+[nodes.ADR-0001]
+title = "Use ADRs to document blueprint's own architectural decisions"
+status = "Accepted"
+
+[nodes.ADR-0002]
+title = "Decompose into focused sub-skills"
+status = "Accepted"
+
+[nodes.ADR-0003]
+title = "Use TOML over JSON for the config DSL"
+status = "Accepted"
+
+[nodes.ADR-0004]
+title = "Encode lifecycle as a finite state machine in data"
+status = "Accepted"
+
+[nodes.ADR-0005]
+title = "Adopt cranky senior engineer persona for all agents"
+status = "Accepted"
+
+[nodes.ADR-0006]
+title = "Use thin router pattern for command dispatch"
+status = "Accepted"
+
+[nodes.ADR-0007]
+title = "Separate evaluation into five orthogonal dimensions"
+status = "Accepted"
+
+[nodes.ADR-0008]
+title = "Agents return inline output, not files"
+status = "Accepted"
+
+[nodes.ADR-0009]
+title = "Devil's advocate on review, not accept"
+status = "Accepted"
+
+[nodes.ADR-0010]
+title = "Use relationship graph for impact analysis"
+status = "Accepted"
+
+[nodes.ADR-0011]
+title = "Two-step verify in retrospective"
+status = "Accepted"
+
+[nodes.ADR-0012]
+title = "Extensible taxonomy for root causes"
+status = "Accepted"
+
+[nodes.ADR-0013]
+title = "Infer ownership from git history"
+status = "Accepted"
+
+[nodes.ADR-0014]
+title = "Anti-pattern tests as first-class"
+status = "Accepted"
+
+[nodes.ADR-0015]
+title = "Proactive intervention for undocumented decisions"
+status = "Accepted"
+
+[nodes.ADR-0016]
+title = "Single responsibility per agent"
+status = "Accepted"
+
+[nodes.ADR-0017]
+title = "Package as Claude Code plugin"
+status = "Accepted"
+
+[nodes.ADR-0018]
+title = "Contextual suggestions in help and list"
+status = "Accepted"
+
+[nodes.ADR-0019]
+title = "Session state persistence"
+status = "Accepted"
+
+[nodes.ADR-0020]
+title = "Parallel evaluation agents"
+status = "Accepted"
+
+[nodes.ADR-0021]
+title = "Hegelian dialectic for review"
+status = "Accepted"
+
+[nodes.ADR-0022]
+title = "Config as domain-specific language"
+status = "Accepted"
+
+[nodes.ADR-0023]
+title = "Generate fitness functions from ADRs"
+status = "Accepted"
+
+[nodes.ADR-0024]
+title = "Temporal drift detection over point audits"
+status = "Accepted"
+
+[nodes.ADR-0025]
+title = "Track decision debt with trigger monitoring"
+status = "Accepted"
+
+[nodes.ADR-0026]
+title = "Pre-commit architecture guard"
+status = "Accepted"
+
+[nodes.ADR-0027]
+title = "Stakeholder digest for non-technical audience"
+status = "Accepted"
+
+[nodes.ADR-0028]
+title = "Architecture evolution timeline"
+status = "Accepted"
+
+[nodes.ADR-0029]
+title = "Bootstrap from existing context"
+status = "Accepted"
+
+[nodes.ADR-0030]
+title = "Generate architecture md from ADRs"
+status = "Accepted"
+
+[nodes.ADR-0031]
+title = "ELI5 plain english explanations"
+status = "Accepted"
+
+[nodes.ADR-0032]
+title = "Visual knowledge graph dashboard"
+status = "Accepted"
+
+[nodes.ADR-0033]
+title = "Self-diagnostic health check"
+status = "Accepted"
+
+[nodes.ADR-0034]
+title = "Automatic hooks for workflow integration"
+status = "Accepted"
+
 # --- v2 Extension ADR Nodes ---
 
 [nodes.ADR-0035]
