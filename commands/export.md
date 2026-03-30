@@ -43,11 +43,21 @@ Maps Blueprint artifacts into arc42's 12-section structure (Starke & Hruschka, 2
 
 ### Process
 
-1. **Read all Blueprint artifacts** — ADRs, ARCHITECTURE.md, config files
-2. **Map each ADR** to the appropriate arc42 section(s) by category and content
-3. **Generate the 12-section document** as a single markdown file or directory of files
-4. **Write to output location** (default: `docs/arc42/`)
-5. **Commit:** `docs(adr): export architecture documentation in arc42 format`
+1. **Check prerequisites and report gaps:**
+   - `docs/ARCHITECTURE.md` exists? If not → suggest `/blueprint:architect`
+   - Fitness functions exist? If not → suggest `/blueprint:fitness` (Section 10 will be sparse)
+   - `/blueprint:risk` has been run? If not → suggest it (Section 11 will be sparse)
+   - `/blueprint:scope` has been run? If not → suggest it (Section 12 glossary will be sparse)
+   - Report which sections will be populated vs. empty, and proceed with available data
+2. **Read all Blueprint artifacts** — ADRs, ARCHITECTURE.md, config files
+3. **Map each ADR** to the appropriate arc42 section(s) by category and content analysis:
+   - If ADR has a `category` field in metadata, use it for section routing
+   - If not, analyze the Decision and Context sections for domain keywords
+   - ADRs can appear in multiple sections (e.g., a database choice appears in both 4 and 5)
+4. **Generate the 12-section document** as a single markdown file or directory of files
+   - For empty sections, write a stub: "No [topic] ADRs found. Run [command] to populate."
+5. **Write to output location** (default: `docs/arc42/`)
+6. **Commit:** `docs(adr): export architecture documentation in arc42 format`
 
 ### Output Structure (directory mode)
 
