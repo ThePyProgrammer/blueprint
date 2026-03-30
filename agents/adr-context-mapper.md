@@ -135,7 +135,7 @@ Return this structured analysis:
 |-----|------------------|------------|
 | ADR-NNNN | [context] | HIGH / MEDIUM / LOW |
 
-### Proposed `config/contexts.toml`
+### Proposed `{adr_directory}/.state/contexts.toml`
 
 [Ready-to-write TOML content for the contexts config file]
 ```

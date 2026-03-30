@@ -38,7 +38,7 @@ Before analyzing:
 1. Read all accepted ADRs — identify every technology choice and component decision
 2. Read `docs/ARCHITECTURE.md` — identify all components in the system
 3. Read dependency manifests — identify external dependencies (commodity signals)
-4. Read `config/contexts.toml` — understand domain boundaries
+4. Read `{adr_directory}/.state/contexts.toml` — understand domain boundaries
 5. Identify the project's core differentiator (what makes this project unique)
 </project_context>
 
