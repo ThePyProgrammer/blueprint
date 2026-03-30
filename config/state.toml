@@ -1,0 +1,21 @@
+# ADR System State
+# Auto-updated by ADR skill commands. Do not edit manually unless resetting state.
+
+adr_directory = ""
+project_root = ""
+
+[last_operations]
+last_audit = ""
+last_evaluation = ""
+last_retro = ""
+last_adr_created = ""
+
+# Append entries as: [[evaluation_history]]
+# date = "2026-03-30"
+# dimensions = ["consistency", "bugs", "maintainability", "testing", "conways"]
+# health_score = "ADEQUATE"
+
+# Append entries as: [[retro_history]]
+# date = "2026-03-30"
+# verdict = "BAND-AID"
+# adr_created = "0009"
