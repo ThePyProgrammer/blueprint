@@ -55,12 +55,13 @@ lightweight to formal, enabling Blueprint adoption across startups to regulated 
 - `/blueprint:transition accept` blocked until N approvers sign off
 - Approval tracked in ADR metadata: `Approved-By: [name1, name2]`
 - `/blueprint:review` auto-requested on proposal
+- `/blueprint:challenge` optionally auto-requested (if `auto_request_challenge = true`)
 
 #### Formal
-- Phase gates: Proposed → Research → Review → Board → Accepted
+- Phase gates: Proposed → Research → Challenge → Review → Board → Accepted
 - Each phase requires explicit completion before next
 - Board review generates formal minutes
-- Full audit trail in `{adr_directory}/.state/state.toml`
+- Full audit trail in state.toml
 
 ## Config File: `{adr_directory}/.state/governance.toml`
 
