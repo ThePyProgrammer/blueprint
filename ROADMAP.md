@@ -10,7 +10,7 @@
 
 | # | Command | Source Paradigm | Agent | Status |
 |---|---------|----------------|-------|--------|
-| 1 | `/blueprint:scope` | Domain-Driven Design | `adr-context-mapper` | Pending |
+| 1 | `/blueprint:scope` | Domain-Driven Design | `adr-context-mapper` | **Done** |
 | 2 | `/blueprint:challenge` | DCAR (van Heesch et al., 2014) | `adr-forces-evaluator` | Pending |
 | 3 | `/blueprint:reflect` | Reflexion Models (Murphy et al., 1995) | `adr-reflexion-analyzer` | Pending |
 | 4 | `/blueprint:evidence` | Epistemic Staleness (Koenig et al., 2026) | `adr-evidence-auditor` | Pending |
@@ -55,4 +55,4 @@
 
 | Date | Command | Commit | Notes |
 |------|---------|--------|-------|
-| — | — | — | Implementation begins |
+| 2026-03-30 | `/blueprint:scope` | feat(adr) | Skill + agent + config/contexts.toml |

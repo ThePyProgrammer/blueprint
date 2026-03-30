@@ -181,6 +181,17 @@ This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/D
 | `/blueprint:search "term"` | — | Find decisions by topic + relationship graph |
 | `/blueprint:help` | — | Full reference + context-aware suggestions |
 
+### Domain Scoping
+
+| Command | Agent(s) | Purpose |
+|---------|----------|---------|
+| `/blueprint:scope` | context mapper | Discover bounded contexts and assign ADRs to domains |
+| `/blueprint:scope discover` | context mapper | Auto-detect contexts from codebase structure and git ownership |
+| `/blueprint:scope assign ADR-N ctx` | — | Assign an ADR to a bounded context |
+| `/blueprint:scope list` | — | Show all contexts with governed ADRs |
+
+Domain scoping is based on Domain-Driven Design (Evans, 2003). Each bounded context represents an explicit boundary within which a domain model and its ubiquitous language apply. ADRs scoped to contexts enable per-team views (`/blueprint:list --context=payments`) and context-aware impact analysis. Context relationships (Customer-Supplier, Anti-Corruption Layer, Shared Kernel, etc.) are tracked in `config/contexts.toml`.
+
 ### Analysis
 
 | Command | Agent(s) | Purpose |
