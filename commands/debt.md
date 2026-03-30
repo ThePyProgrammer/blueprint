@@ -20,6 +20,7 @@ but nobody monitors whether X has happened. This skill does.
 Read from parent `blueprint/` skill directory:
 - `config/state.toml` — ADR directory
 - `config/taxonomy.toml` — severity levels
+- `config/evidence.toml` — evidence expiry dates and epistemic levels
 
 ## Process
 
@@ -100,3 +101,29 @@ Decision debt score: [score]
 
 For triggered decisions, suggest `/blueprint:new --research` to make the deferred
 decision with fresh evidence.
+
+### Step 5: Evidence Debt (v2)
+
+Also surface **evidence debt** from `config/evidence.toml`:
+
+- **Expired evidence:** Accepted ADRs where `Evidence-Expires` date has passed
+- **Unverified evidence:** Accepted ADRs with `Evidence-Level: L0` (AI-generated, never validated)
+- **Stale URLs:** ADRs with dead source URLs in References section
+
+Include in report:
+
+```
+## Evidence Debt
+
+| ADR | Issue | Evidence Level | Expires | Action |
+|-----|-------|---------------|---------|--------|
+| 0005 | Evidence expired 2 months ago | L1 | 2026-01-30 | `/blueprint:evidence ADR-0005` |
+| 0012 | AI research never validated | L0 | 2026-05-30 | Validate empirically → L2 |
+```
+
+Evidence debt is a distinct category because it affects accepted (not deferred) ADRs.
+A decision that was well-supported when made but whose evidence has expired is
+actively misleading — worse than a decision that was honestly deferred.
+
+Suggest `/blueprint:evidence` for expired evidence and `/blueprint:new --research`
+for decisions that need re-investigation.
