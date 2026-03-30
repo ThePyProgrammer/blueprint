@@ -15,9 +15,9 @@ into standardized architecture documentation formats.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `config/state.toml` — ADR directory location
-- `config/contexts.toml` — bounded context definitions
-- `config/evidence.toml` — evidence tracking
+- `{adr_directory}/.state/state.toml` — ADR directory location
+- `{adr_directory}/.state/contexts.toml` — bounded context definitions
+- `{adr_directory}/.state/evidence.toml` — evidence tracking
 - `agents/persona.md` — your personality
 
 ## Supported Formats
