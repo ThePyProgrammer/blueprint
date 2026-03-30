@@ -64,6 +64,8 @@ Display the full command reference with context-aware next-action suggestions.
 ## Documentation
 
   /blueprint:architect                Generate/update ARCHITECTURE.md (matklad style)
+  /blueprint:eli5                     Explain an ADR or the whole landscape in plain English
+  /blueprint:eli5 N                   Explain a single ADR — no jargon, all analogies
 
 ## Meta
 
