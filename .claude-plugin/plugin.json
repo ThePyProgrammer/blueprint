@@ -1,6 +1,6 @@
 {
   "name": "blueprint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Architecture Decision Records with teeth — lifecycle management, devil's advocate review, architecture evaluation team, post-fix retrospectives, and compliance auditing. All with a cranky senior engineer persona.",
   "author": {
     "name": "pragnition"
