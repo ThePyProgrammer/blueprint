@@ -169,11 +169,48 @@ Each run of `/blueprint:status` overwrites it with fresh data.
     evaluation: null,
     retro: "2026-03-27",
     drift: null,
-    status: "2026-03-30"
+    status: "2026-03-30",
+    // v2 operations
+    challenge: null,
+    scope: null,
+    reflect: null,
+    evidence_audit: null,
+    strategic_map: null,
+    tradeoff: null,
+    risk: null,
+    trace: null,
+    advice: null,
+    diagram: null
+  },
+  // v2 context and evidence metadata
+  contexts: {
+    defined: 5,                   // bounded contexts in contexts.toml
+    adrs_scoped: 32,              // ADRs assigned to a context
+    adrs_unmapped: 9,             // ADRs without context assignment
+    relationships: [              // context map relationships
+      { upstream: "orders", downstream: "payments", pattern: "Customer-Supplier" }
+    ]
+  },
+  evidence: {
+    l2_count: 16,                 // empirically validated
+    l1_count: 20,                 // logically consistent
+    l0_count: 5,                  // unverified
+    expired_count: 3,             // past expiry date
+    health: "AGING"               // HEALTHY / AGING / STALE / CRITICAL
+  },
+  governance_mode: "lightweight", // lightweight / advised / governed / formal
+  evolution_stages: {             // Wardley map summary
+    genesis: 2,
+    custom: 8,
+    product: 15,
+    commodity: 10,
+    unclassified: 6
   },
   adrs: [
     { number: "ADR-0001", title: "Use ADRs...", status: "Accepted",
       category: "Process", date: "2026-03-30", severity: "Medium",
+      context: "—", evidence_level: "L2", evolution_stage: null,
+      views: ["logical"],
       trigger: null, trigger_met: false, debt_score: 0 },
     // ... one entry per ADR
   ],
