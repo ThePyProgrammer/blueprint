@@ -20,14 +20,14 @@ Together they form a two-layer documentation system.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `config/state.toml` — ADR directory location, project root
+- `{adr_directory}/.state/state.toml` — ADR directory location, project root
 - `agents/persona.md` — personality
 - `agents/adr-architect-cartographer.md` — agent instructions
 
 ## Process
 
 1. **Detect project context:**
-   - Read `config/state.toml` for ADR directory
+   - Read `{adr_directory}/.state/state.toml` for ADR directory
    - Glob for `docs/ARCHITECTURE.md` to check if one already exists
    - If updating: read the existing file so the agent can preserve structure
 

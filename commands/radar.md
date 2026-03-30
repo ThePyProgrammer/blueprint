@@ -35,14 +35,14 @@ Radar methodology, adapted for project-level use.
 
 ### View Radar (`/blueprint:radar`)
 
-1. Read `config/radar.toml`
+1. Read `{adr_directory}/.state/radar.toml`
 2. Display radar table grouped by ring, with linked ADRs
 3. Highlight technologies in "Hold" that are still used in the codebase
 4. Suggest `/blueprint:new` for technologies without governing ADRs
 
 ### Add/Move Technology (`/blueprint:radar add <tech> <ring>`)
 
-1. Add or update technology in `config/radar.toml`
+1. Add or update technology in `{adr_directory}/.state/radar.toml`
 2. Cross-reference with existing ADRs
 3. If moving to "Hold" and ADRs mandate this technology, warn about conflict
 4. Commit: `docs(adr): move [tech] to [ring] on technology radar`
@@ -53,7 +53,7 @@ Radar methodology, adapted for project-level use.
 2. Report violations (code using Hold technologies in new contexts)
 3. Suggest `/blueprint:rearchitect` for technologies that need replacement
 
-## Config File: `config/radar.toml`
+## Config File: `{adr_directory}/.state/radar.toml`
 
 ```toml
 # Internal Technology Radar

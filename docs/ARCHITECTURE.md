@@ -210,19 +210,19 @@ ADRs 0001-0034: v1 design. ADRs 0035-0041: v2 extension decisions.
 When spawning an agent, always include persona.md content alongside the agent's instructions.
 
 **Config loading.** Skills read config from `config/` relative to the blueprint command
-directory. Path resolved via `config/state.toml` with auto-detect fallback.
+directory. Path resolved via `{adr_directory}/.state/state.toml` with auto-detect fallback.
 
 **ADR directory detection.** Multiple skills detect independently: state.toml cache,
 then glob `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`.
 
 **Index management.** Every ADR create/transition updates the README.md index table.
 
-**Bounded context awareness.** v2 skills that read ADRs also read `config/contexts.toml`
+**Bounded context awareness.** v2 skills that read ADRs also read `{adr_directory}/.state/contexts.toml`
 to scope analysis to the relevant context. Impact analysis, evaluation, and drift detection
 all respect context boundaries when available.
 
 **Evidence tracking.** v2 skills that generate research (researcher agent, evidence auditor)
-update `config/evidence.toml` with epistemic levels. `/blueprint:debt` surfaces expired evidence.
+update `{adr_directory}/.state/evidence.toml` with epistemic levels. `/blueprint:debt` surfaces expired evidence.
 
 **Commit conventions.** `docs(adr): [action] ADR-NNNN <title>` for ADR operations.
 `docs: generate/update ARCHITECTURE.md` for architecture docs.

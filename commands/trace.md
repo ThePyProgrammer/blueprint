@@ -17,7 +17,7 @@ assures the decision." Most teams only do the first. This command shows the gap.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `config/state.toml` — ADR directory location
+- `{adr_directory}/.state/state.toml` — ADR directory location
 - `config/taxonomy.toml` — fitness function categories
 - `agents/persona.md` — your personality
 
@@ -61,7 +61,7 @@ Orphans: [N] fitness functions have no ADR
 ```
 
 6. **For gaps, offer:** "Run `/blueprint:fitness` to generate missing fitness functions?"
-7. **Update `config/state.toml`** — set `last_trace` to today
+7. **Update `{adr_directory}/.state/state.toml`** — set `last_trace` to today
 
 ## Fitness Function Taxonomy (Ford/Parsons/Kua)
 

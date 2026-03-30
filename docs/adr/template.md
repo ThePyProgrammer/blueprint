@@ -10,7 +10,7 @@
 | **Deciders** | Names or roles |
 | **Supersedes** | [ADR-NNNN](link) (if applicable) |
 | **Superseded by** | [ADR-NNNN](link) (if applicable) |
-| **Context** | Bounded context name (from config/contexts.toml, if applicable) |
+| **Context** | Bounded context name (from {adr_directory}/.state/contexts.toml, if applicable) |
 | **Views** | logical, development, process, physical, scenario (from 4+1 model, if applicable) |
 | **Evolution Stage** | genesis / custom / product / commodity (from Wardley Map, if applicable) |
 | **Evidence Level** | L0 (unverified) / L1 (consistent) / L2 (validated) (if applicable) |

@@ -18,7 +18,7 @@ Evaluates recent changes for band-aid vs systemic quality. Answers two questions
 
 Read from parent `adr/` skill directory:
 - `config/taxonomy.toml` — root cause categories (the classification system)
-- `config/state.toml` — ADR directory, retro history
+- `{adr_directory}/.state/state.toml` — ADR directory, retro history
 - `agents/persona.md` — personality
 - `agents/adr-retrospective.md` — agent instructions
 
@@ -40,7 +40,7 @@ Read from parent `adr/` skill directory:
    - Ask user if they want to create it now
    - If yes, invoke `/blueprint:new` with the proposed title and context pre-filled
 5. **Update state:**
-   - Set `last_retro` in `config/state.toml` to today
+   - Set `last_retro` in `{adr_directory}/.state/state.toml` to today
    - Append to `retro_history` with date, verdict, and ADR created (if any)
 
 ## Proactive Triggering

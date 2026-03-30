@@ -18,7 +18,7 @@ report with proposed ADRs for the most critical findings.
 
 Read from parent `adr/` skill directory:
 - `config/taxonomy.toml` — evaluation dimensions with agent mappings
-- `config/state.toml` — last evaluation date, ADR directory
+- `{adr_directory}/.state/state.toml` — last evaluation date, ADR directory
 - `agents/persona.md` — shared personality
 
 ## Dimensions
@@ -53,7 +53,7 @@ Read `config/taxonomy.toml` `evaluation_dimensions` for the canonical list. Curr
    - "Let me pick" — present list for selection
    - "Report only" — skip ADR creation
 7. Draft selected ADRs via the `/blueprint:new` flow
-8. Update `config/state.toml` — set `last_evaluation` to today, append to evaluation_history
+8. Update `{adr_directory}/.state/state.toml` — set `last_evaluation` to today, append to evaluation_history
 
 ### Individual Evaluation (`/blueprint:evaluate [dimension]`)
 
