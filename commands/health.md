@@ -67,16 +67,25 @@ Execute these checks in order, collecting findings:
 - [ ] `relationships.toml` has nodes for all existing ADRs
 - [ ] `lifecycle.toml` statuses cover all statuses used in ADRs
 - [ ] `taxonomy.toml` categories cover all categories used in ADRs
+- [ ] `contexts.toml` exists and is syntactically valid (if /blueprint:scope has been run)
+- [ ] `evidence.toml` exists and is syntactically valid (if /blueprint:evidence has been run)
+- [ ] `governance.toml` exists and mode is valid (if /blueprint:govern has been run)
 
 **7. Cross-Reference Integrity**
 - [ ] ADRs that reference other ADRs (e.g., "see ADR-0003") point to real ADRs
 - [ ] Referenced ADRs are not Rejected (referencing rejected decisions is suspicious)
 - [ ] `docs/ARCHITECTURE.md` ADR references (if file exists) point to real ADRs
+- [ ] ADRs with `Context` metadata reference contexts that exist in `contexts.toml`
+- [ ] ADRs with `Views` metadata use valid view names (logical, development, process, physical, scenario)
+- [ ] Evidence records in `evidence.toml` correspond to existing ADRs
+- [ ] Radar entries in `config/radar.toml` reference valid ADRs (if file exists)
 
 **8. Staleness Detection**
 - [ ] No accepted ADR is older than 12 months without a review (flag as "consider revisiting")
 - [ ] `docs/ARCHITECTURE.md` last updated within 6 months (if it exists)
 - [ ] Deferred ADRs older than 6 months flagged as "may be forgotten"
+- [ ] Evidence with expired dates flagged as "re-validate with /blueprint:evidence"
+- [ ] L0 evidence older than 60 days flagged as "promote to L1/L2 or re-research"
 
 ### Step 2: Report
 
