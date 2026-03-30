@@ -30,11 +30,11 @@
 
 | # | Command | Source Paradigm | Agent | Status |
 |---|---------|----------------|-------|--------|
-| 11 | `/blueprint:export` | arc42 (Starke & Hruschka, 2005) | — | Pending |
-| 12 | `/blueprint:views` | 4+1 View Model (Kruchten, 1995) | — | Pending |
-| 13 | `/blueprint:federate` | Practitioner need (cross-repo ADRs) | `adr-federation-indexer` | Pending |
-| 14 | `/blueprint:radar` | ThoughtWorks Technology Radar | — | Pending |
-| 15 | `/blueprint:govern` | TOGAF + Advice Process | — | Pending |
+| 11 | `/blueprint:export` | arc42 (Starke & Hruschka, 2005) | — | **Done** |
+| 12 | `/blueprint:views` | 4+1 View Model (Kruchten, 1995) | — | **Done** |
+| 13 | `/blueprint:federate` | Practitioner need (cross-repo ADRs) | `adr-federation-indexer` | **Done** |
+| 14 | `/blueprint:radar` | ThoughtWorks Technology Radar | — | **Done** |
+| 15 | `/blueprint:govern` | TOGAF + Advice Process | — | **Done** |
 
 ---
 
@@ -65,3 +65,8 @@
 | 2026-03-30 | `/blueprint:advise` | feat(adr) | Skill (Architecture Advice Process) |
 | 2026-03-30 | `/blueprint:tradeoff` | feat(adr) | Skill + agent (ATAM utility trees) |
 | 2026-03-30 | `/blueprint:risk` | feat(adr) | Skill + agent (risk heat map) |
+| 2026-03-30 | `/blueprint:export` | feat(adr) | Skill (arc42 12-section export) |
+| 2026-03-30 | `/blueprint:views` | feat(adr) | Skill (4+1 view tagging) |
+| 2026-03-30 | `/blueprint:federate` | feat(adr) | Skill + agent (cross-repo ADR federation) |
+| 2026-03-30 | `/blueprint:radar` | feat(adr) | Skill + config/radar.toml |
+| 2026-03-30 | `/blueprint:govern` | feat(adr) | Skill + config/governance.toml |

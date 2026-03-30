@@ -237,6 +237,11 @@ The eli5 commands exist because ADRs are written for the people who make decisio
 
 | Command | Agent(s) | Purpose |
 |---------|----------|---------|
+| `/blueprint:export arc42` | — | Export ADR collection into arc42 12-section documentation format |
+| `/blueprint:views` | — | Tag ADRs with 4+1 architectural views for stakeholder filtering |
+| `/blueprint:federate` | federation indexer | Aggregate ADRs across multiple repositories — detect conflicts and dependencies |
+| `/blueprint:radar` | — | Internal Technology Radar — track adoption lifecycle (Adopt/Trial/Assess/Hold) |
+| `/blueprint:govern` | — | Configure governance mode — lightweight, advised, governed, or formal |
 | `/blueprint:status` | — | Governance dashboard — terminal summary + interactive HTML with knowledge graph, timeline, metrics, and debt table |
 | `/blueprint:health` | — | Self-diagnostic — 8 consistency checks (index sync, supersession chains, graph integrity, staleness) with auto-repair |
 | `/blueprint:hooks` | — | Configure automatic triggers — pre-commit guard, retro-suggest, architecture-sync, dependency-watch, periodic-health |
@@ -351,37 +356,61 @@ The installer deploys 24 commands, 12 agents, and 4 config files to `~/.claude/c
 
 ```
 blueprint/
-├── commands/              24 skill files
+├── commands/              39 skill files
 │   ├── blueprint.md       Thin router
 │   ├── init.md            Bootstrap from existing codebase
 │   ├── help.md            Contextual command reference
 │   ├── list.md            Status table with suggestions
+│   ├── advise.md          Architecture Advice Process
 │   ├── new.md             ADR creation + research
 │   ├── review.md          Devil's advocate flow
+│   ├── challenge.md       DCAR forces evaluation
 │   ├── transition.md      Lifecycle state changes
 │   ├── search.md          Topic-based ADR search
+│   ├── scope.md           DDD bounded context scoping
 │   ├── impact.md          Cross-ADR conflict detection
 │   ├── audit.md           Compliance verification
+│   ├── reflect.md         Reflexion model conformance
+│   ├── evidence.md        Epistemic status audit
 │   ├── retro.md           Post-fix retrospective
 │   ├── evaluate.md        5-agent evaluation team
+│   ├── tradeoff.md        ATAM utility trees
+│   ├── risk.md            Architecture risk heat map
 │   ├── rearchitect.md     Supersession workflow
 │   ├── architect.md       ARCHITECTURE.md generation
+│   ├── diagram.md         C4 diagram auto-generation
 │   ├── eli5.md            Plain English explanations
 │   ├── fitness.md         CI-runnable architecture tests
+│   ├── trace.md           ADR-to-fitness traceability
 │   ├── drift.md           Temporal erosion detection
 │   ├── debt.md            Decision debt tracker
 │   ├── guard.md           Pre-commit invariant check
+│   ├── map.md             Wardley Map strategic analysis
 │   ├── digest.md          Stakeholder summary
 │   ├── timeline.md        Evolution narrative
+│   ├── export.md          arc42 / standards export
+│   ├── views.md           4+1 view tagging
+│   ├── federate.md        Cross-repo ADR federation
+│   ├── radar.md           Technology Radar
+│   ├── govern.md          Governance tier configuration
 │   ├── status.md          Governance dashboard + knowledge graph
 │   ├── health.md          Self-diagnostic with auto-repair
 │   └── hooks.md           Automatic trigger configuration
-├── agents/                12 agent definitions
+├── agents/                19 agent definitions
 │   ├── persona.md         Shared senior engineer personality
 │   ├── adr-researcher.md
 │   ├── adr-devils-advocate.md
+│   ├── adr-forces-evaluator.md       ← DCAR forces evaluation
 │   ├── adr-impact-analyzer.md
 │   ├── adr-compliance-auditor.md
+│   ├── adr-reflexion-analyzer.md      ← Reflexion model conformance
+│   ├── adr-evidence-auditor.md        ← Epistemic status audit
+│   ├── adr-context-mapper.md          ← DDD bounded context discovery
+│   ├── adr-strategic-analyzer.md      ← Wardley Map analysis
+│   ├── adr-diagram-generator.md       ← C4 diagram generation
+│   ├── adr-tradeoff-analyzer.md       ← ATAM utility trees
+│   ├── adr-risk-mapper.md             ← Risk heat map
+│   ├── adr-federation-indexer.md      ← Cross-repo federation
 │   ├── adr-consistency-auditor.md
 │   ├── adr-bug-surface-mapper.md
 │   ├── adr-maintainability-assessor.md
@@ -393,7 +422,11 @@ blueprint/
 │   ├── lifecycle.toml     Finite state machine
 │   ├── taxonomy.toml      Classification system
 │   ├── state.toml         Session memory
-│   └── relationships.toml ADR dependency graph
+│   ├── relationships.toml ADR dependency graph
+│   ├── contexts.toml      DDD bounded contexts
+│   ├── evidence.toml      Epistemic status tracking
+│   ├── radar.toml         Technology Radar (created on first use)
+│   └── governance.toml    Governance mode (created on first use)
 ├── docs/
 │   ├── ARCHITECTURE.md    Bird's-eye codemap (matklad style)
 │   └── adr/               34 self-referential ADRs
@@ -402,7 +435,7 @@ blueprint/
 └── .claude-plugin/        Plugin registration metadata
 ```
 
-Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 24 commands, 12 agents, 4 config files, 34 ADRs.
+Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 39 commands, 19 agents, 8 config files, 34 ADRs.
 
 ## Intellectual Heritage
 
@@ -418,6 +451,40 @@ Blueprint draws on several traditions:
 - **[Building Evolutionary Architectures](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/)** (Ford & Parsons, 2017) — architecture fitness functions as automated, CI-runnable invariant checks
 - **[The Cathedral and the Bazaar](http://www.catb.org/~esr/writings/cathedral-bazaar/)** (Raymond, 1997) — "given enough eyeballs, all bugs are shallow" — blueprint's evaluation team as a systematic implementation of this principle
 - **[ARCHITECTURE.md](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html)** (matklad, 2021) — bird's-eye codemap as a high-leverage onboarding document
+- **[Domain-Driven Design](https://www.domainlanguage.com/ddd/)** (Evans, 2003) — bounded contexts as the natural scoping mechanism for architectural decisions
+- **[Decision-Centric Architecture Reviews](https://ieeexplore.ieee.org/document/6449237/)** (van Heesch et al., 2014) — structured forces evaluation for decision-centric review
+- **[Software Reflexion Models](https://dl.acm.org/doi/10.1145/222124.222136)** (Murphy, Notkin, Sullivan, 1995) — formal convergence/divergence/absence analysis for architecture conformance
+- **[C4 Model](https://c4model.com/)** (Brown, 2006-2011) — progressive architecture visualization from system context to code
+- **[ATAM](https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/)** (SEI/CMU, 1998) — quality attribute utility trees, sensitivity points, tradeoff identification
+- **[Wardley Mapping](https://learnwardleymapping.com/)** (Wardley) — strategic context for build-vs-buy decisions via evolution stage classification
+- **[Architecture Advice Process](https://martinfowler.com/articles/scaling-architecture-conversationally.html)** (Harmel-Law, 2021) — decentralized decision-making with structured consultation
+- **[Risk Storming](https://riskstorming.com/)** (Brown, ~2015) — collaborative risk identification through visual convergence
+- **[arc42](https://arc42.org/)** (Starke & Hruschka, 2005) — pragmatic architecture documentation template
+- **[4+1 View Model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model)** (Kruchten, 1995) — multi-stakeholder architecture description through concurrent views
+- **[Team Topologies](https://teamtopologies.com/)** (Skelton & Pais, 2019) — operationalizing Conway's Law through team type classification
+- **[Epistemic Staleness in AI-Assisted Decisions](https://arxiv.org/html/2601.21116)** (Koenig et al., 2026) — evidence validity tracking for AI-generated architectural research
+
+## v2 Extensions: Research-Backed Architecture Paradigms
+
+Blueprint v2 adds 15 commands derived from a comprehensive survey of 20+ architecture paradigms (109 sources). See `papers/software-architecture-paradigms.md` for the full research and `ROADMAP.md` for implementation status.
+
+| Paradigm | Command | What It Brings |
+|----------|---------|---------------|
+| Domain-Driven Design (Evans, 2003) | `/blueprint:scope` | Bounded context scoping for ADRs |
+| DCAR (van Heesch et al., 2014) | `/blueprint:challenge` | Structured forces evaluation |
+| Reflexion Models (Murphy et al., 1995) | `/blueprint:reflect` | Formal architecture conformance |
+| Epistemic Staleness (Koenig et al., 2026) | `/blueprint:evidence` | Evidence validity tracking |
+| Wardley Mapping (Wardley) | `/blueprint:map` | Strategic build-vs-buy analysis |
+| C4 Model (Brown, 2006-2011) | `/blueprint:diagram` | Auto-generated architecture diagrams |
+| Evolutionary Architecture (Ford et al., 2017) | `/blueprint:trace` | Fitness function traceability |
+| Architecture Advice Process (Harmel-Law, 2021) | `/blueprint:advise` | Structured consultation workflow |
+| ATAM (SEI/CMU, 1998) | `/blueprint:tradeoff` | Quality attribute utility trees |
+| Risk Storming (Brown, ~2015) | `/blueprint:risk` | Architecture risk heat maps |
+| arc42 (Starke & Hruschka, 2005) | `/blueprint:export` | Standardized documentation export |
+| 4+1 View Model (Kruchten, 1995) | `/blueprint:views` | Multi-view ADR tagging |
+| Cross-repo ADRs (practitioner need) | `/blueprint:federate` | Multi-repository ADR federation |
+| ThoughtWorks Technology Radar | `/blueprint:radar` | Technology adoption lifecycle |
+| TOGAF + Advice Process | `/blueprint:govern` | Configurable governance tiers |
 
 ## License
 
