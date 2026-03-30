@@ -1,0 +1,118 @@
+# ADR Domain Taxonomy
+# Extensible classification system used by agents. Add categories as the project evolves.
+
+# --- Root Cause Categories (used by /adr:retro) ---
+
+[root_causes.missing_validation]
+label = "Missing Validation"
+description = "Input wasn't checked at a boundary"
+examples = ["No null check on API response", "Missing schema validation on webhook payload"]
+prevention = "Validation layer at system boundaries"
+
+[root_causes.implicit_contract]
+label = "Implicit Contract"
+description = "Two modules depended on undocumented behavior"
+examples = ["Service A assumed Service B always returns arrays", "Module depends on import side effects"]
+prevention = "Explicit interfaces with typed contracts"
+
+[root_causes.state_management]
+label = "State Management"
+description = "Mutable state got out of sync"
+examples = ["Cache held stale config after update", "Race condition between concurrent writes"]
+prevention = "Immutable state or explicit synchronization"
+
+[root_causes.error_swallowing]
+label = "Error Swallowing"
+description = "Error was caught and silently ignored"
+examples = ["catch (e) {} hiding connection failures", "Promise without .catch()"]
+prevention = "Explicit error handling with logging at every catch"
+
+[root_causes.missing_abstraction]
+label = "Missing Abstraction"
+description = "Same logic duplicated, one copy drifted"
+examples = ["Three files parsing dates differently", "Duplicated auth checks with different rules"]
+prevention = "Single source of truth for shared logic"
+
+[root_causes.wrong_abstraction]
+label = "Wrong Abstraction"
+description = "Abstraction doesn't fit the actual use case"
+examples = ["Generic handler that special-cases 80% of inputs", "Base class with one implementation"]
+prevention = "Refactor when abstraction obscures more than it simplifies"
+
+[root_causes.configuration_drift]
+label = "Configuration Drift"
+description = "Environment-specific behavior not captured in code"
+examples = ["Works locally, breaks in prod", "Hardcoded dev URLs in config"]
+prevention = "Environment parity with infrastructure-as-code"
+
+[root_causes.dependency_coupling]
+label = "Dependency Coupling"
+description = "Change in dependency broke assumptions"
+examples = ["Library update changed default behavior", "Transitive dependency conflict"]
+prevention = "Pin versions, wrap external dependencies, test upgrades"
+
+[root_causes.missing_test]
+label = "Missing Test"
+description = "No test existed for this scenario"
+examples = ["Happy path tested, error path not", "No regression test after previous fix"]
+prevention = "Anti-pattern tests and boundary testing"
+
+[root_causes.architectural_gap]
+label = "Architectural Gap"
+description = "System structure makes this bug class inevitable"
+examples = ["No validation layer between external data and business logic", "No circuit breaker on external calls"]
+prevention = "ADR to address the structural gap"
+
+# --- Evaluation Dimensions (used by /adr:evaluate) ---
+
+[eval_dimensions.consistency]
+label = "Structural Consistency"
+agent = "adr-consistency-auditor"
+aspects = ["naming", "module_structure", "dependency_direction", "error_handling", "api_patterns", "configuration"]
+
+[eval_dimensions.bugs]
+label = "Bug Surface"
+agent = "adr-bug-surface-mapper"
+aspects = ["complexity_hotspots", "coupling", "boundary_integrity", "state_management", "implicit_contracts"]
+
+[eval_dimensions.maintainability]
+label = "Maintainability"
+agent = "adr-maintainability-assessor"
+aspects = ["dependency_health", "abstraction_quality", "change_amplification", "cognitive_complexity", "documentation", "technical_debt"]
+
+[eval_dimensions.testing]
+label = "Testing Strategy"
+agent = "adr-testing-strategy-evaluator"
+aspects = ["pyramid_health", "risk_coverage", "antipattern_tests", "test_quality", "test_architecture"]
+
+[eval_dimensions.conways]
+label = "Conway's Law Alignment"
+agent = "adr-conways-law-analyzer"
+aspects = ["ownership_alignment", "friction_points", "orphaned_modules", "bottlenecks", "scaling_readiness"]
+
+# --- Decision Categories ---
+
+decision_categories = [
+  "Technology Choice",
+  "Architecture Pattern",
+  "Data Model",
+  "API Design",
+  "Deployment Strategy",
+  "Authentication / Authorization",
+  "Integration Strategy",
+  "Performance / Scaling",
+  "Security / Compliance",
+  "Testing Strategy",
+  "Process / Workflow",
+]
+
+# --- Severity Levels ---
+
+[severity.High]
+description = "Core architectural constraint. Affects multiple components, expensive to reverse."
+
+[severity.Medium]
+description = "Significant technical decision. Affects one subsystem, moderately reversible."
+
+[severity.Low]
+description = "Local decision. Affects one module, easily reversed."
