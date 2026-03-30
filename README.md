@@ -292,14 +292,20 @@ The output is a verdict: **SYSTEMIC** (the fix addressed the root cause, move on
 ## Installation
 
 ```bash
-# From source
+# One command — installs globally via npm
+npx claude-blueprint install --global
+
+# Verify
+npx claude-blueprint verify
+```
+
+Or from source:
+
+```bash
 cd ~/pragnition/blueprint
 npm install
 npm link
 claude-blueprint install --global
-
-# Verify
-claude-blueprint verify
 ```
 
 The installer deploys 24 commands, 12 agents, and 4 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
