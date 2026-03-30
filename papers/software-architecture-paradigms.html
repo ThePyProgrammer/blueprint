@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Architecture Paradigms, Auditing, and Management</title>
+<style>
+@page {
+    size: A4;
+    margin: 2cm 2.5cm;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #1a1a2e;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 2cm 2.5cm;
+    background: #fff;
+}
+h1 {
+    font-size: 22pt;
+    color: #0f3460;
+    border-bottom: 3px solid #0f3460;
+    padding-bottom: 12px;
+    margin-top: 0;
+    page-break-after: avoid;
+}
+h2 {
+    font-size: 16pt;
+    color: #16213e;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-top: 36px;
+    page-break-after: avoid;
+}
+h3 {
+    font-size: 13pt;
+    color: #1a1a2e;
+    margin-top: 24px;
+    page-break-after: avoid;
+}
+h4 {
+    font-size: 11pt;
+    color: #2d3748;
+    margin-top: 18px;
+    font-weight: 600;
+    page-break-after: avoid;
+}
+p {
+    margin: 8px 0;
+    text-align: justify;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 10pt;
+    page-break-inside: avoid;
+}
+th {
+    background: #0f3460;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+}
+td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+tr:nth-child(even) td {
+    background: #f7fafc;
+}
+tr:hover td {
+    background: #edf2f7;
+}
+blockquote {
+    border-left: 4px solid #0f3460;
+    margin: 16px 0;
+    padding: 12px 20px;
+    background: #f0f4ff;
+    color: #2d3748;
+    font-style: italic;
+}
+code {
+    background: #f0f4ff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10pt;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    color: #0f3460;
+}
+pre {
+    background: #1a1a2e;
+    color: #e2e8f0;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 9pt;
+    line-height: 1.5;
+    page-break-inside: avoid;
+}
+pre code {
+    background: none;
+    color: #e2e8f0;
+    padding: 0;
+}
+hr {
+    border: none;
+    border-top: 2px solid #e2e8f0;
+    margin: 32px 0;
+}
+strong {
+    color: #16213e;
+}
+a {
+    color: #0f3460;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+ul, ol {
+    margin: 8px 0;
+    padding-left: 24px;
+}
+li {
+    margin: 4px 0;
+}
+/* Mermaid diagram placeholders */
+.mermaid-placeholder {
+    background: #f7fafc;
+    border: 2px dashed #cbd5e0;
+    padding: 20px;
+    text-align: center;
+    color: #718096;
+    font-style: italic;
+    margin: 16px 0;
+    border-radius: 6px;
+}
+/* Print styles */
+@media print {
+    body {
+        padding: 0;
+    }
+    h2 {
+        page-break-before: auto;
+    }
+    table, pre, blockquote {
+        page-break-inside: avoid;
+    }
+}
+</style>
+</head>
+<body>
+<h1 id="software-architecture-paradigms-auditing-and-management-a-comprehensive-research-report">Software Architecture Paradigms, Auditing, and Management: A Comprehensive Research Report</h1>
+<p><strong>Date:</strong> 2026-03-30
+<strong>Prepared for:</strong> Blueprint ADR System Extension Planning
+<strong>Sources consulted:</strong> 86 unique sources across 4 research dimensions
+<strong>Scope:</strong> Architecture evaluation methods, paradigms/frameworks, ADR ecosystem, governance models, emerging trends</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Software architecture management has evolved from heavyweight, ceremony-laden processes (TOGAF, ATAM) toward lightweight, decision-centric, continuously enforced approaches. This report surveys the complete landscape — from foundational evaluation methods through modern paradigms to emerging AI-assisted governance — and identifies which methods would most extend Blueprint's capabilities.</p>
+<p><strong>Three inflection points define the field:</strong></p>
+<ol>
+<li>
+<p><strong>The ADR revolution (2011):</strong> Michael Nygard's Architecture Decision Records shifted architecture management from documentation-as-artifact to decisions-as-code, stored alongside the systems they govern.</p>
+</li>
+<li>
+<p><strong>The fitness function paradigm (2017):</strong> Neal Ford, Rebecca Parsons, and Patrick Kua's "Building Evolutionary Architectures" transformed architecture governance from periodic human review to continuous automated enforcement — decisions that verify themselves.</p>
+</li>
+<li>
+<p><strong>The epistemic staleness crisis (2026):</strong> A recent arXiv paper found that 23% of architectural decisions had stale evidence within two months, with 86% discovered reactively during incidents. AI-assisted architecture amplifies decision velocity beyond validation capacity.</p>
+</li>
+</ol>
+<p><strong>Blueprint's unique position:</strong> No other tool combines ADR lifecycle management, AI-powered research/review/audit, drift detection, fitness function generation, and multi-dimensional architecture evaluation. Blueprint occupies a gap between passive ADR tools (adr-tools, Log4brains) and heavyweight analysis platforms (Sonargraph, Structure101). The extensions identified in this report would cement Blueprint as the industry's most complete architecture governance system.</p>
+<p><strong>Top 5 extensions by impact:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Extension</th>
+<th>Source Paradigm</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>DDD bounded context scoping</td>
+<td>Domain-Driven Design</td>
+<td>Scopes ADRs to domains; enables per-team views</td>
+</tr>
+<tr>
+<td>2</td>
+<td>DCAR-style structured evaluation</td>
+<td>Decision-Centric Architecture Reviews</td>
+<td>Most natural formal method for ADR-based systems</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Reflexion model drift detection</td>
+<td>Murphy/Notkin/Sullivan (1995)</td>
+<td>Transforms drift detection from heuristic to systematic</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Epistemic status tracking</td>
+<td>Koenig et al. (2026)</td>
+<td>Addresses evidence staleness in AI-assisted decisions</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Wardley Mapping integration</td>
+<td>Simon Wardley</td>
+<td>Strategic context for build/buy/commodity decisions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="part-i-how-organizations-audit-and-manage-software-architecture">Part I: How Organizations Audit and Manage Software Architecture</h2>
+<h3 id="11-atam-the-gold-standard-for-architecture-evaluation">1.1 ATAM — The Gold Standard for Architecture Evaluation</h3>
+<p><strong>Origin:</strong> Software Engineering Institute (SEI), Carnegie Mellon University, 1998. Authors: Rick Kazman, Mark Klein, Paul Clements, Mario Barbacci.</p>
+<p>ATAM remains the most widely cited and used formal architecture evaluation method. It is a 9-step, 2-phase process requiring 3-4 days with 12-15 participants. Its power comes from systematic identification of:</p>
+<ul>
+<li><strong>Sensitivity points</strong> — architectural parameters where small changes have large quality effects</li>
+<li><strong>Tradeoff points</strong> — parameters affecting multiple quality attributes simultaneously</li>
+<li><strong>Risks</strong> — decisions that could cause problems under certain conditions</li>
+<li><strong>Non-risks</strong> — decisions confirmed as architecturally sound</li>
+</ul>
+<p>The process centers on a <strong>quality attribute utility tree</strong> — a structured decomposition of business drivers into quality attributes (performance, security, modifiability), each with concrete scenarios and priority rankings (High/Medium/Low for both importance and difficulty).</p>
+<pre class="codehilite"><code class="language-mermaid">graph TD
+    A[Business Drivers] --&gt; B[Quality Attributes]
+    B --&gt; C[Scenarios]
+    C --&gt; D[Utility Tree]
+    D --&gt; E[Sensitivity Points]
+    D --&gt; F[Tradeoff Points]
+    D --&gt; G[Risks / Non-Risks]
+    E --&gt; H[Architecture Evaluation Report]
+    F --&gt; H
+    G --&gt; H
+</code></pre>
+
+<p><strong>Industry adoption:</strong> High in defense, government, aerospace, and large enterprise. Lower in agile-native organizations due to ceremony overhead. ATAM's vocabulary (sensitivity points, tradeoffs, utility trees) has become standard architectural language even in organizations that never run formal ATAMs.</p>
+<p><strong>Blueprint extension opportunity:</strong> An ATAM-inspired evaluation agent could generate quality attribute utility trees from accepted ADRs, identify sensitivity points by analyzing cross-references, and detect tradeoff points by finding ADRs pulling in opposite quality directions. This brings ATAM's most valuable outputs without its heavyweight process.</p>
+<h3 id="12-saam-the-ancestor">1.2 SAAM — The Ancestor</h3>
+<p><strong>Origin:</strong> SEI/CMU, 1994. The first documented software architecture analysis method, focused primarily on modifiability. SAAM pioneered scenario-based evaluation — the intellectual foundation for everything that followed. Rarely used in its original form today, having been superseded by ATAM.</p>
+<h3 id="13-dcar-the-decision-centric-bridge">1.3 DCAR — The Decision-Centric Bridge</h3>
+<p><strong>Origin:</strong> Uwe van Heesch, Veli-Pekka Eloranta, Paris Avgeriou, Kai Koskimies, Neil Harrison. Published in IEEE Software, 2014.</p>
+<p>DCAR is <strong>the most important evaluation method for Blueprint's design philosophy</strong> because it treats architectural decisions — not scenarios or quality attributes — as the primary unit of analysis. This directly aligns with ADR-based systems.</p>
+<p><strong>Core process (7 steps):</strong></p>
+<ol>
+<li>Present architecture overview</li>
+<li>Identify key decisions</li>
+<li>Prioritize decisions by importance and risk</li>
+<li>Select top-priority decisions for review</li>
+<li>Document each decision using a forces template (arguments for/against, alternatives, rationale)</li>
+<li>Evaluate decisions (10 minutes each) — reviewers challenge using documented forces</li>
+<li>Report results — decisions rated "confirmed" vs. "needs re-evaluation"</li>
+</ol>
+<p><strong>The forces template</strong> is DCAR's key innovation: each decision is documented with explicit arguments for and against, weighted by stakeholders. This maps directly to an ADR's Context/Decision/Consequences structure but adds systematic force-balancing.</p>
+<p><strong>Blueprint extension opportunity (HIGH PRIORITY):</strong> Blueprint's <code>/blueprint:review</code> currently uses a devil's advocate agent. Adding DCAR's structured forces evaluation would formalize the review process: weight arguments for/against, generate decision relationship views, and score decisions as confirmed vs. needs-re-evaluation. This is Blueprint's most natural formal method counterpart.</p>
+<h3 id="14-architecture-review-boards">1.4 Architecture Review Boards</h3>
+<p><strong>Origin:</strong> Formalized in TOGAF (Chapter 23/44); practice predates the framework.</p>
+<p>ARBs are ubiquitous in large enterprises — virtually every Fortune 500 company has some form. However, the State of DevOps Report reveals that traditional ARBs correlate with <em>low</em> organizational performance. They become bottlenecks that slow delivery and create adversarial relationships.</p>
+<p><strong>Modern evolution:</strong> AWS and cloud-native organizations recommend augmenting ARBs with AI-automated pre-review against enterprise standards before human board review. Blueprint could generate ARB submission packages from proposed ADRs.</p>
+<h3 id="15-architecture-fitness-functions-the-automation-revolution">1.5 Architecture Fitness Functions — The Automation Revolution</h3>
+<p><strong>Origin:</strong> Neal Ford, Rebecca Parsons, Patrick Kua. "Building Evolutionary Architectures," O'Reilly, 2017 (2nd ed. 2023).</p>
+<p>Fitness functions are <strong>the most important modern innovation in architecture governance</strong>. They transform architecture evaluation from periodic human activity to continuous automated enforcement.</p>
+<p><strong>Definition:</strong> "An objective integrity assessment of some architectural characteristic(s)" — executable checks that verify architectural decisions are being followed.</p>
+<p><strong>Taxonomy:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Type A</th>
+<th>Type B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Atomic (single attribute)</td>
+<td>Holistic (multiple attributes)</td>
+</tr>
+<tr>
+<td>Cadence</td>
+<td>Triggered (on commit/deploy)</td>
+<td>Continual (always monitoring)</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>Static (pass/fail)</td>
+<td>Dynamic (context-adaptive thresholds)</td>
+</tr>
+<tr>
+<td>Execution</td>
+<td>Automated (CI pipeline)</td>
+<td>Manual (human verification)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The critical bridge:</strong> "A decision record documents the decision. A fitness function <em>assures</em> the decision." Most teams only do the first. Organizations report architecture violation rates dropping from 34 per year to 3 after implementing fitness functions in CI.</p>
+<p><strong>Implementation ecosystem:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Ecosystem</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ArchUnit</td>
+<td>Java/Kotlin</td>
+<td>Package dependencies, layering, naming, cycles</td>
+</tr>
+<tr>
+<td>NetArchTest</td>
+<td>.NET</td>
+<td>Architecture rule assertions in unit tests</td>
+</tr>
+<tr>
+<td>dependency-cruiser</td>
+<td>JS/TS</td>
+<td>Import rules, circular dependencies, layer enforcement</td>
+</tr>
+<tr>
+<td>Pyarchtest</td>
+<td>Python</td>
+<td>Architecture testing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Blueprint already implements this</strong> via <code>/blueprint:fitness</code> and <code>/blueprint:guard</code>. Extension opportunities: categorize fitness functions by the Ford/Parsons taxonomy, add holistic fitness functions checking multiple ADRs together, support dynamic functions with adaptive thresholds, and maintain a traceability matrix showing which ADR each fitness function enforces.</p>
+<h3 id="16-isoiec-42010-the-international-standard">1.6 ISO/IEC 42010 — The International Standard</h3>
+<p><strong>Lineage:</strong> IEEE 1471:2000 → ISO/IEC 42010:2007 → ISO/IEC/IEEE 42010:2011 → ISO/IEC/IEEE 42010:2022.</p>
+<p>The standard establishes the conceptual framework for architecture description through <strong>viewpoints</strong>, <strong>views</strong>, <strong>concerns</strong>, and <strong>stakeholders</strong>. Its 2022 edition explicitly incorporates architecture decision capture.</p>
+<p><strong>Key insight for Blueprint:</strong> ISO 42010's viewpoint/concern/stakeholder model could power a gap-analysis tool identifying architectural concerns not yet covered by any ADR. A <code>/blueprint:describe</code> command could verify that all identified stakeholder concerns have at least one ADR addressing them.</p>
+<h3 id="17-lightweight-approaches">1.7 Lightweight Approaches</h3>
+<p><strong>Risk Storming (Simon Brown, ~2015):</strong> A 30-60 minute collaborative technique where participants independently identify risks on sticky notes, then place them on architecture diagrams to reveal risk concentrations. Blueprint could automate this by analyzing ADR coverage gaps across components.</p>
+<p><strong>Architecture Katas (Ted Neward, ~2010):</strong> Training exercises for developing architecture evaluation skills. Small groups design solutions to fictional RFPs and present to each other for cross-critique. Not an evaluation method per se, but the critique format mirrors DCAR's decision challenge process.</p>
+<hr />
+<h2 id="part-ii-architecture-paradigms-and-schools-of-thought">Part II: Architecture Paradigms and Schools of Thought</h2>
+<h3 id="21-togaf-enterprise-architecture-framework">2.1 TOGAF — Enterprise Architecture Framework</h3>
+<p><strong>Origin:</strong> The Open Group, 1995 (based on US DoD TAFIM). Claims adoption by 80% of Global 50, 60% of Fortune 500.</p>
+<p>TOGAF provides a comprehensive enterprise architecture framework centered on the <strong>Architecture Development Method (ADM)</strong> — a 10-phase iterative cycle:</p>
+<pre class="codehilite"><code class="language-mermaid">graph TD
+    P[Preliminary] --&gt; A[Phase A: Architecture Vision]
+    A --&gt; B[Phase B: Business Architecture]
+    B --&gt; C[Phase C: Information Systems Architecture]
+    C --&gt; D[Phase D: Technology Architecture]
+    D --&gt; E[Phase E: Opportunities &amp; Solutions]
+    E --&gt; F[Phase F: Migration Planning]
+    F --&gt; G[Phase G: Implementation Governance]
+    G --&gt; H[Phase H: Architecture Change Management]
+    H --&gt; A
+    RM[Requirements Management] --- A
+    RM --- B
+    RM --- C
+    RM --- D
+</code></pre>
+
+<p><strong>Strengths:</strong> Comprehensive governance, well-defined stakeholder management, strong metamodel for business-technology traceability.</p>
+<p><strong>Weaknesses:</strong> Criticized as theory-focused with few practical worked examples. Most successful TOGAF implementations rarely follow prescriptions literally. Heavyweight and expensive to implement fully.</p>
+<p><strong>Blueprint extension opportunity:</strong> TOGAF's governance board concept and Architecture Repository could inform optional governance tiers in Blueprint — configurable modes from "lightweight" (current) to "governed" (N approvals required) to "formal" (phase-based gate reviews).</p>
+<h3 id="22-zachman-framework-the-taxonomy">2.2 Zachman Framework — The Taxonomy</h3>
+<p><strong>Origin:</strong> John Zachman, IBM, 1987. The original enterprise architecture classification system.</p>
+<p>A 6×6 matrix crossing six interrogatives (What, How, Where, Who, When, Why) with six stakeholder perspectives (Planner through Functioning Enterprise). Comprehensive but static, with no methodology or process guidance. Declining in active use.</p>
+<p><strong>Blueprint insight:</strong> Zachman's interrogatives could inform a structured decision template — ensuring ADRs address all relevant dimensions when applicable.</p>
+<h3 id="23-c4-model-architecture-visualization">2.3 C4 Model — Architecture Visualization</h3>
+<p><strong>Origin:</strong> Simon Brown, developed 2006-2011.</p>
+<p>The C4 model addresses the gap between complex UML and informal whiteboard sketches through four progressive zoom levels:</p>
+<pre class="codehilite"><code class="language-mermaid">graph TD
+    L1[Level 1: System Context] --&gt;|zoom in| L2[Level 2: Container]
+    L2 --&gt;|zoom in| L3[Level 3: Component]
+    L3 --&gt;|zoom in| L4[Level 4: Code]
+
+    L1 --- D1[&quot;Users + external systems&quot;]
+    L2 --- D2[&quot;Web apps, APIs, databases, queues&quot;]
+    L3 --- D3[&quot;Internal structural blocks&quot;]
+    L4 --- D4[&quot;Classes/interfaces - often auto-generated&quot;]
+</code></pre>
+
+<p><strong>Adoption:</strong> ~50% of development teams use C4 for stakeholder communication, with reported 30% clarity improvement. Structurizr DSL enables version-controlled, automatable architecture models.</p>
+<p><strong>Blueprint extension opportunity (HIGH PRIORITY):</strong> Blueprint already has the ADR relationship graph data needed to auto-generate C4 System Context and Container diagrams. Each ADR accepting a system/service/database creates a C4 element. A <code>/blueprint:diagram</code> command could output Structurizr DSL or Mermaid, producing auto-updated diagrams that stay in sync with decisions.</p>
+<h3 id="24-arc42-pragmatic-documentation-template">2.4 arc42 — Pragmatic Documentation Template</h3>
+<p><strong>Origin:</strong> Dr. Gernot Starke and Dr. Peter Hruschka, 2005.</p>
+<p>A 12-section architecture documentation template that is intentionally minimal — every section is optional. Its most important connection to Blueprint: <strong>Section 9 is literally "Architecture Decisions"</strong> and Section 10 is "Quality Requirements" (fitness function targets).</p>
+<p><strong>Blueprint extension opportunity:</strong> A <code>/blueprint:export arc42</code> command mapping Blueprint's ADR collection into arc42's 12-section structure. ADRs populate Section 9; ARCHITECTURE.md populates Sections 3-7; fitness functions map to Section 10; risk assessments from retrospectives populate Section 11.</p>
+<h3 id="25-41-view-model">2.5 4+1 View Model</h3>
+<p><strong>Origin:</strong> Philippe Kruchten, 1995 (IEEE Software). Foundational — influenced RUP, UML, C4, and ISO 42010.</p>
+<p>Five concurrent views: Logical (end users), Development (developers), Process (system engineers), Physical (operations), and Scenarios (+1, all stakeholders). The "+1" validates the other four by walking through concrete use cases.</p>
+<p><strong>Blueprint extension opportunity:</strong> ADRs could be tagged with which view(s) they affect, enabling stakeholder-appropriate filtering — developers see development-view ADRs, operations sees physical-view ADRs.</p>
+<h3 id="26-domain-driven-design-the-most-impactful-extension-paradigm">2.6 Domain-Driven Design — The Most Impactful Extension Paradigm</h3>
+<p><strong>Origin:</strong> Eric Evans, 2003. "Domain-Driven Design: Tackling Complexity in the Heart of Software."</p>
+<p>DDD is <strong>the paradigm that would cause the greatest extension to Blueprint's design</strong> because its core concept — bounded contexts — addresses Blueprint's most significant architectural limitation: ADRs are currently global with no scoping mechanism.</p>
+<p><strong>Strategic Design concepts:</strong></p>
+<pre class="codehilite"><code class="language-mermaid">graph LR
+    subgraph &quot;Bounded Context: Orders&quot;
+        O1[Order Entity]
+        O2[Order Service]
+    end
+    subgraph &quot;Bounded Context: Payments&quot;
+        P1[Payment Entity]
+        P2[Payment Service]
+    end
+    subgraph &quot;Bounded Context: Inventory&quot;
+        I1[Stock Entity]
+        I2[Inventory Service]
+    end
+    O2 --&gt;|Anti-Corruption Layer| P2
+    O2 --&gt;|Published Language| I2
+</code></pre>
+
+<ul>
+<li><strong>Bounded Context:</strong> An explicit boundary within which a domain model and its ubiquitous language applies. Different contexts may have different models for the same real-world concept.</li>
+<li><strong>Context Map:</strong> A visualization of relationships between bounded contexts using integration patterns (Customer-Supplier, Open Host Service, Anti-Corruption Layer, Shared Kernel, Conformist, Separate Ways, Partnership).</li>
+<li><strong>Ubiquitous Language:</strong> Shared vocabulary used in code, conversations, and documentation — language boundaries align with context boundaries.</li>
+</ul>
+<p><strong>Why DDD is the #1 extension for Blueprint:</strong></p>
+<ol>
+<li><strong>ADR scoping:</strong> A <code>context:</code> metadata field enables per-domain ADR views. In a system with 50 ADRs across 5 bounded contexts, each team sees only the 10 that govern their domain.</li>
+<li><strong>Impact analysis:</strong> <code>/blueprint:impact</code> would respect context boundaries — a change in the Orders context doesn't trigger review of Inventory ADRs unless there's a context map relationship.</li>
+<li><strong>Context map as ADR relationship overlay:</strong> The relationship graph between ADRs already exists; adding context mapping patterns (Customer-Supplier, ACL) enriches it with DDD vocabulary.</li>
+<li><strong>Anti-corruption layers are ADR-worthy decisions:</strong> Every integration pattern between contexts deserves documentation — DDD makes this explicit.</li>
+</ol>
+<h3 id="27-hexagonal-clean-architecture">2.7 Hexagonal / Clean Architecture</h3>
+<p><strong>Origin:</strong> Hexagonal (Alistair Cockburn, 2005), Onion (Jeffrey Palermo, 2008), Clean (Robert C. Martin, 2012).</p>
+<p>The family shares a core principle: <strong>business logic must be isolated from external concerns, with dependencies pointing inward</strong>. The application core defines ports (interfaces); external adapters implement them.</p>
+<p><strong>Blueprint extension opportunity:</strong> Detect hexagonal/clean architecture adoption in a codebase and auto-generate dependency-direction fitness functions (no import from outer to inner layer). Pattern-aware fitness functions would have higher signal-to-noise than generic ones.</p>
+<h3 id="28-evolutionary-architecture-blueprints-closest-intellectual-neighbor">2.8 Evolutionary Architecture — Blueprint's Closest Intellectual Neighbor</h3>
+<p><strong>Origin:</strong> Neal Ford, Rebecca Parsons, Patrick Kua (ThoughtWorks), 2017. Second edition 2023 subtitled "Automated Software Governance."</p>
+<p>The core insight: architecture evolves whether you want it to or not. Rather than designing perfect architecture upfront, provide <strong>fitness functions</strong> that ensure incremental changes preserve important characteristics while allowing the architecture to evolve.</p>
+<p>Blueprint already implements this philosophy via <code>/blueprint:fitness</code>, <code>/blueprint:drift</code>, and <code>/blueprint:guard</code>. The extension opportunity lies in:
+- Categorizing fitness functions per the Ford/Parsons taxonomy
+- Adding holistic fitness functions that check multiple ADRs together
+- Supporting dynamic fitness functions with context-adaptive thresholds
+- Tracking fitness function pass/fail rates as drift indicators</p>
+<h3 id="29-cell-based-architecture">2.9 Cell-Based Architecture</h3>
+<p><strong>Origin:</strong> Asanka Abeysinghe, Paul Fremantle (WSO2), ~2018. Adopted by AWS Well-Architected.</p>
+<p>Groups related microservices, data stores, and infrastructure into independently deployable <strong>cells</strong>, each with a gateway as its single access point. Addresses the gap between individual microservices and monolithic enterprise layers.</p>
+<p><strong>Blueprint insight:</strong> Cells could serve as ADR scope boundaries — decisions within a cell vs. cross-cell decisions requiring inter-cell review.</p>
+<h3 id="210-event-driven-architecture-cqrs-event-sourcing">2.10 Event-Driven Architecture / CQRS / Event Sourcing</h3>
+<p><strong>Origin:</strong> Distributed systems research (1990s-2000s); CQRS and Event Sourcing formalized by Greg Young (~2010), building on Bertrand Meyer's Command-Query Separation (1988).</p>
+<p>Martin Fowler identifies four EDA patterns: Event Notification, Event-Carried State Transfer, Event Sourcing, and CQRS. Each has distinct tradeoff profiles.</p>
+<p><strong>Blueprint insight:</strong> Event sourcing is structurally analogous to ADR management — both maintain append-only logs from which current state can be derived. Blueprint's ADR lifecycle (Proposed → Accepted → Deprecated → Superseded) parallels event sourcing's state derivation from event sequences. An event-sourced ADR history could enable temporal queries ("what did the architecture look like on date X?").</p>
+<h3 id="211-architecturemd-matklad">2.11 ARCHITECTURE.md (matklad)</h3>
+<p><strong>Origin:</strong> Aleksey Kladov (matklad), February 2021.</p>
+<p>New contributors spend ~2x longer writing patches due to unfamiliarity, but <strong>10x longer discovering where changes should occur</strong>. An ARCHITECTURE.md externalizes the experienced maintainer's mental map, addressing the larger multiplier.</p>
+<p><strong>Blueprint status:</strong> Already implemented via <code>/blueprint:architect</code>. The codemap, invariants, and boundaries are derived from ADR content. ARCHITECTURE.md describes <strong>what is</strong>; ADRs describe <strong>why it is that way</strong> — complementary, not competing.</p>
+<hr />
+<h2 id="part-iii-architecture-decision-records-the-foundation">Part III: Architecture Decision Records — The Foundation</h2>
+<h3 id="31-the-origin-nygard-2011">3.1 The Origin: Nygard (2011)</h3>
+<p>Michael Nygard published "Documenting Architecture Decisions" on November 15, 2011. The original format:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>Short noun phrase (e.g., "ADR 1: Deployment on Ruby on Rails 3.0.10")</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Proposed, Accepted, Deprecated, or Superseded</td>
+</tr>
+<tr>
+<td>Context</td>
+<td>Forces at play — technological, political, social, project-local</td>
+</tr>
+<tr>
+<td>Decision</td>
+<td>Active-voice statement beginning with "We will..."</td>
+</tr>
+<tr>
+<td>Consequences</td>
+<td>All outcomes — positive, negative, and neutral</td>
+</tr>
+</tbody>
+</table>
+<p>Key philosophical principles: documents should be 1-2 pages, written in full paragraphs (not bullet points), stored in version control alongside code, and written as "a conversation with a future developer."</p>
+<h3 id="32-adr-variants">3.2 ADR Variants</h3>
+<p><strong>MADR (Markdown Any Decision Records):</strong> Evolved from Nygard's template. Adds explicit "Considered Options" and "Pros and Cons" sections. Renamed from "Markdown Architectural Decision Records" to reflect broader applicability.</p>
+<p><strong>Y-Statements (Olaf Zimmermann, SATURN 2012):</strong> A single structured sentence capturing the complete decision:</p>
+<blockquote>
+<p>In the context of <strong>[requirement]</strong>, facing <strong>[quality concern]</strong>, we decided for <strong>[outcome]</strong> and neglected <strong>[alternatives]</strong>, to achieve <strong>[benefits]</strong>, accepting that <strong>[drawbacks]</strong>.</p>
+</blockquote>
+<p>Forces completeness but creates long, difficult-to-read sentences.</p>
+<p><strong>Lightweight ADRs (ThoughtWorks):</strong> Placed in the Technology Radar <strong>Adopt</strong> ring in 2017. Martin Fowler's guidance adds confidence levels and reevaluation triggers. Andrew Harmel-Law's "Scaling Architecture Conversationally" adds the Architecture Advice Process — anyone can make architectural decisions after consulting affected parties and experts.</p>
+<h3 id="33-adr-criticisms-and-limitations">3.3 ADR Criticisms and Limitations</h3>
+<table>
+<thead>
+<tr>
+<th>Criticism</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>No enforcement</strong> — documents intent but provides no compliance mechanism</td>
+<td>Critical</td>
+</tr>
+<tr>
+<td><strong>Scope creep</strong> — without clear "architectural" definition, teams dump all decisions</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Knowledge loss</strong> — most decisions happen verbally; writing them is an extra step teams skip</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Adoption friction</strong> — consistency is the biggest challenge without enforcement</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Stale ADRs</strong> — without lifecycle management, accepted ADRs become outdated</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Storage mismatch</strong> — repo-stored ADRs fail for cross-ecosystem decisions</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Blueprint addresses the critical gap (enforcement)</strong> through fitness functions, compliance auditing, drift detection, and pre-commit guards. No other ADR tool does this.</p>
+<h3 id="34-adr-tooling-landscape">3.4 ADR Tooling Landscape</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Type</th>
+<th>Unique Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>adr-tools</td>
+<td>Bash CLI</td>
+<td>Lightweight, widely adopted</td>
+</tr>
+<tr>
+<td>Log4brains</td>
+<td>CLI + Web</td>
+<td>Searchable website, decision graphs</td>
+</tr>
+<tr>
+<td>MADR</td>
+<td>Template</td>
+<td>Section-oriented standard</td>
+</tr>
+<tr>
+<td>pyadr</td>
+<td>Python</td>
+<td>Lifecycle management</td>
+</tr>
+<tr>
+<td>Structurizr</td>
+<td>Java</td>
+<td>Architecture visualization + decision logs</td>
+</tr>
+<tr>
+<td><strong>Blueprint</strong></td>
+<td><strong>AI-powered</strong></td>
+<td><strong>Research, review, audit, fitness, drift — full lifecycle</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Blueprint's differentiator:</strong> It is the only tool that treats ADRs as <em>living hypotheses</em> with a complete lifecycle — researched, challenged, accepted, audited, enforced, and revisited. Every other tool stops at documentation.</p>
+<hr />
+<h2 id="part-iv-architectural-drift-and-technical-debt">Part IV: Architectural Drift and Technical Debt</h2>
+<h3 id="41-drift-vs-erosion">4.1 Drift vs. Erosion</h3>
+<p>These are distinct concepts requiring different detection methods:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Drift</strong></td>
+<td>Unplanned additions not violating the architecture</td>
+<td>Adding an unplanned caching layer</td>
+</tr>
+<tr>
+<td><strong>Erosion</strong></td>
+<td>Decisions directly violating prescriptive architecture</td>
+<td>Bypassing the service layer for direct DB calls</td>
+</tr>
+</tbody>
+</table>
+<p>Drift is additive (new things appear); erosion is subversive (existing rules get violated). Drift can eventually lead to erosion if unmanaged.</p>
+<h3 id="42-reflexion-models-the-theoretical-foundation">4.2 Reflexion Models — The Theoretical Foundation</h3>
+<p><strong>Origin:</strong> Murphy, Notkin, Sullivan, 1995 (ACM SIGSOFT).</p>
+<p>The most rigorous theoretical framework for architecture conformance checking:</p>
+<ol>
+<li>Engineer defines a <strong>high-level model</strong> (intended architecture)</li>
+<li>Engineer specifies a <strong>mapping</strong> from source entities to model elements</li>
+<li>Tool computes a <strong>reflexion model</strong> showing:</li>
+<li><strong>Convergences</strong> — source matches the model</li>
+<li><strong>Divergences</strong> — source has dependencies the model doesn't specify (drift)</li>
+<li><strong>Absences</strong> — model specifies dependencies the source doesn't have</li>
+</ol>
+<pre class="codehilite"><code class="language-mermaid">graph LR
+    subgraph &quot;High-Level Model&quot;
+        HM1[Module A] --&gt; HM2[Module B]
+    end
+    subgraph &quot;Source Code&quot;
+        SC1[package.a] --&gt; SC2[package.b]
+        SC1 --&gt; SC3[package.c]
+    end
+    subgraph &quot;Reflexion Model&quot;
+        R1[&quot;A→B: Convergence ✓&quot;]
+        R2[&quot;A→C: Divergence ✗ (drift)&quot;]
+        R3[&quot;B→A: Absence ◯&quot;]
+    end
+</code></pre>
+
+<p><strong>Blueprint extension opportunity (HIGH PRIORITY):</strong> Blueprint's drift detection currently uses git history trajectory analysis. Adding formal reflexion model comparison — generating the high-level model from accepted ADRs + ARCHITECTURE.md, computing mappings to source entities, and producing convergence/divergence/absence reports — would transform drift detection from heuristic to systematic.</p>
+<h3 id="43-architecture-conformance-tools">4.3 Architecture Conformance Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Approach</th>
+<th>Key Strength</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sonargraph</td>
+<td>DSL-based rules, visualization</td>
+<td>Most detailed dependency analysis</td>
+</tr>
+<tr>
+<td>Structure101</td>
+<td>Visual architecture definition</td>
+<td>Interactive exploration</td>
+</tr>
+<tr>
+<td>jQAssistant</td>
+<td>Neo4j graph database + Cypher queries</td>
+<td>Any structural question expressible</td>
+</tr>
+<tr>
+<td>Lattix</td>
+<td>Dependency Structure Matrix</td>
+<td>Good visualization</td>
+</tr>
+<tr>
+<td>CodeScene</td>
+<td>Behavioral code analysis from git history</td>
+<td>Social/organizational patterns</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44-conways-law-and-organizational-drift">4.4 Conway's Law and Organizational Drift</h3>
+<p><strong>Conway's Law (Melvin Conway, 1967):</strong> "Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations."</p>
+<p>Team structure changes are <strong>leading indicators</strong> of architectural drift. When teams restructure, the casual conversations that might have prevented architectural drift never happen. Blueprint's existing Conway's Law analyzer should be enhanced with Team Topologies vocabulary and treated as an early-warning system for drift.</p>
+<h3 id="45-technical-debt">4.5 Technical Debt</h3>
+<p><strong>Ward Cunningham's metaphor (1992):</strong> Two cost components — principal (work to fix) and interest (ongoing overhead from the debt's presence).</p>
+<p><strong>Fowler's Technical Debt Quadrant:</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Reckless</th>
+<th>Prudent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deliberate</strong></td>
+<td>"We don't have time for design"</td>
+<td>"We must ship now and deal with consequences"</td>
+</tr>
+<tr>
+<td><strong>Inadvertent</strong></td>
+<td>"What's layering?"</td>
+<td>"Now we know how we should have done it"</td>
+</tr>
+</tbody>
+</table>
+<p>Blueprint's <code>/blueprint:debt</code> tracks deferred ADRs with trigger conditions. Extension opportunity: estimate "interest" accruing on deferred decisions based on codebase changes in the affected area, making decision debt visible in business terms.</p>
+<hr />
+<h2 id="part-v-architecture-governance-models">Part V: Architecture Governance Models</h2>
+<h3 id="51-the-governance-spectrum">5.1 The Governance Spectrum</h3>
+<pre class="codehilite"><code class="language-mermaid">graph LR
+    C[Centralized&lt;br/&gt;ARBs, gate reviews&lt;br/&gt;Strong consistency&lt;br/&gt;Bottleneck risk] --&gt; H[Hybrid / Federated&lt;br/&gt;Central principles&lt;br/&gt;Team autonomy&lt;br/&gt;65% prefer this] --&gt; D[Decentralized&lt;br/&gt;Advice Process&lt;br/&gt;Squad ownership&lt;br/&gt;Cultural alignment needed]
+</code></pre>
+
+<p><strong>Market data:</strong> ~65% of technical leaders prefer hybrid or federated governance (29% hybrid, 36% federated), with only 36% preferring purely centralized approaches. Federated models with automated enforcement cut incidents by 50%.</p>
+<h3 id="52-the-architecture-advice-process-the-most-significant-governance-innovation">5.2 The Architecture Advice Process — The Most Significant Governance Innovation</h3>
+<p><strong>Origin:</strong> Andrew Harmel-Law, documented on Martin Fowler's site. ThoughtWorks Technology Radar: <strong>Trial</strong> (April 2025).</p>
+<blockquote>
+<p><strong>The Rule:</strong> Anyone can make an architectural decision.
+<strong>The Constraint:</strong> Before deciding, seek advice from (a) those meaningfully affected and (b) those with relevant expertise.</p>
+</blockquote>
+<p>Supporting elements:
+- <strong>ADRs</strong> with an "advice" section capturing all counsel received
+- <strong>Architecture Advisory Forum</strong> — weekly 1-hour gathering for discussing proposed decisions
+- <strong>Team-sourced architectural principles</strong> (SMART criteria)
+- <strong>Internal Technology Radar</strong></p>
+<p>This model explicitly replaces gatekeeping with expertise-sharing and approval with conversation. It addresses the most common ADR criticism — that decisions happen verbally and get lost.</p>
+<p><strong>Blueprint extension opportunity:</strong> A <code>/blueprint:advise</code> workflow that records who was consulted, what advice was given, and how it influenced the decision — embedded in ADR metadata. This would make Blueprint the first tool to implement the Architecture Advice Process digitally.</p>
+<h3 id="53-governance-anti-patterns">5.3 Governance Anti-Patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Anti-Pattern</th>
+<th>Description</th>
+<th>Detection Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ivory Tower</strong></td>
+<td>Architects disconnected from code</td>
+<td>ADRs nobody references</td>
+</tr>
+<tr>
+<td><strong>Rubber Stamp</strong></td>
+<td>Committee that approves everything</td>
+<td>100% approval rate</td>
+</tr>
+<tr>
+<td><strong>Governance Theater</strong></td>
+<td>Documentation for optics</td>
+<td>Packages for minimal-risk changes</td>
+</tr>
+<tr>
+<td><strong>Architecture by Committee</strong></td>
+<td>Decisions averaged across too many stakeholders</td>
+<td>Bland compromise decisions</td>
+</tr>
+</tbody>
+</table>
+<p>Root cause: governance designed for oversight optics rather than architectural function. The fix is structural change, not policy change.</p>
+<h3 id="54-agile-architecture-governance">5.4 Agile Architecture Governance</h3>
+<p><strong>SAFe Architectural Runway:</strong> Provides "just enough" architecture at the lowest scaling level. Architect as enabler, not governor.</p>
+<p><strong>Continuous Architecture (Erder &amp; Pureur):</strong> Six principles treating architecture as an ongoing activity:</p>
+<ol>
+<li>Architect products, not just solutions for projects</li>
+<li>Focus on quality attributes, not functional requirements</li>
+<li>Delay design decisions until absolutely necessary</li>
+<li>Architect for change — leverage "the power of small"</li>
+<li>Architect for build, test, and deploy</li>
+<li>Model the organization after the design of the system</li>
+</ol>
+<p><strong>Blueprint extension opportunity:</strong> These principles could serve as evaluation criteria in <code>/blueprint:review</code> — "Is this decision being made too early? (Principle 3)" or "Does this ADR focus on functional requirements rather than quality attributes? (Principle 2)".</p>
+<hr />
+<h2 id="part-vi-emerging-trends">Part VI: Emerging Trends</h2>
+<h3 id="61-ai-assisted-architecture">6.1 AI-Assisted Architecture</h3>
+<p><strong>Current state (2026):</strong> 1.3M+ repositories using AI code review integrations (4x from 2024). 47% of professional developers have used AI-assisted review. Repositories with AI review show 32% faster merges and 28% fewer post-merge defects.</p>
+<p><strong>Critical challenge — Epistemic Staleness:</strong> A 2026 arXiv paper (Koenig et al.) found:
+- ~23% of architectural decisions had stale evidence within two months
+- 86% of staleness discovered reactively during incidents, not proactively
+- Decisions are made faster than they can be validated</p>
+<p><strong>Proposed framework:</strong>
+- <strong>Epistemic layers:</strong> L0 (unverified), L1 (logically consistent), L2 (empirically validated)
+- <strong>Conservative aggregation:</strong> Decision confidence = minimum evidence confidence
+- <strong>Temporal validity tracking:</strong> Explicit evidence expiry windows</p>
+<p><strong>Blueprint extension opportunity (HIGH PRIORITY):</strong> ADR fields for <code>Evidence Validity: [L0|L1|L2]</code> and <code>Evidence Expires: YYYY-MM-DD</code>. <code>/blueprint:debt</code> enhanced to surface decisions with expired evidence. This directly addresses a documented gap in AI-assisted architecture governance.</p>
+<h3 id="62-team-topologies">6.2 Team Topologies</h3>
+<p><strong>Origin:</strong> Matthew Skelton and Manuel Pais, 2019.</p>
+<p>Four team types: Stream-aligned, Platform, Enabling, Complicated-subsystem. Three interaction modes: Collaboration, X-as-a-Service, Facilitating.</p>
+<p><strong>Susanne Kaiser's integration (Architecture for Flow):</strong> Combines Wardley Mapping + DDD + Team Topologies — arguably the most complete modern framework for architecture-organization alignment.</p>
+<p><strong>Blueprint extension opportunity:</strong> Extend the existing Conway's Law analyzer with Team Topologies vocabulary. ADR field: <code>Team Topology Impact: [which team types affected, interaction mode changes]</code>. Evaluation checks: "This decision creates a coupling between two stream-aligned teams. Consider an X-as-a-service interaction via a platform team."</p>
+<h3 id="63-wardley-mapping">6.3 Wardley Mapping</h3>
+<p><strong>Origin:</strong> Simon Wardley. Maps components along two axes: value chain (visibility to user) and evolution (Genesis → Custom-built → Product → Commodity).</p>
+<pre class="codehilite"><code class="language-mermaid">graph TB
+    subgraph &quot;Evolution Axis →&quot;
+        G[Genesis&lt;br/&gt;Build custom] --&gt; C[Custom-Built&lt;br/&gt;Differentiate] --&gt; P[Product&lt;br/&gt;Evaluate vendors] --&gt; CM[Commodity&lt;br/&gt;Use utility/SaaS]
+    end
+</code></pre>
+
+<p><strong>Architecture decision value:</strong> Answers "should we build, buy, or use a commodity?" based on where a component sits on the evolution axis. A custom authentication system in 2026 is building for a commodity — the Wardley map makes this visible.</p>
+<p><strong>Blueprint extension opportunity:</strong> ADR template field <code>Evolution Stage: [genesis|custom|product|commodity]</code>. Devil's advocate agent checks: "You're building custom for a commodity component. Why?" Drift detection: alert when a component has evolved past its ADR's assumed stage.</p>
+<h3 id="64-platform-engineering-and-golden-paths">6.4 Platform Engineering and Golden Paths</h3>
+<p><strong>Origin:</strong> Spotify's Golden Paths, adopted by Google and Netflix.</p>
+<p>Golden paths encode architectural decisions as executable defaults. Security, observability, and cost management become platform features rather than per-team responsibilities. Teams <em>can</em> deviate, but the default path embodies the architecture.</p>
+<p><strong>Blueprint insight:</strong> Fitness functions and golden paths serve the same purpose from different angles — fitness functions enforce constraints (negative: "don't do this"), while golden paths provide defaults (positive: "do it this way"). Blueprint could generate golden path documentation from accepted ADRs.</p>
+<h3 id="65-architecture-observability">6.5 Architecture Observability</h3>
+<p>Architecture fitness functions have evolved beyond static build-time checks:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>When</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static</td>
+<td>Build/deploy time</td>
+<td>All APIs use protocol buffers</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>Runtime (staging/prod)</td>
+<td>Latency under load &lt; 200ms</td>
+</tr>
+<tr>
+<td>Continuous</td>
+<td>Always (observability)</td>
+<td>Error rate &lt; 1%</td>
+</tr>
+<tr>
+<td>Chaos</td>
+<td>Periodic</td>
+<td>Service survives node failure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The shift:</strong> Governance moves from "did you follow the rules?" to "is the system exhibiting the qualities we designed for?" — validating architecture in production, not just in documents.</p>
+<h3 id="66-architecture-as-code">6.6 Architecture as Code</h3>
+<p>Structurizr DSL enables version-controlled, automatable architecture models. One team reported cutting diagramming time by 60% after switching to Structurizr. The broader "as code" movement treats architecture models like code — stored in version control, generated from models, reviewed in pull requests.</p>
+<hr />
+<h2 id="part-vii-blueprint-extension-roadmap">Part VII: Blueprint Extension Roadmap</h2>
+<h3 id="the-extension-priority-matrix">The Extension Priority Matrix</h3>
+<p>Based on cross-referencing all four research dimensions, these extensions are ranked by impact on Blueprint's design, feasibility, and uniqueness in the market.</p>
+<pre class="codehilite"><code class="language-mermaid">quadrantChart
+    title Blueprint Extension Priority Matrix
+    x-axis Low Feasibility --&gt; High Feasibility
+    y-axis Low Impact --&gt; High Impact
+    quadrant-1 Do First
+    quadrant-2 Plan Carefully
+    quadrant-3 Deprioritize
+    quadrant-4 Quick Wins
+    DDD Bounded Contexts: [0.75, 0.95]
+    DCAR Forces Evaluation: [0.80, 0.90]
+    Reflexion Model Drift: [0.50, 0.88]
+    Epistemic Status: [0.85, 0.85]
+    Wardley Mapping: [0.55, 0.82]
+    C4 Diagram Generation: [0.70, 0.78]
+    Fitness Function Taxonomy: [0.90, 0.70]
+    ADR-FF Traceability: [0.85, 0.75]
+    arc42 Export: [0.60, 0.55]
+    Advice Process Workflow: [0.65, 0.72]
+    Team Topologies: [0.60, 0.68]
+    ATAM Utility Trees: [0.55, 0.65]
+    Multi-View Tagging: [0.70, 0.50]
+    TOGAF Governance Tiers: [0.30, 0.60]
+    Risk Storming Agent: [0.65, 0.55]
+    Event-Sourced History: [0.25, 0.50]
+</code></pre>
+
+<h3 id="tier-1-highest-impact-paradigm-shifting-extensions">Tier 1: Highest Impact — Paradigm-Shifting Extensions</h3>
+<h4 id="1-ddd-bounded-context-scoping">1. DDD Bounded Context Scoping</h4>
+<p><strong>Source:</strong> Domain-Driven Design (Evans, 2003)
+<strong>What:</strong> Add <code>context:</code> metadata to ADRs enabling per-domain scoping.
+<strong>Impact:</strong> Transforms ADR management from flat global to domain-aware hierarchical. Enables per-team views, context-aware impact analysis, and context map overlays on the ADR relationship graph.
+<strong>Feasibility:</strong> High — metadata extension + filter logic.
+<strong>Why it matters for Blueprint:</strong> Currently, a 50-ADR system presents all decisions to all stakeholders. With bounded context scoping, each team sees only the decisions that govern their domain. This is the single most requested capability in ADR tooling.</p>
+<h4 id="2-dcar-style-structured-evaluation">2. DCAR-Style Structured Evaluation</h4>
+<p><strong>Source:</strong> Decision-Centric Architecture Reviews (van Heesch et al., 2014)
+<strong>What:</strong> Formalize <code>/blueprint:review</code> with DCAR's forces template, decision relationship views, and confirmed/needs-re-evaluation scoring.
+<strong>Impact:</strong> Transforms devil's advocate review from free-form challenge to structured evaluation protocol. Generates weighted force-balance reports.
+<strong>Feasibility:</strong> High — extends existing review agent with structured template.
+<strong>Why it matters for Blueprint:</strong> DCAR was designed for exactly the decision-centric workflow Blueprint uses. It is Blueprint's most natural formal method counterpart.</p>
+<h4 id="3-reflexion-model-integration">3. Reflexion Model Integration</h4>
+<p><strong>Source:</strong> Murphy, Notkin, Sullivan (1995)
+<strong>What:</strong> Generate high-level architecture model from accepted ADRs + ARCHITECTURE.md, compute mapping to source entities, produce convergence/divergence/absence reports.
+<strong>Impact:</strong> Transforms drift detection from git-history heuristics to formal model comparison.
+<strong>Feasibility:</strong> Medium — requires source-to-model mapping computation.
+<strong>Why it matters for Blueprint:</strong> Provides the theoretical foundation that makes Blueprint's drift detection rigorous and defensible.</p>
+<h4 id="4-epistemic-status-and-temporal-validity">4. Epistemic Status and Temporal Validity</h4>
+<p><strong>Source:</strong> Koenig et al. (2026 arXiv paper)
+<strong>What:</strong> Track evidence quality (L0/L1/L2) and expiry dates for each ADR's supporting evidence.
+<strong>Impact:</strong> Addresses the 23%-stale-in-two-months problem. Surfaces decisions whose evidence has expired before incidents force reactive discovery.
+<strong>Feasibility:</strong> High — metadata fields + enhanced debt tracking.
+<strong>Why it matters for Blueprint:</strong> Blueprint's AI-powered research agent generates evidence; this extension ensures that evidence is tracked, scored, and flagged when stale.</p>
+<h4 id="5-wardley-mapping-integration">5. Wardley Mapping Integration</h4>
+<p><strong>Source:</strong> Simon Wardley
+<strong>What:</strong> Link ADRs to component evolution stages (genesis/custom/product/commodity).
+<strong>Impact:</strong> Adds strategic context to decisions. Prevents building custom solutions for commodity problems.
+<strong>Feasibility:</strong> Medium — requires component mapping + evolution-stage awareness.
+<strong>Why it matters for Blueprint:</strong> No other ADR tool connects decisions to strategic positioning. This would be a unique differentiator.</p>
+<h3 id="tier-2-high-impact-significant-enhancements">Tier 2: High Impact — Significant Enhancements</h3>
+<h4 id="6-c4-diagram-generation">6. C4 Diagram Generation</h4>
+<p>Auto-generate C4 System Context and Container diagrams from the ADR relationship graph. Output as Mermaid or Structurizr DSL.</p>
+<h4 id="7-adr-to-fitness-function-traceability-matrix">7. ADR-to-Fitness-Function Traceability Matrix</h4>
+<p>Show which ADRs have fitness function enforcement and which don't — the governance coverage gap.</p>
+<h4 id="8-fitness-function-taxonomy-fordparsons">8. Fitness Function Taxonomy (Ford/Parsons)</h4>
+<p>Categorize generated fitness functions as atomic/holistic, triggered/continual, static/dynamic.</p>
+<h4 id="9-architecture-advice-process-workflow">9. Architecture Advice Process Workflow</h4>
+<p>Structured consultation tracking embedded in ADR metadata — who was consulted, what advice was given, how it influenced the decision.</p>
+<h4 id="10-atam-inspired-utility-trees">10. ATAM-Inspired Utility Trees</h4>
+<p>Generate quality attribute utility trees from accepted ADRs, identifying sensitivity points and tradeoff points.</p>
+<h3 id="tier-3-medium-impact-valuable-additions">Tier 3: Medium Impact — Valuable Additions</h3>
+<h4 id="11-team-topologies-vocabulary">11. Team Topologies Vocabulary</h4>
+<p>Extend Conway's Law analyzer with Team Topologies team types and interaction modes.</p>
+<h4 id="12-arc42-export">12. arc42 Export</h4>
+<p>Map Blueprint's ADR collection into arc42's 12-section documentation structure.</p>
+<h4 id="13-risk-storming-agent">13. Risk Storming Agent</h4>
+<p>Automated risk heat map generation from ADR coverage analysis across components.</p>
+<h4 id="14-multi-view-adr-tagging-41">14. Multi-View ADR Tagging (4+1)</h4>
+<p>Tag ADRs with architectural views (logical, development, process, physical, scenario).</p>
+<h4 id="15-continuous-architecture-evaluation-criteria">15. Continuous Architecture Evaluation Criteria</h4>
+<p>Embed Erder &amp; Pureur's six principles as review checklist items.</p>
+<h3 id="tier-4-future-consideration">Tier 4: Future Consideration</h3>
+<h4 id="16-cross-repository-adr-federation">16. Cross-Repository ADR Federation</h4>
+<p>Federated ADR index aggregating decisions across repositories.</p>
+<h4 id="17-togaf-governance-tiers">17. TOGAF Governance Tiers</h4>
+<p>Optional governance modes from lightweight to formal.</p>
+<h4 id="18-event-sourced-adr-history">18. Event-Sourced ADR History</h4>
+<p>Complete temporal query capability over ADR lifecycle events.</p>
+<h4 id="19-hexagonal-architecture-detection">19. Hexagonal Architecture Detection</h4>
+<p>Pattern-aware fitness function generation for ports-and-adapters codebases.</p>
+<h4 id="20-decision-debt-compound-interest">20. Decision Debt Compound Interest</h4>
+<p>Quantify cost of deferred decisions based on codebase changes in affected areas.</p>
+<hr />
+<h2 id="part-viii-blueprints-position-in-the-landscape">Part VIII: Blueprint's Position in the Landscape</h2>
+<h3 id="competitive-positioning">Competitive Positioning</h3>
+<pre class="codehilite"><code class="language-mermaid">graph TB
+    subgraph &quot;Passive Documentation&quot;
+        AT[adr-tools]
+        LB[Log4brains]
+        MADR[MADR Template]
+    end
+    subgraph &quot;Architecture Analysis&quot;
+        SG[Sonargraph]
+        S101[Structure101]
+        AU[ArchUnit]
+        DC[dependency-cruiser]
+    end
+    subgraph &quot;Knowledge Management&quot;
+        BS[Backstage]
+        CP[Compass]
+        PT[Port]
+    end
+    subgraph &quot;Enterprise Frameworks&quot;
+        TG[TOGAF]
+        ZF[Zachman]
+    end
+    subgraph &quot;AI-Powered Architecture Governance&quot;
+        BP[Blueprint]
+    end
+
+    AT -.-&gt;|&quot;documents decisions&quot;| BP
+    AU -.-&gt;|&quot;enforces rules&quot;| BP
+    BS -.-&gt;|&quot;catalogs services&quot;| BP
+    BP --&gt;|&quot;researches + challenges + audits + enforces&quot;| BP
+</code></pre>
+
+<p><strong>Blueprint occupies a unique gap:</strong> No other tool combines:
+- ADR lifecycle management (propose → research → review → accept → audit → enforce → revisit)
+- AI-powered research, devil's advocate review, and compliance auditing
+- Fitness function generation from decisions
+- Drift detection via git trajectory analysis
+- Multi-dimensional architecture evaluation (5 specialized agents)
+- Decision debt tracking with trigger conditions
+- Pre-commit architecture guards
+- Retrospective root-cause analysis with ADR proposal</p>
+<p><strong>The gap Blueprint should close:</strong> It currently operates at the <em>decision</em> layer without connecting to <em>strategic context</em> (Wardley Mapping), <em>domain structure</em> (DDD bounded contexts), <em>team structure</em> (Team Topologies), or <em>runtime behavior</em> (architecture observability). The extensions identified in this report would close each gap.</p>
+<hr />
+<h2 id="open-questions">Open Questions</h2>
+<ol>
+<li>
+<p><strong>Bounded context discovery:</strong> How should Blueprint help users identify bounded contexts if they haven't already? This is "more art than science" per Evans — could AI assist?</p>
+</li>
+<li>
+<p><strong>Fitness function maintenance:</strong> Who updates fitness functions when ADRs are superseded? The literature identifies this as a practical challenge but offers little automation guidance.</p>
+</li>
+<li>
+<p><strong>Cross-organization ADRs:</strong> For decisions spanning multiple repositories or teams, what is the right federation model? Git submodules? A central ADR registry? This is the most cited ADR criticism with no consensus solution.</p>
+</li>
+<li>
+<p><strong>Epistemic staleness detection:</strong> The Koenig et al. paper proposes tracking evidence validity, but what triggers re-validation? Manual expiry dates? Automated detection of changed assumptions?</p>
+</li>
+<li>
+<p><strong>Wardley Map accuracy:</strong> Wardley Mapping is inherently subjective — component evolution stage assessments vary between practitioners. How should Blueprint handle this subjectivity?</p>
+</li>
+</ol>
+<hr />
+<h2 id="source-index">Source Index</h2>
+<h3 id="architecture-evaluation-methods-27-sources">Architecture Evaluation Methods (27 sources)</h3>
+<p>[1-27] — See outputs/arch-eval-methods.md</p>
+<h3 id="architecture-paradigms-and-frameworks-26-sources">Architecture Paradigms and Frameworks (26 sources)</h3>
+<p>[28-53] — See outputs/arch-paradigms.md</p>
+<h3 id="adrs-fitness-functions-and-drift-23-sources">ADRs, Fitness Functions, and Drift (23 sources)</h3>
+<p>[54-76] — See outputs/adr-fitness-drift.md</p>
+<h3 id="governance-trends-and-tooling-33-sources">Governance, Trends, and Tooling (33 sources)</h3>
+<p>[77-109] — See outputs/governance-trends.md</p>
+<h3 id="key-primary-sources">Key Primary Sources</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Author(s)</th>
+<th>Year</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Documenting Architecture Decisions"</td>
+<td>Michael Nygard</td>
+<td>2011</td>
+<td>Original ADR proposal</td>
+</tr>
+<tr>
+<td>"Building Evolutionary Architectures"</td>
+<td>Ford, Parsons, Kua</td>
+<td>2017/2023</td>
+<td>Fitness function paradigm</td>
+</tr>
+<tr>
+<td>"Domain-Driven Design"</td>
+<td>Eric Evans</td>
+<td>2003</td>
+<td>Bounded contexts, ubiquitous language</td>
+</tr>
+<tr>
+<td>ATAM Technical Report</td>
+<td>Kazman, Klein, Clements</td>
+<td>2000</td>
+<td>Gold standard evaluation method</td>
+</tr>
+<tr>
+<td>DCAR (IEEE Software)</td>
+<td>van Heesch et al.</td>
+<td>2014</td>
+<td>Decision-centric evaluation</td>
+</tr>
+<tr>
+<td>"Software Reflexion Models"</td>
+<td>Murphy, Notkin, Sullivan</td>
+<td>1995</td>
+<td>Formal drift detection</td>
+</tr>
+<tr>
+<td>ISO/IEC/IEEE 42010:2022</td>
+<td>ISO/IEC/IEEE</td>
+<td>2022</td>
+<td>International architecture description standard</td>
+</tr>
+<tr>
+<td>"Scaling Architecture Conversationally"</td>
+<td>Andrew Harmel-Law</td>
+<td>2023</td>
+<td>Architecture Advice Process</td>
+</tr>
+<tr>
+<td>"ARCHITECTURE.md"</td>
+<td>matklad</td>
+<td>2021</td>
+<td>Pragmatic architecture documentation</td>
+</tr>
+<tr>
+<td>"Architecture for Flow"</td>
+<td>Susanne Kaiser</td>
+<td>2023</td>
+<td>DDD + Wardley + Team Topologies integration</td>
+</tr>
+<tr>
+<td>AI-Assisted Epistemic Staleness</td>
+<td>Koenig et al.</td>
+<td>2026</td>
+<td>Evidence validity in AI-assisted decisions</td>
+</tr>
+<tr>
+<td>C4 Model</td>
+<td>Simon Brown</td>
+<td>2006-2011</td>
+<td>Progressive architecture visualization</td>
+</tr>
+<tr>
+<td>arc42 Template</td>
+<td>Starke &amp; Hruschka</td>
+<td>2005</td>
+<td>Pragmatic documentation structure</td>
+</tr>
+<tr>
+<td>"Continuous Architecture in Practice"</td>
+<td>Erder, Pureur, Woods</td>
+<td>2021</td>
+<td>Six principles of continuous architecture</td>
+</tr>
+<tr>
+<td>ThoughtWorks Technology Radar</td>
+<td>ThoughtWorks</td>
+<td>Ongoing</td>
+<td>Industry adoption signals</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
