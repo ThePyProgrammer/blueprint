@@ -1,0 +1,26 @@
+{
+  "name": "blueprint",
+  "version": "1.0.0",
+  "description": "Architecture Decision Records with teeth — lifecycle management, devil's advocate review, architecture evaluation team, post-fix retrospectives, and compliance auditing. All with a cranky senior engineer persona.",
+  "author": {
+    "name": "pragnition"
+  },
+  "homepage": "https://github.com/pragnition/blueprint",
+  "repository": "https://github.com/pragnition/blueprint",
+  "license": "MIT",
+  "keywords": [
+    "adr",
+    "architecture",
+    "decisions",
+    "review",
+    "evaluation",
+    "compliance",
+    "audit",
+    "retrospective",
+    "conways-law",
+    "maintainability",
+    "testing-strategy",
+    "bug-surface",
+    "consistency"
+  ]
+}
