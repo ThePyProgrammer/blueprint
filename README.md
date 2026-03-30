@@ -240,6 +240,18 @@ The most subtle and often most consequential dimension. Do module boundaries ali
 
 Architecture is ultimately a human problem. A perfectly designed system that doesn't match how the team works will be slowly reshaped by the team's communication structure until it does — usually in the worst possible way.
 
+## Continuous Governance: Beyond Point-in-Time
+
+Most architecture governance is episodic — someone runs an audit, finds problems, files tickets, and goes back to sleep. Blueprint makes governance continuous:
+
+**Fitness functions** (`/blueprint:fitness`) translate ADR invariants into executable tests that run in CI. Every build verifies that the architecture hasn't been violated. This is the difference between "we decided to do X" and "the build fails if we don't do X." Inspired by [Neal Ford's Building Evolutionary Architectures](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/).
+
+**Drift detection** (`/blueprint:drift`) analyzes git history *trajectory* — not "is the code correct now?" but "is the code moving toward or away from the architecture over time?" Individual commits may each be fine, but the aggregate direction matters. A module that has gained 8 cross-boundary imports in 3 months is eroding, even if no single import was wrong.
+
+**Decision debt** (`/blueprint:debt`) tracks deferred ADRs the way a lender tracks loans. Each deferred decision has a trigger condition, a severity, and dependencies. The debt score (severity x age x dependency count) surfaces which deferrals are becoming dangerous. Decision debt compounds faster than technical debt — a deferred technology choice becomes a deferred architecture choice becomes a deferred rewrite.
+
+**Pre-commit guard** (`/blueprint:guard`) catches violations at the point of creation. Not a full audit — a fast, targeted check on just the staged files. Under 10 seconds. The goal is to make architectural violations as inconvenient as syntax errors.
+
 ## The Retrospective: Closing the Loop
 
 > "Those who cannot remember the past are condemned to repeat it." — George Santayana
@@ -265,14 +277,15 @@ claude-blueprint install --global
 claude-blueprint verify
 ```
 
-The installer deploys 12 commands, 11 agents, and 4 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
+The installer deploys 21 commands, 12 agents, and 4 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
 
 ## Architecture of Blueprint Itself
 
 ```
 blueprint/
-├── commands/              12 focused skill files (41-96 lines each)
-│   ├── blueprint.md       Thin router (48 lines)
+├── commands/              21 skill files
+│   ├── blueprint.md       Thin router
+│   ├── init.md            Bootstrap from existing codebase
 │   ├── help.md            Contextual command reference
 │   ├── list.md            Status table with suggestions
 │   ├── new.md             ADR creation + research
@@ -283,8 +296,16 @@ blueprint/
 │   ├── audit.md           Compliance verification
 │   ├── retro.md           Post-fix retrospective
 │   ├── evaluate.md        5-agent evaluation team
-│   └── rearchitect.md     Supersession workflow
-├── agents/                11 agent definitions
+│   ├── rearchitect.md     Supersession workflow
+│   ├── architect.md       ARCHITECTURE.md generation
+│   ├── eli5.md            Plain English explanations
+│   ├── fitness.md         CI-runnable architecture tests
+│   ├── drift.md           Temporal erosion detection
+│   ├── debt.md            Decision debt tracker
+│   ├── guard.md           Pre-commit invariant check
+│   ├── digest.md          Stakeholder summary
+│   └── timeline.md        Evolution narrative
+├── agents/                12 agent definitions
 │   ├── persona.md         Shared senior engineer personality
 │   ├── adr-researcher.md
 │   ├── adr-devils-advocate.md
@@ -295,18 +316,22 @@ blueprint/
 │   ├── adr-maintainability-assessor.md
 │   ├── adr-testing-strategy-evaluator.md
 │   ├── adr-conways-law-analyzer.md
-│   └── adr-retrospective.md
+│   ├── adr-retrospective.md
+│   └── adr-architect-cartographer.md
 ├── config/                Domain-specific language (TOML)
 │   ├── lifecycle.toml     Finite state machine
 │   ├── taxonomy.toml      Classification system
 │   ├── state.toml         Session memory
 │   └── relationships.toml ADR dependency graph
+├── docs/
+│   ├── ARCHITECTURE.md    Bird's-eye codemap (matklad style)
+│   └── adr/               31 self-referential ADRs
 ├── bin/cli.js             CLI entry point
 ├── src/                   Install / verify / CLAUDE.md management
 └── .claude-plugin/        Plugin registration metadata
 ```
 
-Blueprint practices what it preaches: each skill is focused (41-96 lines), the router is thin (48 lines), domain knowledge is in config (not code), and agents have single responsibilities. The total system is ~2900 lines — of which ~1800 are agent definitions, because that's where the domain expertise lives.
+Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 21 commands, 12 agents, 4 config files, 31 ADRs.
 
 ## Intellectual Heritage
 
@@ -319,7 +344,9 @@ Blueprint draws on several traditions:
 - **[Lehman's Laws of Software Evolution](https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution)** — the observation that software complexity grows unless actively countered
 - **[Technical Debt](https://wiki.c2.com/?TechnicalDebt)** (Cunningham, 1992) — the gap between current code and current understanding, not merely "sloppy code"
 - **[Finite State Machines](https://en.wikipedia.org/wiki/Finite-state_machine)** — the formal model underlying lifecycle management
+- **[Building Evolutionary Architectures](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/)** (Ford & Parsons, 2017) — architecture fitness functions as automated, CI-runnable invariant checks
 - **[The Cathedral and the Bazaar](http://www.catb.org/~esr/writings/cathedral-bazaar/)** (Raymond, 1997) — "given enough eyeballs, all bugs are shallow" — blueprint's evaluation team as a systematic implementation of this principle
+- **[ARCHITECTURE.md](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html)** (matklad, 2021) — bird's-eye codemap as a high-leverage onboarding document
 
 ## License
 
