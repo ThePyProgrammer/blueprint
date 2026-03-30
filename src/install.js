@@ -7,6 +7,17 @@ import { updateClaudeMd } from './claude-md.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PLUGIN_ROOT = join(__dirname, '..');
 
+// Single source of truth for all sub-commands (DRY — used for both dirs and file copy)
+const SUB_COMMANDS = [
+  // v1 commands
+  'help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit',
+  'retro', 'evaluate', 'rearchitect', 'init', 'architect', 'eli5', 'fitness',
+  'drift', 'debt', 'guard', 'digest', 'timeline', 'status', 'health', 'hooks',
+  // v2 commands
+  'scope', 'challenge', 'reflect', 'evidence', 'map', 'diagram', 'trace',
+  'advise', 'tradeoff', 'risk', 'export', 'views', 'federate', 'radar', 'govern',
+];
+
 export async function install(opts) {
   let scope = opts.global ? 'global' : opts.project ? 'project' : null;
 
@@ -26,16 +37,7 @@ export async function install(opts) {
 
   // Create directories
   const spinner = ora('Creating directories...').start();
-  for (const subDir of [
-    '', 'agents', 'config',
-    // v1 commands
-    'help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit',
-    'retro', 'evaluate', 'rearchitect', 'init', 'architect', 'eli5', 'fitness',
-    'drift', 'debt', 'guard', 'digest', 'timeline', 'status', 'health', 'hooks',
-    // v2 commands
-    'scope', 'challenge', 'reflect', 'evidence', 'map', 'diagram', 'trace',
-    'advise', 'tradeoff', 'risk', 'export', 'views', 'federate', 'radar', 'govern',
-  ]) {
+  for (const subDir of ['', 'agents', 'config', ...SUB_COMMANDS]) {
     await mkdir(join(paths.commands, subDir), { recursive: true });
   }
   spinner.succeed('Directories created');
@@ -50,22 +52,13 @@ export async function install(opts) {
 
   // Copy sub-commands as SKILL.md in their directories
   spinner.start('Installing commands...');
-  const commands = [
-    // v1 commands
-    'help', 'list', 'new', 'review', 'transition', 'search', 'impact', 'audit',
-    'retro', 'evaluate', 'rearchitect', 'init', 'architect', 'eli5', 'fitness',
-    'drift', 'debt', 'guard', 'digest', 'timeline', 'status', 'health', 'hooks',
-    // v2 commands
-    'scope', 'challenge', 'reflect', 'evidence', 'map', 'diagram', 'trace',
-    'advise', 'tradeoff', 'risk', 'export', 'views', 'federate', 'radar', 'govern',
-  ];
-  for (const cmd of commands) {
+  for (const cmd of SUB_COMMANDS) {
     await copyFile(
       join(PLUGIN_ROOT, 'commands', `${cmd}.md`),
       join(paths.commands, cmd, 'SKILL.md'),
     );
   }
-  spinner.succeed(`${commands.length} commands installed`);
+  spinner.succeed(`${SUB_COMMANDS.length} commands installed`);
 
   // Copy agents
   spinner.start('Installing agents...');
