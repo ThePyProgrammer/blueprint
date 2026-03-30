@@ -16,8 +16,8 @@ who compares photographs six months apart.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory, last operations
-- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
+- `state.toml` — ADR directory, last operations
+- `relationships.toml` — ADR dependency graph
 - `agents/persona.md` — personality
 
 ## Process

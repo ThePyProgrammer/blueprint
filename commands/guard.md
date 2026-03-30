@@ -17,7 +17,7 @@ Catches violations at the point of creation, not after the fact.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory
+- `state.toml` — ADR directory
 - `config/lifecycle.toml` — to identify accepted statuses
 
 ## Process

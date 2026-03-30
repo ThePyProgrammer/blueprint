@@ -17,8 +17,8 @@ discovered reactively during incidents.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/evidence.toml` — existing evidence classifications
-- `{adr_directory}/.state/state.toml` — ADR directory location
+- `evidence.toml` — existing evidence classifications
+- `state.toml` — ADR directory location
 - `agents/persona.md` — your personality
 
 ## Epistemic Levels
@@ -40,12 +40,12 @@ evidence is L0, the whole decision is L0.
 2. Spawn a `blueprint:adr-evidence-auditor` agent with:
    - Full agent instructions + `agents/persona.md`
    - All accepted ADR contents
-   - Current `{adr_directory}/.state/evidence.toml`
+   - Current `evidence.toml`
    - Current dependency manifests (package.json, requirements.txt, etc.)
    - Project root path
 3. Present the evidence audit report
-4. Offer to update `{adr_directory}/.state/evidence.toml` with new classifications
-5. Update `{adr_directory}/.state/state.toml` — set `last_evidence_audit` to today
+4. Offer to update `evidence.toml` with new classifications
+5. Update `state.toml` — set `last_evidence_audit` to today
 6. Commit: `docs(adr): audit evidence validity across [N] accepted ADRs`
 
 ### Single ADR (`/blueprint:evidence ADR-NNNN`)
@@ -55,9 +55,9 @@ Same process but scoped to one ADR. Useful after researching a specific topic.
 ### Set Evidence Level (`/blueprint:evidence set ADR-NNNN L2`)
 
 Manually classify evidence level for an ADR (e.g., after running a benchmark).
-Updates `{adr_directory}/.state/evidence.toml` and the ADR metadata.
+Updates `evidence.toml` and the ADR metadata.
 
-## Config File: `{adr_directory}/.state/evidence.toml`
+## Config File: `evidence.toml`
 
 ```toml
 # Evidence Quality Tracking

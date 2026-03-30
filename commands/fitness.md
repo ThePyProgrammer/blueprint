@@ -19,7 +19,7 @@ are violated.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory location
+- `state.toml` — ADR directory location
 - `config/taxonomy.toml` — severity levels
 - `agents/persona.md` — personality
 

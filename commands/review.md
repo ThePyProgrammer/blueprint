@@ -16,7 +16,7 @@ between "someone wrote a decision" and "the team committed to it."
 
 Read from parent `adr/` skill directory:
 - `config/lifecycle.toml` — valid transitions (Proposed → Accepted/Rejected/Deferred)
-- `{adr_directory}/.state/state.toml` — ADR directory location
+- `state.toml` — ADR directory location
 - `agents/persona.md` — personality
 - `agents/adr-devils-advocate.md` — agent instructions
 
@@ -40,7 +40,7 @@ Read from parent `adr/` skill directory:
 6. **Execute transition** per `config/lifecycle.toml`:
    - Update ADR status and metadata
    - Update README.md index
-   - Update `{adr_directory}/.state/relationships.toml` if applicable
+   - Update `relationships.toml` if applicable
    - Commit with: `docs(adr): [accept|reject|defer] ADR-NNNN <title>`
 
 ## Skip Challenge

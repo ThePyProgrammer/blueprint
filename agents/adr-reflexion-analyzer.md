@@ -38,8 +38,8 @@ Before analyzing:
 
 1. Read `docs/ARCHITECTURE.md` — extract the codemap, layers, boundaries, invariants
 2. Read all accepted ADRs — extract architectural constraints (dependency rules, layer rules, module boundaries)
-3. Read `{adr_directory}/.state/contexts.toml` — bounded context definitions with root paths
-4. Read `{adr_directory}/.state/relationships.toml` — ADR dependency graph
+3. Read `contexts.toml` — bounded context definitions with root paths
+4. Read `relationships.toml` — ADR dependency graph
 5. Scan the actual codebase structure — directories, imports, dependencies
 </project_context>
 

@@ -18,10 +18,10 @@ but nobody monitors whether X has happened. This skill does.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory
+- `state.toml` — ADR directory
   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
 - `config/taxonomy.toml` — severity levels
-- `{adr_directory}/.state/evidence.toml` — evidence expiry dates and epistemic levels
+- `evidence.toml` — evidence expiry dates and epistemic levels
 
 ## Process
 
@@ -31,7 +31,7 @@ Read all ADR files. Filter to status `Deferred`. For each, extract:
 - The trigger condition (from metadata or Consequences section)
 - When it was deferred (date)
 - The severity of the decision (from taxonomy)
-- What depends on this decision (from `{adr_directory}/.state/relationships.toml`)
+- What depends on this decision (from `relationships.toml`)
 
 Also scan for quasi-deferred decisions in Accepted ADRs:
 - Consequences that say "revisit when...", "defer until...", "reconsider if..."
@@ -105,7 +105,7 @@ decision with fresh evidence.
 
 ### Step 5: Evidence Debt (v2)
 
-Also surface **evidence debt** from `{adr_directory}/.state/evidence.toml`:
+Also surface **evidence debt** from `evidence.toml`:
 
 - **Expired evidence:** Accepted ADRs where `Evidence-Expires` date has passed
 - **Unverified evidence:** Accepted ADRs with `Evidence-Level: L0` (AI-generated, never validated)

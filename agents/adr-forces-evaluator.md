@@ -40,8 +40,8 @@ Before evaluating:
 
 1. Read the target ADR thoroughly — extract every claim, assumption, and rationale
 2. Read all accepted ADRs — find adjacent/related decisions
-3. Read `{adr_directory}/.state/relationships.toml` — map decision dependencies
-4. Read `{adr_directory}/.state/contexts.toml` — understand which bounded context this decision governs
+3. Read `relationships.toml` — map decision dependencies
+4. Read `contexts.toml` — understand which bounded context this decision governs
 5. Scan codebase for evidence that supports or contradicts the ADR's claims
 </project_context>
 

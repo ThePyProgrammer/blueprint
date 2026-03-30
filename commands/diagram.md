@@ -16,9 +16,9 @@ when ADRs change — always in sync with decisions. Based on Simon Brown's C4 Mo
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory location
-- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
-- `{adr_directory}/.state/contexts.toml` — bounded context definitions
+- `state.toml` — ADR directory location
+- `relationships.toml` — ADR dependency graph
+- `contexts.toml` — bounded context definitions
 - `agents/persona.md` — your personality
 
 ## Process
@@ -31,7 +31,7 @@ Read from parent `adr/` skill directory:
    - Full agent instructions + `agents/persona.md`
    - All accepted ADR contents
    - `docs/ARCHITECTURE.md` content
-   - `{adr_directory}/.state/relationships.toml` and `{adr_directory}/.state/contexts.toml`
+   - `relationships.toml` and `contexts.toml`
    - Requested format and level
    - Project root path
 4. **Present diagrams** to user

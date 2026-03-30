@@ -38,7 +38,7 @@ Spawned by `/blueprint:risk` for architecture risk assessment.
 Build component list from:
 - ARCHITECTURE.md module map
 - Directory structure (top-level packages/modules)
-- Bounded contexts from {adr_directory}/.state/contexts.toml
+- Bounded contexts from contexts.toml
 - External integrations from ADRs
 
 ## Step 2: Risk Factor Analysis

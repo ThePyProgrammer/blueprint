@@ -18,9 +18,9 @@ no implementation details. What was decided, why, what it costs, and what risks 
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory
+- `state.toml` — ADR directory
   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
-- `{adr_directory}/.state/relationships.toml` — decision dependencies
+- `relationships.toml` — decision dependencies
 - `config/taxonomy.toml` — severity levels
 
 ## Process

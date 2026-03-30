@@ -16,10 +16,10 @@ Think of it as fsck for your architecture decisions.
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — cached paths
+- `state.toml` — cached paths
   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
 - `config/lifecycle.toml` — valid statuses
-- `{adr_directory}/.state/relationships.toml` — graph to validate
+- `relationships.toml` — graph to validate
 
 ## Process
 
@@ -79,7 +79,7 @@ Execute these checks in order, collecting findings:
 - [ ] ADRs with `Context` metadata reference contexts that exist in `.state/contexts.toml`
 - [ ] ADRs with `Views` metadata use valid view names (logical, development, process, physical, scenario)
 - [ ] Evidence records in `.state/evidence.toml` correspond to existing ADRs
-- [ ] Radar entries in `{adr_directory}/.state/radar.toml` reference valid ADRs (if file exists)
+- [ ] Radar entries in `radar.toml` reference valid ADRs (if file exists)
 
 **8. Staleness Detection**
 - [ ] No accepted ADR is older than 12 months without a review (flag as "consider revisiting")

@@ -12,15 +12,15 @@ Find ADRs relevant to a topic by searching content and the relationship graph.
 
 ## Process
 
-1. Read `{adr_directory}/.state/state.toml` for ADR directory location
-2. Read `{adr_directory}/.state/relationships.toml` for the ADR dependency graph
+1. Read `state.toml` for ADR directory location
+2. Read `relationships.toml` for the ADR dependency graph
 3. Parse the search term from the user's query
 4. **Search ADR files:**
    - Grep for the term in ADR filenames (title match)
    - Grep for the term within ADR file content (context, decision, consequences sections)
    - Rank by relevance: title match > decision section > context > consequences
 5. **Search relationship graph:**
-   - Check if the term matches any node labels or edge descriptions in `{adr_directory}/.state/relationships.toml`
+   - Check if the term matches any node labels or edge descriptions in `relationships.toml`
    - Include related ADRs (DEPENDS_ON, CONFLICTS, SUPERSEDES) in results
 6. **Present results:**
    - Show matching ADRs with status, title, and the matching snippet (1-2 lines of context)

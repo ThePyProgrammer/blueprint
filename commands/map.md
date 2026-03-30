@@ -17,8 +17,8 @@ Wardley Mapping framework.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory location
-- `{adr_directory}/.state/contexts.toml` — bounded context definitions
+- `state.toml` — ADR directory location
+- `contexts.toml` — bounded context definitions
 - `agents/persona.md` — your personality
 
 ## Evolution Stages
@@ -40,11 +40,11 @@ Read from parent `adr/` skill directory:
    - All accepted ADR contents
    - `docs/ARCHITECTURE.md` content
    - Dependency manifests (package.json, requirements.txt, etc.)
-   - `{adr_directory}/.state/contexts.toml`
+   - `contexts.toml`
    - Project root path
 3. Present the strategic analysis to the user
 4. Offer to add `Evolution-Stage` metadata to ADRs
-5. Update `{adr_directory}/.state/state.toml` — set `last_strategic_map` to today
+5. Update `state.toml` — set `last_strategic_map` to today
 6. Commit: `docs(adr): generate Wardley strategic analysis for [N] components`
 
 ### Check Single ADR (`/blueprint:map check ADR-NNNN`)

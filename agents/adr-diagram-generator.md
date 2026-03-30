@@ -28,7 +28,7 @@ Spawned by `/blueprint:diagram` for architecture visualization.
 - Map ADR relationships to C4 dependency arrows
 - Generate diagrams in Mermaid, Structurizr DSL, or PlantUML
 - Ensure diagrams match reality (codebase validation)
-- Include bounded context overlays from {adr_directory}/.state/contexts.toml
+- Include bounded context overlays from contexts.toml
 </role>
 
 <execution_flow>
@@ -48,13 +48,13 @@ From ARCHITECTURE.md:
 
 ## Step 2: Relationship Mapping
 
-From `{adr_directory}/.state/relationships.toml` and ADR content:
+From `relationships.toml` and ADR content:
 - DEPENDS_ON → solid arrow
 - CONFLICTS → dashed red arrow
 - RELATED → dotted arrow
 - Read ADR consequences for data flow direction
 
-From `{adr_directory}/.state/contexts.toml`:
+From `contexts.toml`:
 - Context boundaries → grouping boxes
 - Context relationships (Customer-Supplier, ACL) → labeled arrows
 
@@ -144,6 +144,6 @@ Before returning, verify:
 - [ ] Every relationship has a direction and label
 - [ ] Diagrams are syntactically valid (renderable)
 - [ ] Unimplemented elements are flagged
-- [ ] Bounded context groupings match {adr_directory}/.state/contexts.toml
+- [ ] Bounded context groupings match contexts.toml
 - [ ] No phantom elements that exist only in aspiration
 </quality_gate>

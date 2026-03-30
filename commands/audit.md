@@ -16,7 +16,7 @@ per-ADR compliance verdict with evidence.
 
 Read from parent `adr/` skill directory:
 - `config/lifecycle.toml` — to identify which statuses are "accepted" (auditable)
-- `{adr_directory}/.state/state.toml` — ADR directory, last audit date
+- `state.toml` — ADR directory, last audit date
 - `agents/persona.md` — personality
 - `agents/adr-compliance-auditor.md` — agent instructions
 
@@ -34,7 +34,7 @@ Read from parent `adr/` skill directory:
    - Fix the code to comply with the ADR, OR
    - Create a new ADR via `/blueprint:new` to formally change the decision
 4. **Update state:**
-   - Set `last_audit` in `{adr_directory}/.state/state.toml` to today
+   - Set `last_audit` in `state.toml` to today
 
 ## Commit Convention
 

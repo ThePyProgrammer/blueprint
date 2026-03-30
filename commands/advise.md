@@ -21,16 +21,16 @@ Architecture Advice Process (ThoughtWorks Technology Radar: Trial, April 2025).
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory location
-- `{adr_directory}/.state/contexts.toml` — bounded contexts with owners
-- `{adr_directory}/.state/relationships.toml` — existing ADR graph
+- `state.toml` — ADR directory location
+- `contexts.toml` — bounded contexts with owners
+- `relationships.toml` — existing ADR graph
 - `agents/persona.md` — your personality
 
 ## Process
 
 1. **Identify the decision topic** from user input
 2. **Determine affected parties:**
-   - Read `{adr_directory}/.state/contexts.toml` — which contexts are affected? Who owns them?
+   - Read `contexts.toml` — which contexts are affected? Who owns them?
    - Read git log — who has contributed to the affected code areas?
    - Read existing ADRs — who authored related decisions?
 3. **Present consultation checklist:**
@@ -72,7 +72,7 @@ People to consult before deciding:
 ```
 
 6. **Proceed to ADR creation:** Offer to run `/blueprint:new` with advice pre-populated
-7. **Update `{adr_directory}/.state/state.toml`** — set `last_advice_process` to today
+7. **Update `state.toml`** — set `last_advice_process` to today
 
 ## Integration with Other Commands
 

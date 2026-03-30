@@ -18,10 +18,10 @@ forces for and against, weighs them, and determines whether the balance supports
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
+- `relationships.toml` — ADR dependency graph
   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
-- `{adr_directory}/.state/contexts.toml` — bounded context assignments
-- `{adr_directory}/.state/state.toml` — ADR directory location
+- `contexts.toml` — bounded context assignments
+- `state.toml` — ADR directory location
 - `agents/persona.md` — your personality
 
 ## Process
@@ -34,15 +34,15 @@ Read from parent `adr/` skill directory:
    - Full agent instructions + `agents/persona.md`
    - Target ADR content
    - All accepted ADR filenames and their titles
-   - `{adr_directory}/.state/relationships.toml` content
-   - `{adr_directory}/.state/contexts.toml` content
+   - `relationships.toml` content
+   - `contexts.toml` content
    - Project root path
 6. **Present the forces evaluation** to the user
 7. **Based on verdict:**
    - **CONFIRMED:** Suggest accepting (`/blueprint:transition accept N`)
    - **NEEDS-RE-EVALUATION:** Ask user what additional evidence to gather
    - **RECONSIDER:** Suggest revising the ADR or running `/blueprint:rearchitect`
-8. **Update `{adr_directory}/.state/state.toml`** — set `last_challenge` to today
+8. **Update `state.toml`** — set `last_challenge` to today
 
 ## Relationship to `/blueprint:review`
 

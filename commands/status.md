@@ -52,9 +52,9 @@ colors, fonts, and component patterns from these files:
 ## Shared Context
 
 Read from parent `blueprint/` skill directory:
-- `{adr_directory}/.state/state.toml` — last operation dates, ADR directory
+- `state.toml` — last operation dates, ADR directory
   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
-- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
+- `relationships.toml` — ADR dependency graph
 - `config/lifecycle.toml` — status definitions
 - `config/taxonomy.toml` — severity levels, categories
 
@@ -74,11 +74,11 @@ Read from parent `blueprint/` skill directory:
 - Flag any with triggered conditions
 
 **Operations recency:**
-- From `{adr_directory}/.state/state.toml`: last audit, evaluation, retro, drift check dates
+- From `state.toml`: last audit, evaluation, retro, drift check dates
 - Calculate days since each
 
 **Relationship graph:**
-- From `{adr_directory}/.state/relationships.toml`: nodes (ADRs) and edges (dependencies, conflicts, supersessions)
+- From `relationships.toml`: nodes (ADRs) and edges (dependencies, conflicts, supersessions)
 - If graph is empty/sparse, suggest running `/blueprint:impact` on key ADRs to populate it
 
 **Fitness function coverage:**
@@ -300,7 +300,7 @@ available without the browser."
 
 ### Step 5: Update State
 
-Set `last_status_check` in `{adr_directory}/.state/state.toml` to today.
+Set `last_status_check` in `state.toml` to today.
 
 ## Fallback
 

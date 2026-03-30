@@ -16,10 +16,10 @@ mechanism that flat ADR systems lack.
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/contexts.toml` — existing context definitions (if any)
+- `contexts.toml` — existing context definitions (if any)
   (auto-detect adr_directory: `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/`)
-- `{adr_directory}/.state/state.toml` — ADR directory location
-- `{adr_directory}/.state/relationships.toml` — existing ADR relationships
+- `state.toml` — ADR directory location
+- `relationships.toml` — existing ADR relationships
 - `agents/persona.md` — your personality
 
 ## Modes
@@ -31,38 +31,38 @@ Read from parent `adr/` skill directory:
    - Full agent instructions + `agents/persona.md`
    - Project root path, ADR directory path
    - List of existing ADR filenames
-   - Existing `{adr_directory}/.state/contexts.toml` if present
+   - Existing `contexts.toml` if present
 3. Present the context map to the user
-4. Ask: "Write these contexts to `{adr_directory}/.state/contexts.toml`?"
-5. If yes, write the file and update `{adr_directory}/.state/state.toml`
+4. Ask: "Write these contexts to `contexts.toml`?"
+5. If yes, write the file and update `state.toml`
 6. Commit: `feat(adr): discover bounded contexts and generate context map`
 
 ### Assign (`/blueprint:scope assign ADR-NNNN <context>`)
 
-1. Read `{adr_directory}/.state/contexts.toml` — verify context exists
+1. Read `contexts.toml` — verify context exists
 2. Read the ADR file
 3. Add or update the `Context` metadata field in the ADR
-4. Update `{adr_directory}/.state/contexts.toml` — add ADR to context's governed list
+4. Update `contexts.toml` — add ADR to context's governed list
 5. Commit: `docs(adr): assign ADR-NNNN to [context] bounded context`
 
 ### List (`/blueprint:scope list`)
 
-1. Read `{adr_directory}/.state/contexts.toml`
+1. Read `contexts.toml`
 2. Display table: context name, root path, governed ADRs, owner
 3. Highlight unmapped ADRs
 
 ### Add (`/blueprint:scope add <name> --path <path>`)
 
-1. Add a new context definition to `{adr_directory}/.state/contexts.toml`
+1. Add a new context definition to `contexts.toml`
 2. Commit: `feat(adr): add [name] bounded context`
 
 ### Remove (`/blueprint:scope remove <name>`)
 
-1. Remove context from `{adr_directory}/.state/contexts.toml`
+1. Remove context from `contexts.toml`
 2. Remove context assignments from governed ADRs
 3. Commit: `feat(adr): remove [name] bounded context`
 
-## Config File: `{adr_directory}/.state/contexts.toml`
+## Config File: `contexts.toml`
 
 ```toml
 # Bounded Context Definitions

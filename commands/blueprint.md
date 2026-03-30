@@ -76,18 +76,32 @@ deployment model, auth strategy, data model decisions.
 
 ## Config Layer
 
-### Static schemas (shipped with plugin, in `config/` relative to this SKILL.md):
+### Config Resolution Protocol
+
+All skills use this protocol to find config files. This handles both the plugin's own
+repo (config files at `config/`) and consumer projects (config at `{adr_directory}/.state/`).
+
+**Step 1 — Find ADR directory:**
+Check (in order): `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/` in the project root.
+
+**Step 2 — Find mutable state files** (state.toml, relationships.toml, contexts.toml, evidence.toml, governance.toml, radar.toml):
+Check in order, use the first that exists:
+1. `{adr_directory}/.state/<file>.toml` — per-project state (created by `/blueprint:init`)
+2. `config/<file>.toml` — plugin's own repo fallback (when running Blueprint on itself)
+
+If neither exists and the file is required, prompt user to run `/blueprint:init`.
+
+**Step 3 — Find static schemas** (lifecycle.toml, taxonomy.toml):
+Always at `config/` relative to the blueprint skill directory. These ship with the plugin.
+
+### Static Schemas
 - `config/lifecycle.toml` — State machine DSL
 - `config/taxonomy.toml` — Classification system
 
-### Per-project mutable state (in `{adr_directory}/.state/` — created by `/blueprint:init`):
-- `{adr_directory}/.state/state.toml` — Session memory, ADR directory path, operation history
-- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
-- `{adr_directory}/.state/contexts.toml` — DDD bounded context definitions
-- `{adr_directory}/.state/evidence.toml` — Epistemic status tracking
-
-**Finding the ADR directory:** Auto-detect by checking (in order): `docs/adr/` → `docs/decisions/` → `adr/` → `decisions/` in the project root. If `.state/state.toml` exists there, read `adr_directory` from it for confirmation. If no ADR directory is found, prompt the user to run `/blueprint:init`.
-
-**Per-project config (created on first use):**
-- `{adr_directory}/.state/radar.toml` — Technology Radar
-- `{adr_directory}/.state/governance.toml` — Governance mode
+### Mutable State Files
+- `state.toml` — Session memory, ADR directory path, operation history
+- `relationships.toml` — ADR dependency graph
+- `contexts.toml` — DDD bounded context definitions
+- `evidence.toml` — Epistemic status tracking
+- `governance.toml` — Governance mode configuration
+- `radar.toml` — Technology Radar

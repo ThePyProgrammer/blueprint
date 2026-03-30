@@ -17,9 +17,9 @@ without the 3-4 day ceremony. Based on ATAM (SEI/CMU, 1998).
 ## Shared Context
 
 Read from parent `adr/` skill directory:
-- `{adr_directory}/.state/state.toml` — ADR directory location
-- `{adr_directory}/.state/relationships.toml` — ADR dependency graph
-- `{adr_directory}/.state/contexts.toml` — bounded context assignments
+- `state.toml` — ADR directory location
+- `relationships.toml` — ADR dependency graph
+- `contexts.toml` — bounded context assignments
 - `agents/persona.md` — your personality
 
 ## Process
@@ -28,7 +28,7 @@ Read from parent `adr/` skill directory:
 2. **Spawn a `blueprint:adr-tradeoff-analyzer` agent** with:
    - Full agent instructions + `agents/persona.md`
    - All accepted ADR contents
-   - `{adr_directory}/.state/relationships.toml` content
+   - `relationships.toml` content
    - Optional: `--focus <quality>` to prioritize one attribute
    - Project root path
 3. **Present the tradeoff analysis** to the user
@@ -36,7 +36,7 @@ Read from parent `adr/` skill directory:
    - **High-risk tradeoffs:** Suggest `/blueprint:challenge` on the relevant ADRs
    - **Missing quality attributes:** Suggest new ADRs to cover gaps
    - **Unresolved conflicts:** Highlight and ask for user guidance
-5. **Update `{adr_directory}/.state/state.toml`** — set `last_tradeoff_analysis` to today
+5. **Update `state.toml`** — set `last_tradeoff_analysis` to today
 
 ## Quality Attributes Tracked
 

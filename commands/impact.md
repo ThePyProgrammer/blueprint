@@ -14,8 +14,8 @@ dependencies, and affected areas.
 ## Shared Context
 
 Read from parent `adr/` directory:
-- `{adr_directory}/.state/state.toml` — ADR directory location
-- `{adr_directory}/.state/relationships.toml` — existing relationship graph
+- `state.toml` — ADR directory location
+- `relationships.toml` — existing relationship graph
 - `agents/persona.md` — personality
 - `agents/adr-impact-analyzer.md` — agent instructions
 
@@ -27,10 +27,10 @@ Read from parent `adr/` directory:
    - Full text of the target ADR
    - ADR file path and directory path
    - List of all ADR filenames
-   - Current relationship graph from `{adr_directory}/.state/relationships.toml`
+   - Current relationship graph from `relationships.toml`
    - Full agent instructions + persona
 4. Present the impact report
-5. **Update `{adr_directory}/.state/relationships.toml`** with discovered edges (DEPENDS_ON, CONFLICTS, etc.)
+5. **Update `relationships.toml`** with discovered edges (DEPENDS_ON, CONFLICTS, etc.)
 6. If conflicts found, suggest:
    - Resolve conflicts first
    - Revise the target ADR

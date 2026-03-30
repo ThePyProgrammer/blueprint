@@ -37,7 +37,7 @@ Spawned by `/blueprint:evidence` for evidence health checking.
 Before auditing:
 
 1. Read all accepted ADRs — extract evidence claims, sources, dates
-2. Read `{adr_directory}/.state/evidence.toml` — existing evidence classifications
+2. Read `evidence.toml` — existing evidence classifications
 3. Check `package.json` / `requirements.txt` — have dependencies changed since ADR was written?
 4. Check git log for when each ADR was last modified
 5. Read ADR Research sections for source URLs and claims
@@ -129,7 +129,7 @@ Return this structured audit:
 - **Context changes:** [list]
 - **Recommendation:** [keep / re-evaluate / supersede]
 
-### Proposed `{adr_directory}/.state/evidence.toml` Updates
+### Proposed `evidence.toml` Updates
 
 [Ready-to-write TOML content for evidence tracking]
 ```

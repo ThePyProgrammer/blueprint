@@ -179,23 +179,23 @@ mkdir -p docs/adr/.state
 has its own state. If `config/state-templates/` exists in the plugin directory, copy
 templates from there. Otherwise, create them from scratch with the content below.
 
-Create `{adr_directory}/.state/state.toml`:
+Create `state.toml`:
 - Set `adr_directory` to the detected/created path
 - Set `project_root` to the current working directory
 - Set `last_adr_created` to today
 
-Create `{adr_directory}/.state/relationships.toml` — seed with nodes for all created ADRs.
+Create `relationships.toml` — seed with nodes for all created ADRs.
 
-Create `{adr_directory}/.state/contexts.toml` — empty context definitions (or seed with
+Create `contexts.toml` — empty context definitions (or seed with
 discovered contexts if the codebase has domain-aligned directories).
 
-Create `{adr_directory}/.state/evidence.toml` — default settings (180-day expiry, 60-day L0 expiry).
+Create `evidence.toml` — default settings (180-day expiry, 60-day L0 expiry).
 
-Create `{adr_directory}/.state/governance.toml` — `mode = "lightweight"` (default).
+Create `governance.toml` — `mode = "lightweight"` (default).
 
 If the codebase has clear domain-aligned directories (src/orders/, src/payments/, etc.),
 optionally spawn the `adr-context-mapper` agent to seed bounded contexts in
-`{adr_directory}/.state/contexts.toml`.
+`contexts.toml`.
 
 ### Step 8: Commit
 
