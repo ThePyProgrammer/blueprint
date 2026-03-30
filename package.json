@@ -18,6 +18,15 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "keywords": [
+    "adr", "architecture-decision-records", "architecture", "governance",
+    "ddd", "bounded-context", "domain-driven-design",
+    "wardley-map", "c4-model", "dcar", "forces-evaluation",
+    "reflexion-model", "epistemic-status", "atam", "tradeoff-analysis",
+    "risk-storming", "arc42", "4+1-views", "fitness-functions",
+    "advice-process", "technology-radar", "federation",
+    "claude-code", "plugin", "ai-agents"
+  ],
   "license": "MIT",
   "dependencies": {
     "@inquirer/prompts": "^7.0.0",
