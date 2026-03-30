@@ -72,10 +72,15 @@ Weight each force:
 
 ## Step 3: Force Interaction Analysis
 
-Identify force interactions:
-- **Amplifying:** Two forces in the same direction that compound each other
-- **Cancelling:** A force FOR is directly offset by a force AGAINST
-- **Conditional:** A force only applies under certain conditions (scale, team size, timeline)
+Identify force interactions and apply numerical adjustments:
+- **Amplifying:** Two forces in the same direction that compound each other.
+  Adjustment: add +1 to the weighted sum in their shared direction.
+  Example: F1 (Major, 2) + F2 (Minor, 1) amplifying → FOR score gets +1 bonus = +4 total.
+- **Cancelling:** A force FOR is directly offset by a force AGAINST.
+  Adjustment: remove the weaker force's weight from both sides.
+  Example: F1 FOR (Major, 2) cancels A1 AGAINST (Minor, 1) → remove 1 from both → net F1 = 1, A1 = 0.
+- **Conditional:** A force only applies under certain conditions (scale, team size, timeline).
+  Adjustment: halve the weight (round down). A conditional Critical = 1, conditional Major = 1, conditional Minor = 0.
 
 ## Step 4: Decision Relationship View
 
