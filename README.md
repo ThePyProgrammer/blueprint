@@ -199,6 +199,9 @@ Domain scoping is based on Domain-Driven Design (Evans, 2003). Each bounded cont
 |---------|----------|---------|
 | `/blueprint:impact N` | impact analyzer | Cross-ADR conflict and dependency detection |
 | `/blueprint:audit` | compliance auditor | Verify codebase follows accepted decisions |
+| `/blueprint:reflect` | reflexion analyzer | Formal architecture conformance — convergences, divergences, absences |
+| `/blueprint:evidence` | evidence auditor | Audit epistemic status and temporal validity of ADR evidence |
+| `/blueprint:map` | strategic analyzer | Wardley Map — classify components by evolution stage, detect build-vs-buy misalignment |
 | `/blueprint:retro` | retrospective | Post-fix: band-aid or systemic? Verified against sources. |
 | `/blueprint:rearchitect "topic"` | researcher + impact | Research → draft → impact check → supersede |
 

@@ -12,9 +12,9 @@
 |---|---------|----------------|-------|--------|
 | 1 | `/blueprint:scope` | Domain-Driven Design | `adr-context-mapper` | **Done** |
 | 2 | `/blueprint:challenge` | DCAR (van Heesch et al., 2014) | `adr-forces-evaluator` | **Done** |
-| 3 | `/blueprint:reflect` | Reflexion Models (Murphy et al., 1995) | `adr-reflexion-analyzer` | Pending |
-| 4 | `/blueprint:evidence` | Epistemic Staleness (Koenig et al., 2026) | `adr-evidence-auditor` | Pending |
-| 5 | `/blueprint:map` | Wardley Mapping | `adr-strategic-analyzer` | Pending |
+| 3 | `/blueprint:reflect` | Reflexion Models (Murphy et al., 1995) | `adr-reflexion-analyzer` | **Done** |
+| 4 | `/blueprint:evidence` | Epistemic Staleness (Koenig et al., 2026) | `adr-evidence-auditor` | **Done** |
+| 5 | `/blueprint:map` | Wardley Mapping | `adr-strategic-analyzer` | **Done** |
 
 ### Tier 2: Major Differentiation (P1)
 
@@ -57,3 +57,6 @@
 |------|---------|--------|-------|
 | 2026-03-30 | `/blueprint:scope` | feat(adr) | Skill + agent + config/contexts.toml |
 | 2026-03-30 | `/blueprint:challenge` | feat(adr) | Skill + agent (DCAR forces evaluation) |
+| 2026-03-30 | `/blueprint:reflect` | feat(adr) | Skill + agent (reflexion model conformance) |
+| 2026-03-30 | `/blueprint:evidence` | feat(adr) | Skill + agent + config/evidence.toml |
+| 2026-03-30 | `/blueprint:map` | feat(adr) | Skill + agent (Wardley strategic analysis) |
