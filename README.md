@@ -510,6 +510,37 @@ Blueprint v2 adds 15 commands derived from a comprehensive survey of 20+ archite
 | ThoughtWorks Technology Radar | `/blueprint:radar` | Technology adoption lifecycle |
 | TOGAF + Advice Process | `/blueprint:govern` | Configurable governance tiers |
 
+## v2.0.2: Developer Experience
+
+v2.0.2 focuses on reducing friction — wider on-ramps without changing the destination.
+
+### New Commands
+
+| Command | What It Does |
+|---------|-------------|
+| `/blueprint:quickstart [stack]` | Generate 5-8 foundational ADRs from pre-built templates. Auto-detects stack from package manifest. Presets: react-node, python-fastapi, nextjs, go-api, generic (27 ADR stubs total). |
+| `/blueprint:onboard` | 5-minute architecture walkthrough for new developers — key decisions, domain structure, governance mode, health status, what to read first. |
+| `/blueprint:nudge` | Check 10 governance staleness thresholds and surface overdue actions. Runs automatically via SessionStart hook (~1-in-20 sessions). |
+
+### Enhancements
+
+| Change | What It Does |
+|--------|-------------|
+| `--format` on `/blueprint:fitness` | Output fitness functions as GitHub Actions (`--format github-actions`), GitLab CI (`--format gitlab-ci`), or justfile (`--format justfile`) — not just shell scripts. |
+| Context-first `/blueprint:list` | ADRs grouped by bounded context by default when contexts are defined. `--flat` for the original numbered list. |
+
+### Cross-Plugin Integration (10 hooks)
+
+Blueprint now runs as a background architecture conscience across the plugin ecosystem:
+
+- **GSD/RAPID phase completion** → detect undocumented architectural decisions
+- **GSD/RAPID agent output** → review for technology choices and pattern selections
+- **`rapid:bug-fix` / `gsd:debug`** → suggest `/blueprint:retro` for root cause analysis
+- **Feynman research completion** → link findings to existing ADRs or suggest new ones
+- **Planning artifact changes** → detect architectural decisions in PLAN.md / .planning/
+- **Session end** → sweep conversation for undocumented decisions
+- **Periodic nudge** → governance staleness check every ~20 sessions
+
 ## License
 
 MIT
