@@ -173,6 +173,8 @@ This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/D
 | Command | Agent(s) | Purpose |
 |---------|----------|---------|
 | `/blueprint:init` | cartographer | Bootstrap blueprint onto an existing codebase — scan `.planning/`, `.research/`, CLAUDE.md, package files, git history for existing decisions, create ADR directory with template and lifecycle docs, infer ADRs, generate ARCHITECTURE.md |
+| `/blueprint:quickstart [stack]` | — | Generate 5-8 foundational ADRs from pre-built templates for a stack (react-node, python-fastapi, nextjs, go-api, generic). Auto-detects stack from package manifest. |
+| `/blueprint:onboard` | — | 5-minute architecture walkthrough for new team members — key decisions, domain structure, governance mode, health status, what to read first |
 
 `/blueprint:init` is the "day one" command. It reads every available source of architectural context — GSD planning artifacts, research files, CLAUDE.md conventions, dependency manifests, even early git commit messages — classifies discovered decisions by impact, and produces the full documentation suite in a single atomic commit. Think of it as an archaeological dig that turns implicit decisions into explicit records.
 
@@ -252,21 +254,29 @@ The eli5 commands exist because ADRs are written for the people who make decisio
 | `/blueprint:status` | — | Governance dashboard — terminal summary + interactive HTML with knowledge graph, timeline, metrics, and debt table |
 | `/blueprint:health` | — | Self-diagnostic — 8 consistency checks (index sync, supersession chains, graph integrity, staleness) with auto-repair |
 | `/blueprint:hooks` | — | Configure automatic triggers — pre-commit guard, retro-suggest, architecture-sync, dependency-watch, periodic-health |
-| `/blueprint:hooks install all` | — | Enable all 5 automation hooks in one command |
+| `/blueprint:hooks install all` | — | Enable all automation hooks in one command |
+| `/blueprint:nudge` | — | Check 10 governance staleness thresholds and surface overdue actions |
 
 `/blueprint:status` is the control room. It renders a terminal summary with ADR counts, governance health metrics, fitness coverage, and a text relationship graph — then generates and opens a self-contained HTML dashboard in your browser. The HTML has four tabs: a **force-directed knowledge graph** (nodes = ADRs colored by status, edges = relationships styled by type, click to explore), a **decision timeline**, **governance metrics with history sparklines**, and a **decision debt table**. Zero external dependencies — works offline.
 
 `/blueprint:health` is `fsck` for your ADR system. It validates internal consistency across 8 dimensions: directory structure, index-to-file sync, ADR content completeness, supersession chain integrity (bidirectional links, no cycles), relationship graph consistency (no orphans, no self-references), config freshness, cross-reference validity, and staleness (ADRs older than 12 months without review). Fixable issues get an auto-repair offer.
 
-`/blueprint:hooks` closes the adoption gap. Five configurable hooks embed blueprint into the development workflow so architectural governance happens automatically:
+`/blueprint:hooks` closes the adoption gap. Ten hooks embed blueprint into the development workflow so architectural governance happens automatically:
 
 | Hook | When it fires | What it does | Default |
 |------|--------------|-------------|---------|
-| `guard` | Before any commit | Check staged files against ADR invariants | Off (opt-in) |
-| `retro-suggest` | After fix workflows | Suggest `/blueprint:retro` | On |
+| `guard` | Before Write/Edit | Check staged files against ADR invariants | Off (opt-in) |
+| `retro-suggest` | After git fix commits | Suggest `/blueprint:retro` | On |
+| `bugfix-retro` | After `rapid:bug-fix`, `gsd:debug` | Suggest `/blueprint:retro` for plugin-driven fixes | On |
+| `feynman-evidence` | After `feynman:deepresearch`, `feynman:lit` | Link research to existing ADRs or suggest new ones | On |
+| `gsd-rapid-adr` | After `gsd:plan-phase`, `rapid:execute-set`, etc. | Detect undocumented architectural decisions | On |
+| `agent-adr` | After GSD/RAPID agent completion | Review agent output for architecture choices | On |
 | `architecture-sync` | After ADR transitions | Suggest updating ARCHITECTURE.md + fitness functions | On |
 | `dependency-watch` | Package file changed | Suggest `/blueprint:new` for new dependencies | On |
-| `periodic-health` | Every 20 sessions | Suggest `/blueprint:health` + `/blueprint:debt` | On |
+| `planning-watch` | PLAN.md or .planning/ changed | Detect architectural decisions in planning artifacts | On |
+| `periodic-nudge` | ~Every 20 sessions | Check governance staleness, suggest `/blueprint:nudge` | On |
+| `session-sweep` | Session end | Scan conversation for undocumented architectural decisions | On |
+| `skill-refresh` | Skills or agents modified | Suggest reinstalling to update CLAUDE.md | On |
 
 Hooks suggest rather than block (except `guard`, which is opt-in precisely because it blocks). The goal is to make architectural governance a natural part of the workflow, not a gate that slows development.
 
@@ -357,13 +367,13 @@ npm link
 claude-blueprint install --global
 ```
 
-The installer deploys 39 skills, 21 agents, and 8 config files to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
+The installer deploys 42 skills, 21 agents, 9 config files, and 10 hooks to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
 
 ## Architecture of Blueprint Itself
 
 ```
 blueprint/
-├── skills/                39 skill files
+├── skills/                42 skill files
 │   ├── blueprint.md       Thin router
 │   ├── init.md            Bootstrap from existing codebase
 │   ├── help.md            Contextual command reference
@@ -402,8 +412,14 @@ blueprint/
 │   ├── govern.md          Governance tier configuration
 │   ├── status.md          Governance dashboard + knowledge graph
 │   ├── health.md          Self-diagnostic with auto-repair
-│   └── hooks.md           Automatic trigger configuration
-├── agents/                19 agent definitions
+│   ├── hooks.md           Automatic trigger configuration
+│   ├── quickstart.md      Stack-specific ADR bootstrapping
+│   ├── nudge.md           Periodic governance health checks
+│   ├── onboard.md         New developer architecture walkthrough
+│   └── persona/SKILL.md   Shared persona (preloaded via skills field)
+├── hooks/
+│   └── hooks.json         10 pre-built governance hooks
+├── agents/                21 agent definitions
 │   ├── persona.md         Shared senior engineer personality
 │   ├── adr-researcher.md
 │   ├── adr-devils-advocate.md
@@ -433,7 +449,8 @@ blueprint/
 │   ├── contexts.toml      DDD bounded contexts
 │   ├── evidence.toml      Epistemic status tracking
 │   ├── radar.toml         Technology Radar (created on first use)
-│   └── governance.toml    Governance mode (created on first use)
+│   ├── governance.toml    Governance mode (created on first use)
+│   └── quickstart-templates.toml  Pre-built ADR stubs for 5 stacks
 ├── docs/
 │   ├── ARCHITECTURE.md    Bird's-eye codemap (matklad style)
 │   └── adr/               34 self-referential ADRs
@@ -442,7 +459,7 @@ blueprint/
 └── .claude-plugin/        Plugin registration metadata
 ```
 
-Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 39 commands, 21 agents, 8 config files, 41 ADRs.
+Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 42 skills, 21 agents, 9 config files, 10 hooks, 41 ADRs.
 
 ## Intellectual Heritage
 
