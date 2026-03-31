@@ -58,9 +58,10 @@ For each deferred decision, check if the trigger condition has been met:
 
 ### Step 3: Calculate Decision Debt Score
 
-```
-Decision Debt = Σ (severity × age_months × dependency_count)
-```
+Read the formula and weights from `config/taxonomy.toml` `[debt_scoring]` section.
+Default formula: `severity_weight × age_months × dependency_count`
+Severity weights: High=3, Medium=2, Low=1
+Thresholds: nominal < 10, elevated < 25, critical ≥ 50
 
 Higher score = more urgent. A high-severity decision deferred 8 months ago with
 3 other decisions depending on it is more urgent than a low-severity decision

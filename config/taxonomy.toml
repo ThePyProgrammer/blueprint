@@ -165,6 +165,15 @@ L0 = "Unverified — AI-generated, unsourced, or unconfirmed"
 L1 = "Logically Consistent — sourced, sound reasoning, not project-tested"
 L2 = "Empirically Validated — tested and confirmed in this project"
 
+# --- Decision Debt Scoring ---
+# Single source of truth for debt calculation. Used by /blueprint:debt and /blueprint:status.
+
+[debt_scoring]
+formula = "severity_weight × age_months × dependency_count"
+severity_weights = { High = 3, Medium = 2, Low = 1 }
+thresholds = { nominal = 10, elevated = 25, critical = 50 }
+evidence_debt_multiplier = 1.5   # Expired evidence scores 1.5x vs deferred decisions
+
 # --- Decision Categories ---
 
 decision_categories = [

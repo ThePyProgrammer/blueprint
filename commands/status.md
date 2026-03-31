@@ -69,8 +69,8 @@ Read from parent `blueprint/` skill directory:
 
 **Decision debt:**
 - Count Deferred ADRs
-- For each, check trigger conditions against codebase (same logic as `/blueprint:debt`)
-- Calculate debt score: Σ(severity × age_months × dependency_count)
+- For each, check trigger conditions against codebase (delegate to `/blueprint:debt` logic)
+- Read debt score formula from `config/taxonomy.toml` `[debt_scoring]` section
 - Flag any with triggered conditions
 
 **Operations recency:**
