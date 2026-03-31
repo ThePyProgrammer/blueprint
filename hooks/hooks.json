@@ -1,6 +1,19 @@
 {
   "description": "Blueprint architecture governance hooks. Pre-commit guard is opt-in (disabled by default). All others suggest actions without blocking.",
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Periodic governance health nudge. This fires at session start — to avoid noise, only act roughly every 20 sessions: pick a random number 1-20 and only proceed if it equals 1. If proceeding: read config/state.toml (relative to the blueprint skill directory) and check the [last_operations] timestamps. If any operation has never been run (empty string) or exceeds its staleness threshold (evidence_audit >90d, audit >60d, evaluation >90d, drift >30d, risk_assessment >90d, reflect >60d, strategic_map >180d), output a single concise line: 'Governance checks overdue. Run /blueprint:nudge for details.' If all timestamps are current or you decided to skip this session, stay completely silent — produce no output at all.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Periodic health nudge — lightweight governance staleness check (roughly every 20 sessions)"
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Write|Edit",
