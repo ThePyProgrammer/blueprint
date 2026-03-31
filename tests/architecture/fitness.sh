@@ -21,11 +21,11 @@ echo ""
 
 # ─── ADR-0002: Decompose into focused sub-skills ───
 echo "ADR-0002: Decompose into focused sub-skills"
-SKILL_COUNT=$(ls commands/*.md 2>/dev/null | wc -l)
+SKILL_COUNT=$(ls skills/*.md 2>/dev/null | wc -l)
 if [ "$SKILL_COUNT" -ge 30 ]; then
-  pass "commands/ has $SKILL_COUNT skill files (≥30 expected)"
+  pass "skills/ has $SKILL_COUNT skill files (≥30 expected)"
 else
-  fail "commands/ has $SKILL_COUNT skill files (expected ≥30)"
+  fail "skills/ has $SKILL_COUNT skill files (expected ≥30)"
 fi
 
 # ─── ADR-0003: Use TOML for config DSL ───
@@ -55,7 +55,7 @@ fi
 
 # ─── ADR-0006: Use thin router pattern ───
 echo "ADR-0006: Use thin router pattern"
-ROUTER_LINES=$(wc -l < commands/blueprint.md)
+ROUTER_LINES=$(wc -l < skills/blueprint.md)
 if [ "$ROUTER_LINES" -le 120 ]; then
   pass "Router is $ROUTER_LINES lines (≤120 expected)"
 else
@@ -116,7 +116,7 @@ fi
 
 # ─── ADR-0036: DDD bounded context scoping ───
 echo "ADR-0036: DDD bounded context scoping"
-if [ -f commands/scope.md ] && [ -f agents/adr-context-mapper.md ] && [ -f config/contexts.toml ]; then
+if [ -f skills/scope.md ] && [ -f agents/adr-context-mapper.md ] && [ -f config/contexts.toml ]; then
   pass "Scope skill, context-mapper agent, and contexts.toml all exist"
 else
   fail "Missing scope implementation files"
@@ -124,7 +124,7 @@ fi
 
 # ─── ADR-0039: Epistemic status tracking ───
 echo "ADR-0039: Epistemic status tracking"
-if [ -f commands/evidence.md ] && [ -f agents/adr-evidence-auditor.md ] && [ -f config/evidence.toml ]; then
+if [ -f skills/evidence.md ] && [ -f agents/adr-evidence-auditor.md ] && [ -f config/evidence.toml ]; then
   pass "Evidence skill, evidence-auditor agent, and evidence.toml all exist"
 else
   fail "Missing evidence implementation files"
@@ -135,7 +135,7 @@ echo ""
 echo "Structural Invariants:"
 
 # Every command has a corresponding YAML frontmatter
-COMMANDS_WITHOUT_FRONTMATTER=$(for f in commands/*.md; do
+COMMANDS_WITHOUT_FRONTMATTER=$(for f in skills/*.md; do
   head -1 "$f" | grep -q "^---" || echo "$f"
 done | wc -l)
 if [ "$COMMANDS_WITHOUT_FRONTMATTER" -eq 0 ]; then

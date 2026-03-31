@@ -2,9 +2,9 @@ import { access } from 'fs/promises';
 import { join } from 'path';
 import { getTargetPaths } from './paths.js';
 
-const EXPECTED_COMMANDS = [
+const EXPECTED_SKILLS = [
   'SKILL.md',
-  // v1 commands
+  // v1 skills
   'help/SKILL.md',
   'list/SKILL.md',
   'new/SKILL.md',
@@ -28,7 +28,7 @@ const EXPECTED_COMMANDS = [
   'status/SKILL.md',
   'health/SKILL.md',
   'hooks/SKILL.md',
-  // v2 commands
+  // v2 skills
   'scope/SKILL.md',
   'challenge/SKILL.md',
   'reflect/SKILL.md',
@@ -111,8 +111,8 @@ export async function verify(opts) {
 
     let missing = 0;
 
-    // Check commands
-    for (const cmd of EXPECTED_COMMANDS) {
+    // Check skills
+    for (const cmd of EXPECTED_SKILLS) {
       const ok = await fileExists(join(paths.commands, cmd));
       console.log(`  ${ok ? '✓' : '✗'} commands/${cmd}`);
       if (!ok) missing++;

@@ -45,20 +45,20 @@ export async function install(opts) {
   // Copy root command (router)
   spinner.start('Installing router...');
   await copyFile(
-    join(PLUGIN_ROOT, 'commands', 'blueprint.md'),
+    join(PLUGIN_ROOT, 'skills', 'blueprint.md'),
     join(paths.commands, 'SKILL.md'),
   );
   spinner.succeed('Router installed');
 
-  // Copy sub-commands as SKILL.md in their directories
-  spinner.start('Installing commands...');
+  // Copy sub-skills as SKILL.md in their directories
+  spinner.start('Installing skills...');
   for (const cmd of SUB_COMMANDS) {
     await copyFile(
-      join(PLUGIN_ROOT, 'commands', `${cmd}.md`),
+      join(PLUGIN_ROOT, 'skills', `${cmd}.md`),
       join(paths.commands, cmd, 'SKILL.md'),
     );
   }
-  spinner.succeed(`${SUB_COMMANDS.length} commands installed`);
+  spinner.succeed(`${SUB_COMMANDS.length} skills installed`);
 
   // Copy agents
   spinner.start('Installing agents...');

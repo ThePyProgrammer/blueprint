@@ -11,7 +11,7 @@
     "bin/",
     "src/",
     ".claude-plugin/",
-    "commands/",
+    "skills/",
     "agents/",
     "config/"
   ],

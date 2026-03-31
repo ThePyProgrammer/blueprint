@@ -18,14 +18,14 @@ Every agent speaks with the voice of a senior engineer who has watched too many
 
 The system has four layers, each with a distinct responsibility:
 
-1. **Skills** (`commands/`) — 39 focused SKILL.md files that define what each command does.
+1. **Skills** (`skills/`) — 39 focused SKILL.md files that define what each command does.
    The user invokes these. Each loads only its own context.
 2. **Agents** (`agents/`) — 21 agent definitions (20 agents + 1 shared persona) that do the
    actual analytical work. Skills spawn these via the Agent tool. Each has a single responsibility.
 3. **Config DSL** (`config/`) — 8 TOML files encoding domain knowledge as structured data.
    Agents and skills read these instead of hardcoding rules in prose.
 4. **CLI** (`bin/`, `src/`) — Node.js installer that deploys the above three layers to
-   `~/.claude/commands/blueprint/`.
+   `~/.claude/commands/blueprint/` (or `~/.claude/skills/blueprint/`).
 
 Data flows downward: skills read config and spawn agents; agents read config and the
 codebase; config is the shared source of truth.
@@ -34,14 +34,14 @@ codebase; config is the shared source of truth.
 
 ### Entry Points
 
-`commands/blueprint.md` — The root router. Parses natural language intent and dispatches
+`skills/blueprint.md` — The root router. Parses natural language intent and dispatches
 to the appropriate sub-skill. Routes to 38 sub-skills via keyword matching. Only unique
 logic: proactive intervention when architectural decisions are being made without ADRs (ADR-0015).
 
 `bin/cli.js` — CLI entry point for installation. Commander.js with `install` and `verify`
 subcommands. Deploys all 39 command files, 21 agent files, and 8 config files.
 
-### Skills (commands/)
+### Skills (skills/)
 
 Each file is a standalone SKILL.md. Deployed as `<name>/SKILL.md` directories by the installer.
 
