@@ -76,6 +76,19 @@
         "_comment": "Architecture-sync after ADR transitions (ADR-0034)"
       }
     ],
+    "SessionEnd": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Session is ending. Review the conversation for architectural decisions that were made but never documented as ADRs. Look for: technology choices (databases, frameworks, libraries), pattern selections (REST vs gRPC, monolith vs microservices), data model designs, deployment strategy changes, authentication decisions, API design choices, module boundary definitions. If you find undocumented architectural decisions, output a brief summary: 'Undocumented architectural decisions from this session:\\n- [decision 1] → /blueprint:new \"[topic]\"\\n- [decision 2] → /blueprint:new \"[topic]\"\\nRun these in your next session to formalize.' If no architectural decisions were made, stay silent.",
+            "timeout": 15
+          }
+        ],
+        "_comment": "Session-end sweep for undocumented architectural decisions"
+      }
+    ],
     "FileChanged": [
       {
         "matcher": "package\\.json|requirements\\.txt|pyproject\\.toml|Cargo\\.toml|go\\.mod",
