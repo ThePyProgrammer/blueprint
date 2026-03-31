@@ -33,12 +33,12 @@
         "matcher": "Bash",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "ONLY act if the Bash command was 'git commit' and the tool output contains a commit message with 'fix', 'bugfix', 'hotfix', or 'patch' (case-insensitive). If BOTH conditions are met, output exactly: 'Run /blueprint:retro to check if this fix warrants an ADR.' If EITHER condition is not met, produce NO output — stay completely silent.",
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/retro-suggest.js\"",
             "timeout": 5
           }
         ],
-        "_comment": "Retro-suggest after fix commits only (ADR-0034). Scoped to git commit commands to avoid false positives on ls, grep, etc."
+        "_comment": "Retro-suggest after fix commits only (ADR-0034). Uses deterministic script instead of prompt to avoid LLM false positives on non-commit Bash commands."
       },
       {
         "matcher": "Skill",
