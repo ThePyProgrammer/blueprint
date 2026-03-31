@@ -18,11 +18,11 @@ Every agent speaks with the voice of a senior engineer who has watched too many
 
 The system has four layers, each with a distinct responsibility:
 
-1. **Skills** (`skills/`) — 39 focused SKILL.md files that define what each command does.
+1. **Skills** (`skills/`) — 42 focused SKILL.md files that define what each command does.
    The user invokes these. Each loads only its own context.
 2. **Agents** (`agents/`) — 21 agent definitions (20 agents + 1 shared persona) that do the
    actual analytical work. Skills spawn these via the Agent tool. Each has a single responsibility.
-3. **Config DSL** (`config/`) — 8 TOML files encoding domain knowledge as structured data.
+3. **Config DSL** (`config/`) — 9 TOML files encoding domain knowledge as structured data.
    Agents and skills read these instead of hardcoding rules in prose.
 4. **CLI** (`bin/`, `src/`) — Node.js installer that deploys the above three layers to
    `~/.claude/commands/blueprint/` (or `~/.claude/skills/blueprint/`).
@@ -39,16 +39,19 @@ to the appropriate sub-skill. Routes to 38 sub-skills via keyword matching. Only
 logic: proactive intervention when architectural decisions are being made without ADRs (ADR-0015).
 
 `bin/cli.js` — CLI entry point for installation. Commander.js with `install` and `verify`
-subcommands. Deploys all 39 command files, 21 agent files, and 8 config files.
+subcommands. Deploys all 42 skill files, 21 agent files, 9 config files, and 10 hooks.
 
 ### Skills (skills/)
 
 Each file is a standalone SKILL.md. Deployed as `<name>/SKILL.md` directories by the installer.
 
-**Setup:**
+**Setup & Onboarding:**
 | File | What it orchestrates |
 |------|---------------------|
 | `init.md` | Scan existing context, infer ADRs, generate ARCHITECTURE.md, create config files (ADR-0029) |
+| `quickstart.md` | Generate foundational ADRs from pre-built stack templates (5 stacks, 27 stubs) |
+| `onboard.md` | 5-minute architecture walkthrough for new developers |
+| `nudge.md` | Check 10 governance staleness thresholds, surface overdue actions |
 
 **Domain Scoping:**
 | File | What it orchestrates |
@@ -174,6 +177,11 @@ Domain knowledge encoded as structured TOML (ADR-0003, ADR-0004, ADR-0022):
 - `evidence.toml` — Per-ADR epistemic levels, expiry dates, stale claims, dead URLs (ADR-0039)
 - `radar.toml` — Technology adoption lifecycle linked to ADRs (created on first use)
 - `governance.toml` — Governance mode configuration (created on first use, ADR-0041)
+- `quickstart-templates.toml` — Pre-built ADR stubs for 5 stacks (27 ADR templates)
+
+### Hooks (hooks/)
+
+- `hooks.json` — 10 pre-built governance hooks: guard, retro-suggest, bugfix-retro, feynman-evidence, gsd-rapid-adr, agent-adr, architecture-sync, dependency-watch, planning-watch, periodic-nudge, session-sweep, skill-refresh
 
 ### CLI (bin/, src/)
 
