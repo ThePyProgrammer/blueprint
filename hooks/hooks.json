@@ -43,6 +43,17 @@
         "hooks": [
           {
             "type": "prompt",
+            "prompt": "Check if the skill that just completed was a Feynman research skill: feynman:deepresearch, feynman:lit, feynman:compare, feynman:audit. If so, check if the research topic relates to any existing accepted ADR (technology choices, architecture patterns, design decisions). If it does, suggest: 'This research is relevant to [ADR-NNNN]. Run /blueprint:evidence set ADR-NNNN L1 to upgrade its evidence level, or update the ADR references section.' If the research covers a topic with no existing ADR, suggest: 'This research could support a new architectural decision. Run /blueprint:new --research \"[topic]\" to formalize.' Stay silent if the research has no architectural relevance.",
+            "timeout": 10
+          }
+        ],
+        "_comment": "Feynman research → ADR evidence pipeline"
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "prompt",
             "prompt": "Check if the skill that just completed was a GSD or RAPID planning/execution skill. Specifically look for: gsd:plan-phase, gsd:execute-phase, gsd:discuss-phase, gsd:autonomous, rapid:plan-set, rapid:execute-set, rapid:discuss-set. If one of these just completed successfully, check whether the work involved architectural decisions (new technology choices, pattern selections, API designs, data model changes, deployment strategies, infrastructure choices). If architectural decisions were made during the phase but no ADR was created, suggest: 'Architectural decisions were made during this phase. Run /blueprint:new to document them, or /blueprint:scope to check which bounded context is affected.' Be specific about which decisions you detected. If no architectural decisions were made (e.g., pure UI work, content changes, test additions), stay silent.",
             "timeout": 10
           }
