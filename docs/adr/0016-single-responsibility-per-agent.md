@@ -28,7 +28,7 @@ The choice has implications for prompt engineering, output quality, parallelism,
 ### Option 2: Many focused agents (11 total)
 
 - **Pros:** Each agent has one job and one prompt optimized for that job. Agents are orthogonal — improving the bug surface mapper cannot break the compliance auditor. Agents can run in parallel when their inputs are independent. Output is predictable and composable. Each agent can be tested in isolation.
-- **Cons:** More agent definitions to maintain. Orchestration logic must coordinate 11 agents. Some agents may need context that another agent produced, creating ordering dependencies. Higher total token cost when running all agents.
+- **Cons:** More agent definitions to maintain (20 as of v2.0.0). Orchestration logic must coordinate agents across multiple dimensions. Some agents may need context that another agent produced, creating ordering dependencies. Higher total token cost when running all agents.
 
 ### Option 3: Dynamic agent composition
 

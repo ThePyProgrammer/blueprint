@@ -32,7 +32,7 @@ Users call `/blueprint:review`, `/blueprint:list`, etc. directly. No routing lay
 
 ## Decision
 
-**We use a 48-line thin router that parses intent from natural language and dispatches to sub-skills**, because the router should do exactly two things — route commands and detect unrecorded architectural decisions — and nothing else.
+**We use a thin router (~107 lines as of v2.0.0) that parses intent from natural language and dispatches to sub-skills**, because the router should do exactly two things — route commands and detect unrecorded architectural decisions — and nothing else.
 
 ## Rationale
 

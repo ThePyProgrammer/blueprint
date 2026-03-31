@@ -32,7 +32,7 @@ Build a formal plugin system with registration, discovery, and lifecycle hooks. 
 
 ## Decision
 
-**We decompose the monolith into 12 focused sub-skills averaging 41-96 lines each, coordinated by a 48-line thin router**, because token efficiency demands that each invocation load only the instructions it needs, and because single-responsibility skills are easier to test, modify, and reason about than a monolithic prompt.
+**We decompose the monolith into focused sub-skills (38 as of v2.0.0) averaging 41-96 lines each, coordinated by a thin router**, because token efficiency demands that each invocation load only the instructions it needs, and because single-responsibility skills are easier to test, modify, and reason about than a monolithic prompt.
 
 ## Rationale
 
