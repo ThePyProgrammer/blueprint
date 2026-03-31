@@ -1,5 +1,5 @@
 {
-  "description": "Blueprint architecture governance hooks. Pre-commit guard is opt-in (disabled by default). All others suggest actions without blocking.",
+  "description": "Blueprint architecture governance hooks. Most are disabled by default to avoid noise. Enable selectively with /blueprint:hooks.",
   "hooks": {
     "SessionStart": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Periodic governance health nudge. This fires at session start — to avoid noise, only act roughly every 20 sessions: pick a random number 1-20 and only proceed if it equals 1. If proceeding: read config/state.toml (relative to the blueprint skill directory) and check the [last_operations] timestamps. If any operation has never been run (empty string) or exceeds its staleness threshold (evidence_audit >90d, audit >60d, evaluation >90d, drift >30d, risk_assessment >90d, reflect >60d, strategic_map >180d), output a single concise line: 'Governance checks overdue. Run /blueprint:nudge for details.' If all timestamps are current or you decided to skip this session, stay completely silent — produce no output at all.",
+            "prompt": "Periodic governance health nudge. This fires at session start — to avoid noise, only act roughly every 20 sessions: pick a random number 1-20 and only proceed if it equals 1. If proceeding: read {adr_directory}/.state/state.toml and check the [last_operations] timestamps. If any operation has never been run (empty string) or exceeds its staleness threshold (evidence_audit >90d, audit >60d, evaluation >90d, drift >30d, risk_assessment >90d, reflect >60d, strategic_map >180d), output a single concise line: 'Governance checks overdue. Run /blueprint:nudge for details.' If all timestamps are current or you decided to skip this session, stay completely silent — produce no output at all.",
             "timeout": 5
           }
         ],
@@ -39,67 +39,6 @@
           }
         ],
         "_comment": "Retro-suggest after RAPID/GSD bug-fix workflows"
-      },
-      {
-        "matcher": "Skill",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Check if the skill that just completed was a Feynman research skill: feynman:deepresearch, feynman:lit, feynman:compare, feynman:audit. If so, check if the research topic relates to any existing accepted ADR (technology choices, architecture patterns, design decisions). If it does, suggest: 'This research is relevant to [ADR-NNNN]. Run /blueprint:evidence set ADR-NNNN L1 to upgrade its evidence level, or update the ADR references section.' If the research covers a topic with no existing ADR, suggest: 'This research could support a new architectural decision. Run /blueprint:new --research \"[topic]\" to formalize.' Stay silent if the research has no architectural relevance.",
-            "timeout": 10
-          }
-        ],
-        "_comment": "Feynman research → ADR evidence pipeline"
-      },
-      {
-        "matcher": "Skill",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Check if the skill that just completed was a GSD or RAPID planning/execution skill. Specifically look for: gsd:plan-phase, gsd:execute-phase, gsd:discuss-phase, gsd:autonomous, rapid:plan-set, rapid:execute-set, rapid:discuss-set. If one of these just completed successfully, check whether the work involved architectural decisions (new technology choices, pattern selections, API designs, data model changes, deployment strategies, infrastructure choices). If architectural decisions were made during the phase but no ADR was created, suggest: 'Architectural decisions were made during this phase. Run /blueprint:new to document them, or /blueprint:scope to check which bounded context is affected.' Be specific about which decisions you detected. If no architectural decisions were made (e.g., pure UI work, content changes, test additions), stay silent.",
-            "timeout": 10
-          }
-        ],
-        "_comment": "Cross-plugin integration: suggest ADRs after GSD/RAPID phase completion"
-      }
-    ],
-    "SubagentStop": [
-      {
-        "matcher": "gsd-executor|gsd-planner|gsd-phase-researcher|rapid-executor|rapid-planner|rapid-research",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "A GSD or RAPID agent just completed. Review its output for architectural decisions that should be documented as ADRs. Look for: new dependencies added, database/cache/queue choices, API pattern selections, module boundary definitions, deployment topology changes, authentication strategy decisions. If you find undocumented architectural decisions, suggest: 'The [agent] made architectural choices that should be recorded. Run /blueprint:new \"[specific decision topic]\" to document.' Only suggest for genuinely architectural decisions — not implementation details.",
-            "timeout": 10
-          }
-        ],
-        "_comment": "Detect architectural decisions made by GSD/RAPID agents"
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "If an ADR was just accepted, rejected, or transitioned during this session, suggest: 'Run /blueprint:architect to update ARCHITECTURE.md and /blueprint:fitness to regenerate fitness functions.' Do not block.",
-            "timeout": 5
-          }
-        ],
-        "_comment": "Architecture-sync after ADR transitions (ADR-0034)"
-      }
-    ],
-    "SessionEnd": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Session is ending. Review the conversation for architectural decisions that were made but never documented as ADRs. Look for: technology choices (databases, frameworks, libraries), pattern selections (REST vs gRPC, monolith vs microservices), data model designs, deployment strategy changes, authentication decisions, API design choices, module boundary definitions. If you find undocumented architectural decisions, output a brief summary: 'Undocumented architectural decisions from this session:\\n- [decision 1] → /blueprint:new \"[topic]\"\\n- [decision 2] → /blueprint:new \"[topic]\"\\nRun these in your next session to formalize.' If no architectural decisions were made, stay silent.",
-            "timeout": 15
-          }
-        ],
-        "_comment": "Session-end sweep for undocumented architectural decisions"
       }
     ],
     "FileChanged": [
@@ -113,28 +52,6 @@
           }
         ],
         "_comment": "Dependency-watch on package changes (ADR-0034)"
-      },
-      {
-        "matcher": "PLAN\\.md|RESEARCH\\.md|ROADMAP\\.md|\\.planning/",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "A GSD or RAPID planning artifact was modified. If the changes include architectural decisions (technology choices, pattern selections, data model designs, deployment strategies), suggest: 'Planning artifacts contain architectural decisions. Run /blueprint:new to formalize them as ADRs before execution begins.' Only suggest for genuinely architectural content.",
-            "timeout": 5
-          }
-        ],
-        "_comment": "Detect architectural decisions in GSD/RAPID planning artifacts"
-      },
-      {
-        "matcher": "skills/.*\\.md|agents/.*\\.md",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "A Blueprint skill or agent definition was modified. If a new skill was added or a skill was renamed, suggest: 'Run the Blueprint installer to update the CLAUDE.md command reference: npx claude-blueprint install --global' Only suggest if the change adds, removes, or renames a skill — not for content edits to existing skills.",
-            "timeout": 5
-          }
-        ],
-        "_comment": "Auto-refresh CLAUDE.md when skills are added or renamed"
       }
     ]
   }
