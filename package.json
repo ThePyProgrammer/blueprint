@@ -12,6 +12,7 @@
     "src/",
     ".claude-plugin/",
     "skills/",
+    "hooks/",
     "agents/",
     "config/"
   ],

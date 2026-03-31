@@ -8,6 +8,7 @@
   "homepage": "https://github.com/pragnition/blueprint",
   "repository": "https://github.com/pragnition/blueprint",
   "license": "MIT",
+  "hooks": "./hooks/hooks.json",
   "keywords": [
     "adr",
     "architecture",

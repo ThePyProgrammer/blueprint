@@ -1,0 +1,58 @@
+{
+  "description": "Blueprint architecture governance hooks. Pre-commit guard is opt-in (disabled by default). All others suggest actions without blocking.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Check if this file change violates any accepted ADR invariant. If it does, warn the user with the specific ADR reference. If no ADRs exist or no violation is detected, approve silently.",
+            "timeout": 10
+          }
+        ],
+        "disabled": true,
+        "_comment": "Pre-commit architecture guard (ADR-0026). Enable with /blueprint:hooks install guard"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If the command output indicates a bug fix was just applied (commit message contains 'fix', 'bugfix', 'hotfix', or 'patch'), suggest: 'Run /blueprint:retro to check if this fix warrants an ADR.' Do not block — just suggest.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Retro-suggest after fix workflows (ADR-0034)"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If an ADR was just accepted, rejected, or transitioned during this session, suggest: 'Run /blueprint:architect to update ARCHITECTURE.md and /blueprint:fitness to regenerate fitness functions.' Do not block.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Architecture-sync after ADR transitions (ADR-0034)"
+      }
+    ],
+    "FileChanged": [
+      {
+        "matcher": "package\\.json|requirements\\.txt|pyproject\\.toml|Cargo\\.toml|go\\.mod",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A dependency manifest was modified. If a new dependency was added, suggest: 'Consider /blueprint:new to document this technology choice as an ADR.' Do not block.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Dependency-watch on package changes (ADR-0034)"
+      }
+    ]
+  }
+}
