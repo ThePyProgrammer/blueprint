@@ -3,6 +3,7 @@ name: adr-architect-cartographer
 description: Generates and maintains ARCHITECTURE.md — a bird's-eye map of the codebase following matklad's philosophy. Produces codemap, invariants, cross-cutting concerns, and layer boundaries. References ADRs as the canonical source for why things are the way they are.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: white
 ---
 

@@ -3,6 +3,7 @@ name: adr-consistency-auditor
 description: Evaluates structural consistency across a codebase — pattern adherence, layering discipline, naming conventions, dependency direction, and error handling uniformity.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: green
 ---
 

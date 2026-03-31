@@ -3,6 +3,7 @@ name: adr-strategic-analyzer
 description: Analyzes ADRs against Wardley Map evolution stages to detect strategic misalignment — building custom solutions for commodity problems, or using commodity tools for genesis-stage differentiators.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: inherit
+skills: ["persona"]
 color: blue
 ---
 

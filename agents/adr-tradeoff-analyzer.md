@@ -3,6 +3,7 @@ name: adr-tradeoff-analyzer
 description: Generates ATAM-style quality attribute utility trees from accepted ADRs. Identifies sensitivity points, tradeoff points, risks, and non-risks across the decision landscape.
 tools: Read, Grep, Glob, Bash, WebSearch
 model: inherit
+skills: ["persona"]
 color: yellow
 ---
 

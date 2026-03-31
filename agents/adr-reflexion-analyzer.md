@@ -3,6 +3,7 @@ name: adr-reflexion-analyzer
 description: Computes reflexion models by comparing the intended architecture (from accepted ADRs + ARCHITECTURE.md) against actual source code structure. Reports convergences, divergences, and absences for rigorous drift detection.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: red
 ---
 

@@ -3,6 +3,7 @@ name: adr-context-mapper
 description: Analyzes codebase to infer bounded contexts from module structure, package boundaries, naming patterns, and git ownership. Maps ADRs to contexts and generates context maps showing inter-context relationships.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: green
 ---
 

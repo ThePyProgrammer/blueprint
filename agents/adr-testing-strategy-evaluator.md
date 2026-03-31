@@ -3,6 +3,7 @@ name: adr-testing-strategy-evaluator
 description: Evaluates testing strategy completeness — coverage architecture, anti-pattern tests, testing pyramid health, test quality, and alignment between test structure and system risk areas.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: magenta
 ---
 

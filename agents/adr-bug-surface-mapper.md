@@ -3,6 +3,7 @@ name: adr-bug-surface-mapper
 description: Maps the architectural bug surface — identifies where bugs are structurally likely to emerge based on complexity, coupling, missing boundaries, and state management. Does NOT hunt for specific bugs.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: orange
 ---
 

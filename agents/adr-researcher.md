@@ -3,6 +3,7 @@ name: adr-researcher
 description: Researches technology options, alternatives, and trade-offs for a proposed architectural decision. Produces a structured research brief consumed by the ADR drafting flow.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: inherit
+skills: ["persona"]
 color: cyan
 ---
 

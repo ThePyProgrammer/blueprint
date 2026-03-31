@@ -3,6 +3,7 @@ name: adr-devils-advocate
 description: Critically challenges a proposed ADR before acceptance. Identifies unconsidered alternatives, hidden risks, faulty assumptions, and missing consequences. Produces a challenge report.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: inherit
+skills: ["persona"]
 color: red
 ---
 

@@ -3,6 +3,7 @@ name: adr-impact-analyzer
 description: Analyzes a new or existing ADR against all other accepted ADRs and the codebase. Detects conflicts, duplicates, dependencies, and affected components.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: yellow
 ---
 

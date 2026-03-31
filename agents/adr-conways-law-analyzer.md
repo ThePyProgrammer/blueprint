@@ -3,6 +3,7 @@ name: adr-conways-law-analyzer
 description: Analyzes alignment between system architecture and team/organizational structure (Conway's Law). Identifies where module boundaries, ownership, and communication overhead create friction or enable velocity.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: teal
 ---
 

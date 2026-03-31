@@ -3,6 +3,7 @@ name: adr-compliance-auditor
 description: Audits the codebase against accepted ADRs to verify decisions are being followed. Detects violations, drift, and non-compliance with evidence.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: blue
 ---
 

@@ -3,6 +3,7 @@ name: adr-federation-indexer
 description: Aggregates ADRs across multiple repositories into a unified index. Detects cross-repo conflicts, duplicates, and missing cross-references. Addresses the top practitioner criticism of repo-scoped ADRs.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: green
 ---
 

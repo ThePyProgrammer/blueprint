@@ -3,6 +3,7 @@ name: adr-maintainability-assessor
 description: Evaluates long-term maintainability — dependency health, abstraction quality, change amplification, cognitive complexity, and technical debt indicators.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: purple
 ---
 

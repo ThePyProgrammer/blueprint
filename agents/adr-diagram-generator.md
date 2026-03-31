@@ -3,6 +3,7 @@ name: adr-diagram-generator
 description: Generates C4 Model diagrams (System Context, Container, Component) from accepted ADRs and the relationship graph. Outputs Mermaid, Structurizr DSL, or PlantUML.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: cyan
 ---
 

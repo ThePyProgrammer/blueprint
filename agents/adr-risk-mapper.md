@@ -3,6 +3,7 @@ name: adr-risk-mapper
 description: Generates automated risk heat maps by analyzing ADR coverage gaps, component complexity, git churn, coupling density, and missing governance. Identifies architectural risk concentrations.
 tools: Read, Grep, Glob, Bash
 model: inherit
+skills: ["persona"]
 color: red
 ---
 

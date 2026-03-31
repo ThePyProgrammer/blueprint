@@ -3,6 +3,7 @@ name: adr-retrospective
 description: Post-fix retrospective agent that evaluates recent changes for band-aid vs systemic fixes, identifies root cause classes, and proposes ADRs for architectural improvements worth formalizing.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: inherit
+skills: ["persona"]
 color: amber
 ---
 

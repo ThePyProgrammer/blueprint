@@ -3,6 +3,7 @@ name: adr-forces-evaluator
 description: Evaluates an ADR using DCAR's structured forces template — systematically weighs arguments for and against a decision, generates force-balance reports, and scores decisions as confirmed or needs-re-evaluation.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: inherit
+skills: ["persona"]
 color: yellow
 ---
 

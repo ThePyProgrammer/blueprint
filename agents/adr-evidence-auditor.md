@@ -3,6 +3,7 @@ name: adr-evidence-auditor
 description: Audits the epistemic status and temporal validity of evidence supporting accepted ADRs. Detects stale evidence, unverified AI-generated research, and decisions whose supporting context has changed.
 tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
 model: inherit
+skills: ["persona"]
 color: magenta
 ---
 
