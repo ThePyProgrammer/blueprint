@@ -479,10 +479,19 @@ input { font-family: var(--font-mono); }
         <a class="nav-item" onclick="switchView('debt')" id="nav-debt">
             <span class="material-symbols-outlined">account_balance</span><span>Debt</span>
         </a>
+        <a class="nav-item" onclick="switchView('contexts')" id="nav-contexts">
+            <span class="material-symbols-outlined">lan</span><span>Contexts</span>
+        </a>
+        <a class="nav-item" onclick="switchView('evidence')" id="nav-evidence">
+            <span class="material-symbols-outlined">biotech</span><span>Evidence</span>
+        </a>
+        <a class="nav-item" onclick="switchView('strategic')" id="nav-strategic">
+            <span class="material-symbols-outlined">strategy</span><span>Strategic</span>
+        </a>
     </nav>
     <div class="sidebar-bottom">
         <div style="font-family:var(--font-mono);font-size:10px;color:#64748b;padding:8px;border-top:1px solid rgba(255,255,255,0.05);">
-            <span id="footer-version">Blueprint v1.0</span>
+            <span id="footer-version">Blueprint v2.0.0</span>
         </div>
     </div>
 </aside>
@@ -766,6 +775,114 @@ input { font-family: var(--font-mono); }
     </div>
 </div>
 
+<!-- v2: Contexts View -->
+<div id="view-contexts" class="view">
+    <div class="page-header">
+        <div>
+            <h2>Bounded Contexts</h2>
+            <p class="subtitle">DDD_DOMAIN_SCOPING // CONTEXT_MAP</p>
+        </div>
+    </div>
+    <div class="metric-grid" id="context-metrics"></div>
+    <div class="panel">
+        <div class="panel-header">
+            <h3 class="panel-title">
+                <span class="material-symbols-outlined" style="color:var(--primary)">lan</span>
+                Context Map
+            </h3>
+            <span id="context-count-badge" style="font-family:var(--font-mono);font-size:10px;color:var(--primary);padding:2px 8px;border:1px solid rgba(143,245,255,0.2);border-radius:4px"></span>
+        </div>
+        <table class="data-table">
+            <thead><tr>
+                <th>Context</th><th>Root Path</th><th>Key Models</th><th>ADRs</th><th>Owner</th>
+            </tr></thead>
+            <tbody id="context-tbody"></tbody>
+        </table>
+        <div id="context-empty" class="empty-state hidden">No bounded contexts defined. Run <code>/blueprint:scope</code> to discover.</div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+        <div class="panel-header">
+            <h3 class="panel-title">
+                <span class="material-symbols-outlined" style="color:var(--secondary)">swap_horiz</span>
+                Context Relationships
+            </h3>
+        </div>
+        <table class="data-table">
+            <thead><tr>
+                <th>Upstream</th><th>Downstream</th><th>Pattern</th><th>Evidence</th>
+            </tr></thead>
+            <tbody id="context-rel-tbody"></tbody>
+        </table>
+        <div id="context-rel-empty" class="empty-state hidden">No context relationships mapped.</div>
+    </div>
+</div>
+
+<!-- v2: Evidence View -->
+<div id="view-evidence" class="view">
+    <div class="page-header">
+        <div>
+            <h2>Evidence Health</h2>
+            <p class="subtitle">EPISTEMIC_STATUS // TEMPORAL_VALIDITY</p>
+        </div>
+    </div>
+    <div class="metric-grid" id="evidence-metrics"></div>
+    <div class="panel">
+        <div class="panel-header">
+            <h3 class="panel-title">
+                <span class="material-symbols-outlined" style="color:var(--tertiary)">biotech</span>
+                Evidence Audit
+            </h3>
+            <span id="evidence-health-badge" style="font-family:var(--font-mono);font-size:10px;padding:2px 8px;border-radius:4px"></span>
+        </div>
+        <table class="data-table">
+            <thead><tr>
+                <th>ADR</th><th>Title</th><th>Evidence Level</th><th>Expires</th><th>Status</th>
+            </tr></thead>
+            <tbody id="evidence-tbody"></tbody>
+        </table>
+        <div id="evidence-empty" class="empty-state hidden">No evidence data. Run <code>/blueprint:evidence</code> to audit.</div>
+    </div>
+</div>
+
+<!-- v2: Strategic View -->
+<div id="view-strategic" class="view">
+    <div class="page-header">
+        <div>
+            <h2>Strategic Overview</h2>
+            <p class="subtitle">WARDLEY_EVOLUTION // GOVERNANCE_MODE // TECHNOLOGY_RADAR</p>
+        </div>
+    </div>
+    <div class="metric-grid" id="strategic-metrics"></div>
+    <div class="panel">
+        <div class="panel-header">
+            <h3 class="panel-title">
+                <span class="material-symbols-outlined" style="color:var(--primary)">strategy</span>
+                Evolution Stage Distribution
+            </h3>
+        </div>
+        <div id="evolution-chart" style="display:flex;gap:8px;padding:16px;align-items:flex-end;height:200px"></div>
+        <table class="data-table" style="margin-top:16px">
+            <thead><tr>
+                <th>ADR</th><th>Component</th><th>Evolution Stage</th><th>Alignment</th>
+            </tr></thead>
+            <tbody id="evolution-tbody"></tbody>
+        </table>
+        <div id="evolution-empty" class="empty-state hidden">No Wardley data. Run <code>/blueprint:map</code> to classify components.</div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+        <div class="panel-header">
+            <h3 class="panel-title">
+                <span class="material-symbols-outlined" style="color:var(--secondary)">shield</span>
+                Governance Mode
+            </h3>
+        </div>
+        <div id="governance-display" style="padding:16px;display:flex;align-items:center;gap:16px">
+            <div style="font-family:var(--font-mono);font-size:24px;color:var(--primary)" id="gov-mode">LIGHTWEIGHT</div>
+            <div style="font-size:12px;color:var(--on-surface-variant)" id="gov-desc">Single proposer, optional review. Default.</div>
+        </div>
+    </div>
+</div>
+
 </main>
 
 <!-- Search Results Overlay -->
@@ -790,7 +907,7 @@ const DATA = __BLUEPRINT_DATA__;
 // ============================================================
 // NAV + VIEW SWITCHING
 // ============================================================
-const VIEWS = ['status','graph','timeline','audit','debt'];
+const VIEWS = ['status','graph','timeline','audit','debt','contexts','evidence','strategic'];
 function switchView(v) {
     VIEWS.forEach(id => {
         document.getElementById('view-'+id).classList.toggle('active', id === v);
@@ -802,6 +919,9 @@ function switchView(v) {
     if (v === 'timeline') renderTimeline('full-timeline');
     if (v === 'audit') renderAudit();
     if (v === 'debt') renderDebt();
+    if (v === 'contexts') renderContexts();
+    if (v === 'evidence') renderEvidence();
+    if (v === 'strategic') renderStrategic();
     closeDropdowns();
 }
 
@@ -1355,6 +1475,193 @@ function renderGraph(svgId, containerId) {
         });
         ro.observe(container);
         container._resizeObserverAttached = true;
+    }
+}
+
+// ============================================================
+// v2: CONTEXTS VIEW
+// ============================================================
+function renderContexts() {
+    const ctx = DATA.contexts || {};
+    const defined = ctx.defined || 0;
+    const scoped = ctx.adrs_scoped || 0;
+    const unmapped = ctx.adrs_unmapped || 0;
+    const rels = ctx.relationships || [];
+
+    // Metrics
+    const mg = document.getElementById('context-metrics');
+    mg.innerHTML = `
+        <div class="metric-card border-primary"><div class="glow primary"></div>
+            <div class="top-row z-10"><span class="metric-label primary">Bounded Contexts</span><span class="material-symbols-outlined" style="color:var(--primary)">lan</span></div>
+            <div class="z-10"><span class="metric-value">${defined}</span><span class="metric-sub primary">DEFINED</span></div>
+        </div>
+        <div class="metric-card border-secondary"><div class="glow secondary"></div>
+            <div class="top-row z-10"><span class="metric-label secondary">ADRs Scoped</span><span class="material-symbols-outlined" style="color:var(--secondary)">check_circle</span></div>
+            <div class="z-10"><span class="metric-value">${scoped}</span><span class="metric-sub secondary">OF ${scoped + unmapped}</span></div>
+        </div>
+        <div class="metric-card border-tertiary"><div class="glow tertiary"></div>
+            <div class="top-row z-10"><span class="metric-label tertiary">Unmapped</span><span class="material-symbols-outlined" style="color:var(--tertiary)">warning</span></div>
+            <div class="z-10"><span class="metric-value">${unmapped}</span><span class="metric-sub tertiary">NEED SCOPING</span></div>
+        </div>
+        <div class="metric-card border-primary"><div class="glow primary"></div>
+            <div class="top-row z-10"><span class="metric-label primary">Relationships</span><span class="material-symbols-outlined" style="color:var(--primary)">swap_horiz</span></div>
+            <div class="z-10"><span class="metric-value">${rels.length}</span><span class="metric-sub primary">MAPPED</span></div>
+        </div>`;
+
+    document.getElementById('context-count-badge').textContent = defined + ' contexts';
+
+    // Context table — populated from DATA.contexts.details if available
+    const tbody = document.getElementById('context-tbody');
+    const details = ctx.details || [];
+    if (details.length === 0) {
+        tbody.innerHTML = '';
+        document.getElementById('context-empty').classList.remove('hidden');
+    } else {
+        document.getElementById('context-empty').classList.add('hidden');
+        tbody.innerHTML = details.map(c => `<tr>
+            <td style="font-family:var(--font-mono);color:var(--primary)">${escHtml(c.label||c.name)}</td>
+            <td style="font-family:var(--font-mono);font-size:12px;color:var(--on-surface-variant)">${escHtml(c.root_path||'')}</td>
+            <td style="font-size:12px">${(c.key_models||[]).join(', ')}</td>
+            <td style="font-family:var(--font-mono);font-size:12px">${(c.governed_adrs||[]).length}</td>
+            <td style="font-size:12px;color:var(--on-surface-variant)">${escHtml(c.owner||'—')}</td>
+        </tr>`).join('');
+    }
+
+    // Relationships table
+    const relBody = document.getElementById('context-rel-tbody');
+    if (rels.length === 0) {
+        relBody.innerHTML = '';
+        document.getElementById('context-rel-empty').classList.remove('hidden');
+    } else {
+        document.getElementById('context-rel-empty').classList.add('hidden');
+        relBody.innerHTML = rels.map(r => `<tr>
+            <td style="font-family:var(--font-mono);color:var(--primary)">${escHtml(r.upstream)}</td>
+            <td style="font-family:var(--font-mono);color:var(--secondary)">${escHtml(r.downstream)}</td>
+            <td><span class="pill accepted">${escHtml(r.pattern)}</span></td>
+            <td style="font-size:12px;color:var(--on-surface-variant)">${escHtml(r.evidence||'')}</td>
+        </tr>`).join('');
+    }
+}
+
+// ============================================================
+// v2: EVIDENCE VIEW
+// ============================================================
+function renderEvidence() {
+    const ev = DATA.evidence || {};
+    const l2 = ev.l2_count || 0;
+    const l1 = ev.l1_count || 0;
+    const l0 = ev.l0_count || 0;
+    const expired = ev.expired_count || 0;
+    const health = ev.health || 'UNKNOWN';
+
+    const healthColors = {HEALTHY:'var(--primary)',AGING:'var(--tertiary)',STALE:'var(--error)',CRITICAL:'var(--error)'};
+    const badge = document.getElementById('evidence-health-badge');
+    badge.textContent = health;
+    badge.style.color = healthColors[health] || 'var(--outline)';
+    badge.style.border = '1px solid ' + (healthColors[health] || 'var(--outline)');
+
+    const mg = document.getElementById('evidence-metrics');
+    mg.innerHTML = `
+        <div class="metric-card border-primary"><div class="glow primary"></div>
+            <div class="top-row z-10"><span class="metric-label primary">L2 Validated</span><span class="material-symbols-outlined" style="color:var(--primary)">verified</span></div>
+            <div class="z-10"><span class="metric-value">${l2}</span><span class="metric-sub primary">EMPIRICAL</span></div>
+        </div>
+        <div class="metric-card border-secondary"><div class="glow secondary"></div>
+            <div class="top-row z-10"><span class="metric-label secondary">L1 Consistent</span><span class="material-symbols-outlined" style="color:var(--secondary)">check</span></div>
+            <div class="z-10"><span class="metric-value">${l1}</span><span class="metric-sub secondary">SOURCED</span></div>
+        </div>
+        <div class="metric-card border-tertiary"><div class="glow tertiary"></div>
+            <div class="top-row z-10"><span class="metric-label tertiary">L0 Unverified</span><span class="material-symbols-outlined" style="color:var(--tertiary)">help</span></div>
+            <div class="z-10"><span class="metric-value">${l0}</span><span class="metric-sub tertiary">AI-GENERATED</span></div>
+        </div>
+        <div class="metric-card border-error"><div class="glow" style="background:var(--error)"></div>
+            <div class="top-row z-10"><span class="metric-label" style="color:var(--error)">Expired</span><span class="material-symbols-outlined" style="color:var(--error)">schedule</span></div>
+            <div class="z-10"><span class="metric-value">${expired}</span><span class="metric-sub" style="color:var(--error)">STALE</span></div>
+        </div>`;
+
+    // Evidence per-ADR table
+    const tbody = document.getElementById('evidence-tbody');
+    const adrs = DATA.adrs || [];
+    const withEvidence = adrs.filter(a => a.evidence_level);
+    if (withEvidence.length === 0) {
+        tbody.innerHTML = '';
+        document.getElementById('evidence-empty').classList.remove('hidden');
+    } else {
+        document.getElementById('evidence-empty').classList.add('hidden');
+        const levelColors = {L0:'var(--tertiary)',L1:'var(--secondary)',L2:'var(--primary)'};
+        tbody.innerHTML = withEvidence.map(a => {
+            const isExpired = a.evidence_expires && new Date(a.evidence_expires) < new Date();
+            return `<tr>
+                <td style="font-family:var(--font-mono);color:var(--primary)">${escHtml(a.number)}</td>
+                <td style="font-size:13px">${escHtml(a.title)}</td>
+                <td><span style="font-family:var(--font-mono);font-size:12px;color:${levelColors[a.evidence_level]||'var(--outline)'};font-weight:600">${a.evidence_level}</span></td>
+                <td style="font-family:var(--font-mono);font-size:12px;color:${isExpired?'var(--error)':'var(--on-surface-variant)'}">${a.evidence_expires||'—'}</td>
+                <td>${isExpired?'<span style="color:var(--error);font-size:12px">⚠ EXPIRED</span>':'<span style="color:var(--primary);font-size:12px">✓ VALID</span>'}</td>
+            </tr>`;
+        }).join('');
+    }
+}
+
+// ============================================================
+// v2: STRATEGIC VIEW
+// ============================================================
+function renderStrategic() {
+    const stages = DATA.evolution_stages || {};
+    const mode = DATA.governance_mode || 'lightweight';
+    const modeDescs = {
+        lightweight:'Single proposer, optional review. Default.',
+        advised:'Advice Process required before proposing. Must consult affected parties.',
+        governed:'N approvals required before acceptance. Named approvers.',
+        formal:'Phase-based gate reviews with board approval.'
+    };
+
+    // Governance mode
+    document.getElementById('gov-mode').textContent = mode.toUpperCase();
+    document.getElementById('gov-desc').textContent = modeDescs[mode] || '';
+
+    // Evolution metrics
+    const mg = document.getElementById('strategic-metrics');
+    const stageData = [
+        {key:'genesis',label:'Genesis',color:'var(--error)',icon:'science'},
+        {key:'custom',label:'Custom',color:'var(--tertiary)',icon:'build'},
+        {key:'product',label:'Product',color:'var(--secondary)',icon:'inventory'},
+        {key:'commodity',label:'Commodity',color:'var(--primary)',icon:'cloud'}
+    ];
+    mg.innerHTML = stageData.map(s => `
+        <div class="metric-card" style="border-color:${s.color}"><div class="glow" style="background:${s.color}"></div>
+            <div class="top-row z-10"><span class="metric-label" style="color:${s.color}">${s.label}</span><span class="material-symbols-outlined" style="color:${s.color}">${s.icon}</span></div>
+            <div class="z-10"><span class="metric-value">${stages[s.key]||0}</span><span class="metric-sub" style="color:${s.color}">COMPONENTS</span></div>
+        </div>`).join('');
+
+    // Evolution bar chart
+    const chart = document.getElementById('evolution-chart');
+    const total = Object.values(stages).reduce((a,b)=>a+b, 0) || 1;
+    chart.innerHTML = stageData.map(s => {
+        const count = stages[s.key] || 0;
+        const pct = Math.round(count / total * 100);
+        const h = Math.max(20, pct * 1.5);
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+            <span style="font-family:var(--font-mono);font-size:11px;color:${s.color}">${count}</span>
+            <div style="width:100%;height:${h}px;background:${s.color};border-radius:4px;opacity:0.7"></div>
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant)">${s.label}</span>
+        </div>`;
+    }).join('');
+
+    // Per-ADR evolution table
+    const tbody = document.getElementById('evolution-tbody');
+    const adrs = (DATA.adrs||[]).filter(a => a.evolution_stage);
+    if (adrs.length === 0) {
+        tbody.innerHTML = '';
+        document.getElementById('evolution-empty').classList.remove('hidden');
+    } else {
+        document.getElementById('evolution-empty').classList.add('hidden');
+        const stageColors = {genesis:'var(--error)',custom:'var(--tertiary)',product:'var(--secondary)',commodity:'var(--primary)'};
+        tbody.innerHTML = adrs.map(a => `<tr>
+            <td style="font-family:var(--font-mono);color:var(--primary)">${escHtml(a.number)}</td>
+            <td style="font-size:13px">${escHtml(a.title)}</td>
+            <td><span style="font-family:var(--font-mono);font-size:12px;color:${stageColors[a.evolution_stage]||'var(--outline)'};font-weight:600">${(a.evolution_stage||'').toUpperCase()}</span></td>
+            <td style="font-size:12px;color:var(--primary)">✓</td>
+        </tr>`).join('');
     }
 }
 
