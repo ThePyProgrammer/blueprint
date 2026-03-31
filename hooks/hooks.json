@@ -38,8 +38,7 @@
             "timeout": 5
           }
         ],
-        "disabled": true,
-        "_comment": "Retro-suggest after fix commits (ADR-0034). Disabled by default — fires on every Bash command which causes errors if node isn't in PATH. Enable with /blueprint:hooks install retro"
+        "_comment": "Retro-suggest after fix commits (ADR-0034). Requires node in PATH (symlink from nvm to ~/.local/bin/ if needed)."
       },
       {
         "matcher": "Skill",

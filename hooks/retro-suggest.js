@@ -11,9 +11,8 @@ process.stdin.on('end', () => {
   clearTimeout(timeout);
   try {
     const data = JSON.parse(input);
-    const toolName = data.tool_name || '';
     const toolInput = data.tool_input || {};
-    const toolOutput = data.tool_output || '';
+    const toolResponse = data.tool_response || '';
 
     // Only match git commit commands
     const cmd = toolInput.command || '';
@@ -22,7 +21,7 @@ process.stdin.on('end', () => {
     }
 
     // Only match if commit succeeded and message contains fix keywords
-    const output = typeof toolOutput === 'string' ? toolOutput : JSON.stringify(toolOutput);
+    const output = typeof toolResponse === 'string' ? toolResponse : JSON.stringify(toolResponse);
     if (/\b(fix|bugfix|hotfix|patch)\b/i.test(output) && !output.includes('nothing to commit')) {
       const result = {
         hookSpecificOutput: {
