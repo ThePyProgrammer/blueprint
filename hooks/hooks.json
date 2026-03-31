@@ -34,11 +34,11 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "If the command output indicates a bug fix was just applied (commit message contains 'fix', 'bugfix', 'hotfix', or 'patch'), suggest: 'Run /blueprint:retro to check if this fix warrants an ADR.' Do not block — just suggest.",
+            "prompt": "ONLY act if the Bash command was 'git commit' and the tool output contains a commit message with 'fix', 'bugfix', 'hotfix', or 'patch' (case-insensitive). If BOTH conditions are met, output exactly: 'Run /blueprint:retro to check if this fix warrants an ADR.' If EITHER condition is not met, produce NO output — stay completely silent.",
             "timeout": 5
           }
         ],
-        "_comment": "Retro-suggest after fix workflows (ADR-0034)"
+        "_comment": "Retro-suggest after fix commits only (ADR-0034). Scoped to git commit commands to avoid false positives on ls, grep, etc."
       },
       {
         "matcher": "Skill",
