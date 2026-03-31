@@ -122,6 +122,17 @@
           }
         ],
         "_comment": "Detect architectural decisions in GSD/RAPID planning artifacts"
+      },
+      {
+        "matcher": "skills/.*\\.md|agents/.*\\.md",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A Blueprint skill or agent definition was modified. If a new skill was added or a skill was renamed, suggest: 'Run the Blueprint installer to update the CLAUDE.md command reference: npx claude-blueprint install --global' Only suggest if the change adds, removes, or renames a skill — not for content edits to existing skills.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Auto-refresh CLAUDE.md when skills are added or renamed"
       }
     ]
   }
