@@ -38,7 +38,8 @@
             "timeout": 5
           }
         ],
-        "_comment": "Retro-suggest after fix commits only (ADR-0034). Uses deterministic script instead of prompt to avoid LLM false positives on non-commit Bash commands."
+        "disabled": true,
+        "_comment": "Retro-suggest after fix commits (ADR-0034). Disabled by default — fires on every Bash command which causes errors if node isn't in PATH. Enable with /blueprint:hooks install retro"
       },
       {
         "matcher": "Skill",
