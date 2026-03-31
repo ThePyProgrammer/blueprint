@@ -32,6 +32,17 @@
         "hooks": [
           {
             "type": "prompt",
+            "prompt": "Check if the skill that just completed was a bug-fix workflow: rapid:bug-fix, gsd:debug, gsd:quick (with fix-related arguments). If so, suggest: 'A bug was just fixed. Run /blueprint:retro to classify the root cause and check if this warrants an ADR.' Do not block.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Retro-suggest after RAPID/GSD bug-fix workflows"
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "prompt",
             "prompt": "Check if the skill that just completed was a GSD or RAPID planning/execution skill. Specifically look for: gsd:plan-phase, gsd:execute-phase, gsd:discuss-phase, gsd:autonomous, rapid:plan-set, rapid:execute-set, rapid:discuss-set. If one of these just completed successfully, check whether the work involved architectural decisions (new technology choices, pattern selections, API designs, data model changes, deployment strategies, infrastructure choices). If architectural decisions were made during the phase but no ADR was created, suggest: 'Architectural decisions were made during this phase. Run /blueprint:new to document them, or /blueprint:scope to check which bounded context is affected.' Be specific about which decisions you detected. If no architectural decisions were made (e.g., pure UI work, content changes, test additions), stay silent.",
             "timeout": 10
           }
