@@ -1,6 +1,6 @@
 {
   "name": "blueprint",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Architecture Decision Records with teeth — 39 commands, 21 agents, 15 architecture paradigms. DDD bounded contexts, DCAR forces evaluation, reflexion model conformance, epistemic status tracking, Wardley strategic analysis, C4 diagrams, ATAM tradeoff analysis, risk heat maps, cross-repo federation, and configurable governance tiers. All with a cranky senior engineer persona.",
   "author": {
     "name": "pragnition"
