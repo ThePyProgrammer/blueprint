@@ -30,17 +30,6 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/retro-suggest.js\"",
-            "timeout": 5
-          }
-        ],
-        "_comment": "Retro-suggest after fix commits (ADR-0034). Requires node in PATH (symlink from nvm to ~/.local/bin/ if needed)."
-      },
-      {
         "matcher": "Skill",
         "hooks": [
           {
