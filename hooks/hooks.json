@@ -26,6 +26,30 @@
           }
         ],
         "_comment": "Retro-suggest after fix workflows (ADR-0034)"
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Check if the skill that just completed was a GSD or RAPID planning/execution skill. Specifically look for: gsd:plan-phase, gsd:execute-phase, gsd:discuss-phase, gsd:autonomous, rapid:plan-set, rapid:execute-set, rapid:discuss-set. If one of these just completed successfully, check whether the work involved architectural decisions (new technology choices, pattern selections, API designs, data model changes, deployment strategies, infrastructure choices). If architectural decisions were made during the phase but no ADR was created, suggest: 'Architectural decisions were made during this phase. Run /blueprint:new to document them, or /blueprint:scope to check which bounded context is affected.' Be specific about which decisions you detected. If no architectural decisions were made (e.g., pure UI work, content changes, test additions), stay silent.",
+            "timeout": 10
+          }
+        ],
+        "_comment": "Cross-plugin integration: suggest ADRs after GSD/RAPID phase completion"
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "gsd-executor|gsd-planner|gsd-phase-researcher|rapid-executor|rapid-planner|rapid-research",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A GSD or RAPID agent just completed. Review its output for architectural decisions that should be documented as ADRs. Look for: new dependencies added, database/cache/queue choices, API pattern selections, module boundary definitions, deployment topology changes, authentication strategy decisions. If you find undocumented architectural decisions, suggest: 'The [agent] made architectural choices that should be recorded. Run /blueprint:new \"[specific decision topic]\" to document.' Only suggest for genuinely architectural decisions — not implementation details.",
+            "timeout": 10
+          }
+        ],
+        "_comment": "Detect architectural decisions made by GSD/RAPID agents"
       }
     ],
     "Stop": [
@@ -52,6 +76,17 @@
           }
         ],
         "_comment": "Dependency-watch on package changes (ADR-0034)"
+      },
+      {
+        "matcher": "PLAN\\.md|RESEARCH\\.md|ROADMAP\\.md|\\.planning/",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A GSD or RAPID planning artifact was modified. If the changes include architectural decisions (technology choices, pattern selections, data model designs, deployment strategies), suggest: 'Planning artifacts contain architectural decisions. Run /blueprint:new to formalize them as ADRs before execution begins.' Only suggest for genuinely architectural content.",
+            "timeout": 5
+          }
+        ],
+        "_comment": "Detect architectural decisions in GSD/RAPID planning artifacts"
       }
     ]
   }
