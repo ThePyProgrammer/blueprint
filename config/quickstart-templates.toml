@@ -1,0 +1,227 @@
+# Blueprint Quick-Start Templates
+# Pre-built ADR starter sets for common technology stacks.
+# Each stack defines 5-8 foundational ADRs that every project of that type needs.
+
+# --------------------------------------------------------------------------
+# react-node: React + Express/Node.js
+# --------------------------------------------------------------------------
+[stacks.react-node]
+label = "React + Node.js"
+detect = ["react", "express", "react-dom"]
+
+[[stacks.react-node.adrs]]
+title = "Use React for frontend UI"
+context = "The project needs a component-based UI framework for building interactive interfaces. React's ecosystem maturity and hiring pool make it a strong default for teams already committed to JavaScript."
+recommended = "React"
+alternatives = ["Vue", "Svelte", "Angular"]
+category = "Technology Choice"
+
+[[stacks.react-node.adrs]]
+title = "Use Express for API server"
+context = "The backend needs an HTTP framework to handle routing, middleware, and request lifecycle. Express is the most widely adopted Node.js framework with extensive middleware ecosystem."
+recommended = "Express"
+alternatives = ["Fastify", "Koa", "Hono"]
+category = "Technology Choice"
+
+[[stacks.react-node.adrs]]
+title = "Use TypeScript across frontend and backend"
+context = "Shared language across the stack reduces context-switching and enables code sharing. Type safety catches a class of bugs at compile time that would otherwise surface in production."
+recommended = "TypeScript (strict mode)"
+alternatives = ["JavaScript with JSDoc", "JavaScript without types", "TypeScript (lenient)"]
+category = "Developer Experience"
+
+[[stacks.react-node.adrs]]
+title = "Use JWT for API authentication"
+context = "The API needs a stateless authentication mechanism that works across services. JWTs allow the frontend to authenticate without server-side session storage, though token revocation requires additional infrastructure."
+recommended = "JWT with refresh tokens"
+alternatives = ["Session cookies", "OAuth2 with opaque tokens", "API keys"]
+category = "Security"
+
+[[stacks.react-node.adrs]]
+title = "Use PostgreSQL as primary database"
+context = "The application needs a relational store for structured data with ACID guarantees. PostgreSQL offers strong JSON support for semi-structured data alongside traditional relational capabilities."
+recommended = "PostgreSQL"
+alternatives = ["MySQL", "MongoDB", "SQLite"]
+category = "Data Storage"
+
+[[stacks.react-node.adrs]]
+title = "Use Docker for local development and deployment"
+context = "Development environment parity with production reduces works-on-my-machine issues. Container-based deployment simplifies CI/CD pipelines and infrastructure provisioning."
+recommended = "Docker with docker-compose"
+alternatives = ["Native installs", "Nix", "Vagrant"]
+category = "Infrastructure"
+
+# --------------------------------------------------------------------------
+# python-fastapi: Python + FastAPI
+# --------------------------------------------------------------------------
+[stacks.python-fastapi]
+label = "Python + FastAPI"
+detect = ["fastapi", "uvicorn", "pydantic"]
+
+[[stacks.python-fastapi.adrs]]
+title = "Use FastAPI for HTTP API framework"
+context = "The project needs a modern Python web framework with automatic OpenAPI documentation and async support. FastAPI's Pydantic integration provides request validation with minimal boilerplate."
+recommended = "FastAPI"
+alternatives = ["Flask", "Django REST Framework", "Litestar"]
+category = "Technology Choice"
+
+[[stacks.python-fastapi.adrs]]
+title = "Use SQLAlchemy for database access"
+context = "The application needs an ORM that supports both high-level model declarations and low-level SQL when needed. SQLAlchemy's unit-of-work pattern and migration support via Alembic are well-proven."
+recommended = "SQLAlchemy 2.0 with Alembic"
+alternatives = ["Tortoise ORM", "SQLModel", "Raw asyncpg"]
+category = "Data Access"
+
+[[stacks.python-fastapi.adrs]]
+title = "Use Pydantic for data validation and serialization"
+context = "API request/response validation needs to be explicit and produce clear error messages. Pydantic v2's Rust-backed core provides fast validation and integrates natively with FastAPI."
+recommended = "Pydantic v2"
+alternatives = ["attrs + cattrs", "marshmallow", "Manual validation"]
+category = "Data Validation"
+
+[[stacks.python-fastapi.adrs]]
+title = "Use pytest as testing framework"
+context = "The project needs a testing framework that supports fixtures, parametrization, and async test cases. pytest's plugin ecosystem and fixture injection model reduce test boilerplate."
+recommended = "pytest with pytest-asyncio"
+alternatives = ["unittest", "nose2", "ward"]
+category = "Testing"
+
+[[stacks.python-fastapi.adrs]]
+title = "Use PostgreSQL as primary database"
+context = "The application needs a relational store with strong typing and JSON support. PostgreSQL's feature set covers most use cases without needing a separate document store."
+recommended = "PostgreSQL"
+alternatives = ["MySQL", "SQLite", "CockroachDB"]
+category = "Data Storage"
+
+[[stacks.python-fastapi.adrs]]
+title = "Use Poetry for dependency management"
+context = "Python dependency management needs lock files and virtual environment isolation. Poetry provides deterministic builds and a standardized pyproject.toml-based workflow."
+recommended = "Poetry"
+alternatives = ["uv", "pip + pip-tools", "PDM"]
+category = "Developer Experience"
+
+# --------------------------------------------------------------------------
+# nextjs: Next.js fullstack
+# --------------------------------------------------------------------------
+[stacks.nextjs]
+label = "Next.js Fullstack"
+detect = ["next", "react", "@next/font"]
+
+[[stacks.nextjs.adrs]]
+title = "Use Next.js as fullstack framework"
+context = "The project needs server-side rendering, static generation, and API routes in a single framework. Next.js provides file-based routing and multiple rendering strategies without requiring a separate backend."
+recommended = "Next.js (App Router)"
+alternatives = ["Remix", "Nuxt", "SvelteKit"]
+category = "Technology Choice"
+
+[[stacks.nextjs.adrs]]
+title = "Use Server Components as default rendering strategy"
+context = "Most pages benefit from server-side data fetching and reduced client JavaScript. React Server Components allow composing server and client rendering at the component level."
+recommended = "Server Components by default, Client Components opt-in"
+alternatives = ["Client-side rendering throughout", "Full SSR with hydration", "Static generation only"]
+category = "Architecture Pattern"
+
+[[stacks.nextjs.adrs]]
+title = "Use Prisma for database access"
+context = "The application needs type-safe database queries with migration support. Prisma's generated client provides autocomplete and compile-time query validation from a declarative schema."
+recommended = "Prisma"
+alternatives = ["Drizzle ORM", "Kysely", "Raw SQL with pg"]
+category = "Data Access"
+
+[[stacks.nextjs.adrs]]
+title = "Use Tailwind CSS for styling"
+context = "The project needs a styling approach that scales with the component model and avoids CSS specificity conflicts. Utility-first CSS co-locates styles with markup and eliminates dead CSS through purging."
+recommended = "Tailwind CSS"
+alternatives = ["CSS Modules", "styled-components", "vanilla-extract"]
+category = "UI Framework"
+
+[[stacks.nextjs.adrs]]
+title = "Use Vercel for deployment platform"
+context = "Next.js features like ISR, middleware, and edge functions work best on Vercel's infrastructure. Self-hosting is possible but requires additional configuration for feature parity."
+recommended = "Vercel"
+alternatives = ["AWS with SST", "Cloudflare Pages", "Self-hosted with Docker"]
+category = "Infrastructure"
+
+# --------------------------------------------------------------------------
+# go-api: Go API service
+# --------------------------------------------------------------------------
+[stacks.go-api]
+label = "Go API Service"
+detect = ["go.mod"]
+
+[[stacks.go-api.adrs]]
+title = "Use standard library net/http for HTTP routing"
+context = "Go 1.22+ provides pattern-based routing in the standard library, reducing the need for third-party routers. Fewer dependencies means less supply-chain risk and easier upgrades."
+recommended = "net/http with Go 1.22+ routing"
+alternatives = ["Chi", "Gin", "Echo"]
+category = "Technology Choice"
+
+[[stacks.go-api.adrs]]
+title = "Use structured logging with slog"
+context = "The service needs structured, leveled logging for observability. Go's slog package (standard library since 1.21) provides a consistent logging interface without external dependencies."
+recommended = "slog (standard library)"
+alternatives = ["zerolog", "zap", "logrus"]
+category = "Observability"
+
+[[stacks.go-api.adrs]]
+title = "Use sqlc for database query generation"
+context = "The service needs type-safe database access without the overhead of a full ORM. sqlc generates Go code from SQL queries, keeping SQL as the source of truth while providing compile-time type safety."
+recommended = "sqlc"
+alternatives = ["GORM", "sqlx", "Ent"]
+category = "Data Access"
+
+[[stacks.go-api.adrs]]
+title = "Use PostgreSQL as primary database"
+context = "The service needs a relational store with strong concurrency support. PostgreSQL's MVCC model and feature set make it the default choice for Go services."
+recommended = "PostgreSQL"
+alternatives = ["MySQL", "CockroachDB", "SQLite"]
+category = "Data Storage"
+
+[[stacks.go-api.adrs]]
+title = "Use Docker for containerized deployment"
+context = "Go produces static binaries ideal for minimal container images. Multi-stage Docker builds produce images under 20MB, simplifying deployment and reducing attack surface."
+recommended = "Docker with multi-stage builds"
+alternatives = ["Systemd units", "Kubernetes-native buildpacks", "Nix"]
+category = "Infrastructure"
+
+# --------------------------------------------------------------------------
+# generic: Stack-agnostic foundational decisions
+# --------------------------------------------------------------------------
+[stacks.generic]
+label = "Stack-Agnostic Foundations"
+detect = []
+
+[[stacks.generic.adrs]]
+title = "Select primary database engine"
+context = "Every non-trivial application needs persistent storage. The choice between relational and document databases affects schema evolution, query patterns, and operational complexity for years."
+recommended = "PostgreSQL"
+alternatives = ["MySQL", "MongoDB", "SQLite"]
+category = "Data Storage"
+
+[[stacks.generic.adrs]]
+title = "Define authentication and authorization strategy"
+context = "The application needs to verify user identity and enforce access control. Build-vs-buy and protocol choice (OAuth2, SAML, API keys) shape security posture and integration complexity."
+recommended = "OAuth2 with OIDC provider"
+alternatives = ["Session-based auth", "API keys", "Custom JWT implementation"]
+category = "Security"
+
+[[stacks.generic.adrs]]
+title = "Choose deployment and hosting strategy"
+context = "The application needs a deployment target that balances cost, operational complexity, and scaling needs. This decision constrains infrastructure choices for the project lifetime."
+recommended = "Container-based (Docker) on managed platform"
+alternatives = ["Serverless functions", "VM-based deployment", "PaaS (Heroku/Render)"]
+category = "Infrastructure"
+
+[[stacks.generic.adrs]]
+title = "Define testing strategy and coverage expectations"
+context = "The project needs a testing approach that catches regressions without slowing development. The testing pyramid shape and coverage thresholds affect both confidence and velocity."
+recommended = "Testing pyramid with 80% unit, 15% integration, 5% E2E"
+alternatives = ["Testing trophy (more integration)", "E2E-heavy approach", "Contract testing focus"]
+category = "Quality Assurance"
+
+[[stacks.generic.adrs]]
+title = "Choose CI/CD pipeline platform"
+context = "The project needs automated build, test, and deployment pipelines. The CI/CD platform choice affects developer workflow, deployment frequency, and integration with other tooling."
+recommended = "GitHub Actions"
+alternatives = ["GitLab CI", "CircleCI", "Jenkins"]
+category = "Infrastructure"
