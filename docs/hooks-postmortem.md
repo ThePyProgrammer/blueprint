@@ -1,6 +1,6 @@
 # The Hooks Saga
 
-*How we built the perfect background architecture conscience, shipped it, watched it burn, tried to save it five times, and learned the most expensive lesson in Blueprint's history — all in a single afternoon.*
+*How we built the perfect background architecture conscience, shipped it, watched it burn, tried to save it five times, and learned the most expensive lesson in Blueprint's history, all in a single afternoon.*
 
 ---
 
@@ -8,9 +8,9 @@
 
 It started with an innocent question: *"Is there a way to make sure that Blueprint adds ADRs after GSD finishes plan-phase or RAPID finishes execute-set? Without having to be prompted."*
 
-The answer seemed obvious. Claude Code has a hook system. Hooks fire on events — tool calls, file changes, session lifecycle. You write a prompt, attach it to an event, and the LLM evaluates it automatically. No user action required.
+The answer seemed obvious. Claude Code has a hook system. Hooks fire on events: tool calls, file changes, session lifecycle. You write a prompt, attach it to an event, and the LLM evaluates it automatically. No user action required.
 
-We saw the future: Blueprint running silently in the background of every coding session, watching every file write, every skill invocation, every agent completion — detecting the moment an architectural decision was made and surfacing it before the developer moved on. A background architecture conscience. The cranky senior engineer who never sleeps, never forgets, and never needs to be asked.
+We saw the future: Blueprint running silently in the background of every coding session, watching every file write, every skill invocation, every agent completion, detecting the moment an architectural decision was made and surfacing it before the developer moved on. A background architecture conscience. The cranky senior engineer who never sleeps, never forgets, and never needs to be asked.
 
 In 45 minutes, we built 10 hooks:
 
@@ -39,17 +39,17 @@ It lasted about four minutes.
 
 ## Act II: The First Cracks
 
-### v2.0.3 — "Why is everything so slow?"
+### v2.0.3: "Why is everything so slow?"
 
 The `PostToolUse` hook with matcher `Bash` fires on **every Bash command**. Not just git commits. Every `ls`. Every `grep`. Every `cat`. A normal coding session runs 50-100 Bash commands. Each one triggered an LLM evaluation: *"Does this look like a bug fix?"*
 
-Fifty invisible LLM round-trips per session. Each one adding 1-3 seconds of latency. Each one consuming context window. The user doesn't see the hooks firing — they just feel the system getting heavier, slower, like coding through mud.
+Fifty invisible LLM round-trips per session. Each one adding 1-3 seconds of latency. Each one consuming context window. The user doesn't see the hooks firing; they just feel the system getting heavier, slower, like coding through mud.
 
 **Fix attempt:** Scope the Bash matcher to only git commands. Then, when that was still too broad, replace the prompt with a deterministic shell script. A `command`-type hook that greps the Bash output for "fix" in commit messages. No LLM involved. Instant.
 
 This worked. For this one hook. But the other 11 were still prompt-type.
 
-### v2.0.4 — "It just... doesn't fire sometimes?"
+### v2.0.4: "It just... doesn't fire sometimes?"
 
 The second problem was more insidious. Prompt hooks send a prompt to the LLM and expect structured output. But the LLM's response is non-deterministic. Ask it "did this skill invocation involve an architectural decision?" and sometimes you get:
 
@@ -77,9 +77,9 @@ A governance check that works 80% of the time is worse than no check at all. It 
 
 **Fix attempt:** Disable the Bash hook by default. Leave the others running.
 
-### v2.0.5 — "The script doesn't see any data"
+### v2.0.5: "The script doesn't see any data"
 
-We tried to make the deterministic `command`-type hook smarter. The hook system passes event data as JSON on stdin — tool name, arguments, output. Our script would parse the stdin JSON and check for fix-related patterns.
+We tried to make the deterministic `command`-type hook smarter. The hook system passes event data as JSON on stdin: tool name, arguments, output. Our script would parse the stdin JSON and check for fix-related patterns.
 
 Except the JSON field names aren't documented. We used `tool_name`. The actual field was something else. The script parsed empty data, found no matches, and silently passed everything through.
 
@@ -93,11 +93,11 @@ We were not yet reasonable people.
 
 ## Act III: The Wall
 
-### v2.0.6 — "JSON validation error, hook execution failed"
+### v2.0.6: "JSON validation error, hook execution failed"
 
 This was the one that broke the camel's back.
 
-The hook runner expects prompt-type hooks to return JSON matching a specific schema. When the LLM produces output that doesn't match — a common occurrence with non-deterministic text generation — the hook runner throws a **JSON validation error**. This error doesn't just log a warning. It **blocks the user's workflow**. A red error message appears. The user must dismiss it before Claude Code continues.
+The hook runner expects prompt-type hooks to return JSON matching a specific schema. When the LLM produces output that doesn't match (a common occurrence with non-deterministic text generation), the hook runner throws a **JSON validation error**. This error doesn't just log a warning. It **blocks the user's workflow**. A red error message appears. The user must dismiss it before Claude Code continues.
 
 Imagine: you're writing code. You save a file. Blueprint's pre-commit guard hook fires. The LLM generates a response that's slightly malformed. Claude Code freezes with a JSON error. You dismiss it. You save another file. Different malformed response. Another error. You've now spent more time dismissing governance errors than writing code.
 
@@ -105,7 +105,7 @@ A governance system that blocks work is an anti-governance system. It trains use
 
 **Fix attempt:** Strip every prompt-type hook that had ever caused an error. Leave only the ones that hadn't... yet.
 
-### v2.0.7 — "Turn it all off"
+### v2.0.7: "Turn it all off"
 
 We'd been through four fix cycles in the same afternoon. Each time, we thought we'd found the specific hook that was broken, when the reality was that the **category of hook** was broken.
 
@@ -115,11 +115,11 @@ The fifth time, we stopped patching and started thinking.
 
 **They're non-deterministic.** The entire point of a governance check is certainty. "Does this code violate ADR-0005?" has a yes or no answer. An LLM might answer yes, might answer no, might answer with a malformed paragraph, might answer with nothing. A governance system built on "might" is not a governance system.
 
-**They add latency to every event.** Ten hooks means ten LLM evaluations per event. Not per session — per event. Save a file? Ten evaluations. Run a Bash command? Ten evaluations. A skill completes? Ten evaluations. Users don't tolerate invisible latency. They disable what slows them down.
+**They add latency to every event.** Ten hooks means ten LLM evaluations per event. Not per session, per event. Save a file? Ten evaluations. Run a Bash command? Ten evaluations. A skill completes? Ten evaluations. Users don't tolerate invisible latency. They disable what slows them down.
 
 **They contaminate context.** Every hook evaluation consumes context window. In a 200-turn session, governance hooks compete with the user's actual work for the finite resource of attention. The more hooks you add, the less context remains for the work the user is actually trying to do.
 
-**They fail closed.** When a hook produces bad output, the user is blocked. Good governance fails open — it informs when it catches something, and is invisible when it doesn't. Hooks that block on their own errors are the opposite.
+**They fail closed.** When a hook produces bad output, the user is blocked. Good governance fails open: it informs when it catches something, and is invisible when it doesn't. Hooks that block on their own errors are the opposite.
 
 **They can't access state.** A prompt hook fires in isolation. It doesn't know what ADRs exist. It doesn't know what the governance mode is. It doesn't know what bounded contexts are defined. It can't read `state.toml` or `contexts.toml`. It's making governance judgments without access to the governance data.
 
@@ -127,7 +127,7 @@ We disabled everything. `hooks/hooks.json` became:
 
 ```json
 {
-  "description": "All hooks disabled — prompt-type hooks produce unreliable output.",
+  "description": "All hooks disabled. Prompt-type hooks produce unreliable output.",
   "hooks": {}
 }
 ```
@@ -140,7 +140,7 @@ Seven fix commits. Five patch releases. Twelve hooks built, twelve hooks removed
 
 The cross-plugin integration wasn't lost. It was never in the right place.
 
-Blueprint's router — `skills/blueprint.md` — already had a "Proactive Intervention" section from v1. When the router detects that the conversation is heading toward a significant architectural choice and no ADR exists, it pauses and suggests `/blueprint:new`. This works because it fires through the normal skill system. It has full context access. It has full state access. It has deterministic behavior. It doesn't add latency to unrelated events. It doesn't block on its own errors.
+Blueprint's router (`skills/blueprint.md`) already had a "Proactive Intervention" section from v1. When the router detects that the conversation is heading toward a significant architectural choice and no ADR exists, it pauses and suggests `/blueprint:new`. This works because it fires through the normal skill system. It has full context access. It has full state access. It has deterministic behavior. It doesn't add latency to unrelated events. It doesn't block on its own errors.
 
 The router was the governance mechanism all along. We just didn't trust it because it required the user to have Blueprint in their skill list, not because it didn't work.
 
@@ -150,7 +150,7 @@ The `/blueprint:onboard` skill handles new developer orientation. A one-time inv
 
 Every problem we tried to solve with hooks was already solvable with skills. We just wanted the hooks version because it felt more automatic. More invisible. More like the system was watching over you without you having to ask.
 
-But the system watching over you without asking is only valuable if the system is reliable. An unreliable watcher is worse than no watcher — because you stop checking yourself.
+But the system watching over you without asking is only valuable if the system is reliable. An unreliable watcher is worse than no watcher, because you stop checking yourself.
 
 ---
 
@@ -194,7 +194,7 @@ And then Blueprint's own developers shipped 12 hooks without testing them in a r
 
 We didn't ADR the hooks decision. We didn't challenge it. We didn't research alternatives. We just built what felt right and shipped it.
 
-Every tool eventually fails its own principles. The measure of the tool is not whether it fails, but whether it has the mechanisms to detect the failure and course-correct. Blueprint detected this failure through real usage — the most reliable test there is — and course-corrected in the same session.
+Every tool eventually fails its own principles. The measure of the tool is not whether it fails, but whether it has the mechanisms to detect the failure and course-correct. Blueprint detected this failure through real usage (the most reliable test there is) and course-corrected in the same session.
 
 The hooks are gone. The lesson stays. And the next time someone says "let's add a prompt hook," we'll point them here.
 

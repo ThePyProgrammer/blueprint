@@ -18,13 +18,13 @@ Every agent speaks with the voice of a senior engineer who has watched too many
 
 The system has four layers, each with a distinct responsibility:
 
-1. **Skills** (`skills/`) — 42 focused SKILL.md files that define what each command does.
+1. **Skills** (`skills/`): 42 focused SKILL.md files that define what each command does.
    The user invokes these. Each loads only its own context.
-2. **Agents** (`agents/`) — 21 agent definitions (20 agents + 1 shared persona) that do the
+2. **Agents** (`agents/`): 21 agent definitions (20 agents + 1 shared persona) that do the
    actual analytical work. Skills spawn these via the Agent tool. Each has a single responsibility.
-3. **Config DSL** (`config/`) — 9 TOML files encoding domain knowledge as structured data.
+3. **Config DSL** (`config/`): 9 TOML files encoding domain knowledge as structured data.
    Agents and skills read these instead of hardcoding rules in prose.
-4. **CLI** (`bin/`, `src/`) — Node.js installer that deploys the above three layers to
+4. **CLI** (`bin/`, `src/`): Node.js installer that deploys the above three layers to
    `~/.claude/commands/blueprint/` (or `~/.claude/skills/blueprint/`).
 
 Data flows downward: skills read config and spawn agents; agents read config and the
@@ -34,11 +34,11 @@ codebase; config is the shared source of truth.
 
 ### Entry Points
 
-`skills/blueprint.md` — The root router. Parses natural language intent and dispatches
+`skills/blueprint.md`: The root router. Parses natural language intent and dispatches
 to the appropriate sub-skill. Routes to 38 sub-skills via keyword matching. Only unique
 logic: proactive intervention when architectural decisions are being made without ADRs (ADR-0015).
 
-`bin/cli.js` — CLI entry point for installation. Commander.js with `install` and `verify`
+`bin/cli.js`: CLI entry point for installation. Commander.js with `install` and `verify`
 subcommands. Deploys all 42 skill files, 21 agent files, 9 config files, and 10 hooks.
 
 ### Skills (skills/)
@@ -57,7 +57,7 @@ Each file is a standalone SKILL.md. Deployed as `<name>/SKILL.md` directories by
 | File | What it orchestrates |
 |------|---------------------|
 | `scope.md` | Discover/assign DDD bounded contexts → context map (ADR-0036) |
-| `advise.md` | Architecture Advice Process — structured consultation before proposing |
+| `advise.md` | Architecture Advice Process: structured consultation before proposing |
 
 **Lifecycle:**
 | File | What it orchestrates |
@@ -87,7 +87,7 @@ Each file is a standalone SKILL.md. Deployed as `<name>/SKILL.md` directories by
 | File | What it orchestrates |
 |------|---------------------|
 | `map.md` | Spawn strategic analyzer → Wardley evolution stages (ADR-0040) |
-| `radar.md` | Technology Radar — adoption lifecycle (Adopt/Trial/Assess/Hold) |
+| `radar.md` | Technology Radar: adoption lifecycle (Adopt/Trial/Assess/Hold) |
 
 **Continuous Governance:**
 | File | What it orchestrates |
@@ -131,64 +131,64 @@ output, update state.
 
 ### Agents (agents/)
 
-**Shared persona** (`persona.md`) — Cranky senior engineer personality injected into
+**Shared persona** (`persona.md`): Cranky senior engineer personality injected into
 every agent (ADR-0005).
 
 **v1 Lifecycle agents:**
-- `adr-researcher.md` — Web + codebase research for evidence-backed options
-- `adr-devils-advocate.md` — Adversarial challenge across 5 dimensions (ADR-0021)
-- `adr-impact-analyzer.md` — Cross-ADR conflict and dependency detection (ADR-0010)
-- `adr-compliance-auditor.md` — Codebase-vs-decision verification
-- `adr-retrospective.md` — Post-fix root cause classification + pattern verification (ADR-0011)
+- `adr-researcher.md`: Web + codebase research for evidence-backed options
+- `adr-devils-advocate.md`: Adversarial challenge across 5 dimensions (ADR-0021)
+- `adr-impact-analyzer.md`: Cross-ADR conflict and dependency detection (ADR-0010)
+- `adr-compliance-auditor.md`: Codebase-vs-decision verification
+- `adr-retrospective.md`: Post-fix root cause classification + pattern verification (ADR-0011)
 
 **v2 Analysis agents:**
-- `adr-forces-evaluator.md` — DCAR structured forces evaluation (ADR-0037)
-- `adr-reflexion-analyzer.md` — Reflexion model conformance checking (ADR-0038)
-- `adr-evidence-auditor.md` — Epistemic status and temporal validity (ADR-0039)
-- `adr-context-mapper.md` — DDD bounded context discovery (ADR-0036)
-- `adr-strategic-analyzer.md` — Wardley Map strategic analysis (ADR-0040)
-- `adr-diagram-generator.md` — C4 diagram auto-generation
-- `adr-tradeoff-analyzer.md` — ATAM utility trees and tradeoff identification
-- `adr-risk-mapper.md` — Architecture risk heat map (complexity × churn ÷ governance)
-- `adr-federation-indexer.md` — Cross-repository ADR aggregation
+- `adr-forces-evaluator.md`: DCAR structured forces evaluation (ADR-0037)
+- `adr-reflexion-analyzer.md`: Reflexion model conformance checking (ADR-0038)
+- `adr-evidence-auditor.md`: Epistemic status and temporal validity (ADR-0039)
+- `adr-context-mapper.md`: DDD bounded context discovery (ADR-0036)
+- `adr-strategic-analyzer.md`: Wardley Map strategic analysis (ADR-0040)
+- `adr-diagram-generator.md`: C4 diagram auto-generation
+- `adr-tradeoff-analyzer.md`: ATAM utility trees and tradeoff identification
+- `adr-risk-mapper.md`: Architecture risk heat map (complexity × churn ÷ governance)
+- `adr-federation-indexer.md`: Cross-repository ADR aggregation
 
 **Evaluation agents** (5 orthogonal dimensions, ADR-0007):
-- `adr-consistency-auditor.md` — Pattern adherence across 6 dimensions
-- `adr-bug-surface-mapper.md` — Structural bug likelihood mapping
-- `adr-maintainability-assessor.md` — Long-term codebase health
-- `adr-testing-strategy-evaluator.md` — Test strategy + anti-pattern tests (ADR-0014)
-- `adr-conways-law-analyzer.md` — Team-architecture alignment (ADR-0013)
+- `adr-consistency-auditor.md`: Pattern adherence across 6 dimensions
+- `adr-bug-surface-mapper.md`: Structural bug likelihood mapping
+- `adr-maintainability-assessor.md`: Long-term codebase health
+- `adr-testing-strategy-evaluator.md`: Test strategy + anti-pattern tests (ADR-0014)
+- `adr-conways-law-analyzer.md`: Team-architecture alignment (ADR-0013)
 
 **Documentation agent:**
-- `adr-architect-cartographer.md` — Generates ARCHITECTURE.md (matklad philosophy)
+- `adr-architect-cartographer.md`: Generates ARCHITECTURE.md (matklad philosophy)
 
 ### Config DSL (config/)
 
 Domain knowledge encoded as structured TOML (ADR-0003, ADR-0004, ADR-0022):
 
 **v1 config:**
-- `lifecycle.toml` — Finite state machine: 6 statuses, 6 valid transitions, 5 invalid
-- `taxonomy.toml` — Root causes (10), eval dimensions (5+6), decision categories (11), severity (3), governance modes (4), evolution stages (4), epistemic levels (3)
-- `state.toml` — Session memory: ADR directory, 14 operation timestamps, history (ADR-0019)
-- `relationships.toml` — ADR dependency graph: nodes + typed edges (ADR-0010)
+- `lifecycle.toml`: Finite state machine: 6 statuses, 6 valid transitions, 5 invalid
+- `taxonomy.toml`: Root causes (10), eval dimensions (5+6), decision categories (11), severity (3), governance modes (4), evolution stages (4), epistemic levels (3)
+- `state.toml`: Session memory: ADR directory, 14 operation timestamps, history (ADR-0019)
+- `relationships.toml`: ADR dependency graph: nodes + typed edges (ADR-0010)
 
 **v2 config:**
-- `contexts.toml` — DDD bounded context definitions, ADR assignments, context map relationships (ADR-0036)
-- `evidence.toml` — Per-ADR epistemic levels, expiry dates, stale claims, dead URLs (ADR-0039)
-- `radar.toml` — Technology adoption lifecycle linked to ADRs (created on first use)
-- `governance.toml` — Governance mode configuration (created on first use, ADR-0041)
-- `quickstart-templates.toml` — Pre-built ADR stubs for 5 stacks (27 ADR templates)
+- `contexts.toml`: DDD bounded context definitions, ADR assignments, context map relationships (ADR-0036)
+- `evidence.toml`: Per-ADR epistemic levels, expiry dates, stale claims, dead URLs (ADR-0039)
+- `radar.toml`: Technology adoption lifecycle linked to ADRs (created on first use)
+- `governance.toml`: Governance mode configuration (created on first use, ADR-0041)
+- `quickstart-templates.toml`: Pre-built ADR stubs for 5 stacks (27 ADR templates)
 
 ### Hooks (hooks/)
 
-- `hooks.json` — 10 pre-built governance hooks: guard, retro-suggest, bugfix-retro, feynman-evidence, gsd-rapid-adr, agent-adr, architecture-sync, dependency-watch, planning-watch, periodic-nudge, session-sweep, skill-refresh
+- `hooks.json`: 10 pre-built governance hooks: guard, retro-suggest, bugfix-retro, feynman-evidence, gsd-rapid-adr, agent-adr, architecture-sync, dependency-watch, planning-watch, periodic-nudge, session-sweep, skill-refresh
 
 ### CLI (bin/, src/)
 
-- `src/paths.js` — Resolves global vs project target paths
-- `src/install.js` — Copies 39 commands, 21 agents, 8 configs to target
-- `src/verify.js` — Checks all expected files exist
-- `src/claude-md.js` — Manages fenced section in CLAUDE.md
+- `src/paths.js`: Resolves global vs project target paths
+- `src/install.js`: Copies 39 commands, 21 agents, 8 configs to target
+- `src/verify.js`: Checks all expected files exist
+- `src/claude-md.js`: Manages fenced section in CLAUDE.md
 
 ### ADRs (docs/adr/)
 
@@ -197,20 +197,20 @@ ADRs 0001-0034: v1 design. ADRs 0035-0041: v2 extension decisions.
 
 ## Invariants
 
-1. **Skills never contain domain logic** — they orchestrate agents and read config (ADR-0002)
-2. **All lifecycle transitions validate against lifecycle.toml** — the state machine is data (ADR-0004)
-3. **Agents return inline output, never write files** — exception: architect-cartographer (ADR-0008)
-4. **Every agent includes persona.md** — cranky senior engineer is not optional (ADR-0005)
-5. **Evaluation dimensions are orthogonal** — no inter-agent dependencies during evaluation (ADR-0020)
-6. **Retrospective recommendations must be externally verified** — two-step pattern (ADR-0011)
-7. **Config is TOML, not JSON** — lower token cost (ADR-0003)
-8. **The router is thin** — dispatch only, no analysis logic (ADR-0006)
-9. **Fitness functions are generated, not manually written** — ADRs are the source of truth (ADR-0023)
-10. **Drift detection analyzes trajectory, not snapshots** — git history over time (ADR-0024)
-11. **ADRs can be scoped to bounded contexts** — context from contexts.toml, not flat namespace (ADR-0036)
-12. **Evidence confidence uses conservative aggregation** — decision level = min(evidence levels) (ADR-0039)
-13. **Governance mode is enforced on lifecycle transitions** — governed mode blocks acceptance without N approvals (ADR-0041)
-14. **Every v2 extension traces to published research** — paradigm-backed design, not ad hoc (ADR-0035)
+1. **Skills never contain domain logic**: they orchestrate agents and read config (ADR-0002)
+2. **All lifecycle transitions validate against lifecycle.toml**: the state machine is data (ADR-0004)
+3. **Agents return inline output, never write files**: exception: architect-cartographer (ADR-0008)
+4. **Every agent includes persona.md**: cranky senior engineer is not optional (ADR-0005)
+5. **Evaluation dimensions are orthogonal**: no inter-agent dependencies during evaluation (ADR-0020)
+6. **Retrospective recommendations must be externally verified**: two-step pattern (ADR-0011)
+7. **Config is TOML, not JSON**: lower token cost (ADR-0003)
+8. **The router is thin**: dispatch only, no analysis logic (ADR-0006)
+9. **Fitness functions are generated, not manually written**: ADRs are the source of truth (ADR-0023)
+10. **Drift detection analyzes trajectory, not snapshots**: git history over time (ADR-0024)
+11. **ADRs can be scoped to bounded contexts**: context from contexts.toml, not flat namespace (ADR-0036)
+12. **Evidence confidence uses conservative aggregation**: decision level = min(evidence levels) (ADR-0039)
+13. **Governance mode is enforced on lifecycle transitions**: governed mode blocks acceptance without N approvals (ADR-0041)
+14. **Every v2 extension traces to published research**: paradigm-backed design, not ad hoc (ADR-0035)
 
 ## Cross-Cutting Concerns
 
@@ -237,7 +237,7 @@ update `{adr_directory}/.state/evidence.toml` with epistemic levels. `/blueprint
 `test(architecture): generate fitness functions` for fitness functions.
 
 **ARCHITECTURE.md as context.** Multiple agents read `docs/ARCHITECTURE.md` as their first
-orientation step when it exists — provides module boundaries, invariants, and cross-cutting
+orientation step when it exists, providing module boundaries, invariants, and cross-cutting
 concerns before scanning.
 
 ## Architecture Decisions
