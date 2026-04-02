@@ -28,7 +28,7 @@ Tom's Obvious Minimal Language. Designed for configuration files. Supports comme
 
 ### Option 3: YAML
 
-Compact, human-readable, supports comments. But indentation-sensitive parsing is fragile — a single misplaced space changes semantics silently. The spec is enormous (86 pages vs TOML's 30). Implicit typing causes surprises (`no` becomes `false`, `3.10` becomes `3.1`). Norway problem. Multiple valid representations for the same data create inconsistency.
+Compact, human-readable, supports comments. But indentation-sensitive parsing is fragile: a single misplaced space changes semantics silently. The spec is enormous (86 pages vs TOML's 30). Implicit typing causes surprises (`no` becomes `false`, `3.10` becomes `3.1`). Norway problem. Multiple valid representations for the same data create inconsistency.
 
 ## Decision
 

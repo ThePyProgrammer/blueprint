@@ -10,7 +10,7 @@
 
 ## Context
 
-Blueprint's original implementation was a single monolithic SKILL.md file exceeding 430 lines. This file contained the logic for every command: help, list, new, review, evaluate, retro, audit, search, impact, transition, and rearchitect. Every invocation of any command loaded the entire file into the agent's context window — all 430+ lines of instructions, regardless of which command was being executed.
+Blueprint's original implementation was a single monolithic SKILL.md file exceeding 430 lines. This file contained the logic for every command: help, list, new, review, evaluate, retro, audit, search, impact, transition, and rearchitect. Every invocation of any command loaded the entire file into the agent's context window: all 430+ lines of instructions, regardless of which command was being executed.
 
 As capabilities grew, the monolith became progressively more unwieldy. Adding a new command meant inserting logic into an already dense file. Modifying one command risked breaking the prompt engineering for another. The agent had to parse hundreds of lines of irrelevant instructions before reaching the relevant section, wasting tokens and increasing the chance of instruction-following errors.
 
@@ -47,7 +47,7 @@ Build a formal plugin system with registration, discovery, and lifecycle hooks. 
 ### Positive
 
 - Each sub-skill fits comfortably in the agent's working memory, improving instruction-following reliability.
-- New commands are added by creating a new sub-skill file and adding a route — no changes to existing skills required.
+- New commands are added by creating a new sub-skill file and adding a route; no changes to existing skills required.
 - Sub-skills can be tested and iterated independently.
 - The router's small size makes dispatch logic easy to audit and debug.
 

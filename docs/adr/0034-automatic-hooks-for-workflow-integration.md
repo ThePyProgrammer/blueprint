@@ -10,15 +10,15 @@
 
 ## Context
 
-Blueprint provides powerful governance capabilities — pre-commit guards, retrospective analysis, health checks, drift detection, decision debt tracking — but all of them require the developer to remember to invoke them at the right moment. The pre-commit guard (ADR-0026) is useless if no one runs it before committing. The retrospective agent (ADR-0011) produces the most value immediately after a bug fix, but developers do not think about architecture when they have just fixed a bug. The health check (ADR-0033) catches inconsistencies, but only if someone remembers to run it periodically.
+Blueprint provides powerful governance capabilities (pre-commit guards, retrospective analysis, health checks, drift detection, decision debt tracking) but all of them require the developer to remember to invoke them at the right moment. The pre-commit guard (ADR-0026) is useless if no one runs it before committing. The retrospective agent (ADR-0011) produces the most value immediately after a bug fix, but developers do not think about architecture when they have just fixed a bug. The health check (ADR-0033) catches inconsistencies, but only if someone remembers to run it periodically.
 
-This is the classic tooling adoption problem: the tool works, but adoption requires behavior change, and behavior change is the hardest part of any process improvement. Tools that require the developer to remember to invoke them at the right moment have low adoption. Tools that embed themselves into existing workflows — firing automatically at the moments when they add the most value — have high adoption. The difference is not capability; it is timing.
+This is the classic tooling adoption problem: the tool works, but adoption requires behavior change, and behavior change is the hardest part of any process improvement. Tools that require the developer to remember to invoke them at the right moment have low adoption. Tools that embed themselves into existing workflows, firing automatically at the moments when they add the most value, have high adoption. The difference is not capability; it is timing.
 
 The development workflow already has natural trigger points where governance checks add value: before a commit (guard), after a bug fix (retro), after an ADR status change (architecture sync), after dependency changes (dependency watch), and periodically regardless of activity (health). These trigger points exist whether or not blueprint is present. The question is whether blueprint inserts itself at these points automatically or relies on the developer to remember.
 
 ## Options Considered
 
-### Option 1: Manual invocation only — developer-driven governance
+### Option 1: Manual invocation only, developer-driven governance
 
 All blueprint commands are invoked manually by the developer. The developer decides when to run the guard, when to trigger a retrospective, when to check health. This respects developer autonomy and avoids any perception of the tool being intrusive. It is also the current state.
 
@@ -26,15 +26,15 @@ All blueprint commands are invoked manually by the developer. The developer deci
 
 **Cons:** Adoption depends entirely on developer memory and discipline. The commands that add the most value at specific moments (retro after a fix, guard before a commit) are the ones least likely to be invoked manually because the developer is focused on the task, not on governance. Over time, manual invocation converges to zero for all but the most disciplined teams.
 
-### Option 2: Configurable hooks that suggest at the right moments — embedded governance
+### Option 2: Configurable hooks that suggest at the right moments, embedded governance
 
-Ship 5 configurable hooks that fire automatically at natural workflow trigger points: (1) pre-commit guard (opt-in, must be explicitly enabled) that checks staged changes against accepted ADR invariants before committing, (2) retro-suggest that detects recent bug-fix patterns (keywords like "fix," "patch," "hotfix" in recent commits) and suggests running a retrospective, (3) architecture-sync that fires after ADR status transitions to update dependent artifacts (ARCHITECTURE.md, relationship graph, index), (4) dependency-watch that detects changes to package manifests (package.json, Cargo.toml, pyproject.toml, go.mod) and suggests reviewing dependency-related ADRs, (5) periodic-health that runs the health check every 20 sessions to catch accumulated inconsistencies. All hooks suggest rather than block — they print a recommendation and the command to run, but do not prevent the developer from proceeding. The exception is the pre-commit guard, which blocks by design but is opt-in. Hooks are implemented via CLAUDE.md managed sections (for hook registration) and settings.json (for enable/disable and threshold configuration).
+Ship 5 configurable hooks that fire automatically at natural workflow trigger points: (1) pre-commit guard (opt-in, must be explicitly enabled) that checks staged changes against accepted ADR invariants before committing, (2) retro-suggest that detects recent bug-fix patterns (keywords like "fix," "patch," "hotfix" in recent commits) and suggests running a retrospective, (3) architecture-sync that fires after ADR status transitions to update dependent artifacts (ARCHITECTURE.md, relationship graph, index), (4) dependency-watch that detects changes to package manifests (package.json, Cargo.toml, pyproject.toml, go.mod) and suggests reviewing dependency-related ADRs, (5) periodic-health that runs the health check every 20 sessions to catch accumulated inconsistencies. All hooks suggest rather than block; they print a recommendation and the command to run, but do not prevent the developer from proceeding. The exception is the pre-commit guard, which blocks by design but is opt-in. Hooks are implemented via CLAUDE.md managed sections (for hook registration) and settings.json (for enable/disable and threshold configuration).
 
-**Pros:** Governance checks fire at the moments when they add the most value, without requiring developer memory. Suggest-not-block respects developer autonomy — the hook informs, the developer decides. Opt-in pre-commit guard prevents surprise blocking. Configurable thresholds let teams tune sensitivity. Five hooks cover the most valuable trigger points without being exhaustive.
+**Pros:** Governance checks fire at the moments when they add the most value, without requiring developer memory. Suggest-not-block respects developer autonomy: the hook informs, the developer decides. Opt-in pre-commit guard prevents surprise blocking. Configurable thresholds let teams tune sensitivity. Five hooks cover the most valuable trigger points without being exhaustive.
 
 **Cons:** Hooks that fire too frequently become noise. Even suggestions, if constant, train developers to ignore them. The CLAUDE.md managed sections add complexity to the configuration model. Five hooks is a meaningful surface area to maintain and debug. Developers who dislike automated suggestions may perceive the tool as nagging.
 
-### Option 3: Mandatory gates that block until resolved — strict governance enforcement
+### Option 3: Mandatory gates that block until resolved, strict governance enforcement
 
 Implement hooks as mandatory gates. The pre-commit guard blocks all commits that violate ADR invariants. The retro gate blocks merges of bug-fix branches until a retrospective has been run. The health gate blocks new ADR creation if existing health issues are unresolved. These gates enforce governance compliance rather than suggesting it.
 
@@ -44,12 +44,12 @@ Implement hooks as mandatory gates. The pre-commit guard blocks all commits that
 
 ## Decision
 
-**We ship 5 configurable hooks that embed governance into the development workflow automatically — pre-commit guard (opt-in), retro-suggest after fixes, architecture-sync after ADR transitions, dependency-watch on package changes, periodic-health every 20 sessions — with hooks that suggest rather than block**, because governance adoption is a timing problem, not a capability problem, and tools that fire automatically at the right moments achieve adoption that manual invocation never will, while suggest-not-block respects the developer autonomy that makes the suggestions trustworthy rather than resented.
+**We ship 5 configurable hooks that embed governance into the development workflow automatically (pre-commit guard (opt-in), retro-suggest after fixes, architecture-sync after ADR transitions, dependency-watch on package changes, periodic-health every 20 sessions) with hooks that suggest rather than block**, because governance adoption is a timing problem, not a capability problem, and tools that fire automatically at the right moments achieve adoption that manual invocation never will, while suggest-not-block respects the developer autonomy that makes the suggestions trustworthy rather than resented.
 
 ## Rationale
 
 - The adoption problem is empirical, not theoretical. Every team that has tried manual-only governance tooling reports the same pattern: enthusiastic adoption for the first two weeks, declining usage over the next month, and near-zero usage by month three. The tools work; the timing does not. Hooks solve the timing problem.
-- Suggest-not-block is the critical design decision. A tool that blocks a developer from committing code they believe is correct creates an adversarial relationship. A tool that says "this commit may conflict with ADR-0012 — consider running `blueprint guard` to check" creates a collaborative relationship. The developer still has full control; the hook provides information they would not otherwise have at that moment.
+- Suggest-not-block is the critical design decision. A tool that blocks a developer from committing code they believe is correct creates an adversarial relationship. A tool that says "this commit may conflict with ADR-0012, consider running `blueprint guard` to check" creates a collaborative relationship. The developer still has full control; the hook provides information they would not otherwise have at that moment.
 - The pre-commit guard is opt-in because blocking is a different contract than suggesting. The other 4 hooks suggest and the developer can ignore the suggestion. The guard blocks the commit. This is appropriate for teams that want strict enforcement, but it must be a conscious choice, not a default.
 - Five hooks cover the high-value trigger points without being exhaustive. More hooks could be added (post-merge check, release audit, PR review), but starting with 5 provides meaningful coverage without overwhelming the configuration surface. Additional hooks can be added as the system matures and usage patterns reveal which trigger points matter most.
 - The periodic-health hook (every 20 sessions) catches slow-accumulating issues that no event-driven hook would detect. Staleness, config drift, and gradual index desynchronization are time-dependent problems, not event-dependent problems. A periodic check is the only way to catch them.
@@ -60,7 +60,7 @@ Implement hooks as mandatory gates. The pre-commit guard blocks all commits that
 ### Positive
 
 - Governance checks fire at the moments when they add the most value. The retro-suggest hook fires after a bug fix, when the developer has the most context about what went wrong and why. The dependency-watch hook fires after a package change, when the developer is already thinking about dependencies.
-- Developer autonomy is preserved. Every hook except the opt-in guard produces a suggestion, not a gate. The developer can always proceed without acting on the suggestion. This builds trust — the tool is an advisor, not a gatekeeper.
+- Developer autonomy is preserved. Every hook except the opt-in guard produces a suggestion, not a gate. The developer can always proceed without acting on the suggestion. This builds trust: the tool is an advisor, not a gatekeeper.
 - Architecture-sync eliminates a category of manual bookkeeping. When an ADR transitions from Proposed to Accepted, the relationship graph, index, and ARCHITECTURE.md should update. Doing this automatically prevents the staleness that manual updates inevitably produce.
 - The configuration surface (enable/disable per hook, threshold tuning) lets teams calibrate the hooks to their workflow. A team that never wants retro suggestions can disable that hook. A team that wants health checks every 5 sessions instead of 20 can adjust the threshold.
 

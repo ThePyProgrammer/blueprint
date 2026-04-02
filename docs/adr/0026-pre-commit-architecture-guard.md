@@ -12,13 +12,13 @@
 
 Architectural violations are cheapest to fix at the moment they are introduced. A developer adds a direct database import in a controller file. If caught at commit time, the fix is trivial: move the call to the service layer, which takes 5 minutes. If caught in CI 30 minutes later, the developer has context-switched. If caught in a quarterly architecture review, the violation has been compounded by 3 months of code built on top of it.
 
-Blueprint already provides comprehensive architecture analysis through the audit skill (compliance checking) and the evaluation skill (5-dimensional analysis). Both are thorough but slow — they analyze the entire codebase against all accepted ADRs, which can take significant time depending on project size. Running a full audit on every commit is impractical. Developers will disable hooks that add more than a few seconds to their commit workflow.
+Blueprint already provides comprehensive architecture analysis through the audit skill (compliance checking) and the evaluation skill (5-dimensional analysis). Both are thorough but slow; they analyze the entire codebase against all accepted ADRs, which can take significant time depending on project size. Running a full audit on every commit is impractical. Developers will disable hooks that add more than a few seconds to their commit workflow.
 
 The pre-commit moment is unique: we know exactly which files are changing (the git staging area), and we need only to check those files against the ADR invariants that govern them. A controller file being committed needs to be checked against layering ADRs, not against the caching strategy ADR. This scoping makes sub-10-second checks feasible even for projects with many ADRs.
 
 ## Options Considered
 
-### Option 1: Full audit on every commit — thorough but unusably slow
+### Option 1: Full audit on every commit, thorough but unusably slow
 
 Run the complete compliance audit on every `git commit`. Every accepted ADR is checked against the entire codebase. This catches every violation but takes too long for interactive use. Developers will add `--no-verify` to every commit, rendering the guard useless. A tool that is too slow to use is equivalent to a tool that does not exist.
 
@@ -26,15 +26,15 @@ Run the complete compliance audit on every `git commit`. Every accepted ADR is c
 
 **Cons:** Too slow for pre-commit use. Developers will bypass it. Audits the entire codebase when only a few files changed. Punishes small commits as much as large refactors.
 
-### Option 2: Targeted guard on staged files only — fast and focused
+### Option 2: Targeted guard on staged files only, fast and focused
 
-Check only the files in the git staging area against only the ADR invariants that govern those files. If a developer stages `src/controllers/user.js`, the guard checks it against layering ADRs and naming convention ADRs, but not against the database migration strategy ADR. This scoping keeps the check under 10 seconds for typical commits. The guard produces pass/fail output with specific violation details, and does not block commits for warnings — only for clear invariant violations.
+Check only the files in the git staging area against only the ADR invariants that govern those files. If a developer stages `src/controllers/user.js`, the guard checks it against layering ADRs and naming convention ADRs, but not against the database migration strategy ADR. This scoping keeps the check under 10 seconds for typical commits. The guard produces pass/fail output with specific violation details, and does not block commits for warnings, only for clear invariant violations.
 
 **Pros:** Fast enough for interactive use (sub-10 seconds). Checks only what changed against only what applies. Developers keep the hook enabled. Catches violations at the cheapest moment to fix them.
 
-**Cons:** Does not catch systemic violations that emerge from the interaction of multiple files. A change that is compliant in isolation may contribute to drift when combined with other changes. Not comprehensive — some violations are only visible at the codebase level.
+**Cons:** Does not catch systemic violations that emerge from the interaction of multiple files. A change that is compliant in isolation may contribute to drift when combined with other changes. Not comprehensive; some violations are only visible at the codebase level.
 
-### Option 3: No pre-commit checks — rely on CI
+### Option 3: No pre-commit checks, rely on CI
 
 Skip pre-commit hooks entirely. Run architecture checks in CI after push. This avoids any impact on developer workflow but delays violation detection by the CI pipeline duration (typically 5-30 minutes). The developer has context-switched by the time the violation is reported. Fix costs are higher, and the feedback loop is slower.
 
@@ -44,7 +44,7 @@ Skip pre-commit hooks entirely. Run architecture checks in CI after push. This a
 
 ## Decision
 
-**We provide a fast pre-commit guard that checks only staged files against governing ADR invariants**, because the cheapest time to fix a violation is before the commit — and a guard that runs under 10 seconds stays enabled, while a guard that runs for minutes gets bypassed.
+**We provide a fast pre-commit guard that checks only staged files against governing ADR invariants**, because the cheapest time to fix a violation is before the commit. A guard that runs under 10 seconds stays enabled, while a guard that runs for minutes gets bypassed.
 
 ## Rationale
 

@@ -14,7 +14,7 @@ Blueprint's retrospective agent (ADR-0011) classifies root causes as the first s
 
 Hardcoding categories in the agent prompt is the simplest approach. The agent receives a fixed list of root cause types and classifies accordingly. But software projects vary enormously in their failure modes. A distributed systems project encounters different root causes than a frontend application. A fixed taxonomy cannot cover the long tail of project-specific failure patterns.
 
-Free-form classification — letting the agent invent categories — produces inconsistent labels. "Race condition," "concurrency issue," "timing bug," and "thread safety violation" might all describe the same root cause but get counted as four separate categories, defeating the purpose of classification.
+Free-form classification (letting the agent invent categories) produces inconsistent labels. "Race condition," "concurrency issue," "timing bug," and "thread safety violation" might all describe the same root cause but get counted as four separate categories, defeating the purpose of classification.
 
 An extensible taxonomy provides a structured starting point with the ability to grow. Initial categories cover the most common architectural root causes. Teams add project-specific categories as they encounter failures that do not fit the defaults.
 
@@ -33,7 +33,7 @@ An extensible taxonomy provides a structured starting point with the ability to 
 ### Option 3: Free-form classification
 
 - **Pros:** No predefined categories to maintain. Agent adapts naturally to any project.
-- **Cons:** Inconsistent labels across analyses. No aggregation possible — cannot answer "what are our most common root causes?" Recommendations lack structure because they are not grounded in a defined prevention pattern.
+- **Cons:** Inconsistent labels across analyses. No aggregation possible; cannot answer "what are our most common root causes?" Recommendations lack structure because they are not grounded in a defined prevention pattern.
 
 ## Decision
 
@@ -61,7 +61,7 @@ The taxonomy lives at `.blueprint/taxonomy.toml`. Initial categories: missing va
 ### Negative
 
 - Another file (`.blueprint/taxonomy.toml`) to maintain and version-control.
-- Category proliferation risk — teams may add overlapping or overly specific categories.
+- Category proliferation risk: teams may add overlapping or overly specific categories.
 - The initial 10 categories may not cover every project's primary failure modes, requiring early customization.
 
 ### Risks
@@ -73,4 +73,4 @@ The taxonomy lives at `.blueprint/taxonomy.toml`. Initial categories: missing va
 
 - ADR-0011: Two-step verify in retrospective agent
 - ADR-0003: Use TOML over JSON for config DSL
-- Orthogonal Defect Classification (ODC) — IBM Research, structured defect categorization
+- Orthogonal Defect Classification (ODC), IBM Research, structured defect categorization

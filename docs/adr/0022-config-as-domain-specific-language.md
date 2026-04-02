@@ -12,19 +12,19 @@
 
 Blueprint encodes significant domain knowledge: the ADR lifecycle has defined states and valid transitions, root cause analysis uses a specific taxonomy of failure categories, architecture evaluation covers 5 named dimensions with defined criteria, and ADR relationships follow typed patterns (supersedes, depends-on, conflicts-with, related-to).
 
-This domain knowledge must live somewhere. In the initial implementation, it was embedded directly in agent prompts — the lifecycle states were listed in the `new` skill's instructions, the root cause categories were enumerated in the `retro` agent's prompt, and the evaluation dimensions were described in each evaluator agent's system prompt. This worked, but it scattered domain concepts across 12 skill files and 10 agent definitions.
+This domain knowledge must live somewhere. In the initial implementation, it was embedded directly in agent prompts: the lifecycle states were listed in the `new` skill's instructions, the root cause categories were enumerated in the `retro` agent's prompt, and the evaluation dimensions were described in each evaluator agent's system prompt. This worked, but it scattered domain concepts across 12 skill files and 10 agent definitions.
 
 When a lifecycle rule changed, every skill that referenced lifecycle states needed updating. When a new root cause category was added, the retro agent's prompt needed editing. Domain knowledge was interleaved with agent logic, making it hard to audit, hard to change, and hard for users to customize.
 
 ## Options Considered
 
-### Option 1: Inline in agent prompts — simple but scattered
+### Option 1: Inline in agent prompts, simple but scattered
 
-Keep domain knowledge embedded in the prompts where it is used. Each agent contains its own copy of the relevant domain rules. Simple to implement: the knowledge is right where it is consumed. But every change requires editing multiple files, inconsistencies between copies are inevitable over time, and users who want to customize the lifecycle or taxonomy must edit agent prompts — a task that requires understanding prompt engineering, not just domain configuration.
+Keep domain knowledge embedded in the prompts where it is used. Each agent contains its own copy of the relevant domain rules. Simple to implement: the knowledge is right where it is consumed. But every change requires editing multiple files, inconsistencies between copies are inevitable over time, and users who want to customize the lifecycle or taxonomy must edit agent prompts, a task that requires understanding prompt engineering, not just domain configuration.
 
 ### Option 2: Externalized as structured TOML config with formal schemas
 
-Extract domain knowledge into dedicated config files: `lifecycle.toml` (states, transitions, validation rules), `taxonomy.toml` (root cause categories, evaluation dimensions, relationship types), `state.toml` (runtime state — see ADR-0019), `relationships.toml` (ADR cross-reference patterns). Agents read the config at invocation time. Domain concepts are expressed in domain terms, not prompt fragments.
+Extract domain knowledge into dedicated config files: `lifecycle.toml` (states, transitions, validation rules), `taxonomy.toml` (root cause categories, evaluation dimensions, relationship types), `state.toml` (runtime state; see ADR-0019), `relationships.toml` (ADR cross-reference patterns). Agents read the config at invocation time. Domain concepts are expressed in domain terms, not prompt fragments.
 
 ### Option 3: Executable DSL (JavaScript/Python)
 
@@ -32,7 +32,7 @@ Define domain rules as executable code in a scripting language. Lifecycle transi
 
 ## Decision
 
-**We externalize domain knowledge as structured TOML config files that function as a lightweight domain-specific language**, because data outlives code — when lifecycle rules or root cause categories change, you should edit a config file, not an agent prompt — and because domain concepts expressed in domain terms are readable by domain experts, not just prompt engineers.
+**We externalize domain knowledge as structured TOML config files that function as a lightweight domain-specific language**, because data outlives code. When lifecycle rules or root cause categories change, you should edit a config file, not an agent prompt. And because domain concepts expressed in domain terms are readable by domain experts, not just prompt engineers.
 
 ## Rationale
 
@@ -60,7 +60,7 @@ Define domain rules as executable code in a scripting language. Lifecycle transi
 
 ### Risks
 
-- Config sprawl: as blueprint's domain model grows, the number of config files and their complexity may increase to the point where they are as hard to manage as the prompts they replaced. Mitigation: strict scoping — each config file owns one domain concept. No catch-all config files.
+- Config sprawl: as blueprint's domain model grows, the number of config files and their complexity may increase to the point where they are as hard to manage as the prompts they replaced. Mitigation: strict scoping. Each config file owns one domain concept. No catch-all config files.
 - Parsing fragility: malformed TOML causes agent failures. Mitigation: config reads use defensive parsing with clear error messages that identify the file and line causing the problem.
 - Over-abstraction: extracting *everything* into config makes simple things complicated. Not every piece of domain knowledge benefits from externalization. Mitigation: only extract knowledge that is referenced by multiple agents or that users are likely to customize. Agent-specific implementation details stay in the agent prompt.
 

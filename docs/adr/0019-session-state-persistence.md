@@ -18,15 +18,15 @@ More importantly, some information cannot be re-derived from the ADR files alone
 
 ## Options Considered
 
-### Option 1: Stateless — re-detect everything every time
+### Option 1: Stateless, re-detect everything every time
 
-Every invocation starts from scratch. Scan for the ADR directory, read all ADRs, infer what needs to be done from file timestamps and git history. No state file to maintain, no corruption risk, no staleness concerns. But no temporal awareness either — the system cannot know when audits or evaluations were last run, making contextual suggestions (ADR-0018) impossible for time-based actions.
+Every invocation starts from scratch. Scan for the ADR directory, read all ADRs, infer what needs to be done from file timestamps and git history. No state file to maintain, no corruption risk, no staleness concerns. But no temporal awareness either; the system cannot know when audits or evaluations were last run, making contextual suggestions (ADR-0018) impossible for time-based actions.
 
 ### Option 2: Persistent state.toml tracking directory, timestamps, and history
 
 A `state.toml` file in the blueprint config directory that records: ADR directory location (discovered once, reused thereafter), last operation dates for audits, evaluations, and retrospectives, and a brief operation history. Updated by skill commands after they complete their operations. Read by help and list commands to generate contextual suggestions.
 
-### Option 3: In-memory only — lost on context reset
+### Option 3: In-memory only, lost on context reset
 
 Store state in the conversation context. Works within a single Claude Code session but lost entirely when the context resets or a new session starts. This is effectively Option 1 across sessions, with some benefits within a single long session. Not a meaningful improvement for the temporal awareness problem.
 
@@ -37,9 +37,9 @@ Store state in the conversation context. Works within a single Claude Code sessi
 ## Rationale
 
 - The ADR directory location is the most frequently needed piece of information and the most wasteful to re-discover. Recording it once and reusing it across invocations eliminates a scan that runs on every single command.
-- Time-based suggestions ("no audit in 30 days — consider running one") require knowing when the last audit ran. This information does not exist in the ADR files. It must be recorded externally.
+- Time-based suggestions ("no audit in 30 days, consider running one") require knowing when the last audit ran. This information does not exist in the ADR files. It must be recorded externally.
 - TOML is the established config format for blueprint (ADR-0003). Using it for state maintains consistency and avoids introducing a new format.
-- The state file is small (under 50 lines typically), human-readable, and easy to manually inspect or edit if something goes wrong. This is important for a tool that manages a developer workflow — opaque binary state files erode trust.
+- The state file is small (under 50 lines typically), human-readable, and easy to manually inspect or edit if something goes wrong. This is important for a tool that manages a developer workflow; opaque binary state files erode trust.
 - The write pattern is simple: each command that modifies state appends or updates its section at the end of its execution. There are no concurrent writers (Claude Code runs one skill at a time), so there is no locking concern.
 
 ## Consequences
@@ -60,7 +60,7 @@ Store state in the conversation context. Works within a single Claude Code sessi
 ### Risks
 
 - State corruption: a malformed state.toml could break all commands that read it. Mitigation: all state reads use fallback defaults. If the file is unreadable, blueprint falls back to stateless behavior (Option 1) rather than failing.
-- Schema drift: as blueprint evolves, the state file schema will change. Old state files must remain readable. Mitigation: additive-only schema changes — new fields are added, old fields are never removed or renamed.
+- Schema drift: as blueprint evolves, the state file schema will change. Old state files must remain readable. Mitigation: additive-only schema changes. New fields are added, old fields are never removed or renamed.
 
 ## References
 

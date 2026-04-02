@@ -10,7 +10,7 @@
 
 ## Context
 
-Blueprint uses multiple AI agents to perform specialized analysis tasks — researching options, challenging decisions, analyzing impact, auditing compliance, evaluating consistency, mapping bug surfaces, assessing maintainability, evaluating testing strategy, analyzing Conway's Law alignment, and running retrospectives. The design question is how to decompose these responsibilities across agents.
+Blueprint uses multiple AI agents to perform specialized analysis tasks: researching options, challenging decisions, analyzing impact, auditing compliance, evaluating consistency, mapping bug surfaces, assessing maintainability, evaluating testing strategy, analyzing Conway's Law alignment, and running retrospectives. The design question is how to decompose these responsibilities across agents.
 
 The multi-purpose approach combines related functions into fewer agents. A "reviewer" agent handles both devil's advocate challenge and compliance auditing. An "evaluator" agent handles consistency, maintainability, and testing strategy. This reduces the total number of agents (5-6 total), gives each agent more context about related concerns, and reduces orchestration overhead.
 
@@ -22,17 +22,17 @@ The choice has implications for prompt engineering, output quality, parallelism,
 
 ### Option 1: Few multi-purpose agents (5-6 total)
 
-- **Pros:** Less orchestration overhead. More context per agent — a combined reviewer can see challenge findings while auditing compliance. Fewer agent definitions to maintain. Lower total token cost per evaluation.
+- **Pros:** Less orchestration overhead. More context per agent, since a combined reviewer can see challenge findings while auditing compliance. Fewer agent definitions to maintain. Lower total token cost per evaluation.
 - **Cons:** Prompts become complex as they serve multiple purposes. Output quality degrades when a single prompt tries to optimize for two different tasks. Hard to improve one function without affecting the other. Testing requires exercising all functions in combination.
 
 ### Option 2: Many focused agents (11 total)
 
-- **Pros:** Each agent has one job and one prompt optimized for that job. Agents are orthogonal — improving the bug surface mapper cannot break the compliance auditor. Agents can run in parallel when their inputs are independent. Output is predictable and composable. Each agent can be tested in isolation.
+- **Pros:** Each agent has one job and one prompt optimized for that job. Agents are orthogonal: improving the bug surface mapper cannot break the compliance auditor. Agents can run in parallel when their inputs are independent. Output is predictable and composable. Each agent can be tested in isolation.
 - **Cons:** More agent definitions to maintain (20 as of v2.0.0). Orchestration logic must coordinate agents across multiple dimensions. Some agents may need context that another agent produced, creating ordering dependencies. Higher total token cost when running all agents.
 
 ### Option 3: Dynamic agent composition
 
-- **Pros:** Combine agents at runtime based on the specific request. Maximum flexibility — the system assembles the right team for each task.
+- **Pros:** Combine agents at runtime based on the specific request. Maximum flexibility, as the system assembles the right team for each task.
 - **Cons:** Composition logic is complex and hard to debug. Emergent behavior from arbitrary agent combinations is unpredictable. Testing all possible compositions is combinatorially infeasible.
 
 ## Decision
@@ -41,17 +41,17 @@ The choice has implications for prompt engineering, output quality, parallelism,
 
 The 11 agents and their single responsibilities:
 
-1. **Researcher** — investigates technology options and trade-offs for proposed decisions.
-2. **Devil's advocate** — critically challenges proposed ADRs to find blind spots.
-3. **Impact analyzer** — maps relationships and conflicts between ADRs and the codebase.
-4. **Compliance auditor** — verifies the codebase follows accepted ADRs.
-5. **Consistency auditor** — evaluates structural consistency (patterns, naming, layering, error handling).
-6. **Bug surface mapper** — identifies where bugs are structurally likely to emerge.
-7. **Maintainability assessor** — evaluates long-term maintainability indicators.
-8. **Testing strategy evaluator** — assesses testing completeness including anti-pattern tests (ADR-0014).
-9. **Conway's Law analyzer** — examines alignment between architecture and team structure.
-10. **Retrospective agent** — analyzes recent fixes for systemic improvements.
-11. **Persona** — the shared senior engineer persona is not an agent but a component injected into all agents for consistent voice.
+1. **Researcher**: investigates technology options and trade-offs for proposed decisions.
+2. **Devil's advocate**: critically challenges proposed ADRs to find blind spots.
+3. **Impact analyzer**: maps relationships and conflicts between ADRs and the codebase.
+4. **Compliance auditor**: verifies the codebase follows accepted ADRs.
+5. **Consistency auditor**: evaluates structural consistency (patterns, naming, layering, error handling).
+6. **Bug surface mapper**: identifies where bugs are structurally likely to emerge.
+7. **Maintainability assessor**: evaluates long-term maintainability indicators.
+8. **Testing strategy evaluator**: assesses testing completeness including anti-pattern tests (ADR-0014).
+9. **Conway's Law analyzer**: examines alignment between architecture and team structure.
+10. **Retrospective agent**: analyzes recent fixes for systemic improvements.
+11. **Persona**: the shared senior engineer persona is not an agent but a component injected into all agents for consistent voice.
 
 ## Rationale
 
@@ -68,7 +68,7 @@ The 11 agents and their single responsibilities:
 - Agents can be tested in isolation with dedicated test fixtures.
 - Five evaluation agents run in parallel, reducing wall-clock time for full architecture evaluation.
 - New analysis capabilities can be added as new agents without modifying existing ones (open/closed principle).
-- Agent output is composable — the orchestrator merges findings from independent agents into a unified report.
+- Agent output is composable: the orchestrator merges findings from independent agents into a unified report.
 
 ### Negative
 
@@ -79,7 +79,7 @@ The 11 agents and their single responsibilities:
 
 ### Risks
 
-- Agent proliferation — the temptation to add more agents for increasingly narrow responsibilities. Mitigation: each agent must justify its existence as an orthogonal concern. If two agents' outputs consistently overlap, they should be merged.
+- Agent proliferation: the temptation to add more agents for increasingly narrow responsibilities. Mitigation: each agent must justify its existence as an orthogonal concern. If two agents' outputs consistently overlap, they should be merged.
 - Orchestration complexity growing as agent count increases. Mitigation: the orchestrator uses a simple dependency graph (DAG) rather than arbitrary coordination logic. Agents declare their inputs and outputs, and the orchestrator topologically sorts execution.
 - Inconsistent output formats across 11 agents making report synthesis difficult. Mitigation: all agents share the persona (component 11) and a common output schema defined in the orchestrator.
 
@@ -89,4 +89,4 @@ The 11 agents and their single responsibilities:
 - ADR-0014: Anti-pattern tests as first-class category (testing strategy evaluator scope)
 - ADR-0011: Two-step verify in retrospective agent (retrospective agent scope)
 - ADR-0013: Infer ownership from git history (Conway's Law analyzer scope)
-- Robert C. Martin, "Single Responsibility Principle" — each module should have one reason to change
+- Robert C. Martin, "Single Responsibility Principle": each module should have one reason to change

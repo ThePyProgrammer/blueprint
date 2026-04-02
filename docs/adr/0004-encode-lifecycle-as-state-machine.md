@@ -14,7 +14,7 @@ ADR lifecycle management requires enforcing rules: which state transitions are v
 
 In blueprint's original implementation, these rules were embedded as prose instructions in the SKILL.md file. Lines like "Before accepting an ADR, verify that a devil's advocate review has been performed" and "An ADR can only be superseded if it is currently in Accepted status" were scattered through the monolithic skill file.
 
-This approach had two problems. First, multiple agents needed to enforce the same rules — the review skill, the transition skill, the audit skill — which meant duplicating the prose or having agents reference a shared prose section they might misinterpret. Second, prose rules are ambiguous. "Verify that a review has been performed" leaves open what counts as verification, while a data structure can encode the exact check.
+This approach had two problems. First, multiple agents needed to enforce the same rules (the review skill, the transition skill, the audit skill) which meant duplicating the prose or having agents reference a shared prose section they might misinterpret. Second, prose rules are ambiguous. "Verify that a review has been performed" leaves open what counts as verification, while a data structure can encode the exact check.
 
 ## Options Considered
 
@@ -46,7 +46,7 @@ Write a lifecycle validator in JavaScript that agents invoke to check transition
 
 ### Positive
 
-- Lifecycle rule changes are config changes — edit lifecycle.toml, no prompt engineering required.
+- Lifecycle rule changes are config changes: edit lifecycle.toml, no prompt engineering required.
 - All agents enforce identical rules from a shared source of truth.
 - The state machine is inspectable, testable, and documentable as a directed graph.
 - New lifecycle states and transitions can be added without modifying any sub-skill.

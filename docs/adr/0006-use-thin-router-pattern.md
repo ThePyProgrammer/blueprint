@@ -24,7 +24,7 @@ The router handles simple commands (help, list) inline and only dispatches to su
 
 ### Option 2: Thin router that only dispatches and handles proactive intervention
 
-The router's only jobs are: (1) parse intent from user input, (2) dispatch to the appropriate sub-skill, and (3) detect architectural decisions being made without ADRs and intervene. Everything else — including trivially simple commands like help and list — is handled by sub-skills.
+The router's only jobs are: (1) parse intent from user input, (2) dispatch to the appropriate sub-skill, and (3) detect architectural decisions being made without ADRs and intervene. Everything else, including trivially simple commands like help and list, is handled by sub-skills.
 
 ### Option 3: No router (users invoke sub-skills directly)
 
@@ -32,12 +32,12 @@ Users call `/blueprint:review`, `/blueprint:list`, etc. directly. No routing lay
 
 ## Decision
 
-**We use a thin router (~107 lines as of v2.0.0) that parses intent from natural language and dispatches to sub-skills**, because the router should do exactly two things — route commands and detect unrecorded architectural decisions — and nothing else.
+**We use a thin router (~107 lines as of v2.0.0) that parses intent from natural language and dispatches to sub-skills**, because the router should do exactly two things (route commands and detect unrecorded architectural decisions) and nothing else.
 
 ## Rationale
 
 - Single responsibility: the router routes. It does not list ADRs, it does not create ADRs, it does not evaluate architecture. If the router is doing anything beyond intent parsing, dispatch, and proactive intervention, it has too much responsibility.
-- 48 lines is small enough to verify by inspection. The entire routing logic is auditable in one screen. This is a deliberate constraint — if the router grows beyond ~60 lines, something that belongs in a sub-skill has leaked into the router.
+- 48 lines is small enough to verify by inspection. The entire routing logic is auditable in one screen. This is a deliberate constraint: if the router grows beyond ~60 lines, something that belongs in a sub-skill has leaked into the router.
 - Natural language dispatch is a user experience requirement, not an optional feature. Users should be able to type `/blueprint why did we choose TOML?` and get results without knowing that `search` is the command name.
 - Proactive intervention is the router's unique capability. No sub-skill can detect that a user is making an architectural decision during a normal coding session, because no sub-skill is invoked during normal coding sessions. Only the router, as the entry point, can perform this detection.
 - The thin router pattern aligns with ADR-0002's decomposition rationale: load only what you need. The router loads 48 lines of routing logic, then the dispatched sub-skill loads its own 41-96 lines. At no point does the agent hold all 12 sub-skills in context.
@@ -49,7 +49,7 @@ Users call `/blueprint:review`, `/blueprint:list`, etc. directly. No routing lay
 - The router is trivially simple and easy to debug.
 - Natural language dispatch means users do not need to memorize sub-skill names.
 - Proactive intervention catches architectural decisions that would otherwise go unrecorded.
-- Adding a new sub-skill requires only adding a route to the router's dispatch table — the router does not need to understand the new skill's logic.
+- Adding a new sub-skill requires only adding a route to the router's dispatch table; the router does not need to understand the new skill's logic.
 
 ### Negative
 

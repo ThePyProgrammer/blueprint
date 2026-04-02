@@ -10,15 +10,15 @@
 
 ## Context
 
-Blueprint evaluates ADR decisions at the technical level — is the decision well-supported? Does the code follow it? Are there tradeoffs? But it lacks strategic context: is this decision appropriate for a component at this stage of evolution?
+Blueprint evaluates ADR decisions at the technical level: is the decision well-supported? Does the code follow it? Are there tradeoffs? But it lacks strategic context: is this decision appropriate for a component at this stage of evolution?
 
-Simon Wardley's Wardley Mapping framework classifies components along an evolution axis: Genesis (novel, uncertain) → Custom-Built (known concept, unique execution) → Product (multiple vendors, feature competition) → Commodity (utility, standardized). The strategic implication is clear: build custom at Genesis, buy/use commodity at Commodity. Building custom authentication in 2026 is building for a commodity — a strategic waste of engineering effort.
+Simon Wardley's Wardley Mapping framework classifies components along an evolution axis: Genesis (novel, uncertain) → Custom-Built (known concept, unique execution) → Product (multiple vendors, feature competition) → Commodity (utility, standardized). The strategic implication is clear: build custom at Genesis, buy/use commodity at Commodity. Building custom authentication in 2026 is building for a commodity, a strategic waste of engineering effort.
 
-No existing ADR tool connects decisions to strategic positioning. This makes Blueprint useful only to architects and developers. Connecting decisions to evolution stages makes Blueprint useful to CTOs and VPs of Engineering — expanding the audience and the impact.
+No existing ADR tool connects decisions to strategic positioning. This makes Blueprint useful only to architects and developers. Connecting decisions to evolution stages makes Blueprint useful to CTOs and VPs of Engineering, expanding the audience and the impact.
 
 ## Options Considered
 
-### Option 1: No strategic context — focus on technical evaluation only
+### Option 1: No strategic context: focus on technical evaluation only
 
 Keep Blueprint focused on technical architecture. Strategic decisions are out of scope.
 
@@ -38,9 +38,9 @@ Add `Evolution-Stage` metadata to ADRs. Create `/blueprint:map` to generate stra
 
 ## Rationale
 
-The most expensive architectural mistakes are not technical — they are strategic. A perfectly implemented custom auth system is still a waste if Auth0 solves the problem for $0.003/login. Wardley Mapping makes these misalignments visible before they become six-figure mistakes.
+The most expensive architectural mistakes are not technical; they are strategic. A perfectly implemented custom auth system is still a waste if Auth0 solves the problem for $0.003/login. Wardley Mapping makes these misalignments visible before they become six-figure mistakes.
 
-The `adr-strategic-analyzer` agent provides objective classification by researching the vendor landscape — if 15 alternatives exist, the component is at Product or Commodity stage regardless of the team's opinion. This grounds strategic analysis in market reality, not just internal assumptions.
+The `adr-strategic-analyzer` agent provides objective classification by researching the vendor landscape: if 15 alternatives exist, the component is at Product or Commodity stage regardless of the team's opinion. This grounds strategic analysis in market reality, not just internal assumptions.
 
 ## Consequences
 
@@ -61,7 +61,7 @@ The `adr-strategic-analyzer` agent provides objective classification by research
 - Evolution stages change over time (today's custom may be tomorrow's commodity)
 
 ## References
-- Wardley, S. "Wardley Mapping" — learnwardleymapping.com
-- Kaiser, S. "Architecture for Flow" (2023) — integrating Wardley with DDD and Team Topologies
-- commands/map.md — Skill implementation
-- agents/adr-strategic-analyzer.md — Agent implementation
+- Wardley, S. "Wardley Mapping": learnwardleymapping.com
+- Kaiser, S. "Architecture for Flow" (2023): integrating Wardley with DDD and Team Topologies
+- commands/map.md: Skill implementation
+- agents/adr-strategic-analyzer.md: Agent implementation

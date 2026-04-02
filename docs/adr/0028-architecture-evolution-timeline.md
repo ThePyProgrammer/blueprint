@@ -12,13 +12,13 @@
 
 A project with 30 ADRs has a history, but the ADR directory does not tell that history. The files are numbered sequentially, and each records a single decision in isolation. Reading ADR-0001 through ADR-0030 in order provides facts but not narrative. You learn that ADR-0012 chose PostgreSQL and ADR-0023 superseded it with CockroachDB, but you do not learn why the project's data layer went through three iterations, what external pressure caused the pivot, or how the early decisions about deployment topology made the later database migration both necessary and painful.
 
-Architecture evolves through eras. A typical project might have a "monolith era" (ADRs 1-8), a "scaling crisis era" (ADRs 9-15), and a "microservices migration era" (ADRs 16-30). Within each era, decisions cluster around a theme. Between eras, pivot points mark fundamental shifts in direction — usually triggered by a supersession, a production incident, or a business pivot. This narrative structure exists implicitly in every ADR corpus but is never made explicit.
+Architecture evolves through eras. A typical project might have a "monolith era" (ADRs 1-8), a "scaling crisis era" (ADRs 9-15), and a "microservices migration era" (ADRs 16-30). Within each era, decisions cluster around a theme. Between eras, pivot points mark fundamental shifts in direction, usually triggered by a supersession, a production incident, or a business pivot. This narrative structure exists implicitly in every ADR corpus but is never made explicit.
 
-New team members, architects joining mid-project, and teams conducting retrospectives all need to understand not just what was decided, but how the architecture evolved — what were the eras, where were the pivots, and what forces drove the transitions. This is the difference between reading a history book and reading a list of dates.
+New team members, architects joining mid-project, and teams conducting retrospectives all need to understand not just what was decided, but how the architecture evolved: what were the eras, where were the pivots, and what forces drove the transitions. This is the difference between reading a history book and reading a list of dates.
 
 ## Options Considered
 
-### Option 1: Chronological list — facts without narrative
+### Option 1: Chronological list, facts without narrative
 
 Present ADRs in date order with status annotations. "2025-01-15: ADR-0001 Accepted. 2025-01-20: ADR-0002 Accepted. 2025-06-01: ADR-0012 Superseded by ADR-0023." This is a changelog, not a timeline. It provides temporal ordering but no grouping, no thematic analysis, and no explanation of why decisions cluster or pivot. Useful for auditing, useless for understanding.
 
@@ -26,7 +26,7 @@ Present ADRs in date order with status annotations. "2025-01-15: ADR-0001 Accept
 
 **Cons:** No narrative structure. No era identification. No pivot point analysis. Does not explain how decisions relate to each other across time. Reading 30 dated entries provides no more insight than reading the ADR directory listing.
 
-### Option 2: Narrative with eras and pivot points — architecture as story
+### Option 2: Narrative with eras and pivot points, architecture as story
 
 Generate a narrative timeline that groups decisions into thematic eras, identifies pivot points where the architecture's direction changed, and explains the forces that drove transitions between eras. The timeline reads as a story: "The Monolith Era (ADRs 1-8): the team optimized for speed to market, choosing a single deployment unit with shared database. The Scaling Crisis (ADRs 9-15): as traffic grew, the monolith's database became a bottleneck, triggering a series of decisions about caching, read replicas, and eventual consistency. The pivot came with ADR-0012's supersession: the team recognized that vertical scaling had reached its limit and committed to service decomposition."
 
@@ -34,7 +34,7 @@ Generate a narrative timeline that groups decisions into thematic eras, identifi
 
 **Cons:** Narrative construction requires interpretation. Era boundaries are subjective. The generated narrative may impose a story that does not match the team's lived experience.
 
-### Option 3: Visual graph diagram — visual but tool-dependent
+### Option 3: Visual graph diagram, visual but tool-dependent
 
 Generate a visual dependency/timeline graph (Mermaid, Graphviz) showing ADRs as nodes with edges for relationships (supersedes, depends-on, related-to) arranged chronologically. Visually compelling and useful for identifying clusters and dependencies, but visual graphs do not explain why clusters exist or what forces drove transitions. The graph shows structure; the narrative explains meaning.
 
@@ -44,13 +44,13 @@ Generate a visual dependency/timeline graph (Mermaid, Graphviz) showing ADRs as 
 
 ## Decision
 
-**We generate a narrative timeline showing how decisions evolved over time, grouped into eras, with pivot points at supersessions**, because architecture has a story — and a list of dates is not a story, it is a log file.
+**We generate a narrative timeline showing how decisions evolved over time, grouped into eras, with pivot points at supersessions**, because architecture has a story, and a list of dates is not a story, it is a log file.
 
 ## Rationale
 
 - Eras emerge naturally from ADR clustering. Decisions made in the same period about the same architectural concern (data layer, deployment, communication patterns) form natural groups. Identifying these groups and naming the eras makes the decision corpus navigable.
-- Pivot points are the most important moments in architectural history. They mark where the team changed direction — usually because reality invalidated an earlier assumption. Supersessions are the clearest pivot markers: when ADR-N supersedes ADR-M, something fundamental changed.
-- The narrative format is optimized for human comprehension. People understand stories better than lists. A narrative timeline of architectural evolution serves the same purpose as a project postmortem — it extracts lessons and provides context that raw data cannot.
+- Pivot points are the most important moments in architectural history. They mark where the team changed direction, usually because reality invalidated an earlier assumption. Supersessions are the clearest pivot markers: when ADR-N supersedes ADR-M, something fundamental changed.
+- The narrative format is optimized for human comprehension. People understand stories better than lists. A narrative timeline of architectural evolution serves the same purpose as a project postmortem: it extracts lessons and provides context that raw data cannot.
 - Blueprint has the data to construct narratives: ADR dates, statuses, relationships (especially supersedes), and context sections that explain the forces behind each decision. The relationship graph (ADR-0010) provides the structural connections. The narrative adds the temporal and causal interpretation.
 - The timeline complements, not replaces, individual ADRs. ADRs provide depth on each decision. The timeline provides breadth across the decision corpus. Together they give both the forest and the trees.
 

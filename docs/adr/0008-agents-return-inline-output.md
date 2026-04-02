@@ -14,7 +14,7 @@ Blueprint's agents produce reports: devil's advocate challenges, compliance audi
 
 There are two established patterns for agent output in Claude Code plugin ecosystems. The first is file-based: agents write their output to report files on disk, and downstream consumers read those files. GSD's bug-hunt pipeline uses this pattern because its agents run in sequence, each consuming the previous agent's file output as input. The second is inline: agents return their output directly to the caller, which captures it in the conversation context.
 
-Blueprint's agents are simpler than GSD's pipeline agents. Each blueprint agent produces a one-shot report that is consumed by exactly one orchestrator — the sub-skill that spawned it. There is no sequential pipeline where Agent B needs Agent A's file. The orchestrator spawns agents (sometimes in parallel), collects their output, and presents it.
+Blueprint's agents are simpler than GSD's pipeline agents. Each blueprint agent produces a one-shot report that is consumed by exactly one orchestrator: the sub-skill that spawned it. There is no sequential pipeline where Agent B needs Agent A's file. The orchestrator spawns agents (sometimes in parallel), collects their output, and presents it.
 
 ## Options Considered
 
@@ -24,7 +24,7 @@ Each agent writes its report to a file (e.g., `.blueprint/reports/consistency-20
 
 ### Option 2: Return output inline to orchestrator
 
-Each agent returns its report as text output in the conversation context. The orchestrator captures the output directly — no file I/O. Reports are ephemeral unless the orchestrator explicitly saves them.
+Each agent returns its report as text output in the conversation context. The orchestrator captures the output directly, with no file I/O. Reports are ephemeral unless the orchestrator explicitly saves them.
 
 ### Option 3: Hybrid (files for evaluation team, inline for others)
 
@@ -39,17 +39,17 @@ The five evaluation agents write files (because there are five of them and the o
 - Simplicity: no file paths to manage, no directories to create, no naming conventions to enforce, no cleanup after runs. The orchestrator spawns an agent, the agent returns text, the orchestrator has the result. Done.
 - No stale files: file-based output creates a cleanup problem. Old report files accumulate in the working directory. Users or tools must periodically purge them. Inline output has no persistence by default, so there is nothing to clean up.
 - No file I/O errors: file-based output can fail due to permissions, disk space, path conflicts, or concurrent writes. Inline output cannot fail in these ways.
-- The topology justifies the choice. GSD uses file-based output because Agent B reads Agent A's file — the file is a communication channel between sequential agents. Blueprint's agents do not communicate with each other. Each agent communicates only with the orchestrator that spawned it. Inline return is the natural pattern for this topology.
+- The topology justifies the choice. GSD uses file-based output because Agent B reads Agent A's file; the file is a communication channel between sequential agents. Blueprint's agents do not communicate with each other. Each agent communicates only with the orchestrator that spawned it. Inline return is the natural pattern for this topology.
 - Parallel evaluation works fine with inline output. The orchestrator spawns five evaluation agents, each returns inline, and the orchestrator collects all five results. The conversation context handles the fan-in naturally.
 
 ## Consequences
 
 ### Positive
 
-- Zero file management overhead — no creation, naming, cleanup, or conflict resolution.
+- Zero file management overhead: no creation, naming, cleanup, or conflict resolution.
 - No stale report files accumulating in the project directory.
 - No file I/O failure modes (permissions, disk space, path conflicts).
-- Simpler agent prompts — agents just produce output instead of managing file writes.
+- Simpler agent prompts: agents just produce output instead of managing file writes.
 - The orchestrator has immediate access to results without a file read step.
 
 ### Negative

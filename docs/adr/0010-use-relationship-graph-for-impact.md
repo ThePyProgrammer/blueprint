@@ -10,19 +10,19 @@
 
 ## Context
 
-Blueprint's impact analyzer determines how ADRs relate to each other — conflicts, dependencies, supersession chains, and affected components. When a new ADR is proposed or an existing one transitions, the analyzer must understand the full web of relationships to identify downstream effects.
+Blueprint's impact analyzer determines how ADRs relate to each other: conflicts, dependencies, supersession chains, and affected components. When a new ADR is proposed or an existing one transitions, the analyzer must understand the full web of relationships to identify downstream effects.
 
 The naive approach re-reads all ADRs and computes relationships from scratch on every analysis. For a project with N ADRs, this is O(N^2) in the number of comparisons. Early in a project this is negligible, but ADR corpora grow over years, and the cost compounds across sessions since there is no shared state between Claude Code invocations.
 
 An incremental approach maintains a persistent graph of relationships. Each analysis or lifecycle transition updates only the affected edges. Subsequent analyses start from the existing graph rather than rebuilding it. The cost per operation drops to O(K) where K is the number of ADRs related to the one being changed.
 
-The graph must persist across sessions. Claude Code has no long-lived process — every invocation is a fresh context. The graph must live on disk in a format that is human-readable, version-controllable, and parseable without external dependencies.
+The graph must persist across sessions. Claude Code has no long-lived process; every invocation is a fresh context. The graph must live on disk in a format that is human-readable, version-controllable, and parseable without external dependencies.
 
 ## Options Considered
 
 ### Option 1: Full re-analysis every time
 
-- **Pros:** No persistent state to manage. Always correct — no stale edges. Simple implementation.
+- **Pros:** No persistent state to manage. Always correct, with no stale edges. Simple implementation.
 - **Cons:** O(N^2) cost grows with the ADR corpus. Wasteful when only one ADR changed. Slow for large projects with 50+ ADRs. Repeated work across sessions since there is no shared memory.
 
 ### Option 2: Incremental graph in relationships.toml
@@ -55,7 +55,7 @@ The graph lives at `.blueprint/relationships.toml` and stores typed edges (confl
 
 - Impact analysis scales sublinearly with ADR corpus size for incremental changes.
 - Cross-session continuity eliminates redundant analysis of unchanged ADRs.
-- The graph provides a queryable map of the decision landscape — useful for `/blueprint:search` and visualization.
+- The graph provides a queryable map of the decision landscape, useful for `/blueprint:search` and visualization.
 - Relationship data is visible in version control, enabling review of how the decision graph evolves.
 
 ### Negative

@@ -12,7 +12,7 @@
 
 Blueprint started as a collection of files in `~/.claude/commands/`. The initial development workflow was simple: edit the files in place, test them immediately. But this approach has no versioning, no distribution mechanism, and no way for someone else to install blueprint without manually copying files into the right directories.
 
-As the plugin matured — 12 sub-skills, 10 agent definitions, 4 config files, a state tracker — the "copy these files into your home directory" instruction became untenable. Users would miss files, place them in the wrong directory, or fail to update when new versions shipped. There was no way to track which version was installed, no upgrade path, and no distinction between global and project-scoped installation.
+As the plugin matured (12 sub-skills, 10 agent definitions, 4 config files, a state tracker) the "copy these files into your home directory" instruction became untenable. Users would miss files, place them in the wrong directory, or fail to update when new versions shipped. There was no way to track which version was installed, no upgrade path, and no distinction between global and project-scoped installation.
 
 Distribution needed to be solved before the plugin could be used by anyone other than the original developer.
 

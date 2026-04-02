@@ -12,31 +12,31 @@
 
 Blueprint's architecture evaluation command spawns 5 specialized agents, each analyzing a different dimension of the codebase:
 
-1. **Consistency auditor** — pattern adherence, naming conventions, layering discipline
-2. **Bug surface mapper** — structural complexity, coupling hotspots, missing boundaries
-3. **Maintainability assessor** — dependency health, abstraction quality, technical debt
-4. **Testing strategy evaluator** — coverage architecture, test pyramid health, anti-pattern tests
-5. **Conway's Law analyzer** — team structure alignment, module ownership, communication overhead
+1. **Consistency auditor**: pattern adherence, naming conventions, layering discipline
+2. **Bug surface mapper**: structural complexity, coupling hotspots, missing boundaries
+3. **Maintainability assessor**: dependency health, abstraction quality, technical debt
+4. **Testing strategy evaluator**: coverage architecture, test pyramid health, anti-pattern tests
+5. **Conway's Law analyzer**: team structure alignment, module ownership, communication overhead
 
 These 5 agents produce independent reports that an orchestrator synthesizes into a unified evaluation. The question is execution order: should they run sequentially (each seeing the output of prior agents) or in parallel (each operating independently)?
 
 ## Options Considered
 
-### Option 1: Sequential execution — each agent builds on previous findings
+### Option 1: Sequential execution, each agent builds on previous findings
 
 Agent 1 runs first, Agent 2 receives Agent 1's output as additional context, and so on. This allows later agents to reference earlier findings, potentially producing more coherent analysis. But it makes the total execution time the sum of all 5 agent runtimes, and it introduces a dependency chain where one slow or failing agent blocks all subsequent agents.
 
-### Option 2: Fully parallel execution — all 5 spawn simultaneously
+### Option 2: Fully parallel execution, all 5 spawn simultaneously
 
 All 5 agents launch at the same time, each with the same input (codebase access, ADR corpus, project config). They produce independent reports. An orchestrator agent synthesizes the 5 reports into a unified evaluation after all complete. Total execution time is the maximum of the 5 runtimes, not the sum.
 
-### Option 3: Hybrid — some sequential dependencies
+### Option 3: Hybrid, some sequential dependencies
 
 Some agents run in parallel, others sequentially where there are genuine dependencies. For example, the bug surface mapper might benefit from the consistency auditor's findings. This requires mapping the dependency graph between dimensions and complicates the execution model for marginal benefit.
 
 ## Decision
 
-**We run all 5 evaluation agents in fully parallel**, because the 5 evaluation dimensions are orthogonal by design — consistency does not depend on bug surface analysis, testing does not depend on maintainability — and parallel execution is faster and prevents confirmation bias between agents.
+**We run all 5 evaluation agents in fully parallel**, because the 5 evaluation dimensions are orthogonal by design: consistency does not depend on bug surface analysis, testing does not depend on maintainability. Parallel execution is faster and prevents confirmation bias between agents.
 
 ## Rationale
 

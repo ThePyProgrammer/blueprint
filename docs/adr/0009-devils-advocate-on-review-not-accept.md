@@ -44,7 +44,7 @@ The tension is between thoroughness and autonomy. A tool that forces scrutiny on
 ## Rationale
 
 - Forced scrutiny creates compliance fatigue. When every acceptance triggers a challenge, users stop reading the findings. Making review opt-in means the user is primed to engage with the output.
-- The two-command pattern (`review` vs `transition accept`) makes the choice explicit and visible. There is no hidden behavior — the user knows exactly what each command does.
+- The two-command pattern (`review` vs `transition accept`) makes the choice explicit and visible. There is no hidden behavior; the user knows exactly what each command does.
 - Low-stakes decisions vastly outnumber high-stakes ones in most projects. Optimizing for the common case (quick acceptance) while providing a thorough path for the uncommon case (contested decisions) matches real usage patterns.
 - Option 3's severity-based approach was rejected because severity is subjective and often only clear in retrospect. Adding a severity classifier introduces another AI judgment call that could be wrong.
 
@@ -71,4 +71,4 @@ The tension is between thoroughness and autonomy. A tool that forces scrutiny on
 
 - ADR-0001: Use ADRs to document blueprint's own architectural decisions
 - ADR-0002: Decompose into focused sub-skills over monolithic SKILL.md
-- Joel Spolsky, "The Law of Leaky Abstractions" — on tools that force process compliance
+- Joel Spolsky, "The Law of Leaky Abstractions," on tools that force process compliance

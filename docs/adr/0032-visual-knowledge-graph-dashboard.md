@@ -10,31 +10,31 @@
 
 ## Context
 
-Blueprint accumulates architectural decisions over time. As the ADR corpus grows past a dozen entries, understanding the state of architecture governance becomes non-trivial. How many decisions are accepted? How many are proposed and awaiting review? Which ADRs supersede others? Where is decision debt accumulating? What is the relationship topology between decisions? These questions cannot be answered by listing ADR files — the information exists but is scattered across individual documents.
+Blueprint accumulates architectural decisions over time. As the ADR corpus grows past a dozen entries, understanding the state of architecture governance becomes non-trivial. How many decisions are accepted? How many are proposed and awaiting review? Which ADRs supersede others? Where is decision debt accumulating? What is the relationship topology between decisions? These questions cannot be answered by listing ADR files; the information exists but is scattered across individual documents.
 
-A text listing (ADR-0018's contextual list output) provides a flat view: number, title, status. This is sufficient for finding a specific ADR but insufficient for understanding the governance landscape. The relationships between ADRs — which decisions depend on, extend, contradict, or supersede others — form a graph. Graphs are poorly conveyed as text lists. The temporal dimension (when decisions were made, how long proposed ADRs have been waiting, which eras of the project produced the most architectural activity) is invisible in a flat listing.
+A text listing (ADR-0018's contextual list output) provides a flat view: number, title, status. This is sufficient for finding a specific ADR but insufficient for understanding the governance landscape. The relationships between ADRs (which decisions depend on, extend, contradict, or supersede others) form a graph. Graphs are poorly conveyed as text lists. The temporal dimension (when decisions were made, how long proposed ADRs have been waiting, which eras of the project produced the most architectural activity) is invisible in a flat listing.
 
 The status command needs to convey three things simultaneously: a quick textual summary for terminal workflows, a visual relationship graph for understanding decision topology, and governance health metrics for identifying systemic issues (staleness, debt, orphaned decisions). No single output format serves all three needs well.
 
 ## Options Considered
 
-### Option 1: Terminal-only text dashboard — simple and universal
+### Option 1: Terminal-only text dashboard, simple and universal
 
 Print a structured text summary to the terminal: ADR counts by status, recent decisions, decision debt score, and a list of flagged issues. This works everywhere, requires no browser, and integrates naturally into scripted workflows. The output can be piped, grepped, and logged.
 
 **Pros:** Universal compatibility. No external dependencies. Fast to render. Works in CI, SSH sessions, and headless environments. Output is greppable and scriptable.
 
-**Cons:** Cannot effectively convey relationship graphs — text representations of graphs (ASCII art, adjacency lists) are unreadable past 10 nodes. Cannot show temporal trends (sparklines in terminal are fragile and font-dependent). Misses the opportunity to provide the kind of at-a-glance understanding that visual dashboards excel at.
+**Cons:** Cannot effectively convey relationship graphs; text representations of graphs (ASCII art, adjacency lists) are unreadable past 10 nodes. Cannot show temporal trends (sparklines in terminal are fragile and font-dependent). Misses the opportunity to provide the kind of at-a-glance understanding that visual dashboards excel at.
 
-### Option 2: Dual-mode with generated interactive HTML — terminal summary plus visual dashboard
+### Option 2: Dual-mode with generated interactive HTML, terminal summary plus visual dashboard
 
-The status command always prints a terminal text summary (counts, debt score, flagged issues). Additionally, it generates a self-contained HTML file and opens it in the default browser. The HTML contains a force-directed knowledge graph of ADR relationships (nodes are ADRs, edges are relationships like "supersedes," "extends," "depends on"), a decision timeline showing when ADRs were proposed and decided, governance metrics with inline sparklines, and a decision debt table with age and trigger status. The HTML file uses zero external dependencies — no D3.js, no CDN links, no npm packages. All JavaScript and CSS is inlined. The file is a single portable artifact that works offline.
+The status command always prints a terminal text summary (counts, debt score, flagged issues). Additionally, it generates a self-contained HTML file and opens it in the default browser. The HTML contains a force-directed knowledge graph of ADR relationships (nodes are ADRs, edges are relationships like "supersedes," "extends," "depends on"), a decision timeline showing when ADRs were proposed and decided, governance metrics with inline sparklines, and a decision debt table with age and trigger status. The HTML file uses zero external dependencies: no D3.js, no CDN links, no npm packages. All JavaScript and CSS is inlined. The file is a single portable artifact that works offline.
 
-**Pros:** Best of both worlds — fast terminal output for quick checks, rich visual dashboard for deep understanding. The force-directed graph makes relationship topology immediately comprehensible. Self-contained HTML means no build step, no server, no network dependency. The file can be shared, archived, or committed. Terminal output preserves scriptability.
+**Pros:** Best of both worlds: fast terminal output for quick checks, rich visual dashboard for deep understanding. The force-directed graph makes relationship topology immediately comprehensible. Self-contained HTML means no build step, no server, no network dependency. The file can be shared, archived, or committed. Terminal output preserves scriptability.
 
 **Cons:** Generating HTML adds complexity to the status command. The HTML rendering of force-directed graphs without D3 requires a custom physics simulation (simple but non-trivial). Browser opening may not work in headless/CI environments (but the terminal summary still works). The generated HTML file needs a location (temp directory or docs directory).
 
-### Option 3: Persistent web server dashboard — always-on monitoring
+### Option 3: Persistent web server dashboard, always-on monitoring
 
 Run a local web server (e.g., on port 3000) that serves a live dashboard. The dashboard auto-refreshes as ADRs change, provides real-time governance metrics, and supports interactive exploration of the ADR graph. This is the most powerful option for teams that want continuous architectural visibility.
 
@@ -44,11 +44,11 @@ Run a local web server (e.g., on port 3000) that serves a live dashboard. The da
 
 ## Decision
 
-**We render a dual-mode governance dashboard — terminal text summary always, plus an interactive HTML file opened in the browser**, because the relationship topology between ADRs is a graph that demands visual representation, governance health is best conveyed through metrics with sparklines and trend indicators, and a self-contained HTML file with zero external dependencies provides rich visualization without adding operational burden.
+**We render a dual-mode governance dashboard: terminal text summary always, plus an interactive HTML file opened in the browser**, because the relationship topology between ADRs is a graph that demands visual representation, governance health is best conveyed through metrics with sparklines and trend indicators, and a self-contained HTML file with zero external dependencies provides rich visualization without adding operational burden.
 
 ## Rationale
 
-- The ADR relationship graph is the most valuable and least accessible piece of governance information. Which decisions build on others, which supersede previous choices, where dependency chains create fragility — these are graph properties that are immediately visible in a force-directed layout and nearly invisible in a text list.
+- The ADR relationship graph is the most valuable and least accessible piece of governance information. Which decisions build on others, which supersede previous choices, where dependency chains create fragility. These are graph properties that are immediately visible in a force-directed layout and nearly invisible in a text list.
 - Terminal output remains essential. Many developers check status from the terminal, in CI logs, or over SSH. The text summary must always print, regardless of whether the HTML dashboard opens successfully. The terminal output is the minimum viable status; the HTML is the enriched view.
 - Zero external dependencies in the HTML is a hard constraint. A single HTML file that works when double-clicked from a file manager, with no network access, is maximally portable. CDN-dependent dashboards break in air-gapped environments, on planes, and when CDNs change URLs. Inlining everything (a simple canvas-based force simulation, inline CSS, inline SVG sparklines) keeps the file self-contained and permanent.
 - A persistent web server (Option 3) solves a problem that does not exist. Architecture governance is consulted at decision points, not monitored continuously. The overhead of running and managing a server process is disproportionate to the frequency of use. A generated HTML file provides comparable visualization with zero operational cost.

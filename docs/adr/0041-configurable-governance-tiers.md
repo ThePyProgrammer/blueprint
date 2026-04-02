@@ -13,20 +13,20 @@
 
 Blueprint's ADR lifecycle (ADR-0004) uses a single governance mode: any user can propose, review is optional, acceptance is a simple transition. This works well for small teams and startups but creates a barrier to adoption in organizations with regulatory requirements, compliance mandates, or established architecture review boards.
 
-The research survey identified a governance spectrum: ~36% of organizations prefer centralized governance, ~29% prefer hybrid, ~36% prefer federated (Intelance, 2026). The Architecture Advice Process (Harmel-Law, ThoughtWorks Radar Trial 2025) represents the most innovative decentralized approach — anyone can decide, provided they seek advice first. TOGAF represents the most formal approach — phase-based gate reviews with board approval.
+The research survey identified a governance spectrum: ~36% of organizations prefer centralized governance, ~29% prefer hybrid, ~36% prefer federated (Intelance, 2026). The Architecture Advice Process (Harmel-Law, ThoughtWorks Radar Trial 2025) represents the most innovative decentralized approach: anyone can decide, provided they seek advice first. TOGAF represents the most formal approach: phase-based gate reviews with board approval.
 
 Blueprint should serve the full spectrum without forcing all users into one mode. A startup needs lightweight governance; a bank needs formal governance with audit trails. The same tool should serve both.
 
 ## Options Considered
 
-### Option 1: One governance mode — lightweight for all
+### Option 1: One governance mode: lightweight for all
 
 Keep the current lightweight mode. Organizations that need formal governance should use external processes alongside Blueprint.
 
 - **Pros:** Simple. No configuration. Fast to adopt. Avoids bloating Blueprint with enterprise features.
 - **Cons:** Excludes regulated industries and enterprise teams. These organizations represent the majority of software development. External governance processes create workflow fragmentation. Blueprint cannot be the "goto system" for architecture management if it only serves startups.
 
-### Option 2: Configurable governance tiers — four modes from lightweight to formal
+### Option 2: Configurable governance tiers: four modes from lightweight to formal
 
 Support four governance modes: lightweight (current), advised (Advice Process required), governed (N approvals required), formal (phase-based gates). Configurable per project in `config/governance.toml`. Default is lightweight.
 
@@ -39,7 +39,7 @@ Support four governance modes: lightweight (current), advised (Advice Process re
 
 ## Rationale
 
-The default is lightweight — existing users are unaffected. The governance mode is configuration, not code. Moving from lightweight to advised is a one-line config change that integrates the Architecture Advice Process. Moving to governed adds approval tracking. Moving to formal adds phase gates. Each tier adds structure incrementally — you don't have to jump from startup to TOGAF.
+The default is lightweight; existing users are unaffected. The governance mode is configuration, not code. Moving from lightweight to advised is a one-line config change that integrates the Architecture Advice Process. Moving to governed adds approval tracking. Moving to formal adds phase gates. Each tier adds structure incrementally; you don't have to jump from startup to TOGAF.
 
 The governance mode enforces through the existing lifecycle state machine (ADR-0004). In "governed" mode, `transition accept` checks for N approvals before allowing the transition. In "formal" mode, intermediate phases (Research → Review → Board) are inserted into the lifecycle. The state machine handles the enforcement; the governance config defines the requirements.
 
@@ -64,7 +64,7 @@ The governance mode enforces through the existing lifecycle state machine (ADR-0
 
 ## References
 - Harmel-Law, A. "Scaling Architecture Conversationally" martinfowler.com, 2021
-- ThoughtWorks Technology Radar, April 2025 — Architecture Advice Process (Trial)
-- TOGAF Architecture Board — pubs.opengroup.org
-- commands/govern.md — Skill implementation
+- ThoughtWorks Technology Radar, April 2025: Architecture Advice Process (Trial)
+- TOGAF Architecture Board: pubs.opengroup.org
+- commands/govern.md: Skill implementation
 - ADR-0004: Encode lifecycle as state machine

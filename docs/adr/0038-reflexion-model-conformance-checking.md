@@ -11,7 +11,7 @@
 
 ## Context
 
-Blueprint v1 detects architectural drift through git trajectory analysis (ADR-0024) — tracking whether the codebase is moving toward or away from the intended architecture over time. This is valuable for trend detection but has a limitation: it answers "is the code drifting?" but not "does the code match the architecture right now?"
+Blueprint v1 detects architectural drift through git trajectory analysis (ADR-0024), tracking whether the codebase is moving toward or away from the intended architecture over time. This is valuable for trend detection but has a limitation: it answers "is the code drifting?" but not "does the code match the architecture right now?"
 
 Software reflexion models (Murphy, Notkin, Sullivan, 1995) provide a formal framework for architecture conformance checking. They compare a high-level architecture model against actual source code structure and produce three categories: convergences (code matches intent), divergences (code has dependencies the architecture doesn't specify), and absences (architecture specifies structure the code doesn't have).
 
@@ -41,7 +41,7 @@ Create `/blueprint:reflect` as a separate command for point-in-time architecture
 
 Reflect gives you an X-ray; drift gives you a time-lapse. An X-ray tells you exactly what's wrong right now. A time-lapse tells you whether things are getting better or worse. Both are needed for rigorous architecture governance.
 
-The reflexion model output — convergences, divergences, absences, violations — maps cleanly to actionable responses: violations need immediate fixes, divergences may need new ADRs, absences indicate unimplemented decisions. This is more actionable than "the drift trend is negative."
+The reflexion model output (convergences, divergences, absences, violations) maps cleanly to actionable responses: violations need immediate fixes, divergences may need new ADRs, absences indicate unimplemented decisions. This is more actionable than "the drift trend is negative."
 
 ## Consequences
 
@@ -64,6 +64,6 @@ The reflexion model output — convergences, divergences, absences, violations �
 
 ## References
 - Murphy, G.C., Notkin, D., Sullivan, K. "Software Reflexion Models" ACM SIGSOFT FSE, 1995
-- commands/reflect.md — Skill implementation
-- agents/adr-reflexion-analyzer.md — Agent implementation
+- commands/reflect.md: Skill implementation
+- agents/adr-reflexion-analyzer.md: Agent implementation
 - ADR-0024: Temporal drift detection over point audits

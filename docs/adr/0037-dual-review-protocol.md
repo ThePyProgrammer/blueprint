@@ -1,4 +1,4 @@
-# ADR-0037: Dual review protocol — DCAR forces evaluation plus devil's advocate
+# ADR-0037: Dual review protocol: DCAR forces evaluation plus devil's advocate
 
 | Metadata     | Value                |
 |-------------|----------------------|
@@ -11,9 +11,9 @@
 
 ## Context
 
-Blueprint v1 reviews ADRs through a single mechanism: devil's advocate challenge (ADR-0009, ADR-0021). The devil's advocate uses Hegelian dialectic — thesis (proposed ADR), antithesis (adversarial challenge), synthesis (revised decision). This is effective at finding blind spots but has a structural limitation: adversarial review answers "what did we miss?" but not "is this well-supported?"
+Blueprint v1 reviews ADRs through a single mechanism: devil's advocate challenge (ADR-0009, ADR-0021). The devil's advocate uses Hegelian dialectic: thesis (proposed ADR), antithesis (adversarial challenge), synthesis (revised decision). This is effective at finding blind spots but has a structural limitation: adversarial review answers "what did we miss?" but not "is this well-supported?"
 
-Decision-Centric Architecture Reviews (van Heesch et al., IEEE Software, 2014) provide a complementary evaluation method. DCAR treats decisions as first-class entities — exactly what Blueprint does — and evaluates them by systematically mapping forces for and against, weighting them, and computing a force balance. This is analytical, not adversarial.
+Decision-Centric Architecture Reviews (van Heesch et al., IEEE Software, 2014) provide a complementary evaluation method. DCAR treats decisions as first-class entities (exactly what Blueprint does) and evaluates them by systematically mapping forces for and against, weighting them, and computing a force balance. This is analytical, not adversarial.
 
 The research identified DCAR as "Blueprint's most natural formal method counterpart" because it was designed for exactly the decision-centric workflow Blueprint uses.
 
@@ -42,7 +42,7 @@ Combine forces evaluation and devil's advocate into one `/blueprint:review` comm
 
 ## Decision
 
-> In the context of strengthening ADR review quality, facing the limitation that adversarial review alone does not provide structured force-balancing, we decided for dual review protocol (Option 2) — DCAR forces evaluation as `/blueprint:challenge` complementing devil's advocate as `/blueprint:review` — to achieve both analytical rigor and adversarial stress-testing, accepting the complexity of two review-like commands.
+> In the context of strengthening ADR review quality, facing the limitation that adversarial review alone does not provide structured force-balancing, we decided for dual review protocol (Option 2), DCAR forces evaluation as `/blueprint:challenge` complementing devil's advocate as `/blueprint:review`, to achieve both analytical rigor and adversarial stress-testing, accepting the complexity of two review-like commands.
 
 ## Rationale
 
@@ -50,10 +50,10 @@ The two methods answer different questions:
 
 | Method | Question | Approach | Output |
 |--------|----------|----------|--------|
-| `/blueprint:challenge` | "Is this well-supported?" | Analytical — map and weigh forces | Force balance ratio, verdict |
-| `/blueprint:review` | "What did we miss?" | Adversarial — find blind spots | Challenge report with verdict |
+| `/blueprint:challenge` | "Is this well-supported?" | Analytical: map and weigh forces | Force balance ratio, verdict |
+| `/blueprint:review` | "What did we miss?" | Adversarial: find blind spots | Challenge report with verdict |
 
-Using challenge first (structured analysis) then review (stress test) produces maximally robust decisions. But each is valuable independently — simple decisions may only need challenge; high-stakes decisions should get both.
+Using challenge first (structured analysis) then review (stress test) produces maximally robust decisions. But each is valuable independently: simple decisions may only need challenge; high-stakes decisions should get both.
 
 ## Consequences
 
@@ -75,7 +75,7 @@ Using challenge first (structured analysis) then review (stress test) produces m
 
 ## References
 - van Heesch, U. et al. "Decision-Centric Architecture Reviews" IEEE Software, 2014
-- commands/challenge.md — Skill implementation
-- agents/adr-forces-evaluator.md — Agent implementation
+- commands/challenge.md: Skill implementation
+- agents/adr-forces-evaluator.md: Agent implementation
 - ADR-0009: Devil's advocate on review, not accept
 - ADR-0021: Hegelian dialectic for review

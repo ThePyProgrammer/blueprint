@@ -28,7 +28,7 @@ Full dogfooding. Every significant decision gets the same treatment blueprint pr
 
 ### Option 3: Use a separate lighter-weight format
 
-A custom decision log — maybe a simple table or bullet-point format — that captures decisions without the full ADR ceremony. Less overhead than Option 2, more structured than Option 1, but creates a second format that blueprint's team has to maintain alongside the real one.
+A custom decision log (maybe a simple table or bullet-point format) that captures decisions without the full ADR ceremony. Less overhead than Option 2, more structured than Option 1, but creates a second format that blueprint's team has to maintain alongside the real one.
 
 ## Decision
 
@@ -39,7 +39,7 @@ A custom decision log — maybe a simple table or bullet-point format — that c
 - Dogfooding is the most reliable way to find friction in the ADR workflow. If writing an ADR for blueprint feels painful, it will feel painful for users.
 - The ADR corpus doubles as a living test suite. Every ADR exercises the template format, lifecycle states, cross-references, and search surface that blueprint manages for other projects.
 - Structured decisions are searchable and auditable. Six months from now, someone can run `/blueprint:search "persona"` and find ADR-0005 instead of grepping through git blame on a README.
-- The overhead is justified because blueprint's decisions are genuinely architectural. Choosing TOML over JSON, decomposing into sub-skills, adopting a shared persona — these have lasting consequences that deserve structured reasoning.
+- The overhead is justified because blueprint's decisions are genuinely architectural. Choosing TOML over JSON, decomposing into sub-skills, adopting a shared persona: these have lasting consequences that deserve structured reasoning.
 
 ## Consequences
 

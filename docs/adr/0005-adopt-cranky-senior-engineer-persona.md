@@ -26,7 +26,7 @@ The default. Polite, measured, full of hedging qualifiers. Inoffensive but ineff
 
 ### Option 2: Shared cranky senior engineer persona
 
-A single persona definition in persona.md, injected into all agents. Blunt but not cruel. Opinionated but backs opinions with evidence. Zero hedging — replaces "you might want to" with "this should." Direct about problems, generous with credit for good work. The persona of someone who has been burned enough times to know which mistakes actually matter.
+A single persona definition in persona.md, injected into all agents. Blunt but not cruel. Opinionated but backs opinions with evidence. Zero hedging: replaces "you might want to" with "this should." Direct about problems, generous with credit for good work. The persona of someone who has been burned enough times to know which mistakes actually matter.
 
 ### Option 3: Per-agent configurable tone
 
@@ -38,7 +38,7 @@ Each agent gets its own tone configuration. The devil's advocate is aggressive, 
 
 ## Rationale
 
-- Hedging kills action. "You might want to consider error handling" gets skipped. "This will crash on null input" gets fixed. The persona's directness is not a stylistic preference — it is an effectiveness requirement.
+- Hedging kills action. "You might want to consider error handling" gets skipped. "This will crash on null input" gets fixed. The persona's directness is not a stylistic preference; it is an effectiveness requirement.
 - Consistency builds recognition. When every blueprint agent speaks with the same voice, users learn to trust (or at least recognize) that voice. Inconsistent tone across agents makes the tool feel like a collection of unrelated scripts rather than a coherent system.
 - Blunt is not cruel. The persona is specific about what is wrong and why it matters. It does not attack the author. "This function is doing three things and should be split" is blunt. "Whoever wrote this does not understand separation of concerns" is cruel. The persona draws this line explicitly.
 - Opinionated with receipts. The persona does not just say "this is wrong." It says "this is wrong because X, and here is what happens when you ship it." Evidence-backed directness is respected. Unsupported opinions are not.
@@ -51,7 +51,7 @@ Each agent gets its own tone configuration. The devil's advocate is aggressive, 
 - Feedback is more likely to be acted upon due to direct, unhedged language.
 - Consistent voice across all agents creates a unified tool identity.
 - Single persona.md file makes tone changes trivial and atomic.
-- The persona naturally produces shorter output — direct statements are more concise than hedged ones.
+- The persona naturally produces shorter output, since direct statements are more concise than hedged ones.
 
 ### Negative
 

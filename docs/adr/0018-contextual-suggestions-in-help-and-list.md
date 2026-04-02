@@ -12,7 +12,7 @@
 
 Help and list commands are the entry points for users who do not know what to do next. A user runs `/blueprint:help` or `/blueprint:list` because they need guidance. The question is whether that guidance should be static (the same output every time) or adaptive to the current state of their project.
 
-Static help works fine when a user already knows the workflow and just needs a command name reminder. But new users and users returning after a break need more than a command reference — they need to know which command to run *right now*, given the current state of their ADRs, their codebase, and their recent activity.
+Static help works fine when a user already knows the workflow and just needs a command name reminder. But new users and users returning after a break need more than a command reference; they need to know which command to run *right now*, given the current state of their ADRs, their codebase, and their recent activity.
 
 The information needed to make contextual suggestions already exists: the ADR directory contains status metadata, the state file tracks operation timestamps, and the conversation context reveals what the user has been working on. The question is whether the help and list commands should use this information.
 
@@ -20,11 +20,11 @@ The information needed to make contextual suggestions already exists: the ADR di
 
 ### Option 1: Static command reference only
 
-Help prints a fixed list of commands with descriptions. List prints ADRs with their status. No adaptation based on state. Simple to implement, predictable output, easy to test. But it leaves users to figure out the workflow on their own — they see 12 commands and must decide which one applies to their situation.
+Help prints a fixed list of commands with descriptions. List prints ADRs with their status. No adaptation based on state. Simple to implement, predictable output, easy to test. But it leaves users to figure out the workflow on their own; they see 12 commands and must decide which one applies to their situation.
 
 ### Option 2: Dynamic reference with contextual next-action suggestions
 
-Help and list scan current state — Proposed ADR count, last audit date, conversation topics, codebase presence — and suggest up to 3 relevant next actions. If there are Proposed ADRs, suggest reviewing them. If no audit has been run in 30 days, suggest an audit. If the conversation has been discussing a technology choice, suggest creating an ADR. The static reference is still present, but the contextual suggestions appear first.
+Help and list scan current state (Proposed ADR count, last audit date, conversation topics, codebase presence) and suggest up to 3 relevant next actions. If there are Proposed ADRs, suggest reviewing them. If no audit has been run in 30 days, suggest an audit. If the conversation has been discussing a technology choice, suggest creating an ADR. The static reference is still present, but the contextual suggestions appear first.
 
 ### Option 3: Interactive wizard
 
@@ -40,7 +40,7 @@ A step-by-step guided flow that asks the user questions and walks them to the ri
 - The information cost is low. Scanning the ADR directory for status counts and reading timestamps from state.toml is fast. The suggestions are generated from rules, not expensive analysis.
 - Limiting to 3 suggestions prevents information overload. Three is enough to cover the most relevant next action, a maintenance action, and a discovery action, without turning the help output into a wall of text.
 - The static reference remains available for users who want the full command list. Contextual suggestions are additive, not a replacement.
-- This pattern is well-established in developer tools. `git status` suggests next actions. Package managers suggest updates. Blueprint's help and list should do the same.
+- This pattern is well-established in developer tools: `git status` suggests next actions. Package managers suggest updates. Blueprint's help and list should do the same.
 
 ## Consequences
 
@@ -48,7 +48,7 @@ A step-by-step guided flow that asks the user questions and walks them to the ri
 
 - New users always know what to do next without reading documentation.
 - Maintenance operations (audits, evaluations, retros) surface naturally when they are due, rather than being forgotten.
-- The help output becomes a lightweight project health indicator — the suggestions implicitly communicate whether ADRs need attention.
+- The help output becomes a lightweight project health indicator; the suggestions implicitly communicate whether ADRs need attention.
 - Users returning after a break can run `/blueprint:help` and immediately see what needs their attention.
 
 ### Negative

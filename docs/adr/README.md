@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-This directory contains the ADRs for the blueprint project itself. Blueprint eats its own dogfood — every significant architectural decision made during its development is documented here using the same format and lifecycle that blueprint enforces for other projects.
+This directory contains the ADRs for the blueprint project itself. Blueprint eats its own dogfood: every significant architectural decision made during its development is documented here using the same format and lifecycle that blueprint enforces for other projects.
 
 ## Index
 

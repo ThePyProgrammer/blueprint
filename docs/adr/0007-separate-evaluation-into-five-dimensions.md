@@ -10,7 +10,7 @@
 
 ## Context
 
-Blueprint includes an architecture evaluation capability — the ability to analyze a codebase and produce assessments of its structural health. The question is how to structure the evaluation: as a single agent that considers everything, or as multiple specialized agents that each focus on a distinct concern.
+Blueprint includes an architecture evaluation capability: the ability to analyze a codebase and produce assessments of its structural health. The question is how to structure the evaluation: as a single agent that considers everything, or as multiple specialized agents that each focus on a distinct concern.
 
 Architecture quality is not one thing. A codebase can have excellent test coverage but terrible layering discipline. It can have clean dependency graphs but no Conway's Law alignment. It can be internally consistent but riddled with subtle bug-surface patterns. A single evaluator that tries to assess all of these concerns simultaneously will either produce shallow analysis across all dimensions or deep analysis on whichever dimension the LLM fixates on.
 
@@ -28,11 +28,11 @@ Five agents, each with a single analytical dimension. Each agent has a focused p
 
 ### Option 3: Three broad agents (structure, quality, process)
 
-A middle ground — fewer agents than Option 2, each covering a broader scope. Structure handles consistency and maintainability. Quality handles bugs and testing. Process handles Conway's Law. Reduces agent count but still requires each agent to juggle multiple concerns.
+A middle ground: fewer agents than Option 2, each covering a broader scope. Structure handles consistency and maintainability. Quality handles bugs and testing. Process handles Conway's Law. Reduces agent count but still requires each agent to juggle multiple concerns.
 
 ## Decision
 
-**We decompose architecture evaluation into five specialized agents — consistency, bug surface, maintainability, testing strategy, and Conway's Law — each with single responsibility**, because each dimension captures a fundamentally different failure mode that requires its own analytical frame, and because specialized agents produce deeper analysis than generalist ones.
+**We decompose architecture evaluation into five specialized agents (consistency, bug surface, maintainability, testing strategy, and Conway's Law) each with single responsibility**, because each dimension captures a fundamentally different failure mode that requires its own analytical frame, and because specialized agents produce deeper analysis than generalist ones.
 
 ## Rationale
 
@@ -60,7 +60,7 @@ A middle ground — fewer agents than Option 2, each covering a broader scope. S
 
 ### Risks
 
-- Dimension gaps: the five chosen dimensions may not cover all relevant failure modes. Security, performance, and accessibility are not represented. Mitigation: the architecture is extensible — new dimensions can be added as new agents.
+- Dimension gaps: the five chosen dimensions may not cover all relevant failure modes. Security, performance, and accessibility are not represented. Mitigation: the architecture is extensible, and new dimensions can be added as new agents.
 - Overlap in findings: consistency issues are often also maintainability issues. Agents may report the same problem from different angles, creating noise. Mitigation: the orchestrator deduplicates cross-cutting findings.
 
 ## References

@@ -14,7 +14,7 @@ Blueprint's Conway's Law analyzer examines alignment between system architecture
 
 Org charts are the traditional source of ownership information, but they are frequently outdated, stored in HR systems that are not programmatically accessible, and reflect reporting lines rather than actual code responsibility. A developer may report to the Platform team but spend 80% of their commits in the API layer.
 
-Git history is always present in any project that uses version control. `git log` and `git blame` reveal who actually modifies which files and directories, how recently, and how frequently. This is de facto ownership — the people who will need to understand, review, and fix code in each module.
+Git history is always present in any project that uses version control. `git log` and `git blame` reveal who actually modifies which files and directories, how recently, and how frequently. This is de facto ownership: the people who will need to understand, review, and fix code in each module.
 
 Some projects maintain a CODEOWNERS file that explicitly assigns review responsibility. When present, this represents an intentional ownership decision and should be treated as authoritative. But many projects lack CODEOWNERS, and even when present, it may be incomplete.
 
