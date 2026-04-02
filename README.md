@@ -1,552 +1,164 @@
 # blueprint
 
-*"The best time to plant a tree was twenty years ago. The second best time is before you write the code."*
+*Architecture Decision Records with teeth.*
 
----
+<p align="center">
+  <img src="https://img.shields.io/badge/version-2.0.8-ffd43b?style=flat-square&labelColor=0d1117" alt="Version" /> 
+  <img src="https://img.shields.io/badge/license-MIT-4dabf7?style=flat-square&labelColor=0d1117" alt="License" /> 
+  <img src="https://img.shields.io/badge/Claude_Code-plugin-4dabf7?style=flat-square&labelColor=0d1117" alt="Claude Code" /> 
+  <img src="https://img.shields.io/badge/Node.js-18%2B-4dabf7?style=flat-square&labelColor=0d1117" alt="Node.js" />
+</p>
 
-Architecture Decision Records with teeth. A Claude Code plugin that treats architectural decisions as first-class engineering artifacts — researched before they're proposed, challenged before they're accepted, audited after they're implemented, and revisited when the world changes.
+A Claude Code plugin that treats architectural decisions as first-class engineering artifacts: researched before they're proposed, challenged before they're accepted, audited after they're implemented, and revisited when the world changes. Every agent speaks with the voice of a [senior engineer](docs/philosophy/the-cranky-senior-engineer.md) who has watched too many "temporary" decisions become permanent load-bearing walls. We shape our buildings; thereafter they shape us.
 
-Every agent speaks with the voice of a senior engineer who has watched too many "temporary" decisions become permanent load-bearing walls.
+- **Hypotheses:** architectural decisions are bets, not declarations: falsifiable, evidence-based, challengeable, revisable
+- **Challenge:** a devil's advocate challenges every decision across 5 dimensions before it becomes binding
+- **Enforcement:** fitness functions in CI, compliance audits, drift detection, pre-commit guards
+- **Memory:** every decision tracked, every root cause classified, every deferred choice monitored
 
-## Table of Contents
+> [!NOTE]
+> Blueprint is in active development. Some features are rough around the edges. [Issues and feedback welcome.](https://github.com/pragnition/blueprint/issues)
 
-- [The Problem Blueprint Solves](#the-problem-blueprint-solves)
-- [Philosophical Foundations](#philosophical-foundations)
-- [How Blueprint Works](#how-blueprint-works)
-- [Commands](#commands)
-- [The Five Dimensions of Architectural Health](#the-five-dimensions-of-architectural-health)
-- [Continuous Governance: Beyond Point-in-Time](#continuous-governance-beyond-point-in-time)
-- [The Retrospective: Closing the Loop](#the-retrospective-closing-the-loop)
-- [Installation](#installation)
-- [Architecture of Blueprint Itself](#architecture-of-blueprint-itself)
-- [Intellectual Heritage](#intellectual-heritage)
+## Install
 
-## The Problem Blueprint Solves
+> [!TIP]
+> ```
+> /plugin install blueprint@pragnition/claude-plugins
+> ```
+> alternatively,
+> ```
+> /plugin marketplace add pragnition/claude-plugins
+> /plugin install blueprint@pragnition-plugins
+> ```
 
-> "We shape our buildings; thereafter they shape us." — Winston Churchill
+## The Decision Lifecycle
 
-Software architecture is not a document. It is the set of decisions that constrain all future decisions. Every technology choice, every boundary drawn, every pattern adopted closes some doors and opens others. The tragedy of most software projects is not that these decisions are made poorly — it is that they are made *invisibly*. A decision made in a Slack thread at 4pm on a Friday becomes the foundation of a system that runs for a decade.
-
-Architecture Decision Records (ADRs) were invented to solve this. But in practice, most ADR implementations fail for the same reason most New Year's resolutions fail: there is no enforcement mechanism. Writing the decision down is the easy part. *Researching it before committing, challenging it before accepting, verifying that the codebase actually follows it, and revisiting it when circumstances change* — that's where ADR processes quietly die.
-
-Blueprint doesn't let them die.
-
-## Philosophical Foundations
-
-### On the Nature of Decisions
-
-Blueprint is built on a specific epistemological claim: **architectural decisions are hypotheses, not declarations**. When you write "use PostgreSQL for primary storage," you are not stating a fact — you are stating a bet. You are betting that PostgreSQL's properties (ACID guarantees, ecosystem maturity, JSONB flexibility) will serve your needs better than the alternatives, given your constraints, for the foreseeable future.
-
-Like any hypothesis, an architectural decision should be:
-- **Falsifiable** — there must be conditions under which it would be wrong
-- **Evidence-based** — supported by research, not just preference
-- **Challengeable** — subjected to adversarial review before acceptance
-- **Revisable** — updated when the evidence changes
-
-This is why blueprint has a devil's advocate, not just a reviewer. The [Hegelian dialectic](https://en.wikipedia.org/wiki/Dialectic#Hegelian_dialectic) — thesis, antithesis, synthesis — is not academic decoration. It is the mechanism by which decisions become robust. A decision that has never been challenged is a decision that has never been tested.
-
-### On Conway's Law
-
-> "Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure." — Melvin Conway, 1967
-
-Conway's observation is not a suggestion to be followed or a bug to be fixed. It is a *law of nature* — as inescapable as gravity. You can either design your architecture to align with how your team actually communicates, or you can watch your architecture slowly reshape itself to match the communication structure anyway, usually in the worst possible way.
-
-Blueprint's Conway's Law analyzer doesn't ask "does your architecture match your org chart?" It asks "does your architecture match how people *actually work*?" — because the org chart is a theory, and git blame is the data.
-
-### On Technical Debt as Deferred Decisions
-
-Cunningham's original metaphor of [technical debt](https://wiki.c2.com/?TechnicalDebt) was specifically about the gap between what the code *does* and what the team now *understands*. It was not about sloppy code — it was about decisions that were correct at the time but have been superseded by new understanding.
-
-Blueprint's retrospective agent (`/blueprint:retro`) operationalizes this insight. After every fix, it asks: was this a band-aid on a symptom, or did it address the structural cause? If the same root cause class keeps producing bugs, the architecture has a gap that no amount of patching will close. The gap needs a *decision* — an ADR that addresses the structural issue — not another fix.
-
-### On the Cranky Senior Engineer
-
-> "I'm not being difficult. I'm being precise. There's a difference, and the fact that you can't tell is part of the problem."
-
-Blueprint's agents share a persona: the senior engineer who has been paged at 3 AM because someone thought shared mutable state was "simpler." This is not aesthetic — it is functional.
-
-Research on [code review effectiveness](https://www.microsoft.com/en-us/research/publication/code-reviews-do-not-find-bugs/) shows that polite, hedging feedback ("you might want to consider...") is systematically ignored, while direct, specific feedback ("this should be const — it's never reassigned") produces action. The persona ensures that findings are stated with the clarity and conviction required to actually change behavior.
-
-The persona is blunt but not cruel. It respects the developer, not the code. It backs every opinion with evidence. And it credits good work when it sees it — briefly, then moves on to what isn't good.
-
-## How Blueprint Works
-
-### The Decision Lifecycle
-
-Every architectural decision passes through a formal lifecycle encoded as a [finite state machine](https://en.wikipedia.org/wiki/Finite-state_machine) in `config/lifecycle.toml`:
+Architectural decisions are hypotheses. Like any hypothesis, they should be tested before they become the foundation of a system. Blueprint encodes this as a [finite state machine](docs/architecture/decision-lifecycle.md):
 
 ```
-                ┌──────────┐
-                │ Proposed │
-                └────┬─────┘
-                     │
-              ┌──────┴──────┐
-              │   Review    │  ← devil's advocate challenges here
-              └──────┬──────┘
-                     │
-         ┌───────────┼───────────┐
-         ▼           ▼           ▼
-   ┌──────────┐ ┌──────────┐ ┌──────────┐
-   │ Accepted │ │ Rejected │ │ Deferred │
-   └────┬─────┘ └──────────┘ └─────┬────┘
-        │                          │
-        │    (trigger met)         │
-        │◄─────────────────────────┘
-        │
-   ┌────┴──────────────┐
-   ▼                   ▼
-┌──────────────┐ ┌──────────────┐
-│  Deprecated  │ │  Superseded  │
-│              │ │  by ADR-NNNN │
-└──────────────┘ └──────────────┘
+Proposed → Review (devil's advocate) → Accepted → Audited → Enforced → Revisited
 ```
 
-Transitions are validated against the state machine. You cannot accept a rejected ADR (create a new one). You cannot supersede a proposed ADR (decide on it first). You cannot deprecate something that was never accepted. These rules are not enforced by prose — they are enforced by data.
-
-### The Agent Architecture
-
-Blueprint decomposes architectural governance into orthogonal concerns, each handled by a specialized agent:
+The interface is three verbs:
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    BLUEPRINT ROUTER                      │
-│            (thin dispatcher, 48 lines)                   │
-└───────┬──────┬──────┬──────┬──────┬──────────────────────┘
-        │      │      │      │      │      │
-        ▼      ▼      ▼      ▼      ▼      ▼
-     ┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐
-     │ new ││ rev ││ eval││retro││audit││ ... │  ← 38 focused skills
-     └──┬──┘└──┬──┘└──┬──┘└──┬──┘└──┬──┘└─────┘
-        │      │      │      │      │
-        ▼      ▼      ▼      ▼      ▼
-  ┌──────────────────────────────────────────┐
-  │           AGENT POOL (20 agents)          │
-  │                                          │
-  │  researcher · devil's advocate · impact   │
-  │  compliance · consistency · bug surface   │
-  │  maintainability · testing · conways      │
-  │  retrospective · cartographer             │
-  │  forces · reflexion · evidence · context  │
-  │  strategic · diagram · tradeoff · risk    │
-  │  federation                               │
-  │                                          │
-  │  ┌────────────────────────────────────┐  │
-  │  │     SHARED PERSONA (persona.md)    │  │
-  │  │  cranky senior engineer, 20 years  │  │
-  │  └────────────────────────────────────┘  │
-  └──────────────────────────────────────────┘
-        │      │      │      │
-        ▼      ▼      ▼      ▼
-  ┌──────────────────────────────────────────┐
-  │         CONFIG DSL (TOML)                │
-  │                                          │
-  │  lifecycle.toml     ← state machine      │
-  │  taxonomy.toml      ← classifications    │
-  │  state.toml         ← session memory     │
-  │  relationships.toml ← dependency graph   │
-  │  contexts.toml      ← bounded contexts   │
-  │  evidence.toml      ← epistemic status   │
-  │  governance.toml    ← governance mode     │
-  │  radar.toml         ← technology radar   │
-  └──────────────────────────────────────────┘
+/blueprint:new --research "use PostgreSQL"   Research alternatives, then record
+/blueprint:review 3                           Devil's advocate challenge
+/blueprint:audit                              Does the code actually follow it?
 ```
 
-This is a deliberate application of the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) at the agent level. The researcher doesn't review. The reviewer doesn't audit. The auditor doesn't evaluate. Each agent has one job and does it with the depth that comes from focus.
+Everything in between (lifecycle validation, impact analysis, evidence tracking, fitness functions, drift detection, decision debt) is infrastructure connecting those endpoints. You think about *what* to decide. Blueprint handles *how* to govern it.
 
-### The Config DSL
+### What a Session Looks Like
 
-Blueprint encodes its domain knowledge as structured TOML rather than prose instructions. This is an application of the principle that **data outlives code** — when the lifecycle rules, root cause categories, or evaluation dimensions need to change, you edit a config file, not an agent prompt.
+```
+/blueprint:init                       Scan codebase, infer existing decisions
+/blueprint:new "use Redis for caching" Record a new decision
+/blueprint:review 4                    Devil's advocate finds 3 blind spots
+/blueprint:transition accept 4         Accept after addressing the challenge
+/blueprint:audit                       Verify the code follows it
+```
 
-| Config | What it encodes | Why it matters |
-|--------|----------------|----------------|
-| `lifecycle.toml` | Status × Transition × Requirement matrix | Agents validate transitions against data, not English |
-| `taxonomy.toml` | Root cause categories, eval dimensions, severity levels | Classification is consistent across agents and sessions |
-| `state.toml` | Last audit/evaluation/retro dates, ADR directory | Contextual suggestions without re-scanning every time |
-| `relationships.toml` | ADR dependency graph (edges + types) | Impact analysis is incremental, not O(n^2) every time |
+For the full governance loop:
 
-This is a lightweight [domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language) — not a general-purpose programming language, but a structured vocabulary for expressing architectural governance concepts.
+```
+/blueprint:evaluate                    5-agent architecture health assessment
+/blueprint:fitness --format github-actions  CI-runnable architecture tests
+/blueprint:drift                       Is the architecture eroding over time?
+```
 
-## Commands
+## How It Works
 
-### Setup
+**The decision lifecycle.** Every ADR transitions through a formal state machine encoded in `config/lifecycle.toml`: Proposed → Accepted/Rejected/Deferred → Deprecated/Superseded. Transitions are validated against data, not English. You cannot accept an untested hypothesis. You cannot supersede something that was never decided.
 
-| Command | Agent(s) | Purpose |
-|---------|----------|---------|
-| `/blueprint:init` | cartographer | Bootstrap blueprint onto an existing codebase — scan `.planning/`, `.research/`, CLAUDE.md, package files, git history for existing decisions, create ADR directory with template and lifecycle docs, infer ADRs, generate ARCHITECTURE.md |
-| `/blueprint:quickstart [stack]` | — | Generate 5-8 foundational ADRs from pre-built templates for a stack (react-node, python-fastapi, nextjs, go-api, generic). Auto-detects stack from package manifest. |
-| `/blueprint:onboard` | — | 5-minute architecture walkthrough for new team members — key decisions, domain structure, governance mode, health status, what to read first |
+**The devil's advocate.** `/blueprint:review` spawns an adversarial agent that challenges across 5 dimensions: hidden assumptions, unconsidered alternatives, missing consequences, codebase fit, and team capability. The [Hegelian dialectic](https://en.wikipedia.org/wiki/Dialectic#Hegelian_dialectic) (thesis, antithesis, synthesis) is the mechanism by which decisions become robust.
 
-`/blueprint:init` is the "day one" command. It reads every available source of architectural context — GSD planning artifacts, research files, CLAUDE.md conventions, dependency manifests, even early git commit messages — classifies discovered decisions by impact, and produces the full documentation suite in a single atomic commit. Think of it as an archaeological dig that turns implicit decisions into explicit records.
+**21 agents, one persona.** Each agent has a single responsibility: the researcher doesn't review, the reviewer doesn't audit, the auditor doesn't evaluate. All share the [cranky senior engineer persona](docs/philosophy/the-cranky-senior-engineer.md): direct, specific, evidence-backed, zero hedging. Research shows that [hedging feedback is systematically ignored](https://www.microsoft.com/en-us/research/publication/code-reviews-do-not-find-bugs/); the persona ensures findings actually land.
+
+**Config as domain language.** Domain knowledge lives in [TOML config files](docs/architecture/config-dsl.md), not agent prompts. Lifecycle rules, root cause categories, relationship graphs, evidence tracking. All parseable, testable, diffable. Data outlives code, and code outlives prompts.
+
+**Continuous governance.** Fitness functions translate ADR invariants into CI tests. Drift detection analyzes git history trajectory. Decision debt tracks deferred choices with trigger monitoring. The pre-commit guard catches violations at creation. Governance is continuous, not episodic.
+
+## Command Reference
 
 ### Lifecycle
 
-| Command | Agent(s) | Purpose |
-|---------|----------|---------|
-| `/blueprint:advise "topic"` | — | Architecture Advice Process — structured consultation before proposing |
-| `/blueprint:new "topic"` | — | Create an ADR from interview |
-| `/blueprint:new --research "topic"` | researcher | Evidence-backed option analysis, then create |
-| `/blueprint:list` | — | Status table + contextual next actions |
-| `/blueprint:challenge N` | forces evaluator | DCAR structured forces analysis — weigh arguments for/against |
-| `/blueprint:review N` | devil's advocate | Adversarial challenge across 5 dimensions before acceptance |
-| `/blueprint:transition accept N` | — | Direct lifecycle transitions |
-| `/blueprint:search "term"` | — | Find decisions by topic + relationship graph |
-| `/blueprint:help` | — | Full reference + context-aware suggestions |
-
-### Domain Scoping
-
-| Command | Agent(s) | Purpose |
-|---------|----------|---------|
-| `/blueprint:scope` | context mapper | Discover bounded contexts and assign ADRs to domains |
-| `/blueprint:scope discover` | context mapper | Auto-detect contexts from codebase structure and git ownership |
-| `/blueprint:scope assign ADR-N ctx` | — | Assign an ADR to a bounded context |
-| `/blueprint:scope list` | — | Show all contexts with governed ADRs |
-
-Domain scoping is based on Domain-Driven Design (Evans, 2003). Each bounded context represents an explicit boundary within which a domain model and its ubiquitous language apply. ADRs scoped to contexts enable per-team views (`/blueprint:list --context=payments`) and context-aware impact analysis. Context relationships (Customer-Supplier, Anti-Corruption Layer, Shared Kernel, etc.) are tracked in `{adr_directory}/.state/contexts.toml`.
+| Command | What it does |
+|---------|-------------|
+| `/blueprint:init` | Bootstrap from codebase: scan context, infer decisions |
+| `/blueprint:new "topic" [--research]` | Create ADR. `--research` for evidence-backed analysis first. |
+| `/blueprint:advise "topic"` | Architecture Advice Process: structured consultation |
+| `/blueprint:review N` | Devil's advocate challenge across 5 dimensions |
+| `/blueprint:challenge N` | DCAR structured forces evaluation |
+| `/blueprint:transition accept N` | Accept, reject, defer, or deprecate |
+| `/blueprint:list` | Status table + contextual next actions |
+| `/blueprint:search "term"` | Find decisions by topic |
+| `/blueprint:rearchitect "topic"` | Research → draft → supersede |
 
 ### Analysis
 
-| Command | Agent(s) | Purpose |
-|---------|----------|---------|
-| `/blueprint:impact N` | impact analyzer | Cross-ADR conflict and dependency detection |
-| `/blueprint:audit` | compliance auditor | Verify codebase follows accepted decisions |
-| `/blueprint:reflect` | reflexion analyzer | Formal architecture conformance — convergences, divergences, absences |
-| `/blueprint:evidence` | evidence auditor | Audit epistemic status and temporal validity of ADR evidence |
-| `/blueprint:map` | strategic analyzer | Wardley Map — classify components by evolution stage, detect build-vs-buy misalignment |
-| `/blueprint:tradeoff` | tradeoff analyzer | ATAM utility trees — sensitivity points, tradeoff points, risks |
-| `/blueprint:risk` | risk mapper | Architecture risk heat map — complexity × churn × coupling ÷ governance |
-| `/blueprint:trace` | — | ADR-to-fitness-function traceability matrix — governance coverage gaps |
-| `/blueprint:retro` | retrospective | Post-fix: band-aid or systemic? Verified against sources. |
-| `/blueprint:rearchitect "topic"` | researcher + impact | Research → draft → impact check → supersede |
-
-### Architecture Evaluation Team
-
-| Command | Agent(s) | Focus |
-|---------|----------|-------|
-| `/blueprint:evaluate` | **all 5 in parallel** | Unified architecture health report |
-| `/blueprint:evaluate consistency` | consistency auditor | Pattern adherence, naming, layering, dependency direction |
-| `/blueprint:evaluate bugs` | bug surface mapper | Complexity hotspots, coupling, missing boundaries |
-| `/blueprint:evaluate maintainability` | maintainability assessor | Dependencies, abstractions, change amplification, debt |
-| `/blueprint:evaluate testing` | testing evaluator | Pyramid health, anti-pattern tests, risk-aligned coverage |
-| `/blueprint:evaluate conways` | Conway's Law analyzer | Ownership alignment, friction points, scaling readiness |
-
-The full evaluation spawns all 5 agents in parallel, synthesizes an executive summary with a health score (STRONG / ADEQUATE / CONCERNING / CRITICAL), and auto-drafts Proposed ADRs for the most critical findings.
-
-### Documentation
-
-| Command | Agent(s) | Purpose |
-|---------|----------|---------|
-| `/blueprint:architect` | cartographer | Generate or update `docs/ARCHITECTURE.md` — bird's-eye codemap following [matklad's philosophy](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html) |
-| `/blueprint:diagram` | diagram generator | Auto-generate C4 diagrams (System Context, Container, Component) from ADR graph |
-| `/blueprint:eli5` | — | Explain the entire architectural landscape in plain English — grouped by theme, no jargon, 30-second version at the end |
-| `/blueprint:eli5 N` | — | Explain a single ADR with analogies, expanded acronyms, and "what this means for you" consequences |
-
-The eli5 commands exist because ADRs are written for the people who make decisions, not the people who live with them. `/blueprint:eli5` translates architecture-speak into language that any developer — or any smart person who isn't a developer — can understand. Every acronym gets expanded. Every technical term gets a concrete analogy. Every decision gets a "so what?"
-
-### System
-
-| Command | Agent(s) | Purpose |
-|---------|----------|---------|
-| `/blueprint:export arc42` | — | Export ADR collection into arc42 12-section documentation format |
-| `/blueprint:views` | — | Tag ADRs with 4+1 architectural views for stakeholder filtering |
-| `/blueprint:federate` | federation indexer | Aggregate ADRs across multiple repositories — detect conflicts and dependencies |
-| `/blueprint:radar` | — | Internal Technology Radar — track adoption lifecycle (Adopt/Trial/Assess/Hold) |
-| `/blueprint:govern` | — | Configure governance mode — lightweight, advised, governed, or formal |
-| `/blueprint:status` | — | Governance dashboard — terminal summary + interactive HTML with knowledge graph, timeline, metrics, and debt table |
-| `/blueprint:health` | — | Self-diagnostic — 8 consistency checks (index sync, supersession chains, graph integrity, staleness) with auto-repair |
-| `/blueprint:hooks` | — | Configure automatic triggers — pre-commit guard, retro-suggest, architecture-sync, dependency-watch, periodic-health |
-| `/blueprint:hooks install all` | — | Enable all automation hooks in one command |
-| `/blueprint:nudge` | — | Check 10 governance staleness thresholds and surface overdue actions |
-
-`/blueprint:status` is the control room. It renders a terminal summary with ADR counts, governance health metrics, fitness coverage, and a text relationship graph — then generates and opens a self-contained HTML dashboard in your browser. The HTML has four tabs: a **force-directed knowledge graph** (nodes = ADRs colored by status, edges = relationships styled by type, click to explore), a **decision timeline**, **governance metrics with history sparklines**, and a **decision debt table**. Zero external dependencies — works offline.
-
-`/blueprint:health` is `fsck` for your ADR system. It validates internal consistency across 8 dimensions: directory structure, index-to-file sync, ADR content completeness, supersession chain integrity (bidirectional links, no cycles), relationship graph consistency (no orphans, no self-references), config freshness, cross-reference validity, and staleness (ADRs older than 12 months without review). Fixable issues get an auto-repair offer.
-
-`/blueprint:hooks` closes the adoption gap. Ten hooks embed blueprint into the development workflow so architectural governance happens automatically:
-
-| Hook | When it fires | What it does | Default |
-|------|--------------|-------------|---------|
-| `guard` | Before Write/Edit | Check staged files against ADR invariants | Off (opt-in) |
-| `retro-suggest` | After git fix commits | Suggest `/blueprint:retro` | On |
-| `bugfix-retro` | After `rapid:bug-fix`, `gsd:debug` | Suggest `/blueprint:retro` for plugin-driven fixes | On |
-| `feynman-evidence` | After `feynman:deepresearch`, `feynman:lit` | Link research to existing ADRs or suggest new ones | On |
-| `gsd-rapid-adr` | After `gsd:plan-phase`, `rapid:execute-set`, etc. | Detect undocumented architectural decisions | On |
-| `agent-adr` | After GSD/RAPID agent completion | Review agent output for architecture choices | On |
-| `architecture-sync` | After ADR transitions | Suggest updating ARCHITECTURE.md + fitness functions | On |
-| `dependency-watch` | Package file changed | Suggest `/blueprint:new` for new dependencies | On |
-| `planning-watch` | PLAN.md or .planning/ changed | Detect architectural decisions in planning artifacts | On |
-| `periodic-nudge` | ~Every 20 sessions | Check governance staleness, suggest `/blueprint:nudge` | On |
-| `session-sweep` | Session end | Scan conversation for undocumented architectural decisions | On |
-| `skill-refresh` | Skills or agents modified | Suggest reinstalling to update CLAUDE.md | On |
-
-Hooks suggest rather than block (except `guard`, which is opt-in precisely because it blocks). The goal is to make architectural governance a natural part of the workflow, not a gate that slows development.
-
-## The Five Dimensions of Architectural Health
-
-Blueprint's evaluation team assesses architecture across five orthogonal dimensions. Each dimension captures a different failure mode:
-
-### 1. Structural Consistency
-
-> "A foolish consistency is the hobgoblin of little minds." — Emerson
->
-> A *useful* consistency is the foundation of navigable codebases.
-
-A codebase that consistently uses a mediocre pattern is more maintainable than one that mixes three "better" patterns. Inconsistency is the leading cause of "surprise" bugs — a developer assumes one pattern applies everywhere, but one module silently uses another.
-
-**What it checks:** Naming conventions, module structure, dependency direction, error handling patterns, API consistency, configuration approach.
-
-### 2. Bug Surface
-
-Not bug hunting — bug *cartography*. This dimension maps the architectural properties that make certain areas structurally bug-prone: high cyclomatic complexity, tight coupling, shared mutable state, missing boundaries, and implicit contracts.
-
-The insight from [Lehman's laws of software evolution](https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution) is that complexity grows unless actively fought. The bug surface mapper identifies where complexity has concentrated so you can address it architecturally rather than playing whack-a-mole with individual bugs.
-
-### 3. Maintainability
-
-> "Any fool can write code that a computer can understand. Good programmers write code that humans can understand." — Martin Fowler
-
-Evaluates the structural properties that determine whether changes will be easy (localized, predictable, safe) or painful (cascading, surprising, risky). Change amplification, cognitive load, dependency health, abstraction quality, documentation accuracy, and technical debt indicators.
-
-The key metric is not "how good is this code?" but "will this codebase be pleasant or painful to work in 12 months from now?"
-
-### 4. Testing Strategy
-
-90% code coverage that only tests happy paths is worse than 60% that tests boundaries, error cases, and anti-patterns. This dimension evaluates whether the testing strategy protects against the things that would actually hurt.
-
-Special attention to **anti-pattern tests** — tests that verify the system does NOT do things it shouldn't. These are the most valuable tests in any codebase and they are almost always missing. Negative authorization tests, input rejection tests, state corruption guards, regression guards, architecture enforcement tests, and performance bounds.
-
-### 5. Conway's Law Alignment
-
-The most subtle and often most consequential dimension. Do module boundaries align with ownership boundaries? Are there shared modules that nobody clearly owns? Does the coupling between modules force communication between people who don't naturally coordinate?
-
-Architecture is ultimately a human problem. A perfectly designed system that doesn't match how the team works will be slowly reshaped by the team's communication structure until it does — usually in the worst possible way.
-
-## Continuous Governance: Beyond Point-in-Time
-
-Most architecture governance is episodic — someone runs an audit, finds problems, files tickets, and goes back to sleep. Blueprint makes governance continuous:
-
-**Fitness functions** (`/blueprint:fitness`) translate ADR invariants into executable tests that run in CI. Every build verifies that the architecture hasn't been violated. This is the difference between "we decided to do X" and "the build fails if we don't do X." Inspired by [Neal Ford's Building Evolutionary Architectures](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/).
-
-**Drift detection** (`/blueprint:drift`) analyzes git history *trajectory* — not "is the code correct now?" but "is the code moving toward or away from the architecture over time?" Individual commits may each be fine, but the aggregate direction matters. A module that has gained 8 cross-boundary imports in 3 months is eroding, even if no single import was wrong.
-
-**Decision debt** (`/blueprint:debt`) tracks deferred ADRs the way a lender tracks loans. Each deferred decision has a trigger condition, a severity, and dependencies. The debt score (severity x age x dependency count) surfaces which deferrals are becoming dangerous. Decision debt compounds faster than technical debt — a deferred technology choice becomes a deferred architecture choice becomes a deferred rewrite.
-
-**Pre-commit guard** (`/blueprint:guard`) catches violations at the point of creation. Not a full audit — a fast, targeted check on just the staged files. Under 10 seconds. The goal is to make architectural violations as inconvenient as syntax errors.
-
-## The Retrospective: Closing the Loop
-
-> "Those who cannot remember the past are condemned to repeat it." — George Santayana
-
-`/blueprint:retro` is blueprint's mechanism for institutional memory. After any fix — whether via `/gsd:quick`, `/rapid:quick`, `/rapid:bug-fix`, or a manual patch — it performs two steps:
-
-**Step 1: Root Cause Classification.** Not "what broke" but "what structural property made this possible?" Using the taxonomy from `config/taxonomy.toml`: missing validation, implicit contracts, state management failures, error swallowing, missing or wrong abstractions, configuration drift, dependency coupling, missing tests, or architectural gaps.
-
-**Step 2: Pattern Verification.** For every architectural improvement proposed, the agent searches for 3+ authoritative external sources confirming the pattern is established practice. This step exists because AI systems confidently recommend patterns that don't exist. An unverified recommendation is explicitly flagged as unverified — never passed off as established practice.
-
-The output is a verdict: **SYSTEMIC** (the fix addressed the root cause, move on), **BAND-AID** (the symptom was treated but the root cause remains), or **PARTIAL** (partially addressed with remaining exposure). Band-aid verdicts include a proposed systemic improvement with effort estimate and a ready-to-run `/blueprint:new` command to formalize it as an ADR.
-
-## Installation
-
-```bash
-# Via Claude Code plugin marketplace (recommended)
-/plugin marketplace add pragnition/claude-plugins
-/plugin install blueprint@pragnition-plugins
-
-# Via npm
-npx claude-blueprint install --global
-
-# Verify
-npx claude-blueprint verify
-```
-
-Or from source:
-
-```bash
-cd ~/pragnition/blueprint
-npm install
-npm link
-claude-blueprint install --global
-```
-
-The installer deploys 42 skills, 21 agents, 9 config files, and 10 hooks to `~/.claude/commands/blueprint/`, and inserts a managed section into `CLAUDE.md` with the command reference.
-
-## Architecture of Blueprint Itself
-
-```
-blueprint/
-├── skills/                42 skill files
-│   ├── blueprint.md       Thin router
-│   ├── init.md            Bootstrap from existing codebase
-│   ├── help.md            Contextual command reference
-│   ├── list.md            Status table with suggestions
-│   ├── advise.md          Architecture Advice Process
-│   ├── new.md             ADR creation + research
-│   ├── review.md          Devil's advocate flow
-│   ├── challenge.md       DCAR forces evaluation
-│   ├── transition.md      Lifecycle state changes
-│   ├── search.md          Topic-based ADR search
-│   ├── scope.md           DDD bounded context scoping
-│   ├── impact.md          Cross-ADR conflict detection
-│   ├── audit.md           Compliance verification
-│   ├── reflect.md         Reflexion model conformance
-│   ├── evidence.md        Epistemic status audit
-│   ├── retro.md           Post-fix retrospective
-│   ├── evaluate.md        5-agent evaluation team
-│   ├── tradeoff.md        ATAM utility trees
-│   ├── risk.md            Architecture risk heat map
-│   ├── rearchitect.md     Supersession workflow
-│   ├── architect.md       ARCHITECTURE.md generation
-│   ├── diagram.md         C4 diagram auto-generation
-│   ├── eli5.md            Plain English explanations
-│   ├── fitness.md         CI-runnable architecture tests
-│   ├── trace.md           ADR-to-fitness traceability
-│   ├── drift.md           Temporal erosion detection
-│   ├── debt.md            Decision debt tracker
-│   ├── guard.md           Pre-commit invariant check
-│   ├── map.md             Wardley Map strategic analysis
-│   ├── digest.md          Stakeholder summary
-│   ├── timeline.md        Evolution narrative
-│   ├── export.md          arc42 / standards export
-│   ├── views.md           4+1 view tagging
-│   ├── federate.md        Cross-repo ADR federation
-│   ├── radar.md           Technology Radar
-│   ├── govern.md          Governance tier configuration
-│   ├── status.md          Governance dashboard + knowledge graph
-│   ├── health.md          Self-diagnostic with auto-repair
-│   ├── hooks.md           Automatic trigger configuration
-│   ├── quickstart.md      Stack-specific ADR bootstrapping
-│   ├── nudge.md           Periodic governance health checks
-│   ├── onboard.md         New developer architecture walkthrough
-│   └── persona/SKILL.md   Shared persona (preloaded via skills field)
-├── hooks/
-│   └── hooks.json         10 pre-built governance hooks
-├── agents/                21 agent definitions
-│   ├── persona.md         Shared senior engineer personality
-│   ├── adr-researcher.md
-│   ├── adr-devils-advocate.md
-│   ├── adr-forces-evaluator.md       ← DCAR forces evaluation
-│   ├── adr-impact-analyzer.md
-│   ├── adr-compliance-auditor.md
-│   ├── adr-reflexion-analyzer.md      ← Reflexion model conformance
-│   ├── adr-evidence-auditor.md        ← Epistemic status audit
-│   ├── adr-context-mapper.md          ← DDD bounded context discovery
-│   ├── adr-strategic-analyzer.md      ← Wardley Map analysis
-│   ├── adr-diagram-generator.md       ← C4 diagram generation
-│   ├── adr-tradeoff-analyzer.md       ← ATAM utility trees
-│   ├── adr-risk-mapper.md             ← Risk heat map
-│   ├── adr-federation-indexer.md      ← Cross-repo federation
-│   ├── adr-consistency-auditor.md
-│   ├── adr-bug-surface-mapper.md
-│   ├── adr-maintainability-assessor.md
-│   ├── adr-testing-strategy-evaluator.md
-│   ├── adr-conways-law-analyzer.md
-│   ├── adr-retrospective.md
-│   └── adr-architect-cartographer.md
-├── config/                Domain-specific language (TOML)
-│   ├── lifecycle.toml     Finite state machine
-│   ├── taxonomy.toml      Classification system
-│   ├── state.toml         Session memory
-│   ├── relationships.toml ADR dependency graph
-│   ├── contexts.toml      DDD bounded contexts
-│   ├── evidence.toml      Epistemic status tracking
-│   ├── radar.toml         Technology Radar (created on first use)
-│   ├── governance.toml    Governance mode (created on first use)
-│   └── quickstart-templates.toml  Pre-built ADR stubs for 5 stacks
-├── docs/
-│   ├── ARCHITECTURE.md    Bird's-eye codemap (matklad style)
-│   └── adr/               34 self-referential ADRs
-├── bin/cli.js             CLI entry point
-├── src/                   Install / verify / CLAUDE.md management
-└── .claude-plugin/        Plugin registration metadata
-```
-
-Blueprint practices what it preaches: each skill is focused, the router is thin, domain knowledge is in config (not code), and agents have single responsibilities. 42 skills, 21 agents, 9 config files, 10 hooks, 41 ADRs.
-
-## Intellectual Heritage
-
-Blueprint draws on several traditions:
-
-- **[Architecture Decision Records](https://adr.github.io/)** (Nygard, 2011) — the original lightweight documentation format for architectural decisions
-- **[Hegelian Dialectic](https://en.wikipedia.org/wiki/Dialectic#Hegelian_dialectic)** — thesis (proposed ADR) → antithesis (devil's advocate challenge) → synthesis (accepted decision that has survived scrutiny)
-- **[Domain-Specific Languages](https://en.wikipedia.org/wiki/Domain-specific_language)** (Fowler, 2010) — encoding domain concepts as structured data rather than general-purpose code
-- **[Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law)** (Conway, 1967) — the recognition that system structure mirrors organizational structure, whether you design for it or not
-- **[Lehman's Laws of Software Evolution](https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution)** — the observation that software complexity grows unless actively countered
-- **[Technical Debt](https://wiki.c2.com/?TechnicalDebt)** (Cunningham, 1992) — the gap between current code and current understanding, not merely "sloppy code"
-- **[Finite State Machines](https://en.wikipedia.org/wiki/Finite-state_machine)** — the formal model underlying lifecycle management
-- **[Building Evolutionary Architectures](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/)** (Ford & Parsons, 2017) — architecture fitness functions as automated, CI-runnable invariant checks
-- **[The Cathedral and the Bazaar](http://www.catb.org/~esr/writings/cathedral-bazaar/)** (Raymond, 1997) — "given enough eyeballs, all bugs are shallow" — blueprint's evaluation team as a systematic implementation of this principle
-- **[ARCHITECTURE.md](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html)** (matklad, 2021) — bird's-eye codemap as a high-leverage onboarding document
-- **[Domain-Driven Design](https://www.domainlanguage.com/ddd/)** (Evans, 2003) — bounded contexts as the natural scoping mechanism for architectural decisions
-- **[Decision-Centric Architecture Reviews](https://ieeexplore.ieee.org/document/6449237/)** (van Heesch et al., 2014) — structured forces evaluation for decision-centric review
-- **[Software Reflexion Models](https://dl.acm.org/doi/10.1145/222124.222136)** (Murphy, Notkin, Sullivan, 1995) — formal convergence/divergence/absence analysis for architecture conformance
-- **[C4 Model](https://c4model.com/)** (Brown, 2006-2011) — progressive architecture visualization from system context to code
-- **[ATAM](https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/)** (SEI/CMU, 1998) — quality attribute utility trees, sensitivity points, tradeoff identification
-- **[Wardley Mapping](https://learnwardleymapping.com/)** (Wardley) — strategic context for build-vs-buy decisions via evolution stage classification
-- **[Architecture Advice Process](https://martinfowler.com/articles/scaling-architecture-conversationally.html)** (Harmel-Law, 2021) — decentralized decision-making with structured consultation
-- **[Risk Storming](https://riskstorming.com/)** (Brown, ~2015) — collaborative risk identification through visual convergence
-- **[arc42](https://arc42.org/)** (Starke & Hruschka, 2005) — pragmatic architecture documentation template
-- **[4+1 View Model](https://en.wikipedia.org/wiki/4%2B1_architectural_view_model)** (Kruchten, 1995) — multi-stakeholder architecture description through concurrent views
-- **[Team Topologies](https://teamtopologies.com/)** (Skelton & Pais, 2019) — operationalizing Conway's Law through team type classification
-- **[Epistemic Staleness in AI-Assisted Decisions](https://arxiv.org/html/2601.21116)** (Gilda & Gilda, 2026) — evidence validity tracking for AI-generated architectural research
-
-## v2 Extensions: Research-Backed Architecture Paradigms
-
-Blueprint v2 adds 15 commands derived from a comprehensive survey of 20+ architecture paradigms (109 sources). See `papers/software-architecture-paradigms.md` for the full research and `ROADMAP.md` for implementation status.
-
-| Paradigm | Command | What It Brings |
-|----------|---------|---------------|
-| Domain-Driven Design (Evans, 2003) | `/blueprint:scope` | Bounded context scoping for ADRs |
-| DCAR (van Heesch et al., 2014) | `/blueprint:challenge` | Structured forces evaluation |
-| Reflexion Models (Murphy et al., 1995) | `/blueprint:reflect` | Formal architecture conformance |
-| Epistemic Staleness (Gilda & Gilda, 2026) | `/blueprint:evidence` | Evidence validity tracking |
-| Wardley Mapping (Wardley) | `/blueprint:map` | Strategic build-vs-buy analysis |
-| C4 Model (Brown, 2006-2011) | `/blueprint:diagram` | Auto-generated architecture diagrams |
-| Evolutionary Architecture (Ford et al., 2017) | `/blueprint:trace` | Fitness function traceability |
-| Architecture Advice Process (Harmel-Law, 2021) | `/blueprint:advise` | Structured consultation workflow |
-| ATAM (SEI/CMU, 1998) | `/blueprint:tradeoff` | Quality attribute utility trees |
-| Risk Storming (Brown, ~2015) | `/blueprint:risk` | Architecture risk heat maps |
-| arc42 (Starke & Hruschka, 2005) | `/blueprint:export` | Standardized documentation export |
-| 4+1 View Model (Kruchten, 1995) | `/blueprint:views` | Multi-view ADR tagging |
-| Cross-repo ADRs (practitioner need) | `/blueprint:federate` | Multi-repository ADR federation |
-| ThoughtWorks Technology Radar | `/blueprint:radar` | Technology adoption lifecycle |
-| TOGAF + Advice Process | `/blueprint:govern` | Configurable governance tiers |
-
-## v2.0.2: Developer Experience
-
-v2.0.2 focuses on reducing friction — wider on-ramps without changing the destination.
-
-### New Commands
-
-| Command | What It Does |
+| Command | What it does |
 |---------|-------------|
-| `/blueprint:quickstart [stack]` | Generate 5-8 foundational ADRs from pre-built templates. Auto-detects stack from package manifest. Presets: react-node, python-fastapi, nextjs, go-api, generic (27 ADR stubs total). |
-| `/blueprint:onboard` | 5-minute architecture walkthrough for new developers — key decisions, domain structure, governance mode, health status, what to read first. |
-| `/blueprint:nudge` | Check 10 governance staleness thresholds and surface overdue actions. Runs automatically via SessionStart hook (~1-in-20 sessions). |
+| `/blueprint:impact N` | Cross-ADR conflict and dependency detection |
+| `/blueprint:audit` | Verify codebase follows accepted decisions |
+| `/blueprint:reflect` | Reflexion model: formal conformance (Murphy et al., 1995) |
+| `/blueprint:evidence` | Epistemic status audit: stale evidence, expired claims |
+| `/blueprint:tradeoff` | ATAM quality attribute utility trees |
+| `/blueprint:risk` | Architecture risk heat map |
+| `/blueprint:retro` | Post-fix retrospective: band-aid or systemic? |
+| `/blueprint:evaluate` | 5-agent architecture health assessment |
 
-### Enhancements
+### Governance & Strategy
 
-| Change | What It Does |
-|--------|-------------|
-| `--format` on `/blueprint:fitness` | Output fitness functions as GitHub Actions (`--format github-actions`), GitLab CI (`--format gitlab-ci`), or justfile (`--format justfile`) — not just shell scripts. |
-| Context-first `/blueprint:list` | ADRs grouped by bounded context by default when contexts are defined. `--flat` for the original numbered list. |
+| Command | What it does |
+|---------|-------------|
+| `/blueprint:fitness [--format]` | CI-runnable architecture tests (shell, GitHub Actions, GitLab CI) |
+| `/blueprint:drift` | Temporal erosion detection via git trajectory |
+| `/blueprint:debt` | Decision debt tracker with trigger monitoring |
+| `/blueprint:guard` | Pre-commit architecture invariant check |
+| `/blueprint:scope` | DDD bounded context scoping |
+| `/blueprint:map` | Wardley Map: strategic build-vs-buy analysis |
+| `/blueprint:radar` | Technology Radar (Adopt/Trial/Assess/Hold) |
+| `/blueprint:status` | Governance dashboard + interactive HTML knowledge graph |
 
-### Cross-Plugin Integration (10 hooks)
+See [the command reference](docs/commands/index.md) for all 42 commands.
 
-Blueprint now runs as a background architecture conscience across the plugin ecosystem:
+## Credits
 
-- **GSD/RAPID phase completion** → detect undocumented architectural decisions
-- **GSD/RAPID agent output** → review for technology choices and pattern selections
-- **`rapid:bug-fix` / `gsd:debug`** → suggest `/blueprint:retro` for root cause analysis
-- **Feynman research completion** → link findings to existing ADRs or suggest new ones
-- **Planning artifact changes** → detect architectural decisions in PLAN.md / .planning/
-- **Session end** → sweep conversation for undocumented decisions
-- **Periodic nudge** → governance staleness check every ~20 sessions
+Blueprint would not exist without these ideas, traditions, and the people who articulated them:
 
-## License
+**Traditions**
 
-MIT
+- [Architecture Decision Records](https://adr.github.io/) (Nygard, 2011): the original lightweight documentation format. Blueprint adds the lifecycle.
+- [Hegelian Dialectic](https://en.wikipedia.org/wiki/Dialectic#Hegelian_dialectic): thesis → antithesis → synthesis. The devil's advocate is the antithesis that makes decisions robust.
+- [Domain-Driven Design](https://www.domainlanguage.com/ddd/) (Evans, 2003): bounded contexts as the natural scoping mechanism for architectural decisions.
+- [Building Evolutionary Architectures](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/) (Ford & Parsons, 2017): fitness functions as automated architectural invariants.
+- [Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law) (1967): architecture mirrors communication structure whether you design for it or not. Git blame is the data; the org chart is a theory.
+
+**Frameworks**
+
+- [ATAM](https://www.sei.cmu.edu/library/architecture-tradeoff-analysis-method-collection/) (SEI/CMU, 1998): quality attribute utility trees, sensitivity points, tradeoff identification.
+- [Reflexion Models](https://dl.acm.org/doi/10.1145/222124.222136) (Murphy, Notkin, Sullivan, 1995): formal convergence/divergence/absence analysis for architecture conformance.
+- [DCAR](https://ieeexplore.ieee.org/document/6449237/) (van Heesch et al., 2014): structured forces evaluation for decision-centric reviews.
+- [Wardley Mapping](https://learnwardleymapping.com/) (Wardley): strategic context for build-vs-buy via evolution stage classification.
+- [C4 Model](https://c4model.com/) (Brown, 2006-2011): progressive architecture visualization from system context to code.
+- [Architecture Advice Process](https://martinfowler.com/articles/scaling-architecture-conversationally.html) (Harmel-Law, 2021): decentralized decision-making with structured consultation.
+
+**Ideas**
+
+- "We shape our buildings; thereafter they shape us." (Churchill): architecture constrains all future decisions.
+- [Technical Debt](https://wiki.c2.com/?TechnicalDebt) (Cunningham, 1992): the gap between what code does and what the team now understands. Not sloppy code, but decisions that haven't evolved with understanding.
+- [Lehman's Laws](https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution) (1974-1996): software complexity grows unless actively fought. Deferred decisions are hidden complexity.
+- [Code review effectiveness](https://www.microsoft.com/en-us/research/publication/code-reviews-do-not-find-bugs/) (Microsoft): hedging feedback is systematically ignored; direct, specific feedback produces change. The cranky senior engineer persona is functional, not decorative.
+- [ARCHITECTURE.md](https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html) (matklad, 2021): bird's-eye codemap as a high-leverage onboarding document.
+- [Epistemic Staleness in AI-Assisted Decisions](https://arxiv.org/html/2601.21116) (Gilda & Gilda, 2026): evidence expires. AI-generated research needs verification. `/blueprint:evidence` exists because of this paper.
+
+## Links
+
+- [License](LICENSE) (MIT)
 
 ---
 
-*"Architecture is the thoughtful making of space."* — Louis Kahn
+*"The best time to plant a tree was twenty years ago. The second best time is before you write the code."*
 
-*Blueprint is the thoughtful making of decisions.*
+*Blueprint governs the decisions. You make them.*
