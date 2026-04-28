@@ -77,10 +77,10 @@ Use the Blueprint config resolution protocol:
    - consequences section
    - date metadata if present
 6. Read optional mutable state files if present. Missing state files are not an error.
-   Check `{adr_directory}/.state/<file>.toml` first, then `config/<file>.toml`:
-   - `relationships.toml`
-   - `contexts.toml`
-   - `evidence.toml`
+   Follow the root Blueprint config resolution protocol for mutable state:
+   - prefer `{adr_directory}/.state/<file>.toml` when present for consumer projects
+   - fall back to `config/<file>.toml` when running inside the Blueprint plugin repo
+   - read `relationships.toml`, `contexts.toml`, and `evidence.toml`
 
 ### Step 3: Apply Filters
 
@@ -253,6 +253,12 @@ Questions: [answered]/[planned]
 - Reread ADR-NNNN: [reason]
 - Drill: [specific next prompt]
 ```
+
+Report safety:
+
+- Do not include secrets, credentials, tokens, private personal data, or unrelated confidential details.
+- Prefer summaries of user answers over verbatim quotes.
+- If the user explicitly asks for a transcript after the session, redact sensitive content before writing it.
 
 Do not include a full transcript unless the user explicitly asks for one after the session.
 
