@@ -4,12 +4,13 @@ description: >
   ADR system router — detects architectural decision intent and routes to the right sub-skill.
   Triggers proactively when a significant architectural choice is being made without an ADR.
   For specific operations use sub-skills directly: /blueprint:help, /blueprint:list, /blueprint:new, /blueprint:review,
-  /blueprint:challenge, /blueprint:transition, /blueprint:search, /blueprint:scope, /blueprint:impact, /blueprint:audit,
-  /blueprint:reflect, /blueprint:evidence, /blueprint:retro, /blueprint:evaluate, /blueprint:tradeoff, /blueprint:risk,
-  /blueprint:rearchitect, /blueprint:architect, /blueprint:diagram, /blueprint:eli5, /blueprint:fitness, /blueprint:trace,
-  /blueprint:drift, /blueprint:debt, /blueprint:guard, /blueprint:map, /blueprint:advise, /blueprint:digest, /blueprint:timeline,
-  /blueprint:export, /blueprint:views, /blueprint:federate, /blueprint:radar, /blueprint:govern, /blueprint:status,
-  /blueprint:health, /blueprint:hooks, /blueprint:init.
+  /blueprint:challenge, /blueprint:transition, /blueprint:search, /blueprint:grill-me, /blueprint:scope,
+  /blueprint:impact, /blueprint:audit, /blueprint:reflect, /blueprint:evidence, /blueprint:retro,
+  /blueprint:evaluate, /blueprint:tradeoff, /blueprint:risk, /blueprint:rearchitect, /blueprint:architect,
+  /blueprint:diagram, /blueprint:eli5, /blueprint:fitness, /blueprint:trace, /blueprint:drift,
+  /blueprint:debt, /blueprint:guard, /blueprint:map, /blueprint:advise, /blueprint:digest,
+  /blueprint:timeline, /blueprint:export, /blueprint:views, /blueprint:federate, /blueprint:radar,
+  /blueprint:govern, /blueprint:status, /blueprint:health, /blueprint:hooks, /blueprint:init.
 ---
 
 # ADR System Router
@@ -27,6 +28,7 @@ architectural choice is being made without documentation.
 | "review N", "challenge N" | `/blueprint:review` |
 | "accept N", "reject N", "defer N", "deprecate N" | `/blueprint:transition` |
 | "search X", "why did we choose X" | `/blueprint:search` |
+| "grill", "quiz", "test me", "defend decisions" | `/blueprint:grill-me` |
 | "impact N", "conflicts" | `/blueprint:impact` |
 | "audit", "compliance" | `/blueprint:audit` |
 | "retro", "band-aid", "review this fix" | `/blueprint:retro` |

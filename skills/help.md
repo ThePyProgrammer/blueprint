@@ -41,6 +41,7 @@ Display the full command reference with context-aware next-action suggestions.
   /blueprint:transition defer N       Defer a Proposed ADR
   /blueprint:transition deprecate N   Deprecate an Accepted ADR
   /blueprint:search "term"            Find ADRs about a topic
+  /blueprint:grill-me                 Quiz and cross-examine your ADR understanding
 
 ## Domain Scoping
 
