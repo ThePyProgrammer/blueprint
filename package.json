@@ -1,37 +1,48 @@
 {
-  "name": "claude-blueprint",
+  "name": "blueprint",
   "version": "2.0.8",
-  "type": "module",
-  "description": "Architecture Decision Records with teeth — lifecycle management, 15 architecture paradigms, DDD context scoping, DCAR forces evaluation, reflexion models, Wardley mapping, C4 diagrams, ATAM tradeoff analysis, and 19 specialized agents for Claude Code.",
-  "bin": {
-    "blueprint": "./bin/cli.js",
-    "claude-blueprint": "./bin/cli.js"
+  "description": "Architecture Decision Records with teeth — 40 commands, 21 agents, 15 architecture paradigms. DDD bounded contexts, DCAR forces evaluation, reflexion model conformance, epistemic status tracking, Wardley strategic analysis, C4 diagrams, ATAM tradeoff analysis, risk heat maps, cross-repo federation, and configurable governance tiers. All with a cranky senior engineer persona.",
+  "author": {
+    "name": "pragnition"
   },
-  "files": [
-    "bin/",
-    "src/",
-    ".claude-plugin/",
-    "skills/",
-    "hooks/",
-    "agents/",
-    "config/"
-  ],
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "keywords": [
-    "adr", "architecture-decision-records", "architecture", "governance",
-    "ddd", "bounded-context", "domain-driven-design",
-    "wardley-map", "c4-model", "dcar", "forces-evaluation",
-    "reflexion-model", "epistemic-status", "atam", "tradeoff-analysis",
-    "risk-storming", "arc42", "4+1-views", "fitness-functions",
-    "advice-process", "technology-radar", "federation",
-    "claude-code", "plugin", "ai-agents"
-  ],
+  "homepage": "https://github.com/pragnition/blueprint",
+  "repository": "https://github.com/pragnition/blueprint",
   "license": "MIT",
-  "dependencies": {
-    "@inquirer/prompts": "^7.0.0",
-    "commander": "^13.0.0",
-    "ora": "^8.0.0"
-  }
+  "keywords": [
+    "adr",
+    "architecture",
+    "decisions",
+    "review",
+    "evaluation",
+    "compliance",
+    "audit",
+    "retrospective",
+    "conways-law",
+    "maintainability",
+    "testing-strategy",
+    "bug-surface",
+    "consistency",
+    "ddd",
+    "bounded-context",
+    "domain-driven-design",
+    "wardley-map",
+    "c4-model",
+    "dcar",
+    "forces-evaluation",
+    "reflexion-model",
+    "epistemic-status",
+    "evidence-tracking",
+    "atam",
+    "tradeoff-analysis",
+    "risk-storming",
+    "arc42",
+    "kruchten",
+    "4+1-views",
+    "governance",
+    "advice-process",
+    "federation",
+    "technology-radar",
+    "fitness-functions",
+    "architecture-drift"
+  ]
 }
