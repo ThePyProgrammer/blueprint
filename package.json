@@ -1,6 +1,6 @@
 {
   "name": "claude-blueprint",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "type": "module",
   "description": "Architecture Decision Records with teeth — 40 commands, 21 agents, 15 architecture paradigms. DDD context scoping, DCAR forces evaluation, reflexion models, Wardley mapping, C4 diagrams, ATAM tradeoff analysis, and Claude Code plugin automation.",
   "bin": {

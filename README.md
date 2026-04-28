@@ -3,7 +3,7 @@
 *Architecture Decision Records with teeth.*
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.1.0-ffd43b?style=flat-square&labelColor=0d1117" alt="Version" /> 
+  <img src="https://img.shields.io/badge/version-2.1.1-ffd43b?style=flat-square&labelColor=0d1117" alt="Version" /> 
   <img src="https://img.shields.io/badge/license-MIT-4dabf7?style=flat-square&labelColor=0d1117" alt="License" /> 
   <img src="https://img.shields.io/badge/Claude_Code-plugin-4dabf7?style=flat-square&labelColor=0d1117" alt="Claude Code" /> 
   <img src="https://img.shields.io/badge/Node.js-18%2B-4dabf7?style=flat-square&labelColor=0d1117" alt="Node.js" />

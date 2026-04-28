@@ -2,6 +2,16 @@
 
 All notable changes to Blueprint are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.1.1] — 2026-04-28
+
+### Fixed
+- Native Claude Code plugin discovery now exposes `/blueprint:grill-me` by shipping `skills/<command>/SKILL.md` directories
+- Legacy flat skill files remain for CLI installer compatibility
+
+### Verified
+- Architecture fitness functions pass: 17 passed, 0 failed, 0 warnings
+- Fresh native plugin invocation loads `/blueprint:grill-me`
+
 ## [2.1.0] — 2026-04-28
 
 ### Added
@@ -187,6 +197,7 @@ All notable changes to Blueprint are documented here. Format follows [Keep a Cha
 
 **24 skills | 11 agents | 34 ADRs | 106 commits**
 
+[2.1.1]: https://github.com/pragnition/blueprint/releases/tag/v2.1.1
 [2.1.0]: https://github.com/pragnition/blueprint/releases/tag/v2.1.0
 [2.0.8]: https://github.com/pragnition/blueprint/releases/tag/v2.0.8
 [2.0.7]: https://github.com/pragnition/blueprint/releases/tag/v2.0.7

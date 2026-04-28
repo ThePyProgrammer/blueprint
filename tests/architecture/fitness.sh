@@ -144,6 +144,17 @@ else
   fail "$COMMANDS_WITHOUT_FRONTMATTER commands missing YAML frontmatter"
 fi
 
+# Native Claude Code plugins discover skills from skills/<name>/SKILL.md
+MISSING_NATIVE_SKILLS=$(for f in skills/*.md; do
+  cmd=$(basename "$f" .md)
+  [ -f "skills/$cmd/SKILL.md" ] || echo "$cmd"
+done | wc -l)
+if [ "$MISSING_NATIVE_SKILLS" -eq 0 ]; then
+  pass "All commands have native plugin skill directories"
+else
+  fail "$MISSING_NATIVE_SKILLS commands missing native plugin skill directories"
+fi
+
 # Every agent has required XML sections
 AGENTS_WITHOUT_ROLE=$(grep -rL "<role>" agents/adr-*.md 2>/dev/null | wc -l)
 if [ "$AGENTS_WITHOUT_ROLE" -eq 0 ]; then

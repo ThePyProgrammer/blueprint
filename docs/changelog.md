@@ -1,9 +1,15 @@
 ---
 title: "Changelog"
-description: "Version history for Blueprint: from v1.0.0 through v2.1.0."
+description: "Version history for Blueprint: from v1.0.0 through v2.1.1."
 ---
 
 # Changelog
+
+## v2.1.1 (2026-04-28)
+
+- Fix native Claude Code plugin discovery for `/blueprint:grill-me`
+- Ship commands in `skills/<command>/SKILL.md` layout while retaining legacy flat skill files
+- Add architecture fitness coverage for native plugin skill directories
 
 ## v2.1.0 (2026-04-28)
 
