@@ -93,6 +93,7 @@ For the full governance loop:
 | `/blueprint:transition accept N` | Accept, reject, defer, or deprecate |
 | `/blueprint:list` | Status table + contextual next actions |
 | `/blueprint:search "term"` | Find decisions by topic |
+| `/blueprint:grill-me [--mode mixed]` | Quiz and cross-examine your ADR understanding. Add `--report` for a scorecard. |
 | `/blueprint:rearchitect "topic"` | Research → draft → supersede |
 
 ### Analysis
@@ -121,7 +122,7 @@ For the full governance loop:
 | `/blueprint:radar` | Technology Radar (Adopt/Trial/Assess/Hold) |
 | `/blueprint:status` | Governance dashboard + interactive HTML knowledge graph |
 
-See [the command reference](docs/commands/index.md) for all 42 commands.
+See [the command reference](docs/commands/index.md) for all 43 commands.
 
 ## Credits
 

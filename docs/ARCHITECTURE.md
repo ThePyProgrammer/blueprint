@@ -186,7 +186,7 @@ Domain knowledge encoded as structured TOML (ADR-0003, ADR-0004, ADR-0022):
 ### CLI (bin/, src/)
 
 - `src/paths.js`: Resolves global vs project target paths
-- `src/install.js`: Copies 39 commands, 21 agents, 8 configs to target
+- `src/install.js`: Copies 40 commands, 21 agents, 8 configs to target
 - `src/verify.js`: Checks all expected files exist
 - `src/claude-md.js`: Manages fenced section in CLAUDE.md
 

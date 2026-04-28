@@ -1,11 +1,11 @@
 ---
 title: "Lifecycle"
-description: "Commands for the ADR decision lifecycle: advise, create, list, review, challenge, transition, search, help, and rearchitect."
+description: "Commands for the ADR decision lifecycle: advise, create, list, review, challenge, transition, search, grill-me, help, and rearchitect."
 ---
 
 # Lifecycle
 
-These nine commands manage the full lifecycle of an architectural decision, from initial consultation through creation, review, acceptance, and eventual supersession.
+These ten commands manage the full lifecycle of an architectural decision, from initial consultation through creation, review, acceptance, learning, and eventual supersession.
 
 ---
 
@@ -168,6 +168,37 @@ Search ADRs by topic, technology, or keyword. Searches titles, context, decision
 /blueprint:search "authentication"
 # What did we decide about auth?
 ```
+
+---
+
+### `/blueprint:grill-me`: ADR Knowledge Drill
+
+Run an interactive grilling session over the ADRs in the current codebase. The command asks one question at a time, scores each answer, and pushes from recall into rationale, trade-offs, and scenario application.
+
+**Syntax:** `/blueprint:grill-me [--mode MODE] [--count N] [--context CTX] [--status STATUS] [--adr N] [--report]`
+
+Modes:
+
+- `recall`: check ADR facts, statuses, decisions, and consequences
+- `debate`: practice defending or attacking decisions with trade-offs and alternatives
+- `scenario`: apply ADRs to hypothetical codebase or product changes
+- `mixed`: rotate through all modes; this is the default
+
+**Examples:**
+
+```
+/blueprint:grill-me
+# Mixed ADR grilling session
+
+/blueprint:grill-me --mode debate --count 3
+# Practice defending decisions under pressure
+
+/blueprint:grill-me --context lifecycle --report
+# Drill lifecycle ADRs and write a scorecard report
+```
+
+!!! tip
+    Use `grill-me` before onboarding discussions, architecture reviews, or roadmap planning. If you cannot explain the ADRs, you are not ready to change the architecture. Cruel? No. Cheaper than rediscovering the same trade-offs in production.
 
 ---
 

@@ -58,7 +58,7 @@ Read more in [Decisions as Hypotheses](philosophy/decisions-as-hypotheses.md).
 
 | | |
 |---|---|
-| **42 commands** | Lifecycle management, analysis, evaluation, documentation, continuous governance, strategic planning, and system administration |
+| **43 commands** | Lifecycle management, analysis, evaluation, documentation, continuous governance, strategic planning, and system administration |
 | **21 agents** | Researcher, devil's advocate, 5 evaluation dimensions, reflexion analyzer, strategic analyzer, and 12 more, each with a single responsibility |
 | **15 paradigms** | DDD, ATAM, Wardley Maps, Reflexion Models, C4, arc42, 4+1 Views, Risk Storming, and more, curated from 109 sources |
 | **10 hooks** | Automatic governance triggers across the plugin ecosystem |
