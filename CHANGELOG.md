@@ -2,6 +2,21 @@
 
 All notable changes to Blueprint are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [2.1.0] — 2026-04-28
+
+### Added
+- `/blueprint:grill-me` — interactive ADR grilling sessions with `recall`, `debate`, `scenario`, and `mixed` modes
+- Smart ADR selection across status, bounded contexts, relationships, and evidence metadata
+- Optional `--report` scorecards under `outputs/grill-me/` with redaction guidance for sensitive content
+
+### Changed
+- Release, help, router, install, verify, and documentation metadata now include the grill-me command
+
+### Verified
+- Architecture fitness functions pass: 16 passed, 0 failed, 0 warnings
+
+**45 skills | 21 agents | 41 ADRs | grill-me release**
+
 ## [2.0.8] — 2026-04-01
 
 ### Fixed
@@ -172,6 +187,7 @@ All notable changes to Blueprint are documented here. Format follows [Keep a Cha
 
 **24 skills | 11 agents | 34 ADRs | 106 commits**
 
+[2.1.0]: https://github.com/pragnition/blueprint/releases/tag/v2.1.0
 [2.0.8]: https://github.com/pragnition/blueprint/releases/tag/v2.0.8
 [2.0.7]: https://github.com/pragnition/blueprint/releases/tag/v2.0.7
 [2.0.6]: https://github.com/pragnition/blueprint/releases/tag/v2.0.6

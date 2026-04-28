@@ -1,9 +1,16 @@
 ---
 title: "Changelog"
-description: "Version history for Blueprint: from v1.0.0 through v2.0.8."
+description: "Version history for Blueprint: from v1.0.0 through v2.1.0."
 ---
 
 # Changelog
+
+## v2.1.0 (2026-04-28)
+
+- Add `/blueprint:grill-me`: interactive ADR grilling sessions
+- Modes: `recall`, `debate`, `scenario`, and `mixed`
+- Smart ADR selection from status, contexts, relationships, and evidence metadata
+- Optional `--report` scorecards with sensitive-content redaction guidance
 
 ## v2.0.8 (2026-03-31)
 
