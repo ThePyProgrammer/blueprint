@@ -44,6 +44,8 @@ const EXPECTED_SKILLS = [
   'federate/SKILL.md',
   'radar/SKILL.md',
   'govern/SKILL.md',
+  // v3 skills
+  'grill-me/SKILL.md',
 ];
 
 const EXPECTED_AGENTS = [

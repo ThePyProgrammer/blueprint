@@ -16,6 +16,8 @@ const SUB_COMMANDS = [
   // v2 commands
   'scope', 'challenge', 'reflect', 'evidence', 'map', 'diagram', 'trace',
   'advise', 'tradeoff', 'risk', 'export', 'views', 'federate', 'radar', 'govern',
+  // v3 commands
+  'grill-me',
 ];
 
 export async function install(opts) {
