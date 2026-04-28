@@ -60,7 +60,7 @@ export async function install(opts) {
       join(paths.commands, cmd, 'SKILL.md'),
     );
   }
-  spinner.succeed(`${SUB_COMMANDS.length} skills installed`);
+  spinner.succeed(`${SUB_COMMANDS.length + 1} skills installed`);
 
   // Copy agents
   spinner.start('Installing agents...');
