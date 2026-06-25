@@ -17,14 +17,13 @@ A Claude Code plugin that treats architectural decisions as first-class engineer
 - **Memory:** every decision tracked, every root cause classified, every deferred choice monitored
 
 > [!NOTE]
-> Blueprint is in active development. Some features are rough around the edges. Issues and feedback are welcome.
+> Blueprint is in active development. Some features are rough around the edges. [Issues and feedback welcome.](https://github.com/ThePyProgrammer/blueprint/issues)
 
 ## Install
 
-> [!TIP]
-> ```
-> claude plugin add /path/to/blueprint
-> ```
+```bash
+npm install -g claude-blueprint && claude-blueprint install --global && claude-blueprint verify
+```
 
 ## The Decision Lifecycle
 
