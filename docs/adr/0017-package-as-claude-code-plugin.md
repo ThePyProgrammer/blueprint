@@ -38,7 +38,7 @@ Package everything into a versioned archive. Users download and extract. Simpler
 
 - The feynman plugin pattern is a proven convention in the Claude Code ecosystem. Following it means blueprint works the way users expect plugins to work: `npm install`, run the installer, done.
 - The CLI installer (`claude-blueprint install`) handles scope correctly. Global installation deploys to `~/.claude/commands/` and `~/.claude/agents/`. Project installation deploys to `.claude/commands/` and `.claude/agents/` within the repo. Users do not need to understand the directory structure.
-- npm versioning provides a clear upgrade path. `npm update @pragnition/blueprint` pulls the latest version, and the installer can migrate config and state files across versions.
+- npm versioning provides a clear upgrade path. `npm update claude-blueprint` pulls the latest version, and the installer can migrate config and state files across versions.
 - The `.claude-plugin/plugin.json` manifest declares capabilities, entry points, and metadata in a machine-readable format that Claude Code can discover and present to users.
 - Manual copy instructions do not scale. Every file added to blueprint is another line in the installation guide that someone will skip or misread.
 

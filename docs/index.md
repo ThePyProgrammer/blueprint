@@ -77,10 +77,6 @@ Software architecture deserves the same discipline. Blueprint provides it.
 ## Installation
 
 ```bash
-# Via pragnition-plugins marketplace (recommended)
-/plugin marketplace add pragnition/claude-plugins
-/plugin install blueprint@pragnition-plugins
-
 # Via npm
 npx claude-blueprint install --global
 npx claude-blueprint verify

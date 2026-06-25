@@ -3,10 +3,10 @@
   "version": "2.1.1",
   "description": "Architecture Decision Records with teeth — 40 commands, 21 agents, 15 architecture paradigms. DDD bounded contexts, DCAR forces evaluation, reflexion model conformance, epistemic status tracking, Wardley strategic analysis, C4 diagrams, ATAM tradeoff analysis, risk heat maps, cross-repo federation, and configurable governance tiers. All with a cranky senior engineer persona.",
   "author": {
-    "name": "pragnition"
+    "name": "Prannaya Gupta"
   },
-  "homepage": "https://github.com/pragnition/blueprint",
-  "repository": "https://github.com/pragnition/blueprint",
+  "homepage": "https://github.com/ThePyProgrammer/blueprint",
+  "repository": "https://github.com/ThePyProgrammer/blueprint",
   "license": "MIT",
   "keywords": [
     "adr",

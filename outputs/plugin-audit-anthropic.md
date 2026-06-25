@@ -415,7 +415,7 @@ From the comprehensive prompt engineering guide [8]:
 | `name` field | Required (kebab-case) | `"blueprint"` | ALIGNED |
 | `version` | Semver recommended | `"2.0.0"` | ALIGNED |
 | `description` | Brief string | Long description (193 words) | DEVIATION -- too long for plugin manager display |
-| `author` | `{name, email, url}` | `{name: "pragnition"}` | ALIGNED (email/url optional) |
+| `author` | `{name, email, url}` | `{name: "Prannaya Gupta"}` | ALIGNED (email/url optional) |
 | `homepage` / `repository` | URL strings | Present | ALIGNED |
 | `license` | SPDX string | `"MIT"` | ALIGNED |
 | `keywords` | Array of strings | 28 keywords | ALIGNED |

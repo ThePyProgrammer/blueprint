@@ -5,13 +5,6 @@ description: "Three ways to install Blueprint: plugin marketplace, npm, or local
 
 # Installation
 
-## Via Plugin Marketplace (Recommended)
-
-```bash
-/plugin marketplace add pragnition/claude-plugins
-/plugin install blueprint@pragnition-plugins
-```
-
 ## Via npm
 
 ```bash
@@ -29,7 +22,7 @@ claude plugin add /path/to/blueprint
 Or from source:
 
 ```bash
-cd ~/pragnition/blueprint
+cd ~/blueprint
 npm install
 npm link
 claude-blueprint install --global

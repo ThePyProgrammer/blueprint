@@ -156,7 +156,7 @@ Blueprint v<NEW_VERSION> released.
   Fitness:      <N>/N passed ✓
   Pushed:       main branch ✓
   Tag:          v<NEW_VERSION> ✓
-  Release:      https://github.com/pragnition/blueprint/releases/tag/v<NEW_VERSION>
+  Release:      https://github.com/ThePyProgrammer/blueprint/releases/tag/v<NEW_VERSION>
   Marketplace:  claude-plugins updated ✓
 
   Changes: <N> commits, <headline>

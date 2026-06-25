@@ -10,11 +10,11 @@
 
 | Plugin | Version | Author | Marketplace |
 |--------|---------|--------|-------------|
-| **Blueprint** | 2.0.0 | pragnition | pragnition-plugins |
+| **Blueprint** | 2.0.0 | Prannaya Gupta | local development |
 | **GSD** | 1.30.0 | GSD team | Direct install (~/.claude/get-shit-done/) |
-| **RAPID** | 5.0.0 | pragnition | pragnition-plugins |
+| **RAPID** | 5.0.0 | private | local development |
 | **Superpowers** | 5.0.5 | Jesse Vincent | claude-plugins-official |
-| **Feynman** | 1.0.0 | pragnition | pragnition-plugins |
+| **Feynman** | 1.0.0 | private | local development |
 
 ---
 
@@ -121,7 +121,7 @@ GSD's `<execution_context>` pattern (command shell -> workflow file) is architec
 | **Superpowers** | `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json` + `.cursor-plugin/plugin.json` | Multi-platform registration: Claude Code, Cursor, Codex, OpenCode, Gemini CLI. Has `marketplace.json` for development marketplace context. |
 | **Feynman** | `.claude-plugin/plugin.json` | Standard format |
 
-**Superpowers is the only plugin with multi-platform registration** (Claude Code, Cursor, Codex, OpenCode, Gemini). It includes platform-specific adapter files (`.cursor-plugin/`, `.codex/`, `.opencode/`). All pragnition plugins use the standard single-platform registration.
+**Superpowers is the only plugin with multi-platform registration** (Claude Code, Cursor, Codex, OpenCode, Gemini). It includes platform-specific adapter files (`.cursor-plugin/`, `.codex/`, `.opencode/`). The locally developed plugins in this comparison use the standard single-platform registration.
 
 ---
 

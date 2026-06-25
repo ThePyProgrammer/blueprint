@@ -142,7 +142,7 @@ Always display this first:
 After the terminal display, generate the dashboard by:
 
 1. Read the template from `assets/dashboard.html` in the blueprint plugin directory
-   (find it via: the plugin's install location, or `~/pragnition/blueprint/assets/dashboard.html`)
+   (find it via: the plugin's install location, or `~/blueprint/assets/dashboard.html`)
 2. Build the `DATA` object from the metrics gathered in Step 1
 3. Replace the placeholder `__BLUEPRINT_DATA__` in the template with the JSON data
 4. Create `docs/adr/web/` directory if it doesn't exist

@@ -17,18 +17,13 @@ A Claude Code plugin that treats architectural decisions as first-class engineer
 - **Memory:** every decision tracked, every root cause classified, every deferred choice monitored
 
 > [!NOTE]
-> Blueprint is in active development. Some features are rough around the edges. [Issues and feedback welcome.](https://github.com/pragnition/blueprint/issues)
+> Blueprint is in active development. Some features are rough around the edges. Issues and feedback are welcome.
 
 ## Install
 
 > [!TIP]
 > ```
-> /plugin install blueprint@pragnition/claude-plugins
-> ```
-> alternatively,
-> ```
-> /plugin marketplace add pragnition/claude-plugins
-> /plugin install blueprint@pragnition-plugins
+> claude plugin add /path/to/blueprint
 > ```
 
 ## The Decision Lifecycle

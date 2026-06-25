@@ -3,6 +3,12 @@
   "version": "2.1.1",
   "type": "module",
   "description": "Architecture Decision Records with teeth — 40 commands, 21 agents, 15 architecture paradigms. DDD context scoping, DCAR forces evaluation, reflexion models, Wardley mapping, C4 diagrams, ATAM tradeoff analysis, and Claude Code plugin automation.",
+  "author": "Prannaya Gupta",
+  "homepage": "https://github.com/ThePyProgrammer/blueprint",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThePyProgrammer/blueprint.git"
+  },
   "bin": {
     "blueprint": "./bin/cli.js",
     "claude-blueprint": "./bin/cli.js"

@@ -1,9 +1,9 @@
 [project]
 site_name = "Blueprint"
-site_url = "https://pragnition.github.io/blueprint/"
+site_url = "https://thepyprogrammer.github.io/blueprint/"
 site_description = "Architecture Decision Records with teeth. 42 skills, 21 agents, 15 architecture paradigms. The cranky senior engineer your codebase deserves."
-site_author = "pragnition"
-copyright = "&copy; 2026 pragnition"
+site_author = "Prannaya Gupta"
+copyright = "&copy; 2026 Prannaya Gupta"
 extra_css = ["stylesheets/home.css", "stylesheets/extra.css"]
 nav = [
   {"Home" = "index.md"},
@@ -77,10 +77,10 @@ accent = "amber"
 repo = "fontawesome/brands/github"
 
 [project.extra]
-repo_url = "https://github.com/pragnition/blueprint"
-repo_name = "pragnition/blueprint"
+repo_url = "https://github.com/ThePyProgrammer/blueprint"
+repo_name = "ThePyProgrammer/blueprint"
 edit_uri = "edit/main/docs/"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/pragnition/blueprint"
+link = "https://github.com/ThePyProgrammer/blueprint"
